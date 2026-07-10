@@ -1,0 +1,74 @@
+/* DMG — Typography tokens
+ * One typeface: Manrope. Tight, geometric, precise.
+ * Display = large marketing/hero; Headings = UI; Body = reading; Mono = data.
+ */
+:root {
+  /* Families */
+  --font-sans: "Manrope", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-display: "Manrope", "Segoe UI", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", "Menlo", "Consolas", monospace;
+
+  /* Weights (Manrope variable) */
+  --weight-extralight: 200;
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+
+  /* Type scale (1.250 major-third-ish, tuned) */
+  --text-2xs: 11px;
+  --text-xs:  12px;
+  --text-sm:  14px;
+  --text-base:16px;
+  --text-md:  18px;
+  --text-lg:  20px;
+  --text-xl:  24px;
+  --text-2xl: 30px;
+  --text-3xl: 38px;
+  --text-4xl: 48px;
+  --text-5xl: 60px;
+  --text-6xl: 76px;
+  --text-7xl: 96px;
+
+  /* Line heights */
+  --leading-none: 1;
+  --leading-tight: 1.12;
+  --leading-snug: 1.28;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.65;
+
+  /* Letter spacing — geometric sans wants slight negative tracking at display sizes */
+  --tracking-tighter: -0.03em;
+  --tracking-tight: -0.018em;
+  --tracking-normal: 0em;
+  --tracking-wide: 0.04em;
+  --tracking-wider: 0.14em;    /* footer / meta labels, uppercase */
+  --tracking-eyebrow: 0.18em; /* section eyebrows (SemiBold caps, teal) */
+  --tracking-widest: 0.22em;
+
+  /* ---- Semantic type roles ---- */
+  --type-display-size: var(--text-6xl);
+  --type-display-weight: var(--weight-extrabold);
+  --type-display-leading: var(--leading-tight);
+  --type-display-tracking: var(--tracking-tighter);
+
+  --type-h1-size: var(--text-4xl);
+  --type-h2-size: var(--text-3xl);
+  --type-h3-size: var(--text-2xl);
+  --type-h4-size: var(--text-xl);
+
+  --type-heading-weight: var(--weight-bold);
+  --type-heading-leading: var(--leading-tight);
+  --type-heading-tracking: var(--tracking-tight);
+
+  --type-body-size: var(--text-base);
+  --type-body-weight: var(--weight-regular);
+  --type-body-leading: var(--leading-relaxed);
+
+  --type-eyebrow-size: var(--text-xs);
+  --type-eyebrow-weight: var(--weight-semibold);
+  --type-eyebrow-tracking: var(--tracking-eyebrow);
+  --type-eyebrow-color: var(--teal-700);
+}

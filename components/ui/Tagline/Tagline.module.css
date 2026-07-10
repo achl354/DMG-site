@@ -1,0 +1,12 @@
+.tagline {
+  font-family: var(--font-display);
+  font-weight: var(--weight-light);
+  font-style: normal;
+  color: var(--text-strong);
+}
+
+.word {
+  font-weight: var(--weight-extrabold);
+  font-style: italic;
+  color: var(--brand);
+}

@@ -1,0 +1,9 @@
+/* DMG design tokens — ported verbatim from the Claude Design project
+ * (5570f84b-59cd-45f6-b0f4-e79d8a694d15, the dmg-design-system tokens folder).
+ * Do not hand-edit values here without updating the source design system —
+ * this file exists to keep the brand system as the single source of truth. */
+@import "./tokens/fonts.css";
+@import "./tokens/colors.css";
+@import "./tokens/typography.css";
+@import "./tokens/spacing.css";
+@import "./tokens/base.css";

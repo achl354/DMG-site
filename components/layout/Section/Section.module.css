@@ -1,0 +1,35 @@
+.section {
+  width: 100%;
+}
+
+.sm {
+  padding-top: var(--space-9);
+  padding-bottom: var(--space-9);
+}
+
+.md {
+  padding-top: var(--space-11);
+  padding-bottom: var(--space-11);
+}
+
+.lg {
+  padding-top: var(--space-13);
+  padding-bottom: var(--space-13);
+}
+
+.page {
+  background: var(--surface-page);
+}
+
+.sunken {
+  background: var(--surface-sunken);
+}
+
+.cream {
+  background: var(--surface-cream);
+}
+
+.brand {
+  background: var(--surface-brand);
+  color: var(--text-on-brand);
+}

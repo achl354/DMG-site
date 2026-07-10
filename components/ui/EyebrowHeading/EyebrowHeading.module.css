@@ -1,0 +1,37 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.center {
+  text-align: center;
+  align-items: center;
+}
+
+.eyebrow {
+  font-size: var(--type-eyebrow-size);
+  font-weight: var(--type-eyebrow-weight);
+  letter-spacing: var(--type-eyebrow-tracking);
+  text-transform: uppercase;
+  color: var(--type-eyebrow-color);
+}
+
+.heading {
+  font-size: var(--type-h2-size);
+  font-weight: var(--type-heading-weight);
+  line-height: var(--type-heading-leading);
+  letter-spacing: var(--type-heading-tracking);
+  color: var(--brand);
+}
+
+.body {
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-leading);
+  color: var(--text-body);
+  max-width: 64ch;
+}
+
+.center .body {
+  margin-inline: auto;
+}

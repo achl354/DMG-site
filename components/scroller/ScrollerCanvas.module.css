@@ -1,0 +1,44 @@
+.wrapper {
+  width: 100%;
+}
+
+.heading {
+  max-width: var(--container-md);
+  margin: 0 auto var(--space-9);
+  padding: 0 var(--gutter);
+}
+
+.track {
+  position: relative;
+  height: 250vh;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.card {
+  width: 240px;
+  height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  background: var(--surface-tint);
+  border: 1px solid var(--border-tint);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  pointer-events: none;
+}
+
+.cardCategory {
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}

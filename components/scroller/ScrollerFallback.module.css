@@ -1,0 +1,83 @@
+.wrapper {
+  width: 100%;
+}
+
+.heading {
+  max-width: var(--container-md);
+  margin: 0 auto var(--space-9);
+  padding: 0 var(--gutter);
+}
+
+/* Reduced-motion / static branch -- transform-free, plain grid */
+.staticGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-4);
+  max-width: var(--container-xl);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.staticCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-8) var(--space-4);
+  background: var(--surface-tint);
+  border: 1px solid var(--border-tint);
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+/* Scroll-driven CSS-3D branch */
+.track {
+  position: relative;
+  height: 250vh;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  perspective: 1400px;
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  transform-style: preserve-3d;
+}
+
+.card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 240px;
+  height: 280px;
+  margin-left: -120px;
+  margin-top: -140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  background: var(--surface-tint);
+  border: 1px solid var(--border-tint);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  will-change: transform, opacity;
+}
+
+.cardCategory {
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}

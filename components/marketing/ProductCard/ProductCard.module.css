@@ -1,0 +1,28 @@
+.link {
+  display: block;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  height: 100%;
+  transition: border-color var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
+}
+
+.link:hover .card {
+  border-color: var(--border-brand);
+  box-shadow: var(--shadow-sm);
+}
+
+.wordmark {
+  margin-top: var(--space-2);
+}
+
+.tagline {
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--text-body);
+}

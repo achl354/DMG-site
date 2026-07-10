@@ -1,0 +1,97 @@
+/* DMG — Color tokens  (source of truth: DMG / EasiSystem™ Brand Guidelines, Rev A)
+ *
+ * Two-temperature system, by design:
+ *   • INK  — cool, green-tinted grays for all text.
+ *   • PAPER — warm, greige neutrals for surfaces, borders and fills.
+ * One master brand colour (DMG Teal) + the EasiSystem™ size-identification set.
+ */
+:root {
+  /* ============ Brand — DMG Teal ============ */
+  /* #005855 · RGB 0,88,85 · CMYK 100,0,41,48 · Pantone 3292 C / P 126-8 C */
+  --teal-50:  #ECF4F3;
+  --teal-100: #CFE0DE;   /* hairline on teal tints */
+  --teal-200: #A7CBC8;
+  --teal-300: #6FA8A4;
+  --teal-400: #2F807C;
+  --teal-500: #066E6A;
+  --teal-600: #00605C;
+  --teal-700: #005855;   /* ★ DMG Teal — master brand */
+  --teal-800: #01433F;
+  --teal-900: #0A2F2C;
+  --teal-tint: #F3F8F7;  /* teal-wash surface */
+  --teal-tint-border: #D6E6E4;
+
+  /* ============ Ink — cool green-gray (text) ============ */
+  --ink-900: #16211E;   /* headings / strongest */
+  --ink-800: #2A3531;
+  --ink-700: #48534F;   /* body copy */
+  --ink-600: #5A655F;   /* secondary body */
+  --ink-500: #6E7873;   /* muted */
+  --ink-400: #8A938F;   /* subtle */
+  --ink-300: #9AA39F;   /* labels / captions */
+  --ink-200: #BCC4C0;   /* faint / disabled text */
+  --ink-100: #D8DDD9;
+
+  /* ============ Paper — warm greige (surfaces) ============ */
+  --paper-0:   #FFFFFF;
+  --paper-50:  #FAFAF7;  /* soft white section */
+  --paper-100: #F7F6F1;  /* table head / sunken */
+  --paper-200: #F4F2EC;  /* code chips, wells */
+  --paper-300: #ECE9E1;  /* ★ default hairline border */
+  --paper-400: #E0DBCF;  /* stronger border */
+  --paper-cream: #ECE8DF; /* deep "desk" backdrop */
+
+  /* ============ EasiSystem™ size-identification colours ============ */
+  --size-purple: #79297D;  /* 32" · PMS 2592 C */
+  --size-red:    #D52A3F;  /* 34" · PMS 1797 C */
+  --size-green:  #00A644;  /* 39" · PMS 2257 C */
+  --size-blue:   #293F76;  /* 50" · PMS 3584 C */
+
+  /* ============ Semantic aliases ============ */
+  /* Brand */
+  --brand:           var(--teal-700);
+  --brand-hover:     var(--teal-800);
+  --brand-active:    var(--teal-900);
+  --brand-subtle:    var(--teal-tint);
+  --brand-contrast:  var(--paper-0);
+
+  /* Text */
+  --text-strong:     var(--ink-900);
+  --text-body:       var(--ink-700);
+  --text-muted:      var(--ink-500);
+  --text-subtle:     var(--ink-400);
+  --text-caption:    var(--ink-300);
+  --text-on-brand:   var(--paper-0);
+  --text-link:       var(--teal-700);
+
+  /* Surfaces */
+  --surface-page:    var(--paper-50);
+  --surface-card:    var(--paper-0);
+  --surface-sunken:  var(--paper-100);
+  --surface-well:    var(--paper-200);
+  --surface-cream:   var(--paper-cream);
+  --surface-brand:   var(--teal-700);
+  --surface-brand-deep: var(--teal-900);
+  --surface-tint:    var(--teal-tint);
+  --surface-inverse: var(--ink-900);
+
+  /* Borders */
+  --border-subtle:   var(--paper-300);
+  --border-default:  var(--paper-400);
+  --border-strong:   var(--ink-200);
+  --border-brand:    var(--teal-700);
+  --border-tint:     var(--teal-tint-border);
+
+  /* Feedback — reuse the brand size palette where it reads as status */
+  --feedback-success: var(--size-green);
+  --feedback-danger:  var(--size-red);
+  --feedback-info:    var(--size-blue);
+  --feedback-warning: #C8870F;
+  --feedback-success-bg: #E6F5EC;
+  --feedback-danger-bg:  #FBE9EB;
+  --feedback-info-bg:    #E9EDF5;
+  --feedback-warning-bg: #FBF1E0;
+
+  /* Focus ring */
+  --ring: 0 0 0 3px rgba(0, 88, 85, 0.22);
+}

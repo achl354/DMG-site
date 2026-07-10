@@ -1,0 +1,41 @@
+.heading {
+  margin-bottom: var(--space-9);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-10);
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  height: fit-content;
+  padding: var(--space-6);
+  background: var(--surface-tint);
+  border: 1px solid var(--border-tint);
+  border-radius: var(--radius-lg);
+}
+
+.detailLabel {
+  font-size: var(--type-eyebrow-size);
+  font-weight: var(--type-eyebrow-weight);
+  letter-spacing: var(--type-eyebrow-tracking);
+  text-transform: uppercase;
+  color: var(--type-eyebrow-color);
+  margin-bottom: var(--space-1);
+}
+
+.detailValue {
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  color: var(--text-strong);
+}
+
+@media (min-width: 900px) {
+  .layout {
+    grid-template-columns: 1.4fr 1fr;
+  }
+}

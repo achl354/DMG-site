@@ -1,0 +1,14 @@
+.textFallback {
+  font-family: var(--font-display);
+  font-weight: var(--weight-extrabold);
+  letter-spacing: var(--tracking-tight);
+  white-space: nowrap;
+}
+
+.teal {
+  color: var(--brand);
+}
+
+.white {
+  color: var(--paper-0);
+}

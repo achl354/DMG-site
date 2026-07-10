@@ -1,0 +1,83 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-sans);
+  font-weight: var(--weight-semibold);
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out),
+    color var(--duration-base) var(--ease-out);
+  white-space: nowrap;
+}
+
+.button:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Variants */
+.primary {
+  background: var(--brand);
+  color: var(--text-on-brand);
+  box-shadow: var(--shadow-brand);
+  transition: background-color var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out),
+    color var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out);
+}
+.primary:hover:not(:disabled) {
+  background: var(--brand-hover);
+  box-shadow: 0 16px 32px rgba(0, 88, 85, 0.3);
+  transform: translateY(-1px);
+}
+.primary:active:not(:disabled) {
+  background: var(--brand-active);
+  box-shadow: var(--shadow-brand);
+  transform: translateY(0);
+}
+
+.secondary {
+  background: var(--surface-card);
+  color: var(--brand);
+  border-color: var(--border-brand);
+}
+.secondary:hover:not(:disabled) {
+  background: var(--surface-tint);
+  border-color: var(--brand-hover);
+}
+.secondary:active:not(:disabled) {
+  background: var(--teal-100);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--text-body);
+  border-color: transparent;
+}
+.ghost:hover:not(:disabled) {
+  background: var(--surface-well);
+}
+
+/* Sizes */
+.sm {
+  font-size: var(--text-sm);
+  padding: var(--space-2) var(--space-4);
+}
+.md {
+  font-size: var(--text-base);
+  padding: var(--space-3) var(--space-6);
+}
+.lg {
+  font-size: var(--type-h4-size);
+  padding: var(--space-4) var(--space-8);
+}

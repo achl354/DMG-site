@@ -1,0 +1,35 @@
+/* DMG — Base element defaults
+ * Applies the brand typeface + ink colors so any consumer linking styles.css
+ * gets a correct baseline. Kept minimal and non-opinionated.
+ */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-leading);
+  font-weight: var(--weight-regular);
+  color: var(--text-body);
+  background: var(--surface-page);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "ss01", "cv11";
+}
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-family: var(--font-display);
+  color: var(--text-strong);
+  font-weight: var(--type-heading-weight);
+  line-height: var(--type-heading-leading);
+  letter-spacing: var(--type-heading-tracking);
+}
+a {
+  color: var(--text-link);
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+*, *::before, *::after { box-sizing: border-box; }
+::selection { background: var(--teal-100); color: var(--teal-900); }
