@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { AdaptiveDpr, Html, PerformanceMonitor } from "@react-three/drei";
 import * as THREE from "three";
 import { ProductWordmark } from "@/components/ui";
@@ -87,16 +87,24 @@ function DepthCard3D({
   const groupRef = useRef<THREE.Group>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const center = (index + 0.5) / total;
+  const { viewport } = useThree();
 
   useFrame((_, delta) => {
     const group = groupRef.current;
     if (!group) return;
 
-    const distance = progress - center;
+    // Normalized to "card widths" -- see ScrollerFallback.tsx for why.
+    const distance = (progress - center) * total;
     const abs = Math.min(Math.abs(distance), 1);
 
-    const targetX = distance * 4.4;
-    const targetZ = -abs * 5;
+    // Fixed world-unit offsets swing cards past the visible frustum on a
+    // narrow/portrait canvas -- scale by the actual visible viewport width
+    // instead (capped at the values verified on a standard desktop canvas).
+    const maxOffsetX = Math.min(4.4, viewport.width * 0.6);
+    const maxOffsetZ = Math.min(5, viewport.width * 0.68);
+
+    const targetX = distance * maxOffsetX;
+    const targetZ = -abs * maxOffsetZ;
     const targetRotY = clamp(distance * -0.24, -0.1, 0.1);
     const targetScale = 1 - clamp(abs * 0.35, 0, 0.35);
     const targetOpacity = 1 - clamp(abs * 1.8, 0, 0.75);

@@ -7,10 +7,15 @@ html {
   height: 100%;
 }
 
+/* Deliberately no overflow-x:hidden here -- setting overflow on only one
+   axis forces the other axis to compute as auto (CSS Overflow spec),
+   turning body into its own scroll container and silently breaking
+   position:sticky for the whole page (this is what broke the 3D scroller's
+   pinning). Sections that need to clip a bleeding decorative element scope
+   overflow:hidden to themselves instead. */
 html,
 body {
   max-width: 100vw;
-  overflow-x: hidden;
 }
 
 body {

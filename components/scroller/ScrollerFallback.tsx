@@ -1,11 +1,23 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { ProductWordmark } from "@/components/ui";
 import { EyebrowHeading } from "@/components/ui/EyebrowHeading/EyebrowHeading";
 import { usePrefersReducedMotion } from "./usePrefersReducedMotion";
 import { useScrollProgress } from "./useScrollProgress";
 import type { ProductWithAssets } from "@/lib/content/products";
 import styles from "./ScrollerFallback.module.css";
+
+function useViewportWidth() {
+  const [width, setWidth] = useState(1280);
+  useEffect(() => {
+    const update = () => setWidth(window.innerWidth);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+  return width;
+}
 
 export interface ScrollerFallbackProps {
   products: ProductWithAssets[];
@@ -20,6 +32,7 @@ export interface ScrollerFallbackProps {
 export function ScrollerFallback({ products }: ScrollerFallbackProps) {
   const reducedMotion = usePrefersReducedMotion();
   const { ref, progress } = useScrollProgress<HTMLDivElement>();
+  const viewportWidth = useViewportWidth();
 
   return (
     <div className={styles.wrapper}>
@@ -55,6 +68,7 @@ export function ScrollerFallback({ products }: ScrollerFallbackProps) {
                   index={index}
                   total={products.length}
                   progress={progress}
+                  viewportWidth={viewportWidth}
                 />
               ))}
             </div>
@@ -70,19 +84,31 @@ function DepthCard({
   index,
   total,
   progress,
+  viewportWidth,
 }: {
   product: ProductWithAssets;
   index: number;
   total: number;
   progress: number;
+  viewportWidth: number;
 }) {
   const center = (index + 0.5) / total;
-  const distance = progress - center;
+  // Normalized to "card widths" so the fade/offset math below is scale-correct
+  // regardless of how many cards share the 0-1 progress range -- using raw
+  // progress fractions directly made adjacent cards nearly overlap at ~90%
+  // opacity each instead of cleanly crossfading.
+  const distance = (progress - center) * total;
   const abs = Math.min(Math.abs(distance), 1);
 
+  // Fixed pixel offsets swing cards fully off a narrow phone screen, leaving
+  // blank gaps between cards -- scale them down proportionally to viewport
+  // width instead (capped at the original desktop-tuned values).
+  const maxOffsetX = Math.min(420, viewportWidth * 0.32);
+  const maxOffsetZ = Math.min(480, viewportWidth * 0.36);
+
   const rotateY = clamp(distance * -18, -6, 6);
-  const translateX = distance * 420;
-  const translateZ = -abs * 480;
+  const translateX = distance * maxOffsetX;
+  const translateZ = -abs * maxOffsetZ;
   const opacity = 1 - clamp(abs * 1.8, 0, 0.75);
   const scale = 1 - clamp(abs * 0.35, 0, 0.35);
 
