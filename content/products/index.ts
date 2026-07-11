@@ -10,9 +10,9 @@ import { easislide } from "./easislide";
 import { easiturn } from "./easiturn";
 
 /**
- * Placeholder marketing copy pending confirmed source copy from DMG --
- * category, feature and spec wording is plausible-but-illustrative, not
- * approved product literature. Replace with real copy before launch.
+ * Sourced from EasiSystem(tm) Portfolio Catalogue FY26/27 (DMG-CAT-ESYS-001).
+ * EasiSling and EasiTurn have no catalogue chapter yet -- kept as
+ * in-development placeholders until DMG publishes their specifications.
  */
 export const PRODUCTS: Product[] = [
   easimoveSpu,
