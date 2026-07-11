@@ -94,7 +94,9 @@ export function computeProductTransform(slug: string, scene: PortfolioScene): Pr
         rotationZ = 0.04;
         break;
       case "docking":
-        position = { x: spread * 0.5, y: -0.15, z: 1.2 + activeIndex * 0.15 };
+        // Side-by-side with a slight depth stagger -- reads as "paired
+        // equipment", not stacked directly on top of each other.
+        position = { x: spread, y: -0.15, z: 1.3 + activeIndex * 0.2 };
         break;
       case "horizontal":
       default:
