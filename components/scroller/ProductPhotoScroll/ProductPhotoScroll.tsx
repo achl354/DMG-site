@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useScrollProgress } from "../useScrollProgress";
 import { usePrefersReducedMotion } from "../usePrefersReducedMotion";
 import { EASE_OUT } from "@/lib/motion";
@@ -13,8 +13,7 @@ export interface ProductPhotoScrollProps {
 }
 
 const SEGMENT_VH = 55;
-const ENTER = { duration: 0.3, ease: EASE_OUT };
-const EXIT = { duration: 0.12, ease: EASE_OUT };
+const CROSSFADE = { duration: 0.25, ease: EASE_OUT };
 
 /**
  * Scroll-driven "2.5D" product hero -- crossfades across an ordered set of
@@ -52,24 +51,30 @@ function PinnedPhotoScroll({ frames, name }: ProductPhotoScrollProps) {
     <div ref={ref} className={styles.track} style={{ height: `${total * SEGMENT_VH}vh` }}>
       <div className={styles.sticky}>
         <div className={styles.stage}>
-          <AnimatePresence mode="wait">
+          {/* All frames stay mounted (not swapped via AnimatePresence) so the
+              browser requests every image up front instead of only fetching
+              each one the moment it's scrolled to -- avoids a load-stutter
+              flash on a cold cache, at the cost of ~8 small image requests. */}
+          {frames.map((frame, i) => (
             <motion.div
-              key={frames[index]}
+              key={frame}
               className={styles.frame}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1, transition: ENTER }}
-              exit={{ opacity: 0, transition: EXIT }}
+              initial={false}
+              animate={{ opacity: i === index ? 1 : 0 }}
+              transition={CROSSFADE}
+              style={{ zIndex: i === index ? 1 : 0 }}
             >
               <Image
-                src={frames[index]}
+                src={frame}
                 alt={name}
                 fill
                 sizes="(min-width: 900px) 640px, 100vw"
                 className={styles.image}
-                priority={index === 0}
+                priority={i === 0}
+                loading={i === 0 ? undefined : "eager"}
               />
             </motion.div>
-          </AnimatePresence>
+          ))}
 
           <div className={styles.dots} aria-hidden="true">
             {frames.map((frame, i) => (

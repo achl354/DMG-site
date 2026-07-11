@@ -5,7 +5,13 @@
 .sticky {
   position: sticky;
   top: 0;
+  /* dvh accounts for the mobile browser chrome (address bar) collapsing/
+     expanding as the user scrolls -- 100vh alone is calculated against the
+     largest possible viewport, so the sticky box ends up taller than what's
+     actually visible and jumps/misaligns as the chrome animates. Fallback
+     to vh for browsers that don't support dvh yet. */
   height: 100vh;
+  height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
