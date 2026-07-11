@@ -23,16 +23,36 @@
   object-fit: cover;
 }
 
+/*
+ * Fixed WIDTH, not height -- the wordmark SVGs are wide logotype lockups
+ * (some close to 10:1 aspect ratio), so sizing by a fixed height alone lets
+ * the widest ones render nearly full-viewport-wide on mobile. Constraining
+ * width and letting height follow the SVG's own aspect ratio keeps every
+ * card the same footprint regardless of which logo it holds. The !important
+ * overrides ProductWordmark's own inline height/width styling, which is
+ * tuned for other (non-card) contexts across the site.
+ */
 .wordmarkFrame {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 168px;
+  overflow: hidden;
   padding: var(--space-4) var(--space-5);
   background: var(--surface-card);
   border: 1px solid var(--border-tint);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
-  white-space: nowrap;
+}
+
+.wordmarkFrame :global(img) {
+  width: 100% !important;
+  height: auto !important;
+}
+
+.wordmarkFrame :global(span) {
+  white-space: normal !important;
+  text-align: center;
 }
 
 .statusBadge {

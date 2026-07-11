@@ -27,7 +27,7 @@ export function ProductCardContent({ name, wordmarkSvg, photoSrc, status }: Prod
         </div>
       ) : (
         <div className={styles.wordmarkFrame}>
-          <ProductWordmark name={name} svgSrc={wordmarkSvg} height={36} />
+          <ProductWordmark name={name} svgSrc={wordmarkSvg} height={28} />
         </div>
       )}
       {status !== "available" && (
