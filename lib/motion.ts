@@ -13,3 +13,12 @@ export const DURATION_SLOW = 0.32;
 
 /** Damping factor for THREE.MathUtils.damp -- no-bounce, matches DURATION_BASE. */
 export const DAMP_LAMBDA = 6;
+
+/**
+ * Plain-JS equivalent of THREE.MathUtils.damp (exponential decay, framerate
+ * independent) -- for callers that shouldn't need to import three.js just to
+ * smooth a number (e.g. the non-WebGL CSS portfolio-scene fallback).
+ */
+export function damp(current: number, target: number, lambda: number, dt: number) {
+  return current + (target - current) * (1 - Math.exp(-lambda * dt));
+}

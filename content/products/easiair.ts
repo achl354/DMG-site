@@ -6,9 +6,6 @@ export const easiair: Product = {
   tagline: "Variable speed air supply",
   summary:
     "EasiAir™ is a variable speed air supply designed for use with compatible DirectMed-approved air-assisted patient handling devices, engineered for reliability, simplicity and versatility across modern healthcare environments.",
-  homepageSupportingLine:
-    "Provides variable-speed air supply for EasiMoveSPU™, EasiMovePRO™, EasiLift™ and other approved devices.",
-  homepageDifferentiator: "Stepless variable airflow with a low-noise, overheat-protected motor.",
   features: [
     "High-performance, low-noise motor with overheat protection supports repeated clinical use",
     "Durable, portable format built for routine handling across multiple care areas",

@@ -5,14 +5,14 @@ import styles from "./WhyEasiSystem.module.css";
 const PILLARS = [
   {
     title: "Workflow-led",
-    body: "Organised around how patients actually move, not a flat product catalogue.",
+    body: "Products organised around practical patient-handling tasks.",
     icon: (
       <path d="M4 12h16M4 12l5-5M4 12l5 5" strokeLinecap="round" strokeLinejoin="round" />
     ),
   },
   {
-    title: "Coordinated",
-    body: "Products are designed to work together across related patient-handling workflows.",
+    title: "Coordinated portfolio",
+    body: "Multiple equipment categories presented within one clear system.",
     icon: (
       <>
         <circle cx="7" cy="7" r="2.5" />
@@ -24,7 +24,7 @@ const PILLARS = [
   },
   {
     title: "Practical options",
-    body: "Single-patient-use and reusable configurations to suit different care settings.",
+    body: "Reusable, single-patient-use, air-assisted and manual configurations.",
     icon: (
       <path
         d="M4 7h16M4 12h10M4 17h16"
@@ -35,7 +35,7 @@ const PILLARS = [
   },
   {
     title: "Supported by resources",
-    body: "Instructions for use, specifications and training resources for every product.",
+    body: "Product information and training materials supporting review and implementation.",
     icon: (
       <path
         d="M6 4h9l3 3v13H6V4z M15 4v3h3"
@@ -50,7 +50,11 @@ export function WhyEasiSystem() {
   return (
     <Section id="why-easisystem" spacing="md" surface="cream">
       <Container size="lg">
-        <EyebrowHeading eyebrow="Why EasiSystem™" heading="One coordinated portfolio" className={styles.heading} />
+        <EyebrowHeading
+          eyebrow="Why EasiSystem™"
+          heading="Designed around the workflow."
+          className={styles.heading}
+        />
         <div className={styles.grid}>
           {PILLARS.map((pillar) => (
             <div key={pillar.title} className={styles.pillar}>

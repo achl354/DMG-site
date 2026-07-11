@@ -8,5 +8,4 @@ export const lateralTransfer: Workflow = {
   summary:
     "EasiMove™ supports surface-to-surface patient transfer across everyday clinical, theatre and imaging workflows. The range includes single-patient-use, split-leg and reusable air-assisted options to suit different care environments and operational requirements.",
   products: ["easimove-spu", "easimove-pro"],
-  movementType: "horizontal",
 };

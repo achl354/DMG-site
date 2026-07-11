@@ -1,15 +1,6 @@
-import {
-  HeroSection,
-  WorkflowStory,
-  SupportingEquipment,
-  FeaturedProducts,
-  WhyEasiSystem,
-  ResourcesContact,
-} from "@/components/homepage";
+import { HeroSection, PortfolioScrollSection, WhyEasiSystem, ResourcesContact } from "@/components/homepage";
 import { ReducedMotionProvider } from "@/components/motion/ReducedMotionProvider";
-import { getWorkflowStoryScenes, getWorkflowBySlug } from "@/lib/content/workflows";
-import { getAllProducts, getProductBySlug } from "@/lib/content/products";
-import { FEATURED_PRODUCT_SLUGS } from "@/lib/constants";
+import { getPortfolioScenes } from "@/lib/content/portfolioScenes";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
@@ -20,24 +11,12 @@ export const metadata = buildMetadata({
 });
 
 export default function Home() {
-  const workflowScenes = getWorkflowStoryScenes();
-
-  const supportEquipmentSlugs = getWorkflowBySlug("support-equipment")?.products ?? [];
-  const supportEquipmentProducts = supportEquipmentSlugs
-    .map((slug) => getProductBySlug(slug))
-    .filter((product): product is NonNullable<typeof product> => Boolean(product));
-
-  const allProducts = getAllProducts();
-  const featuredProducts = FEATURED_PRODUCT_SLUGS.map((slug) =>
-    allProducts.find((product) => product.slug === slug),
-  ).filter((product): product is NonNullable<typeof product> => Boolean(product));
+  const scenes = getPortfolioScenes();
 
   return (
     <ReducedMotionProvider>
       <HeroSection />
-      <WorkflowStory scenes={workflowScenes} />
-      <SupportingEquipment products={supportEquipmentProducts} />
-      <FeaturedProducts products={featuredProducts} />
+      <PortfolioScrollSection scenes={scenes} />
       <WhyEasiSystem />
       <ResourcesContact />
     </ReducedMotionProvider>

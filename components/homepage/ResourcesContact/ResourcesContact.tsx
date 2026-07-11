@@ -32,15 +32,19 @@ export function ResourcesContact() {
               </li>
             ))}
           </ul>
+          <Link href="/resources" className={styles.browseCta}>
+            <Button variant="secondary" size="md" className={styles.ctaPrimary}>
+              {CTA_LABELS.browseResources}
+            </Button>
+          </Link>
         </div>
 
         <div className={styles.panel}>
           <p className={styles.panelLabel}>Get in touch</p>
           <h2 className={styles.heading}>Discuss your patient-handling requirements</h2>
           <p className={styles.body}>
-            Tell us about the patient cohort, care environment and workflow you need to
-            support -- the DirectMed Group team can help identify relevant product
-            information and suitable next steps.
+            Contact DirectMed Group for product information, configuration details, market
+            availability or distribution enquiries.
           </p>
           <div className={styles.ctaRow}>
             <Link href="/contact" onClick={() => trackEvent("request_information_clicked")}>

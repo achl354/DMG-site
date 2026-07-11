@@ -6,10 +6,6 @@ export const easimoveSpu: Product = {
   tagline: "Single-patient-use air-assisted lateral transfer mattress",
   summary:
     "Designed for everyday lateral transfer workflows, the EasiMove™ SPU range supports patient movement across ward, procedural and imaging settings, with a Split-Leg option for lower-body access.",
-  homepageSupportingLine:
-    "Supports patient-dedicated lateral-transfer, repositioning and bed-boosting workflows.",
-  homepageDifferentiator:
-    "Single-patient-use, air-assisted, available in Standard, Split-Leg and Mini configurations.",
   sizes: ["34", "39", "50"],
   features: [
     "Supports smoother surface-to-surface patient movement, with transfer performance comparable to leading SPU systems in internal comparative testing",

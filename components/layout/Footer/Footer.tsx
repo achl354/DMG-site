@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { NAV_LINKS, LEGAL_DISCLAIMER } from "@/lib/constants";
+import { NAV_LINKS, LEGAL_DISCLAIMER, DMG_TAGLINE } from "@/lib/constants";
 import { Container } from "@/components/layout/Container/Container";
 import styles from "./Footer.module.css";
 
@@ -17,6 +17,7 @@ export function Footer() {
             width={217}
             height={36}
           />
+          <p className={styles.tagline}>{DMG_TAGLINE}</p>
         </div>
 
         <nav className={styles.navCol} aria-label="Footer">

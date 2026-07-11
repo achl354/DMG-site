@@ -30,35 +30,21 @@ export const DMG_TAGLINE = "Every Move Matters.";
 
 export const SALES_EMAIL = "sales@directmedgroup.com";
 
-/**
- * The four products featured on the homepage after the workflow-story
- * section, in display order. Kept as one central list so the homepage,
- * analytics labels and any other "featured" surface stay in sync rather
- * than each hard-coding its own slug list.
- */
-export const FEATURED_PRODUCT_SLUGS = [
-  "easimove-spu",
-  "easimove-pro",
-  "easilift",
-  "easiair",
-] as const;
-
 /** Section ids used for anchor links, scroll targets and analytics. */
 export const SECTION_IDS = {
   hero: "hero",
-  workflowStory: "workflow-story",
-  supportingEquipment: "supporting-equipment",
-  featuredProducts: "featured-products",
+  portfolio: "portfolio-scroll",
   whyEasiSystem: "why-easisystem",
   resourcesContact: "resources-contact",
 } as const;
 
 export const CTA_LABELS = {
   exploreSystem: "Explore the system",
-  viewProduct: "View product",
   viewAllProducts: "View all products",
+  exploreAllWorkflows: "Explore all workflows",
   requestInformation: "Request product information",
   contactDmg: "Contact DMG",
+  browseResources: "Browse resources",
 } as const;
 
 /**

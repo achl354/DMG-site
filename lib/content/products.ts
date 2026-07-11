@@ -37,13 +37,6 @@ export interface Product {
   specs: ProductSpec[];
   /** Omit for generally available products -- only set while a line isn't yet commercially released. */
   status?: ProductStatus;
-  /**
-   * Homepage-only "featured product" copy (see the Featured product copy
-   * framework) -- kept short and high-level per the homepage content rule.
-   * Only needed for products actually featured on the homepage.
-   */
-  homepageSupportingLine?: string;
-  homepageDifferentiator?: string;
 }
 
 export interface ProductWithAssets extends Product {

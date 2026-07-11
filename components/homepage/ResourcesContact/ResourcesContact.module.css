@@ -39,6 +39,10 @@
   border-color: var(--text-on-brand);
 }
 
+.browseCta {
+  margin-top: var(--space-3);
+}
+
 .heading {
   font-size: var(--type-h3-size);
   font-weight: var(--type-heading-weight);

@@ -64,6 +64,13 @@
   max-width: 56ch;
 }
 
+.body {
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--text-muted);
+  max-width: 58ch;
+}
+
 .ctaRow {
   display: flex;
   flex-wrap: wrap;

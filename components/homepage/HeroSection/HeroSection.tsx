@@ -20,9 +20,13 @@ export function HeroSection() {
 
   function handleExploreClick() {
     trackEvent("hero_cta_clicked", { cta: "explore_system" });
-    document.getElementById(SECTION_IDS.workflowStory)?.scrollIntoView({
+    document.getElementById(SECTION_IDS.portfolio)?.scrollIntoView({
       behavior: reducedMotion ? "auto" : "smooth",
     });
+  }
+
+  function handleViewAllClick() {
+    trackEvent("view_all_products_clicked", { source: "hero" });
   }
 
   return (
@@ -33,15 +37,20 @@ export function HeroSection() {
           <p className={styles.eyebrow}>EasiSystem™ patient handling</p>
           <Tagline as="h1" className={styles.tagline} />
           <p className={styles.subhead}>
-            A coordinated patient-handling portfolio supporting transfer, floor
-            recovery, repositioning, turning and lifting workflows.
+            A coordinated patient-handling portfolio supporting transfer, floor recovery,
+            repositioning, turning, sling transfer and equipment readiness.
+          </p>
+          <p className={styles.body}>
+            Developed by DirectMed Group, EasiSystem™ brings together air-assisted equipment,
+            slings, transfer aids, positioning products and supporting equipment within one
+            structured portfolio.
           </p>
           <div className={styles.ctaRow}>
             <Button size="lg" onClick={handleExploreClick}>
               {CTA_LABELS.exploreSystem}
             </Button>
-            <Link href="/products" className={styles.secondaryLink}>
-              Browse the full range
+            <Link href="/products" className={styles.secondaryLink} onClick={handleViewAllClick}>
+              {CTA_LABELS.viewAllProducts}
             </Link>
           </div>
           <p className={styles.trust}>Designed and manufactured by DirectMed Group.</p>
