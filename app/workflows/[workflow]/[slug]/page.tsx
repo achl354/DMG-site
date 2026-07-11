@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Button, ProductWordmark, SizeBadge, Card } from "@/components/ui";
+import { Button, SizeBadge, Card } from "@/components/ui";
 import { Section, Container } from "@/components/layout";
 import { ProductCard, CTASection } from "@/components/marketing";
+import { ProductWordmark3D } from "@/components/scroller/ProductWordmark3D/ProductWordmark3D";
 import {
   getAllProducts,
   getProductBySlug,
@@ -67,12 +68,7 @@ export default async function ProductDetailPage({
             </Link>
           )}
 
-          <ProductWordmark
-            name={product.name}
-            svgSrc={product.wordmarkSvg}
-            height={32}
-            className={styles.wordmark}
-          />
+          <ProductWordmark3D name={product.name} svgSrc={product.wordmarkSvg} />
           <p className={styles.category}>{product.category}</p>
           <h1 className={styles.tagline}>{product.tagline}</h1>
           <p className={styles.summary}>{product.summary}</p>

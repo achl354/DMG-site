@@ -10,10 +10,6 @@
   color: var(--brand);
 }
 
-.wordmark {
-  margin-bottom: var(--space-4);
-}
-
 .category {
   font-size: var(--type-eyebrow-size);
   font-weight: var(--type-eyebrow-weight);
