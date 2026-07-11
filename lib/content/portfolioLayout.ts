@@ -78,6 +78,10 @@ export function computeProductTransform(slug: string, scene: PortfolioScene): Pr
   if (activeIndex > -1) {
     const spread =
       activeIds.length > 1 ? (activeIndex - (activeIds.length - 1) / 2) * 1.05 : 0;
+    // Two active cards both blown up to full prominence don't fit the
+    // scene's width without colliding -- ease off the enlargement once
+    // they have to share the foreground.
+    const activeScale = activeIds.length > 1 ? 0.95 : 1.15;
     let position: Vec3;
     let rotationZ = 0;
 
@@ -86,11 +90,18 @@ export function computeProductTransform(slug: string, scene: PortfolioScene): Pr
         position = { x: spread * 0.6, y: 0.6, z: 1.4 };
         break;
       case "diagonal":
-        position = { x: spread - 0.3, y: 0.4, z: 1.3 };
+        // Wider spread than the other motion types -- this is the one
+        // scene with both two active AND two secondary products on
+        // screen at once, so the active pair needs its own clear space.
+        // Staggered in y too (not just x) with real separation, so a true
+        // diagonal offset keeps the pair apart instead of sharing a row.
+        position = { x: spread * 1.6 - 0.3, y: 0.5 - activeIndex * 0.7, z: 1.3 };
         rotationZ = -0.05;
         break;
       case "curve":
-        position = { x: spread, y: 0.9, z: 1.1 };
+        // Lower than a literal "upward arc" would suggest -- higher
+        // values clip against the top of the scene's visible area.
+        position = { x: spread, y: 0.6, z: 1.1 };
         rotationZ = 0.04;
         break;
       case "docking":
@@ -100,20 +111,25 @@ export function computeProductTransform(slug: string, scene: PortfolioScene): Pr
         break;
       case "horizontal":
       default:
-        position = { x: spread, y: 0, z: 1.4 };
+        position = { x: spread * 1.25, y: 0, z: 1.4 };
         break;
     }
 
-    return { position, scale: baseScale * 1.15, opacity: 1, blur: 0, rotationZ };
+    return { position, scale: baseScale * activeScale, opacity: 1, blur: 0, rotationZ };
   }
 
   if (secondaryIndex > -1) {
     const spread =
-      secondaryIds.length > 1 ? (secondaryIndex - (secondaryIds.length - 1) / 2) * 0.9 : 0.9;
+      secondaryIds.length > 1 ? (secondaryIndex - (secondaryIds.length - 1) / 2) * 1.1 : 0.95;
+    // Two secondary cards at once (currently only the diagonal scene) need
+    // to read as clearly background, not competing with the active pair --
+    // smaller and further down than a single supporting product would be.
+    const secondaryScale = secondaryIds.length > 1 ? 0.55 : 0.75;
+    const secondaryY = secondaryIds.length > 1 ? -0.85 : -0.65;
     return {
-      position: { x: spread, y: -0.3, z: 0.7 },
-      scale: baseScale * 0.9,
-      opacity: 0.85,
+      position: { x: spread, y: secondaryY, z: 0.5 },
+      scale: baseScale * secondaryScale,
+      opacity: 0.8,
       blur: 0,
       rotationZ: 0,
     };
