@@ -8,4 +8,5 @@ export const turningPositioning: Workflow = {
   summary:
     "EasiTurn™ is being developed as part of the EasiSystem™ turning and positioning range, alongside EasiMove™, EasiLift™, EasiSlide™, EasiGlide™, EasiAir™ and EasiCart™. Product specifications and availability information will be published when finalised.",
   products: ["easiturn"],
+  movementType: "rotation",
 };

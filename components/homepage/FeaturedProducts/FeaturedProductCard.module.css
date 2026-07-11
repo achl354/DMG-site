@@ -1,0 +1,108 @@
+.card {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-7);
+  align-items: center;
+  padding: var(--space-8) 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.card:last-child {
+  border-bottom: none;
+}
+
+.visual {
+  width: 100%;
+}
+
+.wordmarkTile {
+  aspect-ratio: 4 / 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-tint);
+  border: 1px solid var(--border-tint);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.labelRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.label {
+  font-size: var(--type-eyebrow-size);
+  font-weight: var(--type-eyebrow-weight);
+  letter-spacing: var(--type-eyebrow-tracking);
+  text-transform: uppercase;
+  color: var(--type-eyebrow-color);
+}
+
+.name {
+  font-size: var(--type-h3-size);
+  font-weight: var(--type-heading-weight);
+  line-height: var(--type-heading-leading);
+  color: var(--text-strong);
+}
+
+.descriptor {
+  font-size: var(--type-lede-size);
+  line-height: var(--leading-snug);
+  color: var(--text-body);
+  max-width: 44ch;
+}
+
+.supportingLine {
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--text-body);
+  max-width: 48ch;
+}
+
+.differentiator {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--brand);
+}
+
+.cta {
+  margin-top: var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--text-on-brand);
+  background: var(--brand);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-pill);
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out);
+}
+
+.cta:hover {
+  background: var(--brand-hover);
+}
+
+@media (min-width: 900px) {
+  .card {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-10);
+    padding: var(--space-10) 0;
+  }
+
+  .reverse .visual {
+    order: 2;
+  }
+
+  .reverse .copy {
+    order: 1;
+  }
+}

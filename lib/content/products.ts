@@ -5,11 +5,21 @@ import { PRODUCTS } from "@/content/products";
 
 export type ProductSize = "32" | "34" | "39" | "50";
 
-export type ProductStatus = "coming-soon" | "in-development";
+export type ProductStatus =
+  | "available"
+  | "coming-soon"
+  | "in-development"
+  | "selected-markets"
+  | "contact-dmg"
+  | "discontinued";
 
 export const PRODUCT_STATUS_LABELS: Record<ProductStatus, string> = {
+  available: "Available",
   "coming-soon": "Coming soon",
   "in-development": "In development",
+  "selected-markets": "Selected markets",
+  "contact-dmg": "Contact DMG",
+  discontinued: "Discontinued",
 };
 
 export interface ProductSpec {
@@ -27,12 +37,21 @@ export interface Product {
   specs: ProductSpec[];
   /** Omit for generally available products -- only set while a line isn't yet commercially released. */
   status?: ProductStatus;
+  /**
+   * Homepage-only "featured product" copy (see the Featured product copy
+   * framework) -- kept short and high-level per the homepage content rule.
+   * Only needed for products actually featured on the homepage.
+   */
+  homepageSupportingLine?: string;
+  homepageDifferentiator?: string;
 }
 
 export interface ProductWithAssets extends Product {
   name: string;
   wordmarkSvg?: string;
   workflowSlug: string;
+  /** Never undefined on the hydrated shape -- omitted in content means "available". */
+  status: ProductStatus;
 }
 
 function withAssets(product: Product): ProductWithAssets {
@@ -41,6 +60,7 @@ function withAssets(product: Product): ProductWithAssets {
     name: PRODUCT_NAMES[product.slug] ?? product.slug,
     wordmarkSvg: PRODUCT_WORDMARKS[product.slug],
     workflowSlug: getWorkflowForProduct(product.slug)?.slug ?? "",
+    status: product.status ?? "available",
   };
 }
 

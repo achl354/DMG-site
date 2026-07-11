@@ -1,5 +1,3 @@
-export { HeroSlot } from "./HeroSlot/HeroSlot";
-export { WorkflowJourney } from "./WorkflowJourney/WorkflowJourney";
 export { Reveal } from "./Reveal/Reveal";
 export type { RevealProps } from "./Reveal/Reveal";
 export { ProductCard } from "./ProductCard/ProductCard";

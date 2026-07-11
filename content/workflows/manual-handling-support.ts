@@ -8,4 +8,5 @@ export const manualHandlingSupport: Workflow = {
   summary:
     "Manual handling support products complete the EasiSystem™ portfolio with practical everyday handling aids for repositioning, boosting, turning and transfer assistance where manual handling aids are clinically appropriate.",
   products: ["easislide", "easiglide"],
+  movementType: "horizontal",
 };

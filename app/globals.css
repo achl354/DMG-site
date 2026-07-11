@@ -35,6 +35,35 @@ ol {
   margin: 0;
 }
 
+/* Visually hidden but announced to screen readers -- for headings that
+   exist purely to keep the document's heading hierarchy correct where the
+   visual design doesn't call for a large section title. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Blanket safety net -- component-level reduced-motion fallbacks (pinned
+   scroll, image sequences, etc.) are the real handling; this just catches
+   anything that slips through with a plain CSS transition/animation. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 /* Subtle tactile grain -- inert (no pointer-events), very low opacity. */
 body::before {
   content: "";

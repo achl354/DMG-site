@@ -6,6 +6,9 @@ export const easilift: Product = {
   tagline: "Air-assisted floor recovery and patient lift",
   summary:
     "EasiLift™ supports floor recovery workflows by helping teams raise patients from floor level to a seated or transfer-ready height following a fall or floor-level incident.",
+  homepageSupportingLine:
+    "Supports floor-recovery workflows, helping teams raise patients to a safe seated or transfer height.",
+  homepageDifferentiator: "Sequential multi-chamber inflation for stable, controlled lifting.",
   sizes: ["32", "39"],
   features: [
     "Helps raise patients from floor level to a safe seated or transfer height following a fall",

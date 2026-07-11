@@ -1,13 +1,18 @@
 import Link from "next/link";
 import { Card, Badge, ProductWordmark } from "@/components/ui";
-import type { ProductWithAssets } from "@/lib/content/products";
+import { PRODUCT_STATUS_LABELS, type ProductWithAssets } from "@/lib/content/products";
 import styles from "./ProductCard.module.css";
 
 export function ProductCard({ product }: { product: ProductWithAssets }) {
   return (
     <Link href={`/workflows/${product.workflowSlug}/${product.slug}`} className={styles.link}>
       <Card className={styles.card}>
-        <Badge tone="neutral">{product.category}</Badge>
+        <div className={styles.badgeRow}>
+          <Badge tone="neutral">{product.category}</Badge>
+          {product.status !== "available" && (
+            <Badge tone="info">{PRODUCT_STATUS_LABELS[product.status].toUpperCase()}</Badge>
+          )}
+        </div>
         <ProductWordmark
           name={product.name}
           svgSrc={product.wordmarkSvg}

@@ -8,4 +8,5 @@ export const slingTransfer: Workflow = {
   summary:
     "EasiSling™ is being developed as part of the EasiSystem™ sling transfer range, alongside EasiMove™, EasiLift™, EasiSlide™, EasiGlide™, EasiAir™ and EasiCart™. Product specifications and availability information will be published when finalised.",
   products: ["easisling"],
+  movementType: "curve",
 };

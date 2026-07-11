@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { NAV_LINKS } from "@/lib/constants";
+import { NAV_LINKS, LEGAL_DISCLAIMER } from "@/lib/constants";
 import { Container } from "@/components/layout/Container/Container";
 import styles from "./Footer.module.css";
 
@@ -54,7 +54,8 @@ export function Footer() {
         </div>
       </Container>
 
-      <Container size="xl">
+      <Container size="xl" className={styles.legalCol}>
+        <p className={styles.disclaimer}>{LEGAL_DISCLAIMER}</p>
         <p className={styles.legal}>
           &copy; {year} DirectMed Group. EasiSystem™ and associated product names
           are trademarks of DirectMed Group.
