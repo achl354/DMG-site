@@ -2,9 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { NAV_LINKS, LEGAL_DISCLAIMER, DMG_TAGLINE } from "@/lib/constants";
 import { Container } from "@/components/layout/Container/Container";
+import { DesktopViewToggle } from "@/components/layout/DesktopViewToggle/DesktopViewToggle";
 import styles from "./Footer.module.css";
 
-export function Footer() {
+export interface FooterProps {
+  /** Read server-side from the cookie so the toggle's label is correct on first paint. */
+  initialDesktopView: boolean;
+}
+
+export function Footer({ initialDesktopView }: FooterProps) {
   const year = new Date().getFullYear();
 
   return (
@@ -57,10 +63,13 @@ export function Footer() {
 
       <Container size="xl" className={styles.legalCol}>
         <p className={styles.disclaimer}>{LEGAL_DISCLAIMER}</p>
-        <p className={styles.legal}>
-          &copy; {year} DirectMed Group. EasiSystem™ and associated product names
-          are trademarks of DirectMed Group.
-        </p>
+        <div className={styles.legalRow}>
+          <p className={styles.legal}>
+            &copy; {year} DirectMed Group. EasiSystem™ and associated product names
+            are trademarks of DirectMed Group.
+          </p>
+          <DesktopViewToggle initialDesktopView={initialDesktopView} />
+        </div>
       </Container>
     </footer>
   );

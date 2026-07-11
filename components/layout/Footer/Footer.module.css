@@ -76,6 +76,14 @@
   color: var(--paper-300);
 }
 
+.legalRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
 @media (min-width: 768px) {
   .inner {
     grid-template-columns: 1.2fr 1fr 1fr 1fr;
