@@ -34,6 +34,10 @@ export function ProductWordmark({
     );
   }
 
+  const hasEasiPrefix = name.startsWith("Easi");
+  const prefix = hasEasiPrefix ? name.slice(0, 4) : "";
+  const rest = hasEasiPrefix ? name.slice(4) : name;
+
   return (
     <span
       className={[styles.textFallback, variant === "white" ? styles.white : styles.teal, className]
@@ -41,7 +45,8 @@ export function ProductWordmark({
         .join(" ")}
       style={{ fontSize: height * 0.75 }}
     >
-      {name}
+      {hasEasiPrefix && <span className={styles.prefix}>{prefix}</span>}
+      <span className={styles.suffix}>{rest}</span>
     </span>
   );
 }
