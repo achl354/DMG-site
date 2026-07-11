@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Button, SizeBadge, Card } from "@/components/ui";
+import { Button, SizeBadge, Card, Badge } from "@/components/ui";
 import { Section, Container } from "@/components/layout";
 import { ProductCard, CTASection } from "@/components/marketing";
 import { ProductWordmark3D } from "@/components/scroller/ProductWordmark3D/ProductWordmark3D";
@@ -8,6 +8,7 @@ import {
   getAllProducts,
   getProductBySlug,
   getRelatedProducts,
+  PRODUCT_STATUS_LABELS,
 } from "@/lib/content/products";
 import { getWorkflowBySlug } from "@/lib/content/workflows";
 import { buildMetadata } from "@/lib/seo";
@@ -71,6 +72,9 @@ export default async function ProductDetailPage({
           <ProductWordmark3D name={product.name} svgSrc={product.wordmarkSvg} />
           <p className={styles.category}>{product.category}</p>
           <h1 className={styles.tagline}>{product.tagline}</h1>
+          {product.status && (
+            <Badge tone="warning">{PRODUCT_STATUS_LABELS[product.status]}</Badge>
+          )}
           <p className={styles.summary}>{product.summary}</p>
 
           {product.sizes && (
@@ -82,7 +86,9 @@ export default async function ProductDetailPage({
           )}
 
           <Link href={`/contact?product=${product.slug}`}>
-            <Button size="lg">Enquire about {product.name}</Button>
+            <Button size="lg">
+              {product.status ? `Register interest — ${product.name}` : `Request information — ${product.name}`}
+            </Button>
           </Link>
         </Container>
       </Section>
@@ -110,6 +116,12 @@ export default async function ProductDetailPage({
               </dl>
             </Card>
           </div>
+          <p className={styles.disclaimer}>
+            Always read and follow the current instructions for use before
+            using this product. Product selection and use must be based on
+            an appropriate patient assessment, care environment, local
+            procedure and applicable manual-handling requirements.
+          </p>
         </Container>
       </Section>
 
@@ -127,9 +139,9 @@ export default async function ProductDetailPage({
       )}
 
       <CTASection
-        heading={`Ready to talk about ${product.name}?`}
-        body="Tell us about your ward's case mix and we'll confirm the right configuration."
-        ctaLabel="Enquire now"
+        heading={`Need more information about ${product.name}?`}
+        body="Contact DirectMed Group for product documentation, configuration information, availability or general product enquiries."
+        ctaLabel="Contact DMG"
         ctaHref={`/contact?product=${product.slug}`}
       />
     </>

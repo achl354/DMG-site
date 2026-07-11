@@ -1,0 +1,20 @@
+.heading {
+  margin-bottom: var(--space-8);
+}
+
+.prose {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--text-body);
+  max-width: 70ch;
+}
+
+.subheading {
+  font-size: var(--type-h4-size, var(--text-lg));
+  font-weight: var(--type-heading-weight);
+  color: var(--text-strong);
+  margin-top: var(--space-2);
+}

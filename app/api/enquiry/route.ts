@@ -14,7 +14,7 @@ interface EnquiryPayload {
  * Validates and accepts the enquiry. Delivery (email/CRM) is not wired up
  * yet -- this confirms the form contract end-to-end so the frontend can be
  * built and tested now; connecting a real notification channel is a
- * separate follow-up once JDHG decides where enquiries should land.
+ * separate follow-up once DirectMed Group decides where enquiries should land.
  */
 export async function POST(request: Request) {
   let payload: EnquiryPayload;

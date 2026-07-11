@@ -33,7 +33,15 @@
   line-height: var(--leading-relaxed);
   color: var(--text-body);
   max-width: 64ch;
+  margin-top: var(--space-3);
   margin-bottom: var(--space-6);
+}
+
+.disclaimer {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  margin-top: var(--space-7);
+  max-width: 64ch;
 }
 
 .sizes {

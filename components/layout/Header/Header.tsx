@@ -47,7 +47,7 @@ export function Header() {
 
         <div className={styles.actions}>
           <Link href="/contact" className={styles.ctaLink}>
-            Enquire
+            Contact DMG
           </Link>
           <IconButton
             className={styles.toggle}

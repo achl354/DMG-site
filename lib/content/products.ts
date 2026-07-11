@@ -5,6 +5,13 @@ import { PRODUCTS } from "@/content/products";
 
 export type ProductSize = "32" | "34" | "39" | "50";
 
+export type ProductStatus = "coming-soon" | "in-development";
+
+export const PRODUCT_STATUS_LABELS: Record<ProductStatus, string> = {
+  "coming-soon": "Coming soon",
+  "in-development": "In development",
+};
+
 export interface ProductSpec {
   label: string;
   value: string;
@@ -18,6 +25,8 @@ export interface Product {
   sizes?: ProductSize[];
   features: string[];
   specs: ProductSpec[];
+  /** Omit for generally available products -- only set while a line isn't yet commercially released. */
+  status?: ProductStatus;
 }
 
 export interface ProductWithAssets extends Product {

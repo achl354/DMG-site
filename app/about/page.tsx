@@ -7,7 +7,7 @@ import styles from "./page.module.css";
 export const metadata = buildMetadata({
   title: "About",
   description:
-    "DMG (DirectMed Group) manufactures EasiSystem™ patient-handling equipment; JD Healthcare Group distributes it across Australia.",
+    "DirectMed Group develops and manufactures the EasiSystem™ patient-handling portfolio, supporting patient movement workflows across healthcare and supported-care environments.",
   path: "/about",
 });
 
@@ -18,8 +18,8 @@ export default function AboutPage() {
         <Container size="md">
           <EyebrowHeading
             eyebrow="About"
-            heading="Two companies, one range"
-            body="EasiSystem™ is manufactured by DirectMed Group (DMG) and distributed across Australia by JD Healthcare Group (JDHG) — a single point of contact for sales, service and support on the whole range."
+            heading="About DirectMed Group"
+            body="DirectMed Group develops patient-handling products designed around the practical workflows encountered across healthcare and supported-care environments."
           />
         </Container>
       </Section>
@@ -28,40 +28,50 @@ export default function AboutPage() {
         <Container size="md">
           <div className={styles.grid}>
             <div className={styles.card}>
-              <p className={styles.cardLabel}>Manufacturer</p>
-              <h3 className={styles.cardTitle}>DirectMed Group (DMG)</h3>
+              <p className={styles.cardLabel}>EasiSystem™</p>
+              <h3 className={styles.cardTitle}>One coordinated portfolio</h3>
               <p className={styles.cardBody}>
-                Designs and manufactures the EasiSystem™ range — lateral
-                transfer, floor recovery, sling transfer, manual handling
-                support and turning &amp; positioning equipment, plus the air
-                supply and storage equipment that supports it.
+                EasiSystem™ brings multiple patient-handling product
+                categories together within one structured portfolio,
+                supporting clearer product navigation, consistent training
+                resources and more coordinated implementation.
               </p>
             </div>
             <div className={styles.card}>
-              <p className={styles.cardLabel}>Distributor</p>
-              <h3 className={styles.cardTitle}>JD Healthcare Group (JDHG)</h3>
+              <p className={styles.cardLabel}>Development principles</p>
+              <h3 className={styles.cardTitle}>Workflow-led, practical, clear</h3>
               <p className={styles.cardBody}>
-                Distributes and supports the EasiSystem™ range across
-                Australia — sales, quoting, servicing and ongoing supply for
-                hospitals, aged care and disability providers.
+                Products are designed around real patient-handling tasks,
+                built for practical day-to-day usability, and supported by
+                clear product information and consistent portfolio
+                structure.
               </p>
             </div>
           </div>
         </Container>
       </Section>
 
+      <Section spacing="md">
+        <Container size="md">
+          <p className={styles.availabilityNote}>
+            EasiSystem™ availability varies by product and market. Contact
+            DirectMed Group for current market-specific information.
+          </p>
+        </Container>
+      </Section>
+
       <StatsBand
         stats={[
-          { value: "6", label: "EasiSystem™ workflows" },
-          { value: "9", label: "Product lines across the range" },
-          { value: "1", label: "Distributor for Australia — JD Healthcare Group" },
+          { value: "6", label: "Patient-handling workflow categories" },
+          { value: "9", label: "Product lines across the EasiSystem™ range" },
+          { value: "1", label: "Coordinated patient-handling portfolio" },
         ]}
       />
 
       <CTASection
         heading="Have a question about the range?"
-        body="Get in touch and we'll point you to the right product, or the right person."
-        ctaLabel="Contact us"
+        body="Contact DirectMed Group to discuss product information, distribution opportunities or market availability."
+        ctaLabel="Contact DMG"
         ctaHref="/contact"
       />
     </>

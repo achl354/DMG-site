@@ -38,7 +38,7 @@ export function EnquiryForm({ defaultProduct }: EnquiryFormProps) {
   if (status === "success") {
     return (
       <Alert tone="success" title="Enquiry sent">
-        Thanks — a member of the JD Healthcare Group team will be in touch shortly.
+        Thank you. Your enquiry has been submitted to DirectMed Group.
       </Alert>
     );
   }
@@ -87,7 +87,7 @@ export function EnquiryForm({ defaultProduct }: EnquiryFormProps) {
       <Checkbox
         name="consent"
         required
-        label="I consent to JD Healthcare Group contacting me about this enquiry."
+        label="I agree that DirectMed Group may use the information provided to respond to this enquiry in accordance with its Privacy Policy."
       />
 
       <Button type="submit" size="lg" disabled={status === "submitting"}>

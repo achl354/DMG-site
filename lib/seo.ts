@@ -29,9 +29,9 @@ export function organizationJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "JD Healthcare Group",
+    name: "DirectMed Group",
     url: SITE_URL,
     description:
-      "Australian distributor of EasiSystem™ patient-handling equipment, manufactured by DirectMed Group (DMG).",
+      "Developer and manufacturer of the EasiSystem™ patient-handling portfolio.",
   };
 }

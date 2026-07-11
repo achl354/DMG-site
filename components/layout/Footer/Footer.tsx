@@ -13,7 +13,7 @@ export function Footer() {
         <div className={styles.brandCol}>
           <Image
             src="/logos/dmg-official-white.svg"
-            alt="DMG / EasiSystem"
+            alt="DirectMed Group / EasiSystem"
             width={140}
             height={32}
           />
@@ -33,18 +33,32 @@ export function Footer() {
           </ul>
         </nav>
 
+        <nav className={styles.navCol} aria-label="Legal">
+          <span className={styles.colLabel}>Legal</span>
+          <ul>
+            <li>
+              <Link href="/privacy" className={styles.navLink}>
+                Privacy
+              </Link>
+            </li>
+            <li>
+              <Link href="/terms" className={styles.navLink}>
+                Website terms
+              </Link>
+            </li>
+          </ul>
+        </nav>
+
         <div className={styles.contactCol}>
-          <span className={styles.colLabel}>Distributed in Australia by</span>
-          <p>JD Healthcare Group</p>
-          <span className={styles.colLabel}>Manufactured by</span>
-          <p>DirectMed Group (DMG)</p>
+          <span className={styles.colLabel}>DirectMed Group</span>
+          <p>Developer and manufacturer of the EasiSystem™ patient-handling portfolio.</p>
         </div>
       </Container>
 
       <Container size="xl">
         <p className={styles.legal}>
-          &copy; {year} JD Healthcare Group. EasiSystem™ and all product names are
-          trademarks of DirectMed Group.
+          &copy; {year} DirectMed Group. EasiSystem™ and associated product names
+          are trademarks of DirectMed Group.
         </p>
       </Container>
     </footer>

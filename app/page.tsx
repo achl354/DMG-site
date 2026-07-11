@@ -7,9 +7,9 @@ import { buildMetadata } from "@/lib/seo";
 import styles from "./page.module.css";
 
 export const metadata = buildMetadata({
-  title: "DMG / EasiSystem™ — Every Move Matters.",
+  title: "EasiSystem™ Patient Handling Products | DirectMed Group",
   description:
-    "EasiSystem™ patient-handling equipment from DirectMed Group (DMG), distributed in Australia by JD Healthcare Group.",
+    "Explore DirectMed Group's EasiSystem™ portfolio of patient transfer, floor recovery, repositioning, sling, turning and supporting equipment solutions.",
   path: "/",
 });
 
@@ -39,27 +39,31 @@ export default function Home() {
             </Reveal>
             <Reveal delay={0.16}>
               <p className={styles.subhead}>
-                Standing, transfer, lifting and repositioning equipment built to work
-                together across a ward, not just sit side by side.
+                A coordinated patient-handling portfolio supporting transfer, floor
+                recovery, repositioning, turning and lifting workflows.
+              </p>
+            </Reveal>
+            <Reveal delay={0.2}>
+              <p className={styles.body}>
+                Developed by DirectMed Group, EasiSystem™ brings together
+                air-assisted devices, slings, transfer aids, positioning products
+                and supporting equipment within one clearly structured portfolio.
               </p>
             </Reveal>
             <Reveal delay={0.24}>
               <div className={styles.ctaRow}>
-                <Link href="/contact">
-                  <Button size="lg">Enquire now</Button>
+                <Link href="/products">
+                  <Button size="lg">Explore products</Button>
                 </Link>
                 <Link href="/workflows">
                   <Button variant="secondary" size="lg">
-                    View workflows
+                    Explore workflows
                   </Button>
                 </Link>
               </div>
             </Reveal>
             <Reveal delay={0.32}>
-              <p className={styles.trust}>
-                Manufactured by DirectMed Group (DMG) &middot; distributed in Australia
-                by JD Healthcare Group
-              </p>
+              <p className={styles.trust}>Designed and manufactured by DirectMed Group.</p>
             </Reveal>
           </div>
         </Container>
@@ -73,7 +77,7 @@ export default function Home() {
         <Container size="xl">
           <Reveal>
             <div className={styles.gridHeader}>
-              <h2 className={styles.gridHeading}>The range, by workflow</h2>
+              <h2 className={styles.gridHeading}>One portfolio. Multiple patient-handling workflows.</h2>
               <Link href="/workflows" className={styles.gridLink}>
                 View all workflows
               </Link>
@@ -96,18 +100,18 @@ export default function Home() {
       <Reveal>
         <StatsBand
           stats={[
-            { value: "6", label: "EasiSystem™ workflows" },
-            { value: "9", label: "Product lines across the range" },
-            { value: "1", label: "Distributor for Australia — JD Healthcare Group" },
+            { value: "6", label: "Patient-handling workflow categories" },
+            { value: "9", label: "Product lines across the EasiSystem™ range" },
+            { value: "1", label: "Coordinated patient-handling portfolio" },
           ]}
         />
       </Reveal>
 
       <Reveal>
         <CTASection
-          heading="Talk to us about your ward's case mix"
-          body="A short conversation about how patients actually move through your facility gets you to the right equipment mix faster than a spec sheet alone."
-          ctaLabel="Enquire now"
+          heading="Discuss your patient-handling requirements"
+          body="Tell us about the patient cohort, care environment and workflow you need to support. The DirectMed Group team can help identify relevant product information and suitable next steps."
+          ctaLabel="Contact DMG"
           ctaHref="/contact"
         />
       </Reveal>

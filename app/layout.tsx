@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     template: "%s | DMG / EasiSystem™",
   },
   description:
-    "EasiSystem™ patient-handling equipment from DirectMed Group (DMG), distributed in Australia by JD Healthcare Group.",
+    "Explore DirectMed Group's EasiSystem™ portfolio of patient transfer, floor recovery, repositioning, sling, turning and supporting equipment solutions.",
 };
 
 export default function RootLayout({

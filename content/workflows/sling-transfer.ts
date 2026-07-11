@@ -6,6 +6,6 @@ export const slingTransfer: Workflow = {
   familyName: "EasiSling™",
   title: "Sling-based patient transfer",
   summary:
-    "EasiSling™ is part of the EasiSystem™ ecosystem's sling transfer workflow, alongside EasiMove™, EasiLift™, EasiSlide™, EasiGlide™, EasiAir™ and EasiCart™. Detailed product specifications for this line are being finalised.",
+    "EasiSling™ is being developed as part of the EasiSystem™ sling transfer range, alongside EasiMove™, EasiLift™, EasiSlide™, EasiGlide™, EasiAir™ and EasiCart™. Product specifications and availability information will be published when finalised.",
   products: ["easisling"],
 };

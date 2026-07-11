@@ -5,7 +5,6 @@ const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "md", "mdx"],
   async redirects() {
     return [
-      { source: "/products", destination: "/workflows", permanent: true },
       {
         source: "/products/easimove-spu",
         destination: "/workflows/lateral-transfer/easimove-spu",

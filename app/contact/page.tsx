@@ -2,13 +2,13 @@ import { EyebrowHeading } from "@/components/ui";
 import { Section, Container } from "@/components/layout";
 import { EnquiryForm } from "@/components/marketing";
 import { buildMetadata } from "@/lib/seo";
-import { SALES_EMAIL, SALES_PHONE, SALES_PHONE_HREF } from "@/lib/constants";
+import { SALES_EMAIL } from "@/lib/constants";
 import styles from "./page.module.css";
 
 export const metadata = buildMetadata({
   title: "Contact",
   description:
-    "Get in touch with JD Healthcare Group about the EasiSystem™ patient-handling range.",
+    "Contact DirectMed Group for product information, technical documentation, market availability or general enquiries about the EasiSystem™ portfolio.",
   path: "/contact",
 });
 
@@ -24,8 +24,8 @@ export default async function ContactPage({
       <Container size="lg">
         <EyebrowHeading
           eyebrow="Contact"
-          heading="Get in touch"
-          body="Send us your requirements and we'll follow up with the right product configuration and a formal quote."
+          heading="Contact DirectMed Group"
+          body="Contact us for product information, technical documentation, market availability, distribution enquiries or general information about the EasiSystem™ portfolio."
           className={styles.heading}
         />
 
@@ -38,17 +38,17 @@ export default async function ContactPage({
               <p className={styles.detailValue}>
                 <a href={`mailto:${SALES_EMAIL}`}>{SALES_EMAIL}</a>
               </p>
-              <p className={styles.detailValue}>
-                <a href={`tel:${SALES_PHONE_HREF}`}>{SALES_PHONE}</a>
-              </p>
-            </div>
-            <div className={styles.detailBlock}>
-              <p className={styles.detailLabel}>Distributor — Australia</p>
-              <p className={styles.detailValue}>JD Healthcare Group</p>
             </div>
             <div className={styles.detailBlock}>
               <p className={styles.detailLabel}>Manufacturer</p>
-              <p className={styles.detailValue}>DirectMed Group (DMG)</p>
+              <p className={styles.detailValue}>DirectMed Group</p>
+            </div>
+            <div className={styles.detailBlock}>
+              <p className={styles.detailValueSmall}>
+                Products shown may not be available or approved in all
+                countries. Contact DirectMed Group for current market-specific
+                information.
+              </p>
             </div>
           </div>
         </div>

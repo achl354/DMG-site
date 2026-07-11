@@ -6,6 +6,6 @@ export const turningPositioning: Workflow = {
   familyName: "EasiTurn™",
   title: "Turning and positioning support",
   summary:
-    "EasiTurn™ is part of the EasiSystem™ ecosystem's turning and positioning workflow, alongside EasiMove™, EasiLift™, EasiSlide™, EasiGlide™, EasiAir™ and EasiCart™. Detailed product specifications for this line are being finalised.",
+    "EasiTurn™ is being developed as part of the EasiSystem™ turning and positioning range, alongside EasiMove™, EasiLift™, EasiSlide™, EasiGlide™, EasiAir™ and EasiCart™. Product specifications and availability information will be published when finalised.",
   products: ["easiturn"],
 };
