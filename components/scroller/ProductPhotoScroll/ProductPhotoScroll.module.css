@@ -1,0 +1,61 @@
+.track {
+  position: relative;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  aspect-ratio: 16 / 9;
+}
+
+.staticStage {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  aspect-ratio: 16 / 9;
+  margin: 0 auto;
+}
+
+.frame {
+  position: absolute;
+  inset: 0;
+}
+
+.image {
+  object-fit: contain;
+  border-radius: var(--radius-lg);
+}
+
+.dots {
+  position: absolute;
+  bottom: -32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--space-2);
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--border-tint);
+  transition: background-color var(--duration-base) var(--ease-out),
+    width var(--duration-base) var(--ease-out);
+}
+
+.dotActive {
+  width: 18px;
+  background: var(--brand);
+}

@@ -4,6 +4,7 @@ import { SizeBadge, Card, Badge } from "@/components/ui";
 import { Section, Container } from "@/components/layout";
 import { ProductCard, CTASection } from "@/components/marketing";
 import { ProductWordmark3D } from "@/components/scroller/ProductWordmark3D/ProductWordmark3D";
+import { ProductPhotoScroll } from "@/components/scroller/ProductPhotoScroll/ProductPhotoScroll";
 import {
   getAllProducts,
   getProductBySlug,
@@ -11,6 +12,7 @@ import {
   PRODUCT_STATUS_LABELS,
 } from "@/lib/content/products";
 import { getWorkflowBySlug } from "@/lib/content/workflows";
+import { PRODUCT_PHOTO_SCENES } from "@/lib/content/assets";
 import { buildMetadata } from "@/lib/seo";
 import styles from "./page.module.css";
 
@@ -58,6 +60,7 @@ export default async function ProductDetailPage({
 
   const workflow = getWorkflowBySlug(workflowSlug);
   const related = getRelatedProducts(product.slug);
+  const photoScenes = PRODUCT_PHOTO_SCENES[product.slug];
 
   return (
     <>
@@ -69,7 +72,11 @@ export default async function ProductDetailPage({
             </Link>
           )}
 
-          <ProductWordmark3D name={product.name} svgSrc={product.wordmarkSvg} />
+          {photoScenes ? (
+            <ProductPhotoScroll frames={photoScenes} name={product.name} />
+          ) : (
+            <ProductWordmark3D name={product.name} svgSrc={product.wordmarkSvg} />
+          )}
           <p className={styles.category}>{product.category}</p>
           <h1 className={styles.tagline}>{product.tagline}</h1>
           {product.status && (
