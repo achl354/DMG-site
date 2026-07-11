@@ -1,0 +1,56 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  aspect-ratio: 16 / 9;
+}
+
+.frame {
+  position: absolute;
+  inset: 0;
+}
+
+.image {
+  object-fit: contain;
+  border-radius: var(--radius-lg);
+}
+
+.thumbRow {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.thumb {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-md);
+  border: 2px solid transparent;
+  overflow: hidden;
+  background: var(--surface-tint);
+  cursor: pointer;
+  padding: 0;
+  opacity: 0.6;
+  transition: border-color var(--duration-base) var(--ease-out),
+    opacity var(--duration-base) var(--ease-out);
+}
+
+.thumb:hover {
+  opacity: 0.85;
+}
+
+.thumbActive {
+  border-color: var(--brand);
+  opacity: 1;
+}
+
+.thumbImage {
+  object-fit: cover;
+}

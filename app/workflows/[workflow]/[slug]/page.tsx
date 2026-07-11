@@ -2,9 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SizeBadge, Card, Badge } from "@/components/ui";
 import { Section, Container } from "@/components/layout";
-import { ProductCard, CTASection } from "@/components/marketing";
+import { ProductCard, CTASection, ProductPhotoGallery } from "@/components/marketing";
 import { ProductWordmark3D } from "@/components/scroller/ProductWordmark3D/ProductWordmark3D";
-import { ProductPhotoScroll } from "@/components/scroller/ProductPhotoScroll/ProductPhotoScroll";
 import {
   getAllProducts,
   getProductBySlug,
@@ -73,7 +72,7 @@ export default async function ProductDetailPage({
           )}
 
           {photoScenes ? (
-            <ProductPhotoScroll frames={photoScenes} name={product.name} />
+            <ProductPhotoGallery frames={photoScenes} name={product.name} />
           ) : (
             <ProductWordmark3D name={product.name} svgSrc={product.wordmarkSvg} />
           )}
