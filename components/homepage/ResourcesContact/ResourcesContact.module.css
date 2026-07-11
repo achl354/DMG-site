@@ -90,3 +90,28 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+
+/*
+ * "Request product information" is long enough at the button's default
+ * size/nowrap to overflow narrow phones and drag the whole page into
+ * horizontal scroll. Stack the CTAs full-width and let their labels wrap
+ * instead of forcing one line.
+ */
+@media (max-width: 640px) {
+  .ctaRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ctaRow > a {
+    display: block;
+    width: 100%;
+  }
+
+  .ctaPrimary,
+  .ctaSecondary {
+    width: 100%;
+    white-space: normal !important;
+    text-align: center;
+  }
+}
