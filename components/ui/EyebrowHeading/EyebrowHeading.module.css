@@ -26,8 +26,8 @@
 }
 
 .body {
-  font-size: var(--type-body-size);
-  line-height: var(--type-body-leading);
+  font-size: var(--type-lede-size);
+  line-height: var(--leading-snug);
   color: var(--text-body);
   max-width: 64ch;
 }

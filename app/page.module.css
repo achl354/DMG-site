@@ -51,14 +51,14 @@
 }
 
 .subhead {
-  font-size: var(--text-lg);
-  line-height: var(--leading-relaxed);
+  font-size: var(--type-lede-size);
+  line-height: var(--leading-snug);
   color: var(--text-body);
   max-width: 56ch;
 }
 
 .body {
-  font-size: var(--text-base);
+  font-size: var(--text-lg);
   line-height: var(--leading-relaxed);
   color: var(--text-body);
   max-width: 60ch;

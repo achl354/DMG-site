@@ -10,7 +10,8 @@
   cursor: pointer;
   transition: background-color var(--duration-base) var(--ease-out),
     border-color var(--duration-base) var(--ease-out),
-    color var(--duration-base) var(--ease-out);
+    color var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out);
   white-space: nowrap;
 }
 
@@ -54,9 +55,11 @@
 .secondary:hover:not(:disabled) {
   background: var(--surface-tint);
   border-color: var(--brand-hover);
+  transform: translateY(-1px);
 }
 .secondary:active:not(:disabled) {
   background: var(--teal-100);
+  transform: translateY(0);
 }
 
 .ghost {
@@ -66,6 +69,10 @@
 }
 .ghost:hover:not(:disabled) {
   background: var(--surface-well);
+  transform: translateY(-1px);
+}
+.ghost:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 /* Sizes */

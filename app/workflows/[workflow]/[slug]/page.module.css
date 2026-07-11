@@ -29,8 +29,8 @@
 }
 
 .summary {
-  font-size: var(--text-lg);
-  line-height: var(--leading-relaxed);
+  font-size: var(--type-lede-size);
+  line-height: var(--leading-snug);
   color: var(--text-body);
   max-width: 64ch;
   margin-top: var(--space-3);

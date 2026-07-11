@@ -19,6 +19,11 @@
 
 .wordmark {
   margin-top: var(--space-2);
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.link:hover .wordmark {
+  transform: scale(1.03);
 }
 
 .tagline {
