@@ -1,7 +1,14 @@
 import Link from "next/link";
 import { Tagline, Button } from "@/components/ui";
 import { Section, Container } from "@/components/layout";
-import { HeroSlot, WorkflowCard, StatsBand, CTASection, Reveal } from "@/components/marketing";
+import {
+  HeroSlot,
+  WorkflowJourney,
+  WorkflowCard,
+  StatsBand,
+  CTASection,
+  Reveal,
+} from "@/components/marketing";
 import { getAllWorkflows } from "@/lib/content/workflows";
 import { buildMetadata } from "@/lib/seo";
 import styles from "./page.module.css";
@@ -71,6 +78,10 @@ export default function Home() {
 
       <Section spacing="lg" surface="sunken">
         <HeroSlot />
+      </Section>
+
+      <Section spacing="lg" surface="page">
+        <WorkflowJourney workflows={workflows} />
       </Section>
 
       <Section spacing="lg" surface="page">
