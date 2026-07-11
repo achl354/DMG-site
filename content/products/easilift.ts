@@ -22,9 +22,5 @@ export const easilift: Product = {
     { label: "Safe working load", value: "453 kg" },
     { label: "Air supply compatibility", value: "EasiAir™ / HT-Air® 2300" },
     { label: "Classification", value: "Class I, non-sterile, non-measuring" },
-    {
-      label: "Trademark notice",
-      value: "HoverTech® and HT-Air® are registered trademarks of HoverTech International. Referenced here for compatibility purposes only.",
-    },
   ],
 };

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Button, SizeBadge, Card, Badge } from "@/components/ui";
+import { SizeBadge, Card, Badge } from "@/components/ui";
 import { Section, Container } from "@/components/layout";
 import { ProductCard, CTASection } from "@/components/marketing";
 import { ProductWordmark3D } from "@/components/scroller/ProductWordmark3D/ProductWordmark3D";
@@ -84,12 +84,6 @@ export default async function ProductDetailPage({
               ))}
             </div>
           )}
-
-          <Link href={`/contact?product=${product.slug}`}>
-            <Button size="lg">
-              {product.status ? `Register interest — ${product.name}` : `Request information — ${product.name}`}
-            </Button>
-          </Link>
         </Container>
       </Section>
 

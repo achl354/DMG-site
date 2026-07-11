@@ -21,9 +21,5 @@ export const easimovePro: Product = {
     { label: "Construction", value: "RF-welded / heat-sealed, nylon twill" },
     { label: "Safe working load", value: "453 kg" },
     { label: "Air supply compatibility", value: "EasiAir™ / HT-Air® 2300" },
-    {
-      label: "Trademark notice",
-      value: "HoverTech® and HT-Air® are registered trademarks of HoverTech International. Referenced here for compatibility purposes only.",
-    },
   ],
 };

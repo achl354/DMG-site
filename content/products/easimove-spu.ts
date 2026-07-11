@@ -28,9 +28,5 @@ export const easimoveSpu: Product = {
     { label: "Safe working load", value: "453 kg" },
     { label: "Air supply compatibility", value: "EasiAir™ / HT-Air® 2300" },
     { label: "Configurations", value: "Standard, Split-Leg, Mini" },
-    {
-      label: "Trademark notice",
-      value: "HoverTech® and HT-Air® are registered trademarks of HoverTech International. Referenced here for compatibility purposes only.",
-    },
   ],
 };
