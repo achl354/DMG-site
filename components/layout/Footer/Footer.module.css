@@ -20,11 +20,6 @@
   gap: var(--space-3);
 }
 
-.tagline {
-  font-size: var(--text-sm);
-  color: var(--paper-300);
-}
-
 .colLabel {
   display: block;
   font-size: var(--text-2xs);

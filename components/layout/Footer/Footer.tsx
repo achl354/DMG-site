@@ -12,12 +12,11 @@ export function Footer() {
       <Container size="xl" className={styles.inner}>
         <div className={styles.brandCol}>
           <Image
-            src="/logos/dmg-official-white.svg"
-            alt="DirectMed Group / EasiSystem"
-            width={140}
-            height={32}
+            src="/logos/dmg-expanded-white.svg"
+            alt="DirectMed Group — Every Move Matters"
+            width={217}
+            height={36}
           />
-          <p className={styles.tagline}>Every Move Matters.</p>
         </div>
 
         <nav className={styles.navCol} aria-label="Footer">

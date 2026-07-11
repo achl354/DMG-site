@@ -25,9 +25,9 @@ export function Header() {
       <Container size="xl" className={styles.bar}>
         <Link href="/" className={styles.logo} onClick={() => setMobileOpen(false)}>
           <Image
-            src="/logos/dmg-official-teal.svg"
-            alt="DMG / EasiSystem"
-            width={140}
+            src="/logos/dmg-expanded-teal.svg"
+            alt="DMG / DirectMed Group — Every Move Matters"
+            width={193}
             height={32}
             priority
           />
