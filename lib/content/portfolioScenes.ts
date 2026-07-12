@@ -1,11 +1,3 @@
-export type PortfolioMotionType =
-  | "portfolio"
-  | "horizontal"
-  | "vertical"
-  | "diagonal"
-  | "curve"
-  | "docking";
-
 export interface PortfolioScene {
   id: string;
   number?: string;
@@ -15,7 +7,6 @@ export interface PortfolioScene {
   activeProductIds: string[];
   /** Product slugs kept visible alongside the active ones, at reduced prominence. */
   secondaryProductIds?: string[];
-  motionType: PortfolioMotionType;
   workflowUrl?: string;
   ctaLabel?: string;
   ctaHref?: string;
@@ -24,9 +15,9 @@ export interface PortfolioScene {
 }
 
 /**
- * The eight states of the homepage product-range scroll. Deliberately its
+ * The eight cards in the homepage product-range overview. Deliberately its
  * own data shape rather than reusing content/workflows -- these scenes group
- * products by what the *scene* shows, which doesn't line up 1:1 with the
+ * products by what the *card* shows, which doesn't line up 1:1 with the
  * catalogue's workflow groupings (e.g. scene 4 spans EasiTurn, EasiSlide and
  * EasiMove together; EasiGlide gets its own scene despite sharing a
  * catalogue workflow with EasiSlide).
@@ -48,7 +39,6 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
       "easiglide",
       "easicart",
     ],
-    motionType: "portfolio",
     ctaLabel: "View all products",
     ctaHref: "/products",
   },
@@ -60,7 +50,6 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
       "Air-assisted products supporting surface-to-surface lateral transfer, repositioning and bed boosting.",
     activeProductIds: ["easimove-spu", "easimove-pro"],
     secondaryProductIds: ["easiair"],
-    motionType: "horizontal",
     workflowUrl: "/workflows/lateral-transfer",
     ctaLabel: "Explore lateral transfer",
     ctaHref: "/workflows/lateral-transfer",
@@ -73,7 +62,6 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
       "Air-assisted equipment supporting controlled recovery from floor level and elevation to an appropriate transfer height.",
     activeProductIds: ["easilift"],
     secondaryProductIds: ["easiair"],
-    motionType: "vertical",
     workflowUrl: "/workflows/floor-recovery",
     ctaLabel: "Explore floor recovery",
     ctaHref: "/workflows/floor-recovery",
@@ -86,7 +74,6 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
       "Products supporting repositioning, bed boosting, controlled turning, hygiene access and selected positioning workflows.",
     activeProductIds: ["easiturn", "easislide"],
     secondaryProductIds: ["easimove-spu", "easimove-pro"],
-    motionType: "diagonal",
     workflowUrl: "/workflows/turning-positioning",
     ctaLabel: "Explore repositioning and turning",
     ctaHref: "/workflows/turning-positioning",
@@ -98,7 +85,6 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
     description:
       "Sling configurations designed to support defined hoist-transfer, toileting and repositioning workflows.",
     activeProductIds: ["easisling"],
-    motionType: "curve",
     workflowUrl: "/workflows/sling-transfer",
     ctaLabel: "Explore hoist transfer",
     ctaHref: "/workflows/sling-transfer",
@@ -109,7 +95,6 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
     title: "Seated and surface transfer",
     description: "A rigid transfer aid supporting selected seated and surface-to-surface transfer requirements.",
     activeProductIds: ["easiglide"],
-    motionType: "horizontal",
     workflowUrl: "/workflows/manual-handling-support",
     ctaLabel: "Explore seated transfer",
     ctaHref: "/workflows/manual-handling-support",
@@ -120,7 +105,6 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
     description:
       "EasiAir™ air supplies and EasiCart™ storage solutions support compatible product operation, accessibility and equipment readiness.",
     activeProductIds: ["easiair", "easicart"],
-    motionType: "docking",
     workflowUrl: "/workflows/support-equipment",
     ctaLabel: "Explore supporting equipment",
     ctaHref: "/workflows/support-equipment",
@@ -140,7 +124,6 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
       "easiglide",
       "easicart",
     ],
-    motionType: "portfolio",
     ctaLabel: "View all products",
     ctaHref: "/products",
     secondaryCtaLabel: "Explore all workflows",

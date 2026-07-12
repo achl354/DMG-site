@@ -9,46 +9,47 @@ import { PRODUCT_WORDMARKS } from "@/lib/content/assets";
 import { getProductBySlug } from "@/lib/content/products";
 import type { PortfolioScene } from "@/lib/content/portfolioScenes";
 import { ProductCardContent } from "@/components/portfolio/ProductCardContent";
-import styles from "./PortfolioStackedFallback.module.css";
+import styles from "./PortfolioCards.module.css";
 
 const EASIMOVE_SPU_PHOTO = "/products/easimove-spu/scroll/01-hero.png";
 const VIEW_DWELL_MS = 1000;
 
-export interface PortfolioStackedFallbackProps {
+export interface PortfolioCardsProps {
   scenes: PortfolioScene[];
+  reducedMotion?: boolean;
 }
 
 /**
- * Mobile, reduced-motion and no-WebGL fallback: normal stacked document
- * scroll, one simplified product visual per scene, no pinning or scrubbed
- * camera movement -- fade/pan/scale only, and only once per scene.
+ * The product-range overview: one card per scene, in a plain document-flow
+ * grid (single column on mobile, two columns on desktop) -- no pinning,
+ * scrubbed camera or 3D scene.
  */
-export function PortfolioStackedFallback({ scenes }: PortfolioStackedFallbackProps) {
+export function PortfolioCards({ scenes, reducedMotion = false }: PortfolioCardsProps) {
   return (
     <Container size="xl">
       <div className={styles.list}>
         {scenes.map((scene) => (
-          <StackedScene key={scene.id} scene={scene} />
+          <SceneCard key={scene.id} scene={scene} reducedMotion={reducedMotion} />
         ))}
       </div>
     </Container>
   );
 }
 
-function StackedScene({ scene }: { scene: PortfolioScene }) {
+function SceneCard({ scene, reducedMotion }: { scene: PortfolioScene; reducedMotion: boolean }) {
   const visualIds = scene.activeProductIds.slice(0, 3);
 
   return (
     <motion.div
       className={styles.scene}
-      initial={{ opacity: 0, y: 20, scale: 0.98 }}
+      initial={reducedMotion ? false : { opacity: 0, y: 20, scale: 0.98 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       // amount is a fraction of this card's OWN height, not the viewport --
       // these cards can run taller than the viewport on mobile, so a 0.5
       // threshold left the card invisible for up to half its height of
       // scrolling after its top edge appeared, reading as a blank gap.
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.4 }}
+      transition={{ duration: reducedMotion ? 0 : 0.4 }}
       onViewportEnter={() => {
         window.setTimeout(() => {
           trackEvent("workflow_scene_viewed", { scene: scene.id });

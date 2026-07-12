@@ -102,4 +102,8 @@
   .glow {
     display: none;
   }
+
+  .tagline {
+    font-size: var(--text-5xl);
+  }
 }
