@@ -119,7 +119,6 @@
   .productImage {
     width: min(54vw, 620px);
     margin-right: -6%;
-    transform: rotate(-2deg);
     filter: drop-shadow(0 32px 40px rgba(18, 65, 58, 0.16));
   }
 }

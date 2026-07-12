@@ -3,6 +3,20 @@
 /* The DMG brand system is light-mode only (no dark-mode variant is defined
    in the brand guidelines) -- deliberately no prefers-color-scheme block. */
 
+/* Mirrors Header.module.css's .bar height exactly -- keep both in sync.
+   Needed by any section that pins content under the sticky header (e.g.
+   EasiMoveScrollStory), since Header itself doesn't sit in an ancestor
+   relationship to those sections (both are siblings under body). */
+:root {
+  --header-height: 72px;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --header-height: 100px;
+  }
+}
+
 html {
   height: 100%;
 }

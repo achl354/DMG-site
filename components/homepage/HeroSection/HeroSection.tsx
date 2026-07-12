@@ -62,10 +62,10 @@ export function HeroSection() {
           style={{ y: parallaxY }}
         >
           <Image
-            src="/products/easimove-spu/hero-transparent.png"
-            alt="EasiMoveSPU single-patient-use air-assisted lateral transfer mattress"
-            width={1330}
-            height={1263}
+            src="/images/easimove-scroll/rotation/01_hero_front_original.webp"
+            alt="EasiMoveSPU™ single-patient-use air-assisted lateral transfer mattress"
+            width={1600}
+            height={1600}
             priority
             sizes="(max-width: 1023px) 100vw, 58vw"
             className={styles.productImage}
