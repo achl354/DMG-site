@@ -40,7 +40,7 @@
 }
 
 .browseCta {
-  margin-top: var(--space-3);
+  margin-top: auto;
 }
 
 .heading {
@@ -60,7 +60,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-4);
-  margin-top: var(--space-3);
+  margin-top: auto;
 }
 
 /* Both CTAs read as the same solid white button as "Browse resources" --
