@@ -200,39 +200,49 @@ function HeroRotatingVisual() {
     <div ref={wrapRef} className={styles.visualWrap}>
       <div className={styles.visual}>
         <div className={styles.glow} aria-hidden="true" />
-        <div className={styles.frameStack}>
-          {/* Frame 0 uses next/image with priority since it's the hero's
-              likely LCP element; the rest are plain <img>s stacked on top,
-              matching the crossfade approach the merged-in scroll story used. */}
-          <Image
-            src={IMAGE_FRAMES[0].src}
-            alt={IMAGE_FRAMES[0].alt}
-            width={1600}
-            height={1600}
-            priority
-            sizes="(max-width: 1023px) 100vw, 58vw"
-            className={styles.frame}
-            style={{ opacity: activeImageId === IMAGE_FRAMES[0].id ? 1 : 0 }}
-          />
-          {IMAGE_FRAMES.slice(1).map((frame) => (
-            // eslint-disable-next-line @next/next/no-img-element -- all remaining frames must mount as plain <img>s upfront for the crossfade stack; next/image's lazy-loading would fight the manual preload above
-            <img
-              key={frame.id}
-              src={frame.src}
-              alt={frame.id === activeImageId ? frame.alt : ""}
+        {/*
+         * Framed deliberately (white card, real border) rather than trying
+         * to colour-match the page background -- real-device screenshots
+         * showed a visible edge even though this component's own webp
+         * background and the page's --surface-page are pixel-identical in
+         * every render test here, most likely a device-level colour/webp
+         * decoding difference that can't be reliably chased in CSS. An
+         * intentional frame reads as a design choice either way.
+         */}
+        <div className={styles.imageCard}>
+          <div className={styles.frameStack}>
+            {/* Frame 0 uses next/image with priority since it's the hero's
+                likely LCP element; the rest are plain <img>s stacked on top,
+                matching the crossfade approach the merged-in scroll story used. */}
+            <Image
+              src={IMAGE_FRAMES[0].src}
+              alt={IMAGE_FRAMES[0].alt}
+              width={1600}
+              height={1600}
+              priority
+              sizes="(max-width: 1023px) 100vw, 58vw"
               className={styles.frame}
-              style={{ opacity: frame.id === activeImageId ? 1 : 0 }}
+              style={{ opacity: activeImageId === IMAGE_FRAMES[0].id ? 1 : 0 }}
             />
-          ))}
+            {IMAGE_FRAMES.slice(1).map((frame) => (
+              // eslint-disable-next-line @next/next/no-img-element -- all remaining frames must mount as plain <img>s upfront for the crossfade stack; next/image's lazy-loading would fight the manual preload above
+              <img
+                key={frame.id}
+                src={frame.src}
+                alt={frame.id === activeImageId ? frame.alt : ""}
+                className={styles.frame}
+                style={{ opacity: frame.id === activeImageId ? 1 : 0 }}
+              />
+            ))}
+          </div>
         </div>
 
         {/* Inside .visual (not a sibling) so it stays pinned alongside the
-            image the whole time, rather than scrolling away separately. */}
+            image the whole time, rather than scrolling away separately.
+            Width-only now -- this component never renders at desktop
+            widths anymore, so there's no vertical-bar variant to support. */}
         <div className={styles.progressTrack} aria-hidden="true">
-          <div
-            className={styles.progressFill}
-            style={{ width: `${progressPercent}%`, height: `${progressPercent}%` }}
-          />
+          <div className={styles.progressFill} style={{ width: `${progressPercent}%` }} />
         </div>
       </div>
     </div>
