@@ -58,18 +58,20 @@ export function WhyEasiSystem() {
         <div className={styles.grid}>
           {PILLARS.map((pillar) => (
             <div key={pillar.title} className={styles.pillar}>
-              <svg
-                className={styles.icon}
-                width="28"
-                height="28"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                aria-hidden="true"
-              >
-                {pillar.icon}
-              </svg>
+              <div className={styles.iconBadge}>
+                <svg
+                  className={styles.icon}
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  aria-hidden="true"
+                >
+                  {pillar.icon}
+                </svg>
+              </div>
               <h3 className={styles.title}>{pillar.title}</h3>
               <p className={styles.body}>{pillar.body}</p>
             </div>

@@ -15,12 +15,22 @@
   gap: var(--space-3);
 }
 
-.icon {
-  color: var(--brand);
+.iconBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--surface-tint);
   transition: transform var(--duration-base) var(--ease-out);
 }
 
-.pillar:hover .icon {
+.icon {
+  color: var(--brand);
+}
+
+.pillar:hover .iconBadge {
   transform: translateY(-2px);
 }
 
@@ -50,7 +60,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .icon {
+  .iconBadge {
     transition-duration: 0.01ms;
   }
 }
