@@ -15,14 +15,14 @@ export interface PortfolioScene {
 }
 
 /**
- * The seven cards in the homepage product-range overview. Deliberately its
+ * The six cards in the homepage product-range overview. Deliberately its
  * own data shape rather than reusing content/workflows -- these scenes group
  * products by what the *card* shows, which doesn't line up 1:1 with the
  * catalogue's workflow groupings (e.g. scene 4 spans EasiTurn, EasiSlide and
  * EasiMove together; EasiGlide gets its own scene despite sharing a
- * catalogue workflow with EasiSlide). No standalone opening "full portfolio"
- * card -- the closing "reassembly" card already covers the complete range,
- * so an opening one just repeated it.
+ * catalogue workflow with EasiSlide). No opening or closing "full
+ * portfolio" card -- every product already appears in its own workflow
+ * card, so a card re-listing all nine again just repeated them.
  */
 export const PORTFOLIO_SCENES: PortfolioScene[] = [
   {
@@ -91,26 +91,6 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
     workflowUrl: "/workflows/support-equipment",
     ctaLabel: "Explore supporting equipment",
     ctaHref: "/workflows/support-equipment",
-  },
-  {
-    id: "reassembly",
-    title: "One coordinated EasiSystem™ portfolio.",
-    description: "Explore the complete range or start with the patient-handling workflow you need to support.",
-    activeProductIds: [
-      "easimove-spu",
-      "easimove-pro",
-      "easilift",
-      "easiair",
-      "easisling",
-      "easiturn",
-      "easislide",
-      "easiglide",
-      "easicart",
-    ],
-    ctaLabel: "View all products",
-    ctaHref: "/products",
-    secondaryCtaLabel: "Explore all workflows",
-    secondaryCtaHref: "/workflows",
   },
 ];
 
