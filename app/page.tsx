@@ -1,4 +1,10 @@
-import { HeroSection, PortfolioScrollSection, WhyEasiSystem, ResourcesContact } from "@/components/homepage";
+import {
+  HeroSection,
+  PortfolioScrollSection,
+  WhyEasiSystem,
+  ResourcesContact,
+  FloatingContactCta,
+} from "@/components/homepage";
 import { ReducedMotionProvider } from "@/components/motion/ReducedMotionProvider";
 import { getPortfolioScenes } from "@/lib/content/portfolioScenes";
 import { buildMetadata } from "@/lib/seo";
@@ -19,6 +25,7 @@ export default function Home() {
       <WhyEasiSystem />
       <PortfolioScrollSection scenes={scenes} />
       <ResourcesContact />
+      <FloatingContactCta />
     </ReducedMotionProvider>
   );
 }
