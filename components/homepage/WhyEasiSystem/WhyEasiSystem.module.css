@@ -2,6 +2,18 @@
   margin-bottom: var(--space-9);
 }
 
+/*
+ * Targets the eyebrow <p> structurally (EyebrowHeading's own first child)
+ * rather than touching --type-eyebrow-size, which is shared by every
+ * other eyebrow label on the site -- this is a scoped, desktop-only bump
+ * for this one section, not a global type-scale change.
+ */
+@media (min-width: 1024px) {
+  .heading > :first-child {
+    font-size: var(--text-md);
+  }
+}
+
 .grid {
   display: grid;
   grid-template-columns: 1fr;
