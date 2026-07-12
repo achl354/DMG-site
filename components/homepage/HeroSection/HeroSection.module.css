@@ -235,7 +235,11 @@
   background: var(--surface-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  padding: var(--space-6);
+  /* Tight on purpose -- the card stays inset from the screen edges like
+     the rest of the page (via Container's own gutter), but its own inner
+     padding is kept to a minimum so the image fills as much of the card
+     as possible without touching the border. */
+  padding: var(--space-2);
 }
 
 .frameStack {

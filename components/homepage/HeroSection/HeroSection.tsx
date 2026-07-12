@@ -36,10 +36,12 @@ interface ImageFrame {
  * rotation + 3 feature close-ups) -- hero, three-quarter and
  * near-side-profile dropped from the rotation (hero/three-quarter read as
  * near-duplicates back to back, near-side-profile was a jarring pose
- * jump), and head-outline dropped from the feature close-ups. This used
- * to be a separate section below the hero (EasiMoveScrollStory); it's
- * merged in here so the hero's own product image IS the scroll-driven
- * rotation, rather than showing the same opening frame twice back to back.
+ * jump), and head-outline dropped from the feature close-ups.
+ * foot-end-label is deliberately last in this list (not source order --
+ * centre-line comes before it) per explicit request. This used to be a
+ * separate section below the hero (EasiMoveScrollStory); it's merged in
+ * here so the hero's own product image IS the scroll-driven rotation,
+ * rather than showing the same opening frame twice back to back.
  */
 const IMAGE_FRAMES: ImageFrame[] = [
   { id: "slight-rotation", start: 0, end: 0.3, src: `${ROTATION_DIR}/04_slight_rotation.webp`, alt: HERO_ALT },
@@ -58,18 +60,18 @@ const IMAGE_FRAMES: ImageFrame[] = [
     alt: "Close-up of EasiMoveSPU™'s red perimeter transfer handles",
   },
   {
-    id: "foot-end-label",
+    id: "centre-line",
     start: 0.6,
     end: 0.8,
-    src: `${FEATURES_DIR}/02_foot_end_label.webp`,
-    alt: "Close-up of EasiMoveSPU™'s foot-end product label",
-  },
-  {
-    id: "centre-line",
-    start: 0.8,
-    end: 1.001,
     src: `${FEATURES_DIR}/04_centre_line.webp`,
     alt: "Close-up of EasiMoveSPU™'s centre alignment guide",
+  },
+  {
+    id: "foot-end-label",
+    start: 0.8,
+    end: 1.001,
+    src: `${FEATURES_DIR}/02_foot_end_label.webp`,
+    alt: "Close-up of EasiMoveSPU™'s foot-end product label",
   },
 ];
 
