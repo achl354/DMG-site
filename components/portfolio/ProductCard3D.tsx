@@ -4,7 +4,7 @@ import { useRef } from "react";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
-import { DAMP_LAMBDA } from "@/lib/motion";
+import { DAMP_LAMBDA, sceneBlendProgress } from "@/lib/motion";
 import { computeProductTransform } from "@/lib/content/portfolioLayout";
 import type { PortfolioScene } from "@/lib/content/portfolioScenes";
 import type { PortfolioScrollProgress } from "@/components/motion/usePortfolioScroll";
@@ -49,7 +49,7 @@ export function ProductCard3D({
     const nextScene = scenes[Math.min(scenes.length - 1, sceneIndex + 1)];
     const from = computeProductTransform(slug, currentScene);
     const to = computeProductTransform(slug, nextScene);
-    const t = sceneProgress;
+    const t = sceneBlendProgress(sceneProgress);
 
     const targetX = THREE.MathUtils.lerp(from.position.x, to.position.x, t);
     const targetY = THREE.MathUtils.lerp(from.position.y, to.position.y, t);

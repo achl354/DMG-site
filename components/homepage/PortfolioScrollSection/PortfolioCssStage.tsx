@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { damp, DAMP_LAMBDA } from "@/lib/motion";
+import { damp, DAMP_LAMBDA, sceneBlendProgress } from "@/lib/motion";
 import { computeProductTransform, type Vec3 } from "@/lib/content/portfolioLayout";
 import { PRODUCT_WORDMARKS } from "@/lib/content/assets";
 import { getAllProducts } from "@/lib/content/products";
@@ -62,7 +62,7 @@ export function PortfolioCssStage({ scenes, progressRef }: PortfolioCssStageProp
         const slug = product.slug;
         const from = computeProductTransform(slug, currentScene);
         const to = computeProductTransform(slug, nextScene);
-        const t = sceneProgress;
+        const t = sceneBlendProgress(sceneProgress);
 
         const targetPos = lerpVec3(from.position, to.position, t);
         const targetScale = from.scale + (to.scale - from.scale) * t;

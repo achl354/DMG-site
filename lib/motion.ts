@@ -22,3 +22,24 @@ export const DAMP_LAMBDA = 6;
 export function damp(current: number, target: number, lambda: number, dt: number) {
   return current + (target - current) * (1 - Math.exp(-lambda * dt));
 }
+
+/**
+ * Fraction of a portfolio scene's scroll range spent holding the current
+ * scene's arrangement before starting to blend toward the next one.
+ */
+const SCENE_BLEND_START = 0.7;
+
+/**
+ * Remaps raw scene progress (0..1 across a scene's whole scroll range) into
+ * the 0..1 blend amount used to lerp toward the next scene's product
+ * transform -- blending across the entire range made the visual arrangement
+ * preview the next scene while the text panel (which only switches at the
+ * scene boundary) still described the current one, so the two read as out of
+ * sync for most of each scene. Holding at 0 until SCENE_BLEND_START keeps the
+ * visual matching the current scene's text for most of its scroll range,
+ * with the blend now compressed into the final stretch.
+ */
+export function sceneBlendProgress(sceneProgress: number) {
+  if (sceneProgress <= SCENE_BLEND_START) return 0;
+  return (sceneProgress - SCENE_BLEND_START) / (1 - SCENE_BLEND_START);
+}
