@@ -92,10 +92,10 @@
 
 @media (min-width: 1024px) {
   .bar {
-    height: 84px;
+    height: 100px;
   }
 
   .logoImage {
-    height: 48px;
+    height: 56px;
   }
 }
