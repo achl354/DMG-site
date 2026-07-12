@@ -23,10 +23,16 @@
   box-shadow: var(--shadow-sm);
 }
 
+/*
+ * Fixed height, width auto -- a fixed square box would shrink the two-
+ * product icons (wider aspect ratio) to fit both dimensions, reading
+ * visibly smaller/lighter than the single-product icons. Height-only
+ * keeps every icon the same visual weight regardless of its own
+ * aspect ratio.
+ */
 .icon {
-  width: 64px;
-  height: 64px;
-  object-fit: contain;
+  height: 76px;
+  width: auto;
 }
 
 .number {

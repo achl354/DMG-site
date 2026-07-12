@@ -63,8 +63,8 @@ function SceneCard({ scene, reducedMotion }: { scene: PortfolioScene; reducedMot
         <Image
           src={scene.icon}
           alt=""
-          width={96}
-          height={96}
+          width={176}
+          height={176}
           className={styles.icon}
         />
       )}
