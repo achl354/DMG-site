@@ -27,7 +27,11 @@ export function ProductCardContent({ name, wordmarkSvg, photoSrc, status }: Prod
         </div>
       ) : (
         <div className={styles.wordmarkFrame}>
-          <ProductWordmark name={name} svgSrc={wordmarkSvg} height={28} />
+          {/* Text fallback is sized down from the SVG lockups' height --
+              this card's frame is a fixed 168px, and the fallback's
+              cap-height-matching multiplier (see ProductWordmark) would
+              otherwise run wider than that footprint. */}
+          <ProductWordmark name={name} svgSrc={wordmarkSvg} height={wordmarkSvg ? 28 : 20} />
         </div>
       )}
       {status !== "available" && (

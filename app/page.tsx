@@ -16,8 +16,8 @@ export default function Home() {
   return (
     <ReducedMotionProvider>
       <HeroSection />
-      <PortfolioScrollSection scenes={scenes} />
       <WhyEasiSystem />
+      <PortfolioScrollSection scenes={scenes} />
       <ResourcesContact />
     </ReducedMotionProvider>
   );

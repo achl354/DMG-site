@@ -43,7 +43,12 @@ export function ProductWordmark({
       className={[styles.textFallback, variant === "white" ? styles.white : styles.teal, className]
         .filter(Boolean)
         .join(" ")}
-      style={{ fontSize: height * 0.75 }}
+      // Matches the SVG lockups' cap-height at the same `height` -- a CSS
+      // font-size equal to `height` renders visually smaller than an image
+      // of that pixel height, since cap-height is only a fraction of the
+      // font's em box. Without this, products with no SVG (text fallback)
+      // read as noticeably smaller/lighter than their siblings.
+      style={{ fontSize: height * 1.3 }}
     >
       {hasEasiPrefix && <span className={styles.prefix}>{prefix}</span>}
       <span className={styles.suffix}>{rest}</span>

@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { Tagline, Button } from "@/components/ui";
 import { Section, Container } from "@/components/layout";
@@ -9,12 +8,7 @@ import { trackEvent } from "@/lib/analytics";
 import { SECTION_IDS, CTA_LABELS } from "@/lib/constants";
 import styles from "./HeroSection.module.css";
 
-/**
- * Homepage hero visual -- one controlled product composition (the supplied
- * EasiMoveSPU photo, cropped/positioned/shadowed via CSS only) rather than
- * the WebGL wordmark carousel this replaced. Loads as a static image so the
- * hero never waits on a 3D/motion bundle.
- */
+/** Homepage hero -- text and CTAs only, no product image. */
 export function HeroSection() {
   const reducedMotion = useReducedMotion();
 
@@ -54,19 +48,6 @@ export function HeroSection() {
             </Link>
           </div>
           <p className={styles.trust}>Designed and manufactured by DirectMed Group.</p>
-        </div>
-
-        <div className={styles.visual}>
-          <div className={styles.frame}>
-            <Image
-              src="/products/easimove-spu/scroll/01-hero.png"
-              alt="EasiMoveSPU single-patient-use air-assisted lateral transfer mattress"
-              fill
-              priority
-              sizes="(min-width: 1024px) 480px, 80vw"
-              className={styles.image}
-            />
-          </div>
         </div>
       </Container>
     </Section>
