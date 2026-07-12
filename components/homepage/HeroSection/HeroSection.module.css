@@ -146,6 +146,17 @@
   }
 
   /*
+   * The product photo itself has a sizeable transparent margin baked into
+   * the asset (it's framed for the desktop diagonal crop), which stacks
+   * with the grid gap below the CTA and reads as one large dead gap on a
+   * narrow single-column layout. Shrinking the gap here doesn't touch the
+   * asset, just the space the layout adds on top of it.
+   */
+  .inner {
+    gap: var(--space-6);
+  }
+
+  /*
    * At the shared .lg Button size (24px font, 16/40 padding) the label
    * alone runs close to full container width on a narrow phone, reading
    * as an oversized app-style action rather than a website CTA. Scale it
