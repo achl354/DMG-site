@@ -26,7 +26,6 @@ export function HeroSection() {
       <div className={styles.glow} aria-hidden="true" />
       <Container size="xl" className={styles.inner}>
         <div className={styles.copy}>
-          <p className={styles.eyebrow}>EasiSystem™ patient handling</p>
           <Tagline as="h1" className={styles.tagline} />
           <p className={styles.subhead}>
             A coordinated patient-handling portfolio supporting transfer, floor recovery,
