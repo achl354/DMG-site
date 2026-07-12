@@ -11,32 +11,21 @@ import { ProductChip } from "@/components/portfolio/ProductChip";
 import styles from "./PortfolioCards.module.css";
 
 const VIEW_DWELL_MS = 1000;
-const SUPPORTING_EQUIPMENT_ID = "supporting-equipment";
 
 export interface PortfolioCardsProps {
   scenes: PortfolioScene[];
   reducedMotion?: boolean;
 }
 
-/**
- * The product-range overview: the five clinical workflows as equal cards in
- * a responsive grid, plus supporting equipment (EasiAir/EasiCart) as a
- * separate full-width panel below -- it supports every workflow rather than
- * being one itself, so it shouldn't read as a sixth, equal card.
- */
+/** The product-range overview: six equal workflow cards, supporting equipment last. */
 export function PortfolioCards({ scenes, reducedMotion = false }: PortfolioCardsProps) {
-  const workflowScenes = scenes.filter((scene) => scene.id !== SUPPORTING_EQUIPMENT_ID);
-  const supportingScene = scenes.find((scene) => scene.id === SUPPORTING_EQUIPMENT_ID);
-
   return (
     <Container size="xl">
       <div className={styles.list}>
-        {workflowScenes.map((scene) => (
+        {scenes.map((scene) => (
           <WorkflowCard key={scene.id} scene={scene} reducedMotion={reducedMotion} />
         ))}
       </div>
-
-      {supportingScene && <SupportingEquipmentPanel scene={supportingScene} reducedMotion={reducedMotion} />}
     </Container>
   );
 }
@@ -107,37 +96,5 @@ function WorkflowCard({ scene, reducedMotion }: { scene: PortfolioScene; reduced
 
       <CardCta scene={scene} />
     </motion.article>
-  );
-}
-
-function SupportingEquipmentPanel({ scene, reducedMotion }: { scene: PortfolioScene; reducedMotion: boolean }) {
-  return (
-    <motion.section
-      className={styles.supportingPanel}
-      aria-labelledby="supporting-equipment-heading"
-      initial={reducedMotion ? false : { opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: reducedMotion ? 0 : 0.4 }}
-    >
-      <div className={styles.supportingPanelText}>
-        <h3 id="supporting-equipment-heading" className={styles.supportingPanelTitle}>
-          {scene.title}
-        </h3>
-        <p className={styles.description}>{scene.description}</p>
-        <CardCta scene={scene} />
-      </div>
-
-      <div className={styles.supportingPanelVisual}>
-        {scene.icon && <Image src={scene.icon} alt="" width={220} height={220} className={styles.icon} />}
-        <div className={styles.productRow}>
-          {scene.activeProductIds.map((slug) => {
-            const product = getProductBySlug(slug);
-            if (!product) return null;
-            return <ProductChip key={slug} name={product.name} status={product.status} tone="primary" />;
-          })}
-        </div>
-      </div>
-    </motion.section>
   );
 }

@@ -20,11 +20,13 @@ export interface PortfolioScene {
  * The six cards in the homepage product-range overview. Deliberately its
  * own data shape rather than reusing content/workflows -- these scenes group
  * products by what the *card* shows, which doesn't line up 1:1 with the
- * catalogue's workflow groupings (e.g. scene 4 spans EasiTurn, EasiSlide and
+ * catalogue's workflow groupings (e.g. scene 3 spans EasiTurn, EasiSlide and
  * EasiMove together; EasiGlide gets its own scene despite sharing a
  * catalogue workflow with EasiSlide). No opening or closing "full
  * portfolio" card -- every product already appears in its own workflow
- * card, so a card re-listing all nine again just repeated them.
+ * card, so a card re-listing all nine again just repeated them. Supporting
+ * equipment is the 6th and last card, numbered and styled the same as the
+ * other five workflows.
  */
 export const PORTFOLIO_SCENES: PortfolioScene[] = [
   {
@@ -91,6 +93,7 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
   },
   {
     id: "supporting-equipment",
+    number: "06",
     title: "Supporting equipment",
     description:
       "EasiAir™ air supplies and EasiCart™ storage solutions support compatible product operation, accessibility and equipment readiness.",
