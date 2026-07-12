@@ -6,11 +6,11 @@
 }
 
 .prefix {
-  font-weight: var(--weight-regular);
+  font-weight: var(--weight-light);
 }
 
 .suffix {
-  font-weight: var(--weight-extrabold);
+  font-weight: var(--weight-bold);
 }
 
 .teal {
