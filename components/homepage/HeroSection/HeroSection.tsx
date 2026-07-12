@@ -1,14 +1,17 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
+import { motion } from "framer-motion";
 import { Tagline, Button } from "@/components/ui";
 import { Section, Container } from "@/components/layout";
 import { useReducedMotion } from "@/components/motion/ReducedMotionProvider";
 import { trackEvent } from "@/lib/analytics";
+import { EASE_OUT } from "@/lib/motion";
 import { SECTION_IDS, CTA_LABELS } from "@/lib/constants";
 import styles from "./HeroSection.module.css";
 
-/** Homepage hero -- text and CTAs only, no product image. */
+/** Homepage hero -- text/CTAs on the left, one large EasiMoveSPU visual on the right. */
 export function HeroSection() {
   const reducedMotion = useReducedMotion();
 
@@ -49,6 +52,23 @@ export function HeroSection() {
           </div>
           <p className={styles.trust}>Designed and manufactured by DirectMed Group.</p>
         </div>
+
+        <motion.div
+          className={styles.visual}
+          initial={reducedMotion ? false : { opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, ease: EASE_OUT }}
+        >
+          <Image
+            src="/products/easimove-spu/hero-transparent.png"
+            alt="EasiMoveSPU single-patient-use air-assisted lateral transfer mattress"
+            width={1330}
+            height={1263}
+            priority
+            sizes="(max-width: 1023px) 100vw, 58vw"
+            className={styles.productImage}
+          />
+        </motion.div>
       </Container>
     </Section>
   );
