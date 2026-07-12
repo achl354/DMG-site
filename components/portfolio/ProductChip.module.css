@@ -11,12 +11,6 @@
   color: var(--brand);
 }
 
-.nameSupporting {
-  font-size: var(--text-sm);
-  font-weight: var(--weight-medium);
-  color: var(--teal-400);
-}
-
 .badge {
   font-size: 10px;
   font-weight: var(--weight-semibold);

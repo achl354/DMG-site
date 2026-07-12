@@ -76,23 +76,10 @@ function WorkflowCard({ scene, reducedMotion }: { scene: PortfolioScene; reduced
           {scene.activeProductIds.map((slug) => {
             const product = getProductBySlug(slug);
             if (!product) return null;
-            return <ProductChip key={slug} name={product.name} status={product.status} tone="primary" />;
+            return <ProductChip key={slug} name={product.name} status={product.status} />;
           })}
         </div>
       </div>
-
-      {scene.secondaryProductIds && scene.secondaryProductIds.length > 0 && (
-        <div className={styles.productsBlock}>
-          <span className={styles.productsLabel}>Supporting equipment</span>
-          <div className={styles.productRow}>
-            {scene.secondaryProductIds.map((slug) => {
-              const product = getProductBySlug(slug);
-              if (!product) return null;
-              return <ProductChip key={slug} name={product.name} status={product.status} tone="supporting" />;
-            })}
-          </div>
-        </div>
-      )}
 
       <CardCta scene={scene} />
     </motion.article>

@@ -5,8 +5,6 @@ export interface PortfolioScene {
   description: string;
   /** Product slugs brought to the foreground for this scene. */
   activeProductIds: string[];
-  /** Product slugs kept visible alongside the active ones, at reduced prominence. */
-  secondaryProductIds?: string[];
   /** Outline-style workflow illustration, extracted from the approved product catalogue. */
   icon?: string;
   workflowUrl?: string;
@@ -36,7 +34,6 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
     description:
       "Air-assisted products supporting surface-to-surface lateral transfer, repositioning and bed boosting.",
     activeProductIds: ["easimove-spu", "easimove-pro"],
-    secondaryProductIds: ["easiair"],
     icon: "/icons/workflow/lateral-transfer.png",
     workflowUrl: "/workflows/lateral-transfer",
     ctaLabel: "Explore lateral transfer",
@@ -49,7 +46,6 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
     description:
       "Air-assisted equipment supporting controlled recovery from floor level and elevation to an appropriate transfer height.",
     activeProductIds: ["easilift"],
-    secondaryProductIds: ["easiair"],
     icon: "/icons/workflow/floor-recovery.png",
     workflowUrl: "/workflows/floor-recovery",
     ctaLabel: "Explore floor recovery",
@@ -62,7 +58,6 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
     description:
       "Products supporting repositioning, bed boosting, controlled turning, hygiene access and selected positioning workflows.",
     activeProductIds: ["easiturn", "easislide"],
-    secondaryProductIds: ["easimove-spu", "easimove-pro"],
     icon: "/icons/workflow/turning-positioning.png",
     workflowUrl: "/workflows/turning-positioning",
     ctaLabel: "Explore repositioning and turning",
