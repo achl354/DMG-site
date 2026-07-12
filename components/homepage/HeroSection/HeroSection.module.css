@@ -148,16 +148,18 @@
   /*
    * At the shared .lg Button size (24px font, 16/40 padding) the label
    * alone runs close to full container width on a narrow phone, reading
-   * as an oversized app-style action rather than a website CTA. Override
-   * with !important -- .heroCta and .lg are equal-specificity single
-   * classes, so source order alone can't be relied on to win.
+   * as an oversized app-style action rather than a website CTA. Scale it
+   * down closer to the other homepage CTAs (Browse resources etc., .md
+   * size: 16px font, 12/24 padding). Override with !important -- .heroCta
+   * and .lg are equal-specificity single classes, so source order alone
+   * can't be relied on to win.
    */
   .heroCta {
-    min-height: 56px;
-    max-width: 82%;
-    padding: 0 24px !important;
-    font-size: 21px !important;
-    border-radius: var(--radius-md) !important;
-    box-shadow: 0 8px 18px rgba(0, 103, 95, 0.14) !important;
+    min-height: 48px;
+    max-width: 100%;
+    padding: 0 20px !important;
+    font-size: 17px !important;
+    border-radius: var(--radius-sm) !important;
+    box-shadow: 0 6px 14px rgba(0, 103, 95, 0.12) !important;
   }
 }
