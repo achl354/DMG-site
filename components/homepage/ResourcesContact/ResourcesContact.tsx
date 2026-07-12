@@ -48,12 +48,12 @@ export function ResourcesContact() {
           </p>
           <div className={styles.ctaRow}>
             <Link href="/contact" onClick={() => trackEvent("request_information_clicked")}>
-              <Button variant="secondary" size="lg" className={styles.ctaPrimary}>
+              <Button variant="secondary" size="md" className={styles.ctaPrimary}>
                 {CTA_LABELS.requestInformation}
               </Button>
             </Link>
             <Link href="/contact" onClick={() => trackEvent("contact_dmg_clicked")}>
-              <Button variant="secondary" size="lg" className={styles.ctaSecondary}>
+              <Button variant="secondary" size="md" className={styles.ctaSecondary}>
                 {CTA_LABELS.contactDmg}
               </Button>
             </Link>
