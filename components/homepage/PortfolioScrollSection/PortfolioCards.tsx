@@ -37,8 +37,6 @@ export function PortfolioCards({ scenes, reducedMotion = false }: PortfolioCards
 }
 
 function SceneCard({ scene, reducedMotion }: { scene: PortfolioScene; reducedMotion: boolean }) {
-  const visualIds = scene.activeProductIds.slice(0, 3);
-
   return (
     <motion.div
       className={styles.scene}
@@ -60,7 +58,7 @@ function SceneCard({ scene, reducedMotion }: { scene: PortfolioScene; reducedMot
       <h3 className={styles.title}>{scene.title}</h3>
 
       <div className={styles.visualRow}>
-        {visualIds.map((slug) => {
+        {scene.activeProductIds.map((slug) => {
           const product = getProductBySlug(slug);
           if (!product) return null;
           return (
@@ -75,16 +73,28 @@ function SceneCard({ scene, reducedMotion }: { scene: PortfolioScene; reducedMot
         })}
       </div>
 
-      <p className={styles.description}>{scene.description}</p>
-
-      {scene.activeProductIds.length > 0 && (
-        <p className={styles.productNames}>
-          {scene.activeProductIds
-            .map((slug) => getProductBySlug(slug)?.name)
-            .filter(Boolean)
-            .join(" · ")}
-        </p>
+      {scene.secondaryProductIds && scene.secondaryProductIds.length > 0 && (
+        <div className={styles.supportingGroup}>
+          <span className={styles.supportingLabel}>Supporting equipment</span>
+          <div className={styles.visualRow}>
+            {scene.secondaryProductIds.map((slug) => {
+              const product = getProductBySlug(slug);
+              if (!product) return null;
+              return (
+                <ProductCardContent
+                  key={slug}
+                  name={product.name}
+                  wordmarkSvg={PRODUCT_WORDMARKS[slug]}
+                  status={product.status}
+                  compact
+                />
+              );
+            })}
+          </div>
+        </div>
       )}
+
+      <p className={styles.description}>{scene.description}</p>
 
       {scene.ctaLabel && scene.ctaHref && (
         <div className={styles.ctaRow}>

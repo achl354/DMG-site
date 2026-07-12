@@ -108,10 +108,24 @@
     width: 100%;
   }
 
-  .ctaPrimary,
-  .ctaSecondary {
+  .ctaPrimary {
     width: 100%;
     white-space: normal !important;
     text-align: center;
+  }
+
+  /*
+   * Two equal-weight buttons read as competing CTAs on a narrow screen --
+   * demote the second to a plain text link (same destination either way),
+   * so there's one clear primary action.
+   */
+  .ctaSecondary {
+    width: auto;
+    align-self: center;
+    background: transparent !important;
+    border: none !important;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    padding: var(--space-2) 0 !important;
   }
 }

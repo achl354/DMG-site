@@ -55,6 +55,21 @@
   text-align: center;
 }
 
+/* Supporting equipment, not the workflow's primary product(s) -- smaller and lower-contrast, per the primary/supporting hierarchy. */
+.compact {
+  opacity: 0.75;
+}
+
+.compact .photoFrame {
+  width: 96px;
+  height: 120px;
+}
+
+.compact .wordmarkFrame {
+  width: 128px;
+  padding: var(--space-3) var(--space-4);
+}
+
 .statusBadge {
   font-size: 10px;
   font-weight: var(--weight-semibold);
