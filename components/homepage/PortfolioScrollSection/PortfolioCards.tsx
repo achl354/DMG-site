@@ -12,7 +12,6 @@ import type { PortfolioScene } from "@/lib/content/portfolioScenes";
 import { ProductCardContent } from "@/components/portfolio/ProductCardContent";
 import styles from "./PortfolioCards.module.css";
 
-const EASIMOVE_SPU_PHOTO = "/products/easimove-spu/scroll/01-hero.png";
 const VIEW_DWELL_MS = 1000;
 
 /** These two cards' supporting-equipment row is dropped on mobile only, to keep the stacked cards shorter. */
@@ -58,6 +57,8 @@ function SceneCard({ scene, reducedMotion }: { scene: PortfolioScene; reducedMot
         }, VIEW_DWELL_MS);
       }}
     >
+      {scene.number && <span className={styles.number}>{scene.number}</span>}
+      <h3 className={styles.title}>{scene.title}</h3>
       {scene.icon && (
         <Image
           src={scene.icon}
@@ -67,8 +68,6 @@ function SceneCard({ scene, reducedMotion }: { scene: PortfolioScene; reducedMot
           className={styles.icon}
         />
       )}
-      {scene.number && <span className={styles.number}>{scene.number}</span>}
-      <h3 className={styles.title}>{scene.title}</h3>
 
       <div className={styles.visualRow}>
         {scene.activeProductIds.map((slug) => {
@@ -79,7 +78,6 @@ function SceneCard({ scene, reducedMotion }: { scene: PortfolioScene; reducedMot
               key={slug}
               name={product.name}
               wordmarkSvg={PRODUCT_WORDMARKS[slug]}
-              photoSrc={slug === "easimove-spu" ? EASIMOVE_SPU_PHOTO : undefined}
               status={product.status}
             />
           );
