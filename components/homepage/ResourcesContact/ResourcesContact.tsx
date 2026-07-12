@@ -53,7 +53,7 @@ export function ResourcesContact() {
               </Button>
             </Link>
             <Link href="/contact" onClick={() => trackEvent("contact_dmg_clicked")}>
-              <Button variant="ghost" size="lg" className={styles.ctaSecondary}>
+              <Button variant="secondary" size="lg" className={styles.ctaSecondary}>
                 {CTA_LABELS.contactDmg}
               </Button>
             </Link>

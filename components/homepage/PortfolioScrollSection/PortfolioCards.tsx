@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui";
 import { Container } from "@/components/layout";
@@ -13,6 +14,9 @@ import styles from "./PortfolioCards.module.css";
 
 const EASIMOVE_SPU_PHOTO = "/products/easimove-spu/scroll/01-hero.png";
 const VIEW_DWELL_MS = 1000;
+
+/** These two cards' supporting-equipment row is dropped on mobile only, to keep the stacked cards shorter. */
+const HIDE_SUPPORTING_ON_MOBILE = new Set(["lateral-transfer", "floor-recovery"]);
 
 export interface PortfolioCardsProps {
   scenes: PortfolioScene[];
@@ -54,6 +58,15 @@ function SceneCard({ scene, reducedMotion }: { scene: PortfolioScene; reducedMot
         }, VIEW_DWELL_MS);
       }}
     >
+      {scene.icon && (
+        <Image
+          src={scene.icon}
+          alt=""
+          width={96}
+          height={96}
+          className={styles.icon}
+        />
+      )}
       {scene.number && <span className={styles.number}>{scene.number}</span>}
       <h3 className={styles.title}>{scene.title}</h3>
 
@@ -74,7 +87,11 @@ function SceneCard({ scene, reducedMotion }: { scene: PortfolioScene; reducedMot
       </div>
 
       {scene.secondaryProductIds && scene.secondaryProductIds.length > 0 && (
-        <div className={styles.supportingGroup}>
+        <div
+          className={[styles.supportingGroup, HIDE_SUPPORTING_ON_MOBILE.has(scene.id) && styles.supportingGroupHiddenMobile]
+            .filter(Boolean)
+            .join(" ")}
+        >
           <span className={styles.supportingLabel}>Supporting equipment</span>
           <div className={styles.visualRow}>
             {scene.secondaryProductIds.map((slug) => {

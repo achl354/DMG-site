@@ -23,6 +23,12 @@
   box-shadow: var(--shadow-sm);
 }
 
+.icon {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
 .number {
   font-family: var(--font-display);
   font-size: var(--text-2xl);
@@ -63,6 +69,18 @@
   letter-spacing: var(--tracking-wider);
   text-transform: uppercase;
   color: var(--text-muted);
+}
+
+/* Dropped on mobile only for the EasiMove/EasiLift cards, to keep those
+   stacked cards shorter -- still shown once the two-column grid kicks in. */
+.supportingGroupHiddenMobile {
+  display: none;
+}
+
+@media (min-width: 800px) {
+  .supportingGroupHiddenMobile {
+    display: flex;
+  }
 }
 
 .ctaRow {

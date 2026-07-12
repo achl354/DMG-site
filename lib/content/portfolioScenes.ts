@@ -7,6 +7,8 @@ export interface PortfolioScene {
   activeProductIds: string[];
   /** Product slugs kept visible alongside the active ones, at reduced prominence. */
   secondaryProductIds?: string[];
+  /** Outline-style workflow illustration, extracted from the approved product catalogue. */
+  icon?: string;
   workflowUrl?: string;
   ctaLabel?: string;
   ctaHref?: string;
@@ -33,6 +35,7 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
       "Air-assisted products supporting surface-to-surface lateral transfer, repositioning and bed boosting.",
     activeProductIds: ["easimove-spu", "easimove-pro"],
     secondaryProductIds: ["easiair"],
+    icon: "/icons/workflow/lateral-transfer.png",
     workflowUrl: "/workflows/lateral-transfer",
     ctaLabel: "Explore lateral transfer",
     ctaHref: "/workflows/lateral-transfer",
@@ -45,6 +48,7 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
       "Air-assisted equipment supporting controlled recovery from floor level and elevation to an appropriate transfer height.",
     activeProductIds: ["easilift"],
     secondaryProductIds: ["easiair"],
+    icon: "/icons/workflow/floor-recovery.png",
     workflowUrl: "/workflows/floor-recovery",
     ctaLabel: "Explore floor recovery",
     ctaHref: "/workflows/floor-recovery",
@@ -57,6 +61,7 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
       "Products supporting repositioning, bed boosting, controlled turning, hygiene access and selected positioning workflows.",
     activeProductIds: ["easiturn", "easislide"],
     secondaryProductIds: ["easimove-spu", "easimove-pro"],
+    icon: "/icons/workflow/turning-positioning.png",
     workflowUrl: "/workflows/turning-positioning",
     ctaLabel: "Explore repositioning and turning",
     ctaHref: "/workflows/turning-positioning",
@@ -68,6 +73,7 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
     description:
       "Sling configurations designed to support defined hoist-transfer, toileting and repositioning workflows.",
     activeProductIds: ["easisling"],
+    icon: "/icons/workflow/sling-transfer.png",
     workflowUrl: "/workflows/sling-transfer",
     ctaLabel: "Explore hoist transfer",
     ctaHref: "/workflows/sling-transfer",
@@ -78,6 +84,7 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
     title: "Seated and surface transfer",
     description: "A rigid transfer aid supporting selected seated and surface-to-surface transfer requirements.",
     activeProductIds: ["easiglide"],
+    icon: "/icons/workflow/manual-handling.png",
     workflowUrl: "/workflows/manual-handling-support",
     ctaLabel: "Explore seated transfer",
     ctaHref: "/workflows/manual-handling-support",
@@ -88,6 +95,7 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
     description:
       "EasiAir™ air supplies and EasiCart™ storage solutions support compatible product operation, accessibility and equipment readiness.",
     activeProductIds: ["easiair", "easicart"],
+    icon: "/icons/workflow/support-equipment.png",
     workflowUrl: "/workflows/support-equipment",
     ctaLabel: "Explore supporting equipment",
     ctaHref: "/workflows/support-equipment",
