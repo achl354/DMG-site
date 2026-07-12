@@ -98,4 +98,8 @@
   .logoImage {
     height: 56px;
   }
+
+  .navLink {
+    font-size: var(--text-md);
+  }
 }
