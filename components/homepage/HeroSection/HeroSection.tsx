@@ -14,6 +14,14 @@ const ROTATION_DIR = "/images/easimove-scroll/rotation";
 const FEATURES_DIR = "/images/easimove-scroll/features";
 const HERO_ALT = "EasiMoveSPU™ single-patient-use air-assisted lateral transfer mattress";
 
+/**
+ * Desktop's static image and the reduced-motion fallback both need one
+ * fixed "resting" frame -- kept as its own constant rather than reading
+ * IMAGE_FRAMES[0], since that array is mobile-rotation-only content and
+ * this specific pose (01_hero_front_original) is no longer part of it.
+ */
+const STATIC_HERO_SRC = `${ROTATION_DIR}/01_hero_front_original.webp`;
+
 interface ImageFrame {
   id: string;
   start: number;
@@ -24,50 +32,41 @@ interface ImageFrame {
 
 /**
  * Discrete AI-generated product views, not real turntable photos (see the
- * supplied manifest's own "limitations" note). 5 of the original 7 rotation
- * frames -- 03 (near-duplicate of 02) and 05 (a redundant in-between step)
- * dropped as too similar to their neighbours to earn their own scroll
- * distance. This used to be a separate section below the hero
- * (EasiMoveScrollStory); it's merged in here so the hero's own product
- * image IS the scroll-driven rotation, rather than showing the same
- * opening frame twice back to back.
+ * supplied manifest's own "limitations" note). Down to 5 stages (2
+ * rotation + 3 feature close-ups) -- hero, three-quarter and
+ * near-side-profile dropped from the rotation (hero/three-quarter read as
+ * near-duplicates back to back, near-side-profile was a jarring pose
+ * jump), and head-outline dropped from the feature close-ups. This used
+ * to be a separate section below the hero (EasiMoveScrollStory); it's
+ * merged in here so the hero's own product image IS the scroll-driven
+ * rotation, rather than showing the same opening frame twice back to back.
  */
 const IMAGE_FRAMES: ImageFrame[] = [
-  { id: "hero", start: 0, end: 0.22, src: `${ROTATION_DIR}/01_hero_front_original.webp`, alt: HERO_ALT },
-  { id: "three-quarter", start: 0.22, end: 0.34, src: `${ROTATION_DIR}/02_front_three_quarter.webp`, alt: "" },
-  { id: "slight-rotation", start: 0.34, end: 0.46, src: `${ROTATION_DIR}/04_slight_rotation.webp`, alt: "" },
-  { id: "near-side-profile", start: 0.46, end: 0.56, src: `${ROTATION_DIR}/06_near_side_profile.webp`, alt: "" },
+  { id: "slight-rotation", start: 0, end: 0.3, src: `${ROTATION_DIR}/04_slight_rotation.webp`, alt: HERO_ALT },
   {
     id: "side-profile",
-    start: 0.56,
-    end: 0.6,
+    start: 0.3,
+    end: 0.4,
     src: `${ROTATION_DIR}/07_side_profile.webp`,
     alt: "EasiMoveSPU™ mattress, side profile",
   },
   {
     id: "red-handles",
-    start: 0.6,
-    end: 0.68,
+    start: 0.4,
+    end: 0.6,
     src: `${FEATURES_DIR}/01_red_handles.webp`,
     alt: "Close-up of EasiMoveSPU™'s red perimeter transfer handles",
   },
   {
     id: "foot-end-label",
-    start: 0.68,
-    end: 0.76,
+    start: 0.6,
+    end: 0.8,
     src: `${FEATURES_DIR}/02_foot_end_label.webp`,
     alt: "Close-up of EasiMoveSPU™'s foot-end product label",
   },
   {
-    id: "head-outline",
-    start: 0.76,
-    end: 0.84,
-    src: `${FEATURES_DIR}/03_head_outline.webp`,
-    alt: "Close-up of EasiMoveSPU™'s head-position outline",
-  },
-  {
     id: "centre-line",
-    start: 0.84,
+    start: 0.8,
     end: 1.001,
     src: `${FEATURES_DIR}/04_centre_line.webp`,
     alt: "Close-up of EasiMoveSPU™'s centre alignment guide",
@@ -161,7 +160,7 @@ export function HeroSection() {
             <div className={styles.staticVisual}>
               <div className={styles.glow} aria-hidden="true" />
               {/* eslint-disable-next-line @next/next/no-img-element -- matches the plain-img approach used for every other frame; see HeroRotatingVisual */}
-              <img src={IMAGE_FRAMES[0].src} alt={HERO_ALT} className={styles.productImage} />
+              <img src={STATIC_HERO_SRC} alt={HERO_ALT} className={styles.productImage} />
             </div>
           </>
         ) : (
