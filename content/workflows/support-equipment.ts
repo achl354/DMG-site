@@ -2,7 +2,7 @@ import type { Workflow } from "@/lib/content/workflows";
 
 export const supportEquipment: Workflow = {
   slug: "support-equipment",
-  number: "04",
+  number: "06",
   familyName: "EasiAir™ & EasiCart™",
   title: "Air supply and equipment storage",
   summary:

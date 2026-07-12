@@ -10,7 +10,7 @@ export const WORKFLOWS: Workflow[] = [
   lateralTransfer,
   floorRecovery,
   manualHandlingSupport,
-  supportEquipment,
   slingTransfer,
   turningPositioning,
+  supportEquipment,
 ];

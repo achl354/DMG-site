@@ -2,7 +2,7 @@ import type { Workflow } from "@/lib/content/workflows";
 
 export const slingTransfer: Workflow = {
   slug: "sling-transfer",
-  number: "05",
+  number: "04",
   familyName: "EasiSling™",
   title: "Sling-based patient transfer",
   summary:

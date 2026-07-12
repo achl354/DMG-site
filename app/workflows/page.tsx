@@ -8,7 +8,7 @@ import styles from "./page.module.css";
 export const metadata = buildMetadata({
   title: "Workflows",
   description:
-    "The EasiSystem™ range, organised by patient-handling workflow — lateral transfer, floor recovery, manual handling support, support equipment, sling transfer and turning & positioning.",
+    "The EasiSystem™ range, organised by patient-handling workflow — lateral transfer, floor recovery, manual handling support, sling transfer, turning & positioning and support equipment.",
   path: "/workflows",
 });
 

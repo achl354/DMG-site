@@ -2,7 +2,7 @@ import type { Workflow } from "@/lib/content/workflows";
 
 export const turningPositioning: Workflow = {
   slug: "turning-positioning",
-  number: "06",
+  number: "05",
   familyName: "EasiTurn™",
   title: "Turning and positioning support",
   summary:
