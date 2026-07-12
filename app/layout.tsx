@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { cookies } from "next/headers";
 import { Header } from "@/components/layout/Header/Header";
 import { Footer } from "@/components/layout/Footer/Footer";
+import { ScrollProgressBar } from "@/components/layout/ScrollProgressBar/ScrollProgressBar";
 import { MotionProvider } from "@/components/MotionProvider";
 import { DESKTOP_VIEW_COOKIE, DESKTOP_VIEW_WIDTH } from "@/lib/desktopView";
 import "./globals.css";
@@ -56,6 +57,7 @@ export default async function RootLayout({
     <html lang="en-AU">
       <body>
         <MotionProvider>
+          <ScrollProgressBar />
           <Header />
           <main>{children}</main>
           <Footer initialDesktopView={desktopView} />

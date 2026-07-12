@@ -3,13 +3,19 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { NAV_LINKS } from "@/lib/constants";
 import { IconButton } from "@/components/ui";
 import { Container } from "@/components/layout/Container/Container";
 import { MobileNav } from "@/components/layout/MobileNav/MobileNav";
 import styles from "./Header.module.css";
 
+function isActiveLink(pathname: string, href: string) {
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
 export function Header() {
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -38,7 +44,11 @@ export function Header() {
           <ul className={styles.navList}>
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className={styles.navLink}>
+                <Link
+                  href={link.href}
+                  className={styles.navLink}
+                  aria-current={isActiveLink(pathname, link.href) ? "page" : undefined}
+                >
                   {link.label}
                 </Link>
               </li>

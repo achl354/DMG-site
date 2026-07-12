@@ -1,7 +1,8 @@
 "use client";
 
+import { useRef } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Tagline, Button } from "@/components/ui";
 import { Section, Container } from "@/components/layout";
 import { useReducedMotion } from "@/components/motion/ReducedMotionProvider";
@@ -13,6 +14,12 @@ import styles from "./HeroSection.module.css";
 /** Homepage hero -- text/CTAs on the left, one large EasiMoveSPU visual on the right. */
 export function HeroSection() {
   const reducedMotion = useReducedMotion();
+  const visualRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: visualRef, offset: ["start start", "end start"] });
+  // Lags a few px behind the page scroll for a subtle parallax drift --
+  // disabled (fixed at 0) under reduced motion rather than skipping the
+  // hook, since hooks can't be called conditionally.
+  const parallaxY = useTransform(scrollYProgress, [0, 1], reducedMotion ? [0, 0] : [0, 40]);
 
   function handleExploreClick() {
     trackEvent("hero_cta_clicked", { cta: "explore_system" });
@@ -47,10 +54,12 @@ export function HeroSection() {
         </div>
 
         <motion.div
+          ref={visualRef}
           className={styles.visual}
           initial={reducedMotion ? false : { opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, ease: EASE_OUT }}
+          style={{ y: parallaxY }}
         >
           <Image
             src="/products/easimove-spu/hero-transparent.png"

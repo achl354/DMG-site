@@ -43,6 +43,7 @@
 }
 
 .navLink {
+  position: relative;
   font-size: var(--text-sm);
   font-weight: var(--weight-semibold);
   color: var(--text-body);
@@ -50,6 +51,21 @@
 
 .navLink:hover {
   color: var(--brand);
+}
+
+.navLink[aria-current="page"] {
+  color: var(--brand);
+}
+
+.navLink[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+  height: 2px;
+  border-radius: var(--radius-pill);
+  background: var(--brand);
 }
 
 .actions {
