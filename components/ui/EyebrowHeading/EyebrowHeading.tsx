@@ -4,7 +4,7 @@ import styles from "./EyebrowHeading.module.css";
 type HeadingTag = "h1" | "h2" | "h3" | "p";
 
 export interface EyebrowHeadingProps {
-  eyebrow: string;
+  eyebrow?: string;
   heading: ReactNode;
   headingId?: string;
   body?: ReactNode;
@@ -24,7 +24,7 @@ export function EyebrowHeading({
 }: EyebrowHeadingProps) {
   return (
     <div className={[styles.wrapper, styles[align], className].filter(Boolean).join(" ")}>
-      <p className={styles.eyebrow}>{eyebrow}</p>
+      {eyebrow && <p className={styles.eyebrow}>{eyebrow}</p>}
       <HeadingTag id={headingId} className={styles.heading}>
         {heading}
       </HeadingTag>
