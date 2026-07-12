@@ -3,19 +3,15 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui";
 import { Container } from "@/components/layout";
 import { trackEvent } from "@/lib/analytics";
-import { PRODUCT_WORDMARKS } from "@/lib/content/assets";
 import { getProductBySlug } from "@/lib/content/products";
 import type { PortfolioScene } from "@/lib/content/portfolioScenes";
-import { ProductCardContent } from "@/components/portfolio/ProductCardContent";
+import { ProductChip } from "@/components/portfolio/ProductChip";
 import styles from "./PortfolioCards.module.css";
 
 const VIEW_DWELL_MS = 1000;
-
-/** These two cards' supporting-equipment row is dropped on mobile only, to keep the stacked cards shorter. */
-const HIDE_SUPPORTING_ON_MOBILE = new Set(["lateral-transfer", "floor-recovery"]);
+const SUPPORTING_EQUIPMENT_ID = "supporting-equipment";
 
 export interface PortfolioCardsProps {
   scenes: PortfolioScene[];
@@ -23,26 +19,48 @@ export interface PortfolioCardsProps {
 }
 
 /**
- * The product-range overview: one card per scene, in a plain document-flow
- * grid (single column on mobile, two columns on desktop) -- no pinning,
- * scrubbed camera or 3D scene.
+ * The product-range overview: the five clinical workflows as equal cards in
+ * a responsive grid, plus supporting equipment (EasiAir/EasiCart) as a
+ * separate full-width panel below -- it supports every workflow rather than
+ * being one itself, so it shouldn't read as a sixth, equal card.
  */
 export function PortfolioCards({ scenes, reducedMotion = false }: PortfolioCardsProps) {
+  const workflowScenes = scenes.filter((scene) => scene.id !== SUPPORTING_EQUIPMENT_ID);
+  const supportingScene = scenes.find((scene) => scene.id === SUPPORTING_EQUIPMENT_ID);
+
   return (
     <Container size="xl">
       <div className={styles.list}>
-        {scenes.map((scene) => (
-          <SceneCard key={scene.id} scene={scene} reducedMotion={reducedMotion} />
+        {workflowScenes.map((scene) => (
+          <WorkflowCard key={scene.id} scene={scene} reducedMotion={reducedMotion} />
         ))}
       </div>
+
+      {supportingScene && <SupportingEquipmentPanel scene={supportingScene} reducedMotion={reducedMotion} />}
     </Container>
   );
 }
 
-function SceneCard({ scene, reducedMotion }: { scene: PortfolioScene; reducedMotion: boolean }) {
+function CardCta({ scene }: { scene: PortfolioScene }) {
+  if (!scene.ctaLabel || !scene.ctaHref) return null;
   return (
-    <motion.div
-      className={styles.scene}
+    <Link
+      href={scene.ctaHref}
+      className={styles.cta}
+      onClick={() => trackEvent("workflow_cta_clicked", { scene: scene.id })}
+    >
+      {scene.ctaLabel}
+      <span className={styles.ctaArrow} aria-hidden="true">
+        →
+      </span>
+    </Link>
+  );
+}
+
+function WorkflowCard({ scene, reducedMotion }: { scene: PortfolioScene; reducedMotion: boolean }) {
+  return (
+    <motion.article
+      className={styles.card}
       initial={reducedMotion ? false : { opacity: 0, y: 20, scale: 0.98 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       // amount is a fraction of this card's OWN height, not the viewport --
@@ -59,85 +77,67 @@ function SceneCard({ scene, reducedMotion }: { scene: PortfolioScene; reducedMot
     >
       {scene.number && <span className={styles.number}>{scene.number}</span>}
       <h3 className={styles.title}>{scene.title}</h3>
-      {scene.icon && (
-        <Image
-          src={scene.icon}
-          alt=""
-          width={176}
-          height={176}
-          className={styles.icon}
-        />
-      )}
+      <p className={styles.description}>{scene.description}</p>
 
-      <div className={styles.visualRow}>
-        {scene.activeProductIds.map((slug) => {
-          const product = getProductBySlug(slug);
-          if (!product) return null;
-          return (
-            <ProductCardContent
-              key={slug}
-              name={product.name}
-              wordmarkSvg={PRODUCT_WORDMARKS[slug]}
-              status={product.status}
-            />
-          );
-        })}
+      {scene.icon && <Image src={scene.icon} alt="" width={220} height={220} className={styles.icon} />}
+
+      <div className={styles.productsBlock}>
+        <span className={styles.productsLabel}>Primary products</span>
+        <div className={styles.productRow}>
+          {scene.activeProductIds.map((slug) => {
+            const product = getProductBySlug(slug);
+            if (!product) return null;
+            return <ProductChip key={slug} name={product.name} status={product.status} tone="primary" />;
+          })}
+        </div>
       </div>
 
       {scene.secondaryProductIds && scene.secondaryProductIds.length > 0 && (
-        <div
-          className={[styles.supportingGroup, HIDE_SUPPORTING_ON_MOBILE.has(scene.id) && styles.supportingGroupHiddenMobile]
-            .filter(Boolean)
-            .join(" ")}
-        >
-          <span className={styles.supportingLabel}>Supporting equipment</span>
-          <div className={styles.visualRow}>
+        <div className={styles.productsBlock}>
+          <span className={styles.productsLabel}>Supporting equipment</span>
+          <div className={styles.productRow}>
             {scene.secondaryProductIds.map((slug) => {
               const product = getProductBySlug(slug);
               if (!product) return null;
-              return (
-                <ProductCardContent
-                  key={slug}
-                  name={product.name}
-                  wordmarkSvg={PRODUCT_WORDMARKS[slug]}
-                  status={product.status}
-                  compact
-                />
-              );
+              return <ProductChip key={slug} name={product.name} status={product.status} tone="supporting" />;
             })}
           </div>
         </div>
       )}
 
-      <p className={styles.description}>{scene.description}</p>
+      <CardCta scene={scene} />
+    </motion.article>
+  );
+}
 
-      {scene.ctaLabel && scene.ctaHref && (
-        <div className={styles.ctaRow}>
-          <Link
-            href={scene.ctaHref}
-            onClick={() =>
-              trackEvent(
-                scene.ctaHref === "/products" ? "view_all_products_clicked" : "workflow_cta_clicked",
-                { scene: scene.id },
-              )
-            }
-          >
-            <Button variant="primary" size="md">
-              {scene.ctaLabel}
-            </Button>
-          </Link>
-          {scene.secondaryCtaLabel && scene.secondaryCtaHref && (
-            <Link
-              href={scene.secondaryCtaHref}
-              onClick={() => trackEvent("explore_all_workflows_clicked", { scene: scene.id })}
-            >
-              <Button variant="secondary" size="md">
-                {scene.secondaryCtaLabel}
-              </Button>
-            </Link>
-          )}
+function SupportingEquipmentPanel({ scene, reducedMotion }: { scene: PortfolioScene; reducedMotion: boolean }) {
+  return (
+    <motion.section
+      className={styles.supportingPanel}
+      aria-labelledby="supporting-equipment-heading"
+      initial={reducedMotion ? false : { opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: reducedMotion ? 0 : 0.4 }}
+    >
+      <div className={styles.supportingPanelText}>
+        <h3 id="supporting-equipment-heading" className={styles.supportingPanelTitle}>
+          {scene.title}
+        </h3>
+        <p className={styles.description}>{scene.description}</p>
+        <CardCta scene={scene} />
+      </div>
+
+      <div className={styles.supportingPanelVisual}>
+        {scene.icon && <Image src={scene.icon} alt="" width={220} height={220} className={styles.icon} />}
+        <div className={styles.productRow}>
+          {scene.activeProductIds.map((slug) => {
+            const product = getProductBySlug(slug);
+            if (!product) return null;
+            return <ProductChip key={slug} name={product.name} status={product.status} tone="primary" />;
+          })}
         </div>
-      )}
-    </motion.div>
+      </div>
+    </motion.section>
   );
 }

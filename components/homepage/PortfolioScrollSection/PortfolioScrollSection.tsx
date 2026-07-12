@@ -15,7 +15,7 @@ export interface PortfolioScrollSectionProps {
 
 export function PortfolioScrollSection({ scenes }: PortfolioScrollSectionProps) {
   const reducedMotion = useReducedMotion();
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const node = sectionRef.current;
@@ -34,18 +34,25 @@ export function PortfolioScrollSection({ scenes }: PortfolioScrollSectionProps) 
   }, []);
 
   return (
-    <div id={SECTION_IDS.portfolio} ref={sectionRef} className={styles.wrapper}>
+    <section
+      id={SECTION_IDS.portfolio}
+      ref={sectionRef}
+      className={styles.wrapper}
+      aria-labelledby="portfolio-workflows-heading"
+    >
       <Container size="xl">
         <div className={styles.intro}>
-          <h2 className={styles.eyebrow}>One portfolio. Every move supported.</h2>
+          <h2 id="portfolio-workflows-heading" className={styles.eyebrow}>
+            One portfolio. Every move supported.
+          </h2>
           <p className={styles.introBody}>
-            Scroll through the EasiSystem™ portfolio to see how each product family supports
-            different patient-handling workflows.
+            Explore the EasiSystem™ portfolio by patient-handling workflow and see how each
+            product family supports different transfer, recovery and repositioning requirements.
           </p>
         </div>
       </Container>
 
       <PortfolioCards scenes={scenes} reducedMotion={reducedMotion} />
-    </div>
+    </section>
   );
 }
