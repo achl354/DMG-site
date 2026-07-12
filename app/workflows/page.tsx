@@ -1,6 +1,6 @@
 import { EyebrowHeading } from "@/components/ui";
 import { Section, Container } from "@/components/layout";
-import { WorkflowCard } from "@/components/marketing";
+import { WorkflowsGrid } from "@/components/workflows";
 import { getAllWorkflows } from "@/lib/content/workflows";
 import { buildMetadata } from "@/lib/seo";
 import styles from "./page.module.css";
@@ -24,11 +24,7 @@ export default function WorkflowsPage() {
           body="EasiSystem™ is organised around how patients actually move through a ward — not a flat product catalogue. Each workflow groups the products built to support it."
           className={styles.heading}
         />
-        <div className={styles.grid}>
-          {workflows.map((workflow) => (
-            <WorkflowCard key={workflow.slug} workflow={workflow} />
-          ))}
-        </div>
+        <WorkflowsGrid workflows={workflows} />
       </Container>
     </Section>
   );
