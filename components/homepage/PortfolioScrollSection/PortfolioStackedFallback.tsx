@@ -43,7 +43,11 @@ function StackedScene({ scene }: { scene: PortfolioScene }) {
       className={styles.scene}
       initial={{ opacity: 0, y: 20, scale: 0.98 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, amount: 0.5 }}
+      // amount is a fraction of this card's OWN height, not the viewport --
+      // these cards can run taller than the viewport on mobile, so a 0.5
+      // threshold left the card invisible for up to half its height of
+      // scrolling after its top edge appeared, reading as a blank gap.
+      viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.4 }}
       onViewportEnter={() => {
         window.setTimeout(() => {
