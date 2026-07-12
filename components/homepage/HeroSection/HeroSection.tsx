@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 import { Tagline, Button } from "@/components/ui";
@@ -87,9 +87,41 @@ function preloadImage(src: string) {
   img.src = src;
 }
 
+const DESKTOP_QUERY = "(min-width: 1024px)";
+
+function subscribeToDesktopQuery(callback: () => void) {
+  const mql = window.matchMedia(DESKTOP_QUERY);
+  mql.addEventListener("change", callback);
+  return () => mql.removeEventListener("change", callback);
+}
+
+function getIsDesktopSnapshot() {
+  return window.matchMedia(DESKTOP_QUERY).matches;
+}
+
+/** Defaults to true (static) for the SSR snapshot -- see useIsDesktopViewport. */
+function getIsDesktopServerSnapshot() {
+  return true;
+}
+
+/**
+ * Desktop reverted to a plain static hero image -- the pinned scroll
+ * rotation stayed too long-scrolling/awkward there and was dropped in
+ * favour of the original simple layout. Mobile keeps the rotation.
+ * Server/first-paint snapshot defaults to true (static) until the media
+ * query resolves client-side, matching this component's existing
+ * reduced-motion default-false tradeoff -- a brief wrong-branch flash on
+ * first paint is accepted elsewhere in this codebase rather than solved
+ * with SSR cookie plumbing.
+ */
+function useIsDesktopViewport() {
+  return useSyncExternalStore(subscribeToDesktopQuery, getIsDesktopSnapshot, getIsDesktopServerSnapshot);
+}
+
 /** Homepage hero -- text/CTAs on the left, one large EasiMoveSPU visual on the right. */
 export function HeroSection() {
   const reducedMotion = useReducedMotion();
+  const isDesktop = useIsDesktopViewport();
 
   function handleExploreClick() {
     trackEvent("hero_cta_clicked", { cta: "explore_system" });
@@ -123,7 +155,7 @@ export function HeroSection() {
   return (
     <Section id="hero" spacing="lg" surface="page" className={styles.section}>
       <Container size="xl" className={styles.track}>
-        {reducedMotion ? (
+        {reducedMotion || isDesktop ? (
           <>
             {copy}
             <div className={styles.staticVisual}>

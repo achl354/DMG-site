@@ -12,9 +12,10 @@
 }
 
 /*
- * Mobile-first: a plain flex column (copy, then the rotation's tall
- * runway, stacked normally). At desktop, becomes a two-column grid so
- * copy and visual sit side by side and pin together.
+ * Mobile-first: a plain flex column (copy, then the pinned rotation's
+ * tall runway, stacked normally). Desktop only ever shows the static
+ * visual (see HeroSection.tsx), so this is just a plain two-column
+ * layout there, same as the original pre-rotation hero.
  */
 .track {
   position: relative;
@@ -28,11 +29,9 @@
     display: grid;
     grid-template-columns: minmax(0, 0.44fr) minmax(0, 0.56fr);
     gap: var(--space-9);
-    align-items: start;
+    align-items: center;
   }
 }
-
-/* ---- Copy (unchanged content; sticky only kicks in at desktop) ---- */
 
 .copy {
   display: flex;
@@ -41,16 +40,6 @@
   text-align: left;
   gap: var(--space-5);
   max-width: 640px;
-}
-
-@media (min-width: 1024px) {
-  .copy {
-    /* Pins alongside the rotating visual while .visualWrap's runway
-       scrolls past, then releases like any other sticky element once
-       its containing block's bottom is reached. */
-    position: sticky;
-    top: var(--header-height, 72px);
-  }
 }
 
 .tagline {
@@ -183,6 +172,10 @@
   min-height: 2400px;
 }
 
+/* .visual is only rendered by HeroRotatingVisual (mobile-only). .glow is
+   shared with .staticVisual below, which is why it still carries a
+   desktop-position override despite the rotation itself being mobile-only. */
+
 .visual {
   position: sticky;
   top: var(--header-height, 72px);
@@ -191,12 +184,6 @@
   align-items: center;
   gap: var(--space-4);
   padding-block: var(--space-8);
-}
-
-@media (min-width: 1024px) {
-  .visual {
-    align-items: flex-end;
-  }
 }
 
 .glow {
@@ -228,6 +215,10 @@
   }
 }
 
+/* Below this point (frameStack, frame, progress) is exclusive to
+   HeroRotatingVisual, which only ever renders below the 1024px desktop
+   breakpoint -- no desktop overrides needed for any of it. */
+
 .frameStack {
   position: relative;
   z-index: 1;
@@ -240,13 +231,6 @@
   .frameStack {
     width: 124%;
     margin-left: -12%;
-  }
-}
-
-@media (min-width: 1024px) {
-  .frameStack {
-    width: min(88%, 620px);
-    margin-left: 0;
   }
 }
 
