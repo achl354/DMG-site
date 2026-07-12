@@ -7,7 +7,7 @@
 @media (min-width: 800px) {
   .list {
     grid-template-columns: repeat(2, 1fr);
-    align-items: start;
+    align-items: stretch;
   }
 }
 
@@ -69,7 +69,12 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
-  margin-top: var(--space-2);
+  /* Auto margin, not a fixed one -- cards in the same row now stretch to
+     equal height, so this pushes the CTA to the bottom of whatever extra
+     space that leaves instead of letting it float right under the
+     description on shorter cards. */
+  margin-top: auto;
+  padding-top: var(--space-2);
   width: 100%;
 }
 
