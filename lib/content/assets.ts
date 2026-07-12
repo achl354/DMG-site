@@ -34,3 +34,21 @@ export const PRODUCT_PHOTO_SCENES: Partial<Record<string, string[]>> = {
     "/products/easimove-spu/scroll/08-closing.png",
   ],
 };
+
+/**
+ * Outline workflow icons (same catalogue-sourced artwork as the homepage
+ * portfolio cards), reused as each product's illustration on its detail
+ * page. Shared across siblings in the same product family since the
+ * source artwork is one drawing per workflow, not per SKU.
+ */
+export const PRODUCT_ICONS: Partial<Record<string, string>> = {
+  "easimove-spu": "/icons/workflow/lateral-transfer.png",
+  "easimove-pro": "/icons/workflow/lateral-transfer.png",
+  easilift: "/icons/workflow/floor-recovery.png",
+  easiturn: "/icons/workflow/turning-positioning.png",
+  easislide: "/icons/workflow/turning-positioning.png",
+  easisling: "/icons/workflow/sling-transfer.png",
+  easiglide: "/icons/workflow/manual-handling.png",
+  easiair: "/icons/workflow/support-equipment.png",
+  easicart: "/icons/workflow/support-equipment.png",
+};

@@ -2,8 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SizeBadge, Card, Badge } from "@/components/ui";
 import { Section, Container } from "@/components/layout";
-import { ProductCard, CTASection, ProductPhotoGallery } from "@/components/marketing";
-import { ProductWordmark3D } from "@/components/scroller/ProductWordmark3D/ProductWordmark3D";
+import { ProductCard, CTASection, ProductPhotoGallery, ProductIllustration } from "@/components/marketing";
 import {
   getAllProducts,
   getProductBySlug,
@@ -11,7 +10,7 @@ import {
   PRODUCT_STATUS_LABELS,
 } from "@/lib/content/products";
 import { getWorkflowBySlug } from "@/lib/content/workflows";
-import { PRODUCT_PHOTO_SCENES } from "@/lib/content/assets";
+import { PRODUCT_PHOTO_SCENES, PRODUCT_ICONS } from "@/lib/content/assets";
 import { buildMetadata } from "@/lib/seo";
 import styles from "./page.module.css";
 
@@ -60,6 +59,7 @@ export default async function ProductDetailPage({
   const workflow = getWorkflowBySlug(workflowSlug);
   const related = getRelatedProducts(product.slug);
   const photoScenes = PRODUCT_PHOTO_SCENES[product.slug];
+  const icon = PRODUCT_ICONS[product.slug];
 
   return (
     <>
@@ -73,9 +73,9 @@ export default async function ProductDetailPage({
 
           {photoScenes ? (
             <ProductPhotoGallery frames={photoScenes} name={product.name} />
-          ) : (
-            <ProductWordmark3D name={product.name} svgSrc={product.wordmarkSvg} />
-          )}
+          ) : icon ? (
+            <ProductIllustration icon={icon} name={product.name} />
+          ) : null}
           <p className={styles.category}>{product.category}</p>
           <h1 className={styles.tagline}>{product.tagline}</h1>
           {product.status && (
