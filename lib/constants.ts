@@ -39,7 +39,7 @@ export const SECTION_IDS = {
 } as const;
 
 export const CTA_LABELS = {
-  exploreSystem: "Explore the system",
+  exploreSystem: "Explore EasiSystem™",
   exploreAllWorkflows: "Explore all workflows",
   requestInformation: "Request product information",
   contactDmg: "Contact DMG",

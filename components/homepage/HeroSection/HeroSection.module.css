@@ -92,6 +92,24 @@
   margin-top: var(--space-3);
 }
 
+.heroCtaArrow {
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.heroCta:hover .heroCtaArrow {
+  transform: translateX(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroCtaArrow {
+    transition: none;
+  }
+
+  .heroCta:hover .heroCtaArrow {
+    transform: none;
+  }
+}
+
 @media (min-width: 1024px) {
   .tagline {
     font-size: var(--text-7xl);
@@ -121,5 +139,25 @@
 
   .tagline {
     font-size: var(--text-5xl);
+  }
+
+  .ctaRow {
+    margin-top: var(--space-5);
+  }
+
+  /*
+   * At the shared .lg Button size (24px font, 16/40 padding) the label
+   * alone runs close to full container width on a narrow phone, reading
+   * as an oversized app-style action rather than a website CTA. Override
+   * with !important -- .heroCta and .lg are equal-specificity single
+   * classes, so source order alone can't be relied on to win.
+   */
+  .heroCta {
+    min-height: 56px;
+    max-width: 82%;
+    padding: 0 24px !important;
+    font-size: 21px !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: 0 8px 18px rgba(0, 103, 95, 0.14) !important;
   }
 }

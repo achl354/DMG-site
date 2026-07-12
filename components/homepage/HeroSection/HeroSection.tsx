@@ -38,8 +38,11 @@ export function HeroSection() {
             structured portfolio.
           </p>
           <div className={styles.ctaRow}>
-            <Button size="lg" onClick={handleExploreClick}>
+            <Button size="lg" className={styles.heroCta} onClick={handleExploreClick}>
               {CTA_LABELS.exploreSystem}
+              <span className={styles.heroCtaArrow} aria-hidden="true">
+                →
+              </span>
             </Button>
           </div>
         </div>
