@@ -9,3 +9,9 @@
   max-width: 60ch;
   margin-bottom: var(--space-9);
 }
+
+@media (min-width: 1024px) {
+  .intro {
+    max-width: 90ch;
+  }
+}
