@@ -169,7 +169,7 @@
  */
 .visualWrap {
   position: relative;
-  min-height: 1400px;
+  min-height: 750px;
 }
 
 /* .visual is only rendered by HeroRotatingVisual (mobile-only). .glow is
@@ -228,18 +228,31 @@
  * colour/webp-decoding difference no amount of CSS tuning can chase
  * reliably. An intentional frame reads as a deliberate choice either way.
  */
+/*
+ * Full-bleed: breaks out of Container's own gutter so the card spans the
+ * actual viewport width, not just its column. .visual (this card's flex
+ * parent) already has align-items:center, and .visual/Container are both
+ * horizontally centered in the viewport -- so a plain 100vw width is
+ * enough on its own: flex centers this now-wider-than-its-column item
+ * symmetrically, landing it flush with the real viewport edges. (The
+ * standard margin-left:50%+translateX(-50%) recenter trick does NOT
+ * belong here -- it assumes normal block flow, and stacks a second,
+ * conflicting centering offset on top of the flex one, which is exactly
+ * what shifted the card off-screen to the left when first tried.) Only
+ * safe because nothing between here and <body> sets overflow-x -- that
+ * would make 100vw measure against the wrong box (and, worse, risks the
+ * same sticky-breaking bug documented on .section above).
+ */
 .imageCard {
   position: relative;
   z-index: 1;
-  width: 100%;
+  width: 100vw;
   background: var(--surface-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  /* Tight on purpose -- the card stays inset from the screen edges like
-     the rest of the page (via Container's own gutter), but its own inner
-     padding is kept to a minimum so the image fills as much of the card
-     as possible without touching the border. */
-  padding: var(--space-2);
+  /* Tightened further now that the card itself is full-bleed -- just
+     enough padding that the image doesn't touch the border. */
+  padding: var(--space-1);
 }
 
 .frameStack {
