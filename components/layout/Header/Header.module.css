@@ -102,4 +102,8 @@
   .navLink {
     font-size: var(--text-md);
   }
+
+  .ctaLink {
+    display: none;
+  }
 }
