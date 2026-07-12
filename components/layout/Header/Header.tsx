@@ -27,8 +27,8 @@ export function Header() {
           <Image
             src="/logos/dmg-expanded-teal.svg"
             alt="DMG / DirectMed Group — Every Move Matters"
-            width={193}
-            height={32}
+            width={241}
+            height={40}
             priority
           />
         </Link>
