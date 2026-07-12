@@ -40,7 +40,6 @@ export const SECTION_IDS = {
 
 export const CTA_LABELS = {
   exploreSystem: "Explore the system",
-  viewAllProducts: "View all products",
   exploreAllWorkflows: "Explore all workflows",
   requestInformation: "Request product information",
   contactDmg: "Contact DMG",

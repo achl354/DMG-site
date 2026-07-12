@@ -92,18 +92,6 @@
   margin-top: var(--space-3);
 }
 
-.secondaryLink {
-  font-size: var(--text-sm);
-  font-weight: var(--weight-semibold);
-  color: var(--brand);
-}
-
-.trust {
-  font-size: var(--text-sm);
-  color: var(--text-muted);
-  margin-top: var(--space-4);
-}
-
 @media (min-width: 1024px) {
   .tagline {
     font-size: var(--text-7xl);

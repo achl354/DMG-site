@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Tagline, Button } from "@/components/ui";
@@ -20,10 +19,6 @@ export function HeroSection() {
     document.getElementById(SECTION_IDS.portfolio)?.scrollIntoView({
       behavior: reducedMotion ? "auto" : "smooth",
     });
-  }
-
-  function handleViewAllClick() {
-    trackEvent("view_all_products_clicked", { source: "hero" });
   }
 
   return (
@@ -46,11 +41,7 @@ export function HeroSection() {
             <Button size="lg" onClick={handleExploreClick}>
               {CTA_LABELS.exploreSystem}
             </Button>
-            <Link href="/products" className={styles.secondaryLink} onClick={handleViewAllClick}>
-              {CTA_LABELS.viewAllProducts}
-            </Link>
           </div>
-          <p className={styles.trust}>Designed and manufactured by DirectMed Group.</p>
         </div>
 
         <motion.div

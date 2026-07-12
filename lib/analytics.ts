@@ -9,7 +9,6 @@
 export type AnalyticsEvent =
   | "hero_cta_clicked"
   | "portfolio_scroll_started"
-  | "view_all_products_clicked"
   | "explore_all_workflows_clicked"
   | "workflow_scene_viewed"
   | "workflow_cta_clicked"
