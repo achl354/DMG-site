@@ -1,11 +1,9 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllWorkflows, getWorkflowBySlug } from "@/lib/content/workflows";
 import { getAllProducts } from "@/lib/content/products";
-import { Section, Container } from "@/components/layout";
-import { ProductCard } from "@/components/marketing";
+import { Section } from "@/components/layout";
+import { WorkflowFamilyContent } from "@/components/workflows";
 import { buildMetadata } from "@/lib/seo";
-import styles from "./page.module.css";
 
 export function generateStaticParams() {
   return getAllWorkflows().map((workflow) => ({ workflow: workflow.slug }));
@@ -52,25 +50,7 @@ export default async function WorkflowFamilyPage({
 
   return (
     <Section spacing="lg">
-      <Container size="xl">
-        <Link href="/workflows" className={styles.back}>
-          &larr; All workflows
-        </Link>
-
-        <div className={styles.header}>
-          <span className={styles.number}>Workflow {workflow.number}</span>
-          <p className={styles.familyName}>{workflow.familyName}</p>
-          <h1 className={styles.title}>{workflow.title}</h1>
-          <p className={styles.summary}>{workflow.summary}</p>
-        </div>
-
-        <h2 className={styles.sectionHeading}>In this family</h2>
-        <div className={styles.grid}>
-          {products.map((product) => (
-            <ProductCard key={product.slug} product={product} />
-          ))}
-        </div>
-      </Container>
+      <WorkflowFamilyContent workflow={workflow} products={products} />
     </Section>
   );
 }

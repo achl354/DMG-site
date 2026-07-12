@@ -1,16 +1,22 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Container } from "@/components/layout";
+import { Modal } from "@/components/ui";
+import { WorkflowFamilyContent } from "@/components/workflows";
 import { trackEvent } from "@/lib/analytics";
 import { getProductBySlug } from "@/lib/content/products";
+import { getAllProducts } from "@/lib/content/products";
+import { getWorkflowBySlug } from "@/lib/content/workflows";
 import type { PortfolioScene } from "@/lib/content/portfolioScenes";
 import { ProductChip } from "@/components/portfolio/ProductChip";
 import styles from "./PortfolioCards.module.css";
 
 const VIEW_DWELL_MS = 1000;
+const WORKFLOW_PATH_PREFIX = "/workflows/";
 
 export interface PortfolioCardsProps {
   scenes: PortfolioScene[];
@@ -19,19 +25,61 @@ export interface PortfolioCardsProps {
 
 /** The product-range overview: six equal workflow cards, supporting equipment last. */
 export function PortfolioCards({ scenes, reducedMotion = false }: PortfolioCardsProps) {
+  const [openSlug, setOpenSlug] = useState<string | null>(null);
+  const openWorkflow = openSlug ? getWorkflowBySlug(openSlug) : undefined;
+  const openProducts = openWorkflow
+    ? getAllProducts().filter((product) => openWorkflow.products.includes(product.slug))
+    : [];
+
   return (
     <Container size="xl">
       <div className={styles.list}>
         {scenes.map((scene) => (
-          <WorkflowCard key={scene.id} scene={scene} reducedMotion={reducedMotion} />
+          <WorkflowCard key={scene.id} scene={scene} reducedMotion={reducedMotion} onOpenWorkflow={setOpenSlug} />
         ))}
       </div>
+
+      <Modal open={Boolean(openWorkflow)} onClose={() => setOpenSlug(null)} labelledBy="workflow-modal-title">
+        {openWorkflow && (
+          <WorkflowFamilyContent
+            workflow={openWorkflow}
+            products={openProducts}
+            hideBackLink
+            titleTag="h2"
+            titleId="workflow-modal-title"
+          />
+        )}
+      </Modal>
     </Container>
   );
 }
 
-function CardCta({ scene }: { scene: PortfolioScene }) {
+function CardCta({ scene, onOpenWorkflow }: { scene: PortfolioScene; onOpenWorkflow: (slug: string) => void }) {
   if (!scene.ctaLabel || !scene.ctaHref) return null;
+
+  const workflowSlug = scene.ctaHref.startsWith(WORKFLOW_PATH_PREFIX)
+    ? scene.ctaHref.slice(WORKFLOW_PATH_PREFIX.length)
+    : null;
+  const workflow = workflowSlug ? getWorkflowBySlug(workflowSlug) : undefined;
+
+  if (workflow) {
+    return (
+      <button
+        type="button"
+        className={styles.cta}
+        onClick={() => {
+          trackEvent("workflow_cta_clicked", { scene: scene.id });
+          onOpenWorkflow(workflow.slug);
+        }}
+      >
+        {scene.ctaLabel}
+        <span className={styles.ctaArrow} aria-hidden="true">
+          →
+        </span>
+      </button>
+    );
+  }
+
   return (
     <Link
       href={scene.ctaHref}
@@ -46,7 +94,15 @@ function CardCta({ scene }: { scene: PortfolioScene }) {
   );
 }
 
-function WorkflowCard({ scene, reducedMotion }: { scene: PortfolioScene; reducedMotion: boolean }) {
+function WorkflowCard({
+  scene,
+  reducedMotion,
+  onOpenWorkflow,
+}: {
+  scene: PortfolioScene;
+  reducedMotion: boolean;
+  onOpenWorkflow: (slug: string) => void;
+}) {
   return (
     <motion.article
       className={styles.card}
@@ -81,7 +137,7 @@ function WorkflowCard({ scene, reducedMotion }: { scene: PortfolioScene; reduced
         </div>
       </div>
 
-      <CardCta scene={scene} />
+      <CardCta scene={scene} onOpenWorkflow={onOpenWorkflow} />
     </motion.article>
   );
 }

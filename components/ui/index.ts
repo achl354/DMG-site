@@ -42,3 +42,6 @@ export type { ProductWordmarkProps } from "./ProductWordmark/ProductWordmark";
 
 export { SizeBadge } from "./SizeBadge/SizeBadge";
 export type { SizeBadgeProps } from "./SizeBadge/SizeBadge";
+
+export { Modal } from "./Modal/Modal";
+export type { ModalProps } from "./Modal/Modal";
