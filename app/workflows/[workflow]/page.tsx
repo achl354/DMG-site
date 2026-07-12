@@ -50,7 +50,11 @@ export default async function WorkflowFamilyPage({
 
   return (
     <Section spacing="lg">
-      <WorkflowFamilyContent workflow={workflow} products={products} />
+      <WorkflowFamilyContent
+        workflow={workflow}
+        products={products}
+        gridWidth={workflow.slug === "lateral-transfer" ? "wide" : "default"}
+      />
     </Section>
   );
 }

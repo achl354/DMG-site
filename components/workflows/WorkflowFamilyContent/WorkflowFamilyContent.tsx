@@ -13,6 +13,8 @@ export interface WorkflowFamilyContentProps {
   /** "h2" when embedded in the homepage modal -- the homepage already has its own h1. */
   titleTag?: "h1" | "h2";
   titleId?: string;
+  /** "wide" gives the product cards a fixed, larger desktop width instead of stretching to fill the grid. */
+  gridWidth?: "default" | "wide";
 }
 
 /** The "In this family" workflow page body, shared by the real /workflows/[workflow] route and the homepage's workflow modal. */
@@ -22,6 +24,7 @@ export function WorkflowFamilyContent({
   hideBackLink = false,
   titleTag: TitleTag = "h1",
   titleId,
+  gridWidth = "default",
 }: WorkflowFamilyContentProps) {
   return (
     <Container size="xl">
@@ -41,7 +44,7 @@ export function WorkflowFamilyContent({
       </div>
 
       <h2 className={styles.sectionHeading}>In this family</h2>
-      <div className={styles.grid}>
+      <div className={[styles.grid, gridWidth === "wide" && styles.gridWide].filter(Boolean).join(" ")}>
         {products.map((product) => (
           <ProductCard key={product.slug} product={product} />
         ))}

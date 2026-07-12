@@ -59,3 +59,16 @@
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: var(--space-6);
 }
+
+/*
+ * "wide" cards use a fixed desktop column size instead of the default
+ * auto-fill/1fr stretch, which sizes cards by however much container
+ * space happens to be left over (~280px for a 2-product family) rather
+ * than a deliberate width. A fixed track gives a precise, predictable
+ * +12.5% (280px -> 315px) regardless of how much empty grid space exists.
+ */
+@media (min-width: 1024px) {
+  .gridWide {
+    grid-template-columns: repeat(auto-fill, 315px);
+  }
+}
