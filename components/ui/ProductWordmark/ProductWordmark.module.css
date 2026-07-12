@@ -1,8 +1,15 @@
 .textFallback {
+  display: inline-block;
   font-family: var(--font-display);
   letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
   white-space: nowrap;
+  /* Tight so the glyphs sit flush with the top of this element, matching
+     the SVG lockups (real images, no line-box leading above their ink) --
+     the browser default line-height left a gap above the letters here that
+     the SVG siblings don't have, making the text fallback's wordmark sit
+     visibly lower within the card than EasiCart's et al. */
+  line-height: 1;
 }
 
 .prefix {
