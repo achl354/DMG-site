@@ -24,20 +24,19 @@ interface ImageFrame {
 
 /**
  * Discrete AI-generated product views, not real turntable photos (see the
- * supplied manifest's own "limitations" note). Thresholds match the source
- * pack's own IMPLEMENTATION_GUIDE.txt rather than spreading evenly, since a
- * few frames (05-07) cover a visually bigger jump than others. This used to
- * be a separate section below the hero (EasiMoveScrollStory); it's merged
- * in here so the hero's own product image IS the scroll-driven rotation,
- * rather than showing the same opening frame twice back to back.
+ * supplied manifest's own "limitations" note). 5 of the original 7 rotation
+ * frames -- 03 (near-duplicate of 02) and 05 (a redundant in-between step)
+ * dropped as too similar to their neighbours to earn their own scroll
+ * distance. This used to be a separate section below the hero
+ * (EasiMoveScrollStory); it's merged in here so the hero's own product
+ * image IS the scroll-driven rotation, rather than showing the same
+ * opening frame twice back to back.
  */
 const IMAGE_FRAMES: ImageFrame[] = [
-  { id: "hero", start: 0, end: 0.2, src: `${ROTATION_DIR}/01_hero_front_original.webp`, alt: HERO_ALT },
-  { id: "three-quarter", start: 0.2, end: 0.28, src: `${ROTATION_DIR}/02_front_three_quarter.webp`, alt: "" },
-  { id: "three-quarter-alt", start: 0.28, end: 0.36, src: `${ROTATION_DIR}/03_front_three_quarter_alt.webp`, alt: "" },
-  { id: "slight-rotation", start: 0.36, end: 0.43, src: `${ROTATION_DIR}/04_slight_rotation.webp`, alt: "" },
-  { id: "more-side-bias", start: 0.43, end: 0.5, src: `${ROTATION_DIR}/05_more_side_bias.webp`, alt: "" },
-  { id: "near-side-profile", start: 0.5, end: 0.56, src: `${ROTATION_DIR}/06_near_side_profile.webp`, alt: "" },
+  { id: "hero", start: 0, end: 0.22, src: `${ROTATION_DIR}/01_hero_front_original.webp`, alt: HERO_ALT },
+  { id: "three-quarter", start: 0.22, end: 0.34, src: `${ROTATION_DIR}/02_front_three_quarter.webp`, alt: "" },
+  { id: "slight-rotation", start: 0.34, end: 0.46, src: `${ROTATION_DIR}/04_slight_rotation.webp`, alt: "" },
+  { id: "near-side-profile", start: 0.46, end: 0.56, src: `${ROTATION_DIR}/06_near_side_profile.webp`, alt: "" },
   {
     id: "side-profile",
     start: 0.56,

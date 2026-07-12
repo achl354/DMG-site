@@ -157,34 +157,30 @@
   width: min(84vw, 480px);
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 20px 28px rgba(18, 65, 58, 0.12));
 }
 
 @media (min-width: 1024px) {
   .productImage {
     width: min(54vw, 620px);
     margin-right: -6%;
-    filter: drop-shadow(0 32px 40px rgba(18, 65, 58, 0.16));
   }
 }
 
 /* ---- Rotating visual (motion-enabled path) ---- */
 
+/*
+ * Fixed px, not vh -- vh is relative to whatever the browser computes as
+ * the viewport height, which mobile browsers recalculate (and inflate,
+ * sometimes drastically) when a page forces a wider layout viewport via
+ * the meta viewport tag -- exactly what happens under a phone's own
+ * "Desktop site" mode. A fixed distance means the same amount of actual
+ * scrolling gets through all 9 frames regardless of that recalculation
+ * (this codebase has hit vh/dvh-driven sticky-scroll bugs before -- see
+ * git history -- so treat vh-for-scroll-distance as suspect by default).
+ */
 .visualWrap {
   position: relative;
-  min-height: 360vh;
-}
-
-@media (min-width: 1024px) {
-  .visualWrap {
-    /*
-     * This is what actually creates the scroll runway: an explicit
-     * min-height on a real grid item, sized to fit the row (rather than
-     * relying on an ambiguous implicit-row-stretch from a height set on
-     * the .track container itself).
-     */
-    min-height: 300vh;
-  }
+  min-height: 2400px;
 }
 
 .visual {
@@ -261,7 +257,6 @@
   height: 100%;
   object-fit: contain;
   object-position: center;
-  filter: drop-shadow(0 22px 28px rgba(18, 45, 41, 0.12));
   transition: opacity 150ms ease;
   will-change: opacity;
 }
