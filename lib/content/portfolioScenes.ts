@@ -15,33 +15,16 @@ export interface PortfolioScene {
 }
 
 /**
- * The eight cards in the homepage product-range overview. Deliberately its
+ * The seven cards in the homepage product-range overview. Deliberately its
  * own data shape rather than reusing content/workflows -- these scenes group
  * products by what the *card* shows, which doesn't line up 1:1 with the
  * catalogue's workflow groupings (e.g. scene 4 spans EasiTurn, EasiSlide and
  * EasiMove together; EasiGlide gets its own scene despite sharing a
- * catalogue workflow with EasiSlide).
+ * catalogue workflow with EasiSlide). No standalone opening "full portfolio"
+ * card -- the closing "reassembly" card already covers the complete range,
+ * so an opening one just repeated it.
  */
 export const PORTFOLIO_SCENES: PortfolioScene[] = [
-  {
-    id: "portfolio",
-    title: "The EasiSystem™ portfolio",
-    description:
-      "A coordinated range supporting multiple patient-handling tasks across healthcare and supported-care environments.",
-    activeProductIds: [
-      "easimove-spu",
-      "easimove-pro",
-      "easilift",
-      "easiair",
-      "easisling",
-      "easiturn",
-      "easislide",
-      "easiglide",
-      "easicart",
-    ],
-    ctaLabel: "View all products",
-    ctaHref: "/products",
-  },
   {
     id: "lateral-transfer",
     number: "01",
