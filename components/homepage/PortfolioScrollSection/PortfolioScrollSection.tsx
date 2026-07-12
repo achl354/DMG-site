@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { Container } from "@/components/layout";
+import { EyebrowHeading } from "@/components/ui";
 import { useReducedMotion } from "@/components/motion/ReducedMotionProvider";
 import { trackEvent } from "@/lib/analytics";
 import { SECTION_IDS } from "@/lib/constants";
@@ -41,15 +42,13 @@ export function PortfolioScrollSection({ scenes }: PortfolioScrollSectionProps) 
       aria-labelledby="portfolio-workflows-heading"
     >
       <Container size="xl">
-        <div className={styles.intro}>
-          <h2 id="portfolio-workflows-heading" className={styles.eyebrow}>
-            One portfolio. Every move supported.
-          </h2>
-          <p className={styles.introBody}>
-            Explore the EasiSystem™ portfolio by patient-handling workflow and see how each
-            product family supports different transfer, recovery and repositioning requirements.
-          </p>
-        </div>
+        <EyebrowHeading
+          eyebrow="Portfolio"
+          heading="One portfolio. Every move supported."
+          headingId="portfolio-workflows-heading"
+          body="Explore the EasiSystem™ portfolio by patient-handling workflow and see how each product family supports different transfer, recovery and repositioning requirements."
+          className={styles.intro}
+        />
       </Container>
 
       <PortfolioCards scenes={scenes} reducedMotion={reducedMotion} />

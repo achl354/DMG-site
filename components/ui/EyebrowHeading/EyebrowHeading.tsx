@@ -6,6 +6,7 @@ type HeadingTag = "h1" | "h2" | "h3" | "p";
 export interface EyebrowHeadingProps {
   eyebrow: string;
   heading: ReactNode;
+  headingId?: string;
   body?: ReactNode;
   as?: HeadingTag;
   align?: "left" | "center";
@@ -15,6 +16,7 @@ export interface EyebrowHeadingProps {
 export function EyebrowHeading({
   eyebrow,
   heading,
+  headingId,
   body,
   as: HeadingTag = "h2",
   align = "left",
@@ -23,7 +25,9 @@ export function EyebrowHeading({
   return (
     <div className={[styles.wrapper, styles[align], className].filter(Boolean).join(" ")}>
       <p className={styles.eyebrow}>{eyebrow}</p>
-      <HeadingTag className={styles.heading}>{heading}</HeadingTag>
+      <HeadingTag id={headingId} className={styles.heading}>
+        {heading}
+      </HeadingTag>
       {body && <div className={styles.body}>{body}</div>}
     </div>
   );
