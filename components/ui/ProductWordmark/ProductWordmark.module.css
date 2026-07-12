@@ -10,6 +10,19 @@
      the SVG siblings don't have, making the text fallback's wordmark sit
      visibly lower within the card than EasiCart's et al. */
   line-height: 1;
+  /*
+   * line-height: 1 still leaves ~2px above the cap-height: the font's own
+   * ascent metric (room for accents/diacritics) reserved above the em box,
+   * which an SVG image has no equivalent of. Nudges it up to close that
+   * last gap -- measured against EasiCart's flush-top ink, not guessed.
+   * Relative positioning rather than margin-top: ProductCard's .wordmark
+   * class sets its own margin-top (for gap-from-badge spacing) on this
+   * same element via the className prop, and its :hover state already
+   * owns `transform` (a scale effect) -- either would silently overwrite
+   * a same-property nudge here instead of combining with it.
+   */
+  position: relative;
+  top: -0.065em;
 }
 
 .prefix {
