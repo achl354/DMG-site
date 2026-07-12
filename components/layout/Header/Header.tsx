@@ -29,6 +29,7 @@ export function Header() {
             alt="DMG / DirectMed Group — Every Move Matters"
             width={241}
             height={40}
+            className={styles.logoImage}
             priority
           />
         </Link>

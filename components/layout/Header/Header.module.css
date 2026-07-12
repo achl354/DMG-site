@@ -27,6 +27,11 @@
   flex-shrink: 0;
 }
 
+.logoImage {
+  height: 40px;
+  width: auto;
+}
+
 .nav {
   display: none;
 }
@@ -82,5 +87,15 @@
 
   .toggle {
     display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .bar {
+    height: 84px;
+  }
+
+  .logoImage {
+    height: 48px;
   }
 }
