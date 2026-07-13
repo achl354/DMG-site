@@ -127,7 +127,6 @@ function WorkflowCard({
       {scene.icon && <Image src={scene.icon} alt="" width={220} height={220} className={styles.icon} />}
 
       <div className={styles.productsBlock}>
-        <span className={styles.productsLabel}>Primary products</span>
         <div className={styles.productRow}>
           {scene.activeProductIds.map((slug) => {
             const product = getProductBySlug(slug);
