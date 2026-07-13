@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { getAllWorkflows } from "@/lib/content/workflows";
 import { WORKFLOW_ICONS } from "@/lib/content/assets";
 import styles from "./EcosystemDiagram.module.css";
@@ -65,6 +66,25 @@ export function EcosystemDiagram({ progress }: EcosystemDiagramProps) {
     animated ? clamp(overallProgress * NODES.length - index) : 1,
   );
 
+  // Tracks which nodes have ever reached full reveal, so each one's spotlight
+  // flash plays exactly once (right as it arrives) rather than replaying on
+  // every scroll tick. Monotonic on purpose -- scrolling back up doesn't
+  // un-arrive a node, avoiding flicker if the scroll position wobbles right
+  // at a node's own reveal threshold. Updated during render (React's
+  // "adjusting state when a prop changes" pattern, guarded by comparing to
+  // the previous `progress`) rather than in an effect, so there's no extra
+  // render-then-effect round trip for what's really a derived value.
+  const [prevProgress, setPrevProgress] = useState(progress);
+  const [arrived, setArrived] = useState<boolean[]>(() => NODES.map(() => !animated));
+
+  if (animated && progress !== prevProgress) {
+    setPrevProgress(progress);
+    const next = arrived.map((wasArrived, index) => wasArrived || nodeProgress[index] >= 1);
+    if (next.some((value, index) => value !== arrived[index])) {
+      setArrived(next);
+    }
+  }
+
   return (
     <div className={styles.stageOuter}>
       <div
@@ -112,8 +132,16 @@ export function EcosystemDiagram({ progress }: EcosystemDiagramProps) {
                 transform: `translate(-50%, -50%) scale(${0.6 + 0.4 * reveal}) translateY(${(1 - reveal) * 16}px)`,
               }}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element -- small decorative catalogue icon, not a page-weight-relevant photo */}
-              <img src={node.icon} alt="" className={styles.nodeIcon} />
+              <div className={styles.iconWrap}>
+                <div
+                  className={[styles.nodeGlow, arrived[index] && (animated ? styles.flash : styles.settled)]
+                    .filter(Boolean)
+                    .join(" ")}
+                  aria-hidden="true"
+                />
+                {/* eslint-disable-next-line @next/next/no-img-element -- small decorative catalogue icon, not a page-weight-relevant photo */}
+                <img src={node.icon} alt="" className={styles.nodeIcon} />
+              </div>
               <p className={styles.nodeNumber}>{node.number}</p>
               <p className={styles.nodeTitle}>{node.title}</p>
             </div>
