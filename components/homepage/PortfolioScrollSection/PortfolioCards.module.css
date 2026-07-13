@@ -127,6 +127,13 @@
 @media (min-width: 768px) {
   .icon {
     height: 100px;
+    /*
+     * Desktop only, per explicit confirmation -- centers the icon
+     * horizontally within the card width while title/description/products
+     * stay left-aligned (.card's own align-items: flex-start). Mobile
+     * keeps the icon flush-left with the text above/below it.
+     */
+    align-self: center;
   }
 }
 
