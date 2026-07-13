@@ -137,18 +137,20 @@
    * zone above whatever follows.
    */
   margin-bottom: 24px;
+  /*
+   * Centers the icon horizontally within the card width, at every
+   * breakpoint (confirmed for mobile too, matching desktop's existing
+   * treatment) -- title/description/products stay left-aligned (.card's
+   * own align-items: flex-start). align-self only affects the cross axis
+   * in this column flex container, so this is purely horizontal and
+   * doesn't move the icon's position in the card's vertical flow.
+   */
+  align-self: center;
 }
 
 @media (min-width: 768px) {
   .icon {
     height: 100px;
-    /*
-     * Desktop only, per explicit confirmation -- centers the icon
-     * horizontally within the card width while title/description/products
-     * stay left-aligned (.card's own align-items: flex-start). Mobile
-     * keeps the icon flush-left with the text above/below it.
-     */
-    align-self: center;
   }
 }
 
