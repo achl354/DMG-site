@@ -1,7 +1,13 @@
 .stageOuter {
   position: relative;
   width: 100%;
-  max-width: 560px;
+  /*
+   * The hero grid's own column already reserves ~640px for this side at
+   * common desktop widths (Container's xl cap is 1240px, so this doesn't
+   * keep growing on wider screens) -- this was capped well short of that
+   * at 560px, leaving the diagram looking smaller than it had room to be.
+   */
+  max-width: 640px;
   aspect-ratio: 1 / 1;
   margin-left: auto;
   perspective: 1400px;
@@ -83,7 +89,7 @@
  */
 .hubName {
   font-family: var(--font-display);
-  font-size: var(--text-lg);
+  font-size: var(--text-xl);
   font-weight: var(--weight-extrabold);
   line-height: 1.1;
 }
@@ -106,7 +112,7 @@
 }
 
 .hubLabel {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: var(--weight-semibold);
   letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
@@ -121,26 +127,26 @@
   flex-direction: column;
   align-items: center;
   gap: var(--space-1);
-  width: 128px;
+  width: 146px;
   text-align: center;
 }
 
 .nodeIcon {
-  height: 44px;
+  height: 50px;
   width: auto;
   object-fit: contain;
 }
 
 .nodeNumber {
   font-family: var(--font-display);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: var(--weight-extrabold);
   letter-spacing: var(--tracking-wide);
   color: var(--teal-300);
 }
 
 .nodeTitle {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: var(--weight-semibold);
   color: var(--text-strong);
   line-height: var(--leading-snug);
