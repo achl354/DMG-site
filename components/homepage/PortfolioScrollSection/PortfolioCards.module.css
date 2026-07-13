@@ -104,10 +104,18 @@
   }
 }
 
+/*
+ * min-height: 3lh -- reserves space for 3 lines regardless of the actual
+ * text length. Without this, a shorter description (e.g. turning-
+ * positioning's 2 lines vs its row-mates' 3) leaves less space above the
+ * icon that follows, so the icon sits higher than its neighbours in the
+ * same row even though it's the same height.
+ */
 .description {
   font-size: var(--text-sm);
   line-height: var(--leading-relaxed);
   color: var(--text-body);
+  min-height: 3lh;
 }
 
 /*
