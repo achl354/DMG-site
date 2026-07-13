@@ -10,6 +10,12 @@
   margin-bottom: var(--space-9);
 }
 
+@media (max-width: 640px) {
+  .intro h2 {
+    font-size: 1.75rem;
+  }
+}
+
 @media (min-width: 1024px) {
   .intro {
     max-width: 90ch;
