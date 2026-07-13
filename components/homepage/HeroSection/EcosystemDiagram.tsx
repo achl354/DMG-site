@@ -132,16 +132,14 @@ export function EcosystemDiagram({ progress }: EcosystemDiagramProps) {
                 transform: `translate(-50%, -50%) scale(${0.6 + 0.4 * reveal}) translateY(${(1 - reveal) * 16}px)`,
               }}
             >
-              <div className={styles.iconWrap}>
-                <div
-                  className={[styles.nodeGlow, arrived[index] && (animated ? styles.flash : styles.settled)]
-                    .filter(Boolean)
-                    .join(" ")}
-                  aria-hidden="true"
-                />
-                {/* eslint-disable-next-line @next/next/no-img-element -- small decorative catalogue icon, not a page-weight-relevant photo */}
-                <img src={node.icon} alt="" className={styles.nodeIcon} />
-              </div>
+              {/* eslint-disable-next-line @next/next/no-img-element -- small decorative catalogue icon, not a page-weight-relevant photo */}
+              <img
+                src={node.icon}
+                alt=""
+                className={[styles.nodeIcon, arrived[index] && (animated ? styles.flash : styles.settled)]
+                  .filter(Boolean)
+                  .join(" ")}
+              />
               <p className={styles.nodeNumber}>{node.number}</p>
               <p className={styles.nodeTitle}>{node.title}</p>
             </div>
