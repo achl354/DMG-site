@@ -122,6 +122,13 @@
   width: auto;
   object-fit: contain;
   object-position: left center;
+  /*
+   * On top of .card's own 10px gap -- adds on top of it at every
+   * breakpoint (including desktop's bottom-anchored products block)
+   * rather than replacing it, so the icon always keeps its own visual
+   * zone above whatever follows.
+   */
+  margin-bottom: 24px;
 }
 
 @media (min-width: 768px) {
