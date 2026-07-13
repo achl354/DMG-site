@@ -26,9 +26,9 @@
 
 /*
  * Mobile-first: a plain flex column (copy, then the pinned rotation's
- * tall runway, stacked normally). Desktop only ever shows the static
- * visual (see HeroSection.tsx), so this is just a plain two-column
- * layout there, same as the original pre-rotation hero.
+ * tall runway, stacked normally). Desktop's two-column grid below applies
+ * whether or not the visual is pinned (see HeroSection.tsx) -- .track
+ * itself doesn't know which visual it's laying out.
  */
 .track {
   position: relative;
@@ -44,6 +44,23 @@
     gap: var(--space-9);
     align-items: center;
   }
+}
+
+/*
+ * Desktop-only pin: copy + the ecosystem diagram are pinned together
+ * within this runway (see HeroEcosystemVisual), so copy can't scroll out
+ * of view mid-assembly. Height is deliberately modest -- the diagram's own
+ * rendered height (~560px) plus a short scroll distance for the assembly,
+ * not the long runway a full-viewport pin would need.
+ */
+.desktopPinWrap {
+  position: relative;
+  min-height: 1150px;
+}
+
+.desktopPinStage {
+  position: sticky;
+  top: var(--header-height, 72px);
 }
 
 .copy {

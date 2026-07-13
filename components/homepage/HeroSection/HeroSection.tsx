@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { ReactNode, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 import { Tagline, Button } from "@/components/ui";
 import { Section, Container } from "@/components/layout";
@@ -8,6 +8,8 @@ import { useReducedMotion } from "@/components/motion/ReducedMotionProvider";
 import { trackEvent } from "@/lib/analytics";
 import { SECTION_IDS, CTA_LABELS } from "@/lib/constants";
 import { getAllWorkflows } from "@/lib/content/workflows";
+import { WORKFLOW_ICONS } from "@/lib/content/assets";
+import { EcosystemDiagram } from "./EcosystemDiagram";
 import styles from "./HeroSection.module.css";
 
 const ROTATION_DIR = "/images/easimove-scroll/rotation";
@@ -20,21 +22,6 @@ const HERO_ALT = "EasiMoveSPU™ single-patient-use air-assisted lateral transfe
  * (icon-based) mobile rotation. Real product photography.
  */
 const STATIC_HERO_SRC = `${ROTATION_DIR}/08_hero_full_product_photo.webp`;
-
-/**
- * Workflow slug -> icon filename. Not a straight `${slug}.png` lookup --
- * manual-handling-support's icon file predates that workflow's current
- * slug and is just "manual-handling.png". Same catalogue-sourced outline
- * artwork already used on /workflows and the homepage portfolio cards.
- */
-const WORKFLOW_ICON_FILES: Record<string, string> = {
-  "lateral-transfer": "lateral-transfer.png",
-  "floor-recovery": "floor-recovery.png",
-  "manual-handling-support": "manual-handling.png",
-  "sling-transfer": "sling-transfer.png",
-  "turning-positioning": "turning-positioning.png",
-  "support-equipment": "support-equipment.png",
-};
 
 interface WorkflowFrame {
   slug: string;
@@ -57,7 +44,7 @@ const WORKFLOW_FRAMES: WorkflowFrame[] = getAllWorkflows().map((workflow, index,
   slug: workflow.slug,
   start: index / all.length,
   end: index === all.length - 1 ? 1.001 : (index + 1) / all.length,
-  icon: `/icons/workflow/${WORKFLOW_ICON_FILES[workflow.slug]}`,
+  icon: WORKFLOW_ICONS[workflow.slug],
   number: workflow.number,
   title: workflow.title,
   familyName: workflow.familyName,
@@ -141,24 +128,84 @@ export function HeroSection() {
 
   return (
     <Section id="hero" spacing="lg" surface="page" className={styles.section}>
-      <Container size="xl" className={styles.track}>
-        {reducedMotion || isDesktop ? (
-          <>
-            {copy}
+      {isDesktop && !reducedMotion ? (
+        <HeroEcosystemVisual copy={copy} />
+      ) : (
+        <Container size="xl" className={styles.track}>
+          {copy}
+          {isDesktop ? (
+            // Reduced-motion desktop: fully-assembled diagram, no scroll runway.
+            <EcosystemDiagram />
+          ) : reducedMotion ? (
             <div className={styles.staticVisual}>
               <div className={styles.glow} aria-hidden="true" />
               {/* eslint-disable-next-line @next/next/no-img-element -- matches the plain-img approach used for every other frame; see HeroRotatingVisual */}
               <img src={STATIC_HERO_SRC} alt={HERO_ALT} className={styles.productImage} />
             </div>
-          </>
-        ) : (
-          <>
-            {copy}
+          ) : (
             <HeroRotatingVisual />
-          </>
-        )}
-      </Container>
+          )}
+        </Container>
+      )}
     </Section>
+  );
+}
+
+/**
+ * Desktop's animated path -- copy and the ecosystem diagram are pinned
+ * *together* (not just the diagram alone) within a modest scroll runway, so
+ * the copy can't scroll out of view mid-assembly the way it would if only
+ * the diagram were sticky. Runway is deliberately short: a previous attempt
+ * at pinning desktop's hero visual alone was dropped for feeling "too
+ * long-scrolling/awkward" (see STATIC_HERO_SRC's history above), so this
+ * keeps the pin distance modest rather than repeating that mistake.
+ */
+function HeroEcosystemVisual({ copy }: { copy: ReactNode }) {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const [progress, setProgress] = useState(0);
+  const pinStartRef = useRef(0);
+  const pinEndRef = useRef(1);
+
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (value) => {
+    const pinStart = pinStartRef.current;
+    const pinEnd = pinEndRef.current;
+    setProgress(pinEnd > pinStart ? clamp((value - pinStart) / (pinEnd - pinStart)) : 0);
+  });
+
+  useEffect(() => {
+    const wrap = wrapRef.current;
+    const stage = stageRef.current;
+    if (!wrap || !stage) return;
+
+    function measure() {
+      const headerOffset =
+        parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-height")) || 72;
+      const wrapTop = wrap!.getBoundingClientRect().top + window.scrollY;
+      const wrapHeight = wrap!.offsetHeight;
+      const stageHeight = stage!.offsetHeight;
+      pinStartRef.current = wrapTop - headerOffset;
+      pinEndRef.current = wrapTop + wrapHeight - stageHeight - headerOffset;
+    }
+
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(wrap);
+    observer.observe(stage);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={wrapRef} className={styles.desktopPinWrap}>
+      <div ref={stageRef} className={styles.desktopPinStage}>
+        <Container size="xl" className={styles.track}>
+          {copy}
+          <EcosystemDiagram progress={progress} />
+        </Container>
+      </div>
+    </div>
   );
 }
 

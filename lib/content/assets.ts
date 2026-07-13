@@ -66,3 +66,19 @@ export const PRODUCT_ICONS: Partial<Record<string, string>> = {
   easiair: "/icons/workflow/support-equipment.png",
   easicart: "/icons/workflow/support-equipment.png",
 };
+
+/**
+ * Workflow slug -> icon file. Not a straight `${slug}.png` lookup --
+ * manual-handling-support's icon file predates that workflow's current
+ * slug and is just "manual-handling.png". Same outline artwork as
+ * PRODUCT_ICONS above, keyed by workflow instead of product so the mobile
+ * hero rotator and the desktop ecosystem diagram share one source.
+ */
+export const WORKFLOW_ICONS: Record<string, string> = {
+  "lateral-transfer": "/icons/workflow/lateral-transfer.png",
+  "floor-recovery": "/icons/workflow/floor-recovery.png",
+  "manual-handling-support": "/icons/workflow/manual-handling.png",
+  "sling-transfer": "/icons/workflow/sling-transfer.png",
+  "turning-positioning": "/icons/workflow/turning-positioning.png",
+  "support-equipment": "/icons/workflow/support-equipment.png",
+};
