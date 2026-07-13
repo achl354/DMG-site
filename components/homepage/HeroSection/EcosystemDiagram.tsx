@@ -112,11 +112,13 @@ export function EcosystemDiagram({ progress }: EcosystemDiagramProps) {
         </svg>
 
         <div className={styles.hub}>
-          <p className={styles.hubName}>
-            Easi<strong>System</strong>
-            <sup>™</sup>
-          </p>
-          <p className={styles.hubLabel}>The ecosystem</p>
+          <div className={styles.hubTextGroup}>
+            <p className={styles.hubName}>
+              Easi<strong>System</strong>
+              <sup>™</sup>
+            </p>
+            <p className={styles.hubLabel}>The ecosystem</p>
+          </div>
         </div>
 
         {NODES.map((node, index) => {
