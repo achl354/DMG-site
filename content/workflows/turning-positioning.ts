@@ -4,7 +4,7 @@ export const turningPositioning: Workflow = {
   slug: "turning-positioning",
   number: "05",
   familyName: "EasiTurn™",
-  title: "Turning and positioning support",
+  title: "In-bed turning and positioning",
   summary:
     "EasiTurn™ is being developed as part of the EasiSystem™ turning and positioning range, alongside EasiMove™, EasiLift™, EasiSlide™, EasiGlide™, EasiAir™ and EasiCart™. Product specifications and availability information will be published when finalised.",
   products: ["easiturn"],
