@@ -48,7 +48,7 @@ const PILLARS = [
 
 export function WhyEasiSystem() {
   return (
-    <Section id="why-easisystem" spacing="md" surface="cream">
+    <Section id="why-easisystem" spacing="md" surface="cream" className={styles.section}>
       <Container size="lg">
         <EyebrowHeading
           eyebrow="Why EasiSystem™"

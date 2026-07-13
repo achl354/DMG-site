@@ -11,6 +11,19 @@
    */
 }
 
+/* Mobile's scroll-rotator visual already ends flush with this section's
+   bottom edge once unpinned -- the "lg" bottom padding on top of that plus
+   the next section's own top padding reads as an oversized gap. Desktop's
+   plain static hero doesn't have this compounding, so left untouched.
+   !important: .section and Section's own .lg are equal-specificity single
+   classes, so source order alone can't be relied on to win (same issue as
+   .heroCta below). */
+@media (max-width: 1023px) {
+  .section {
+    padding-bottom: var(--space-9) !important;
+  }
+}
+
 /*
  * Mobile-first: a plain flex column (copy, then the pinned rotation's
  * tall runway, stacked normally). Desktop only ever shows the static

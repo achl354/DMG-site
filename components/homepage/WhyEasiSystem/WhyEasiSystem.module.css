@@ -2,6 +2,15 @@
   margin-bottom: var(--space-9);
 }
 
+/* Mirrors HeroSection's own mobile bottom-padding trim -- this section's
+   "md" top padding stacks with the hero's bottom padding right above it.
+   !important: equal-specificity single classes vs Section's own .md. */
+@media (max-width: 1023px) {
+  .section {
+    padding-top: var(--space-9) !important;
+  }
+}
+
 /*
  * Targets the eyebrow <p> structurally (EyebrowHeading's own first child)
  * rather than touching --type-eyebrow-size, which is shared by every
