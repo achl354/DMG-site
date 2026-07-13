@@ -8,9 +8,25 @@
    * at 560px, leaving the diagram looking smaller than it had room to be.
    */
   max-width: 640px;
-  aspect-ratio: 1 / 1;
+  /*
+   * 4:5, not 1:1 -- stretches the hexagon taller than wide (top/bottom
+   * nodes sit further from the hub than the left/right ones) rather than
+   * a perfectly regular hexagon. Node/line positions are all % of this
+   * box already, so they follow the new proportions automatically; only
+   * .hub keeps its own 1:1 aspect-ratio so it stays a circle, not an oval.
+   */
+  aspect-ratio: 4 / 5;
   margin-left: auto;
   perspective: 1400px;
+  /*
+   * Shrinks the whole box (both dimensions, ratio preserved) on shorter
+   * viewports -- without this, the 4:5 ratio's 800px height combined with
+   * the sticky pin clips the bottom node off-screen for the entire pinned
+   * scroll phase on ~800-870px-tall viewports (common on laptops), with
+   * no way to see it until the pin releases. 48px is headroom so it
+   * doesn't touch the very bottom edge.
+   */
+  max-height: calc(100vh - var(--header-height, 72px) - 48px);
 }
 
 .stage {
@@ -106,26 +122,26 @@
   flex-direction: column;
   align-items: center;
   gap: var(--space-1);
-  width: 146px;
+  width: 181px;
   text-align: center;
 }
 
 .nodeIcon {
-  height: 50px;
+  height: 62px;
   width: auto;
   object-fit: contain;
 }
 
 .nodeNumber {
   font-family: var(--font-display);
-  font-size: 12px;
+  font-size: 15px;
   font-weight: var(--weight-extrabold);
   letter-spacing: var(--tracking-wide);
   color: var(--teal-300);
 }
 
 .nodeTitle {
-  font-size: 15px;
+  font-size: 19px;
   font-weight: var(--weight-semibold);
   color: var(--text-strong);
   line-height: var(--leading-snug);

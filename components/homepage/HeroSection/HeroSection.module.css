@@ -50,12 +50,14 @@
  * Desktop-only pin: copy + the ecosystem diagram are pinned together
  * within this runway (see HeroEcosystemVisual), so copy can't scroll out
  * of view mid-assembly. Height is deliberately modest -- the diagram's own
- * rendered height (~560px) plus a short scroll distance for the assembly,
- * not the long runway a full-viewport pin would need.
+ * rendered height (now ~800px tall at its 4:5 ratio, up from a 640px
+ * square) plus a short scroll distance for the assembly, not the long
+ * runway a full-viewport pin would need. Bumped from 1150px to keep that
+ * same ~485px scroll distance now that the diagram is taller than copy.
  */
 .desktopPinWrap {
   position: relative;
-  min-height: 1150px;
+  min-height: 1290px;
 }
 
 .desktopPinStage {
