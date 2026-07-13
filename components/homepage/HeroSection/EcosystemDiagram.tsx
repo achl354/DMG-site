@@ -15,6 +15,16 @@ interface DiagramNode {
 const RADIUS_PCT = 38;
 
 /**
+ * Connector lines stop at half the hub-to-node distance rather than
+ * reaching each node's own anchor point -- the node's icon/number/title
+ * are all stacked at that same anchor, so a full-length line ran straight
+ * through the icon (and, for the directly-above/below nodes, the number
+ * and title too). 0.5 leaves clear margin before the node's box even
+ * starts (~0.79 of the way out), not just before the icon.
+ */
+const LINE_END_RATIO = 0.5;
+
+/**
  * Hexagon ring: 6 nodes at 60° increments starting at the top (-90°), going
  * clockwise in /workflows' own order -- not the reference catalogue
  * diagram's numbering, kept consistent with the mobile rotator's choice so
@@ -64,14 +74,14 @@ export function EcosystemDiagram({ progress }: EcosystemDiagramProps) {
         <svg className={styles.lines} viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
           {NODES.map((node, index) => {
             const { x, y } = nodeOffset(node.angleDeg);
-            const length = Math.hypot(x, y);
+            const length = Math.hypot(x, y) * LINE_END_RATIO;
             return (
               <line
                 key={node.slug}
                 x1={50}
                 y1={50}
-                x2={50 + x}
-                y2={50 + y}
+                x2={50 + x * LINE_END_RATIO}
+                y2={50 + y * LINE_END_RATIO}
                 className={styles.line}
                 strokeDasharray={length}
                 strokeDashoffset={length * (1 - nodeProgress[index])}

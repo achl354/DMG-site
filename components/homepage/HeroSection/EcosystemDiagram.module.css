@@ -34,12 +34,21 @@
   }
 }
 
+/*
+ * z-index: 0 with the hub/node below at z-index: 1 -- belt-and-braces
+ * alongside shortening the lines themselves (see LINE_END_RATIO). The
+ * .stage parent's transform-style: preserve-3d (for the tilt effect) can
+ * make 3D depth ordering take priority over plain DOM paint order, so
+ * without this the lines could still render above the nodes in some
+ * browsers even where they no longer geometrically overlap.
+ */
 .lines {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   overflow: visible;
+  z-index: 0;
 }
 
 .line {
@@ -49,6 +58,7 @@
 
 .hub {
   position: absolute;
+  z-index: 1;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -83,6 +93,7 @@
 
 .node {
   position: absolute;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
