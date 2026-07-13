@@ -82,10 +82,9 @@
 }
 
 /*
- * Tight line-height on both lines -- the default (~1.65x font-size) adds
- * enough leading above/below the glyphs that the text block, even though
- * flexbox centers its box exactly, reads as visually off-center within
- * the circle (the extra leading unbalances where the actual ink sits).
+ * Tight line-height -- the default (~1.65x font-size) adds enough leading
+ * above/below the glyphs that the text reads as visually off-center
+ * within the circle even though flexbox centers its box exactly.
  */
 .hubName {
   font-family: var(--font-display);
@@ -98,26 +97,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  /*
-   * The ™ superscript raises that glyph above the line's normal ascent,
-   * which pads extra height onto the top of the name line's box without
-   * a matching pad below it -- flexbox centers this group's own box
-   * correctly, but the visible text still reads a few px low as a
-   * result. transform (not margin) so it's a plain visual nudge that
-   * doesn't feed back into the centering calculation itself. Measured
-   * empirically against this exact copy, not a generic fudge.
-   */
-  transform: translateY(-4.5px);
-}
-
-.hubLabel {
-  font-size: 12px;
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-wide);
-  text-transform: uppercase;
-  line-height: 1.1;
-  opacity: 0.8;
 }
 
 .node {

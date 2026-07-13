@@ -96,7 +96,6 @@ export function EcosystemDiagram({ progress }: EcosystemDiagramProps) {
               Easi<strong>System</strong>
               <sup>™</sup>
             </p>
-            <p className={styles.hubLabel}>The ecosystem</p>
           </div>
         </div>
 
