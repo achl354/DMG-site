@@ -15,15 +15,14 @@ export interface PortfolioScene {
 }
 
 /**
- * The seven cards in the homepage product-range overview. Deliberately its
+ * The six cards in the homepage product-range overview. Deliberately its
  * own data shape rather than reusing content/workflows -- these scenes group
  * products by what the *card* shows, which doesn't line up 1:1 with the
  * catalogue's workflow groupings. No opening or closing "full portfolio"
  * card -- every product already appears in its own workflow card, so a card
- * re-listing all nine again just repeated them. Air supply and equipment
- * storage are split into their own cards (each maps to its own catalogue
- * workflow: air-supply, equipment-storage) rather than one combined
- * "supporting equipment" card.
+ * re-listing all nine again just repeated them. EasiAir and EasiCart share
+ * one combined card, matching the single "support-equipment" catalogue
+ * workflow.
  */
 export const PORTFOLIO_SCENES: PortfolioScene[] = [
   {
@@ -86,28 +85,16 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
     ctaHref: "/workflows/manual-handling-support",
   },
   {
-    id: "air-supply",
+    id: "support-equipment",
     number: "06",
-    title: "Air supply",
+    title: "Workflow Support Equipment",
     description:
-      "EasiAir™ provides controlled airflow to compatible DirectMed-approved air-assisted patient handling devices.",
-    activeProductIds: ["easiair"],
-    icon: "/icons/workflow/air-supply.png",
-    workflowUrl: "/workflows/air-supply",
-    ctaLabel: "Explore air supply",
-    ctaHref: "/workflows/air-supply",
-  },
-  {
-    id: "equipment-storage",
-    number: "07",
-    title: "Equipment storage",
-    description:
-      "EasiCart™ supports organised storage and access to patient-handling equipment for routine clinical use.",
-    activeProductIds: ["easicart"],
-    icon: "/icons/workflow/equipment-storage.png",
-    workflowUrl: "/workflows/equipment-storage",
-    ctaLabel: "Explore equipment storage",
-    ctaHref: "/workflows/equipment-storage",
+      "EasiAir™ air supplies and EasiCart™ storage solutions support compatible product operation, accessibility and equipment readiness.",
+    activeProductIds: ["easiair", "easicart"],
+    icon: "/icons/workflow/support-equipment.png",
+    workflowUrl: "/workflows/support-equipment",
+    ctaLabel: "Explore workflow support equipment",
+    ctaHref: "/workflows/support-equipment",
   },
 ];
 

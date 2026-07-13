@@ -2,7 +2,7 @@ import type { Product } from "@/lib/content/products";
 
 export const easiair: Product = {
   slug: "easiair",
-  category: "Air supply",
+  category: "Support equipment",
   tagline: "Variable speed air supply",
   summary:
     "EasiAir™ is a variable speed air supply designed for use with compatible DirectMed-approved air-assisted patient handling devices, engineered for reliability, simplicity and versatility across modern healthcare environments.",

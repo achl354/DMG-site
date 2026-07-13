@@ -63,6 +63,6 @@ export const PRODUCT_ICONS: Partial<Record<string, string>> = {
   easislide: "/icons/workflow/turning-positioning.png",
   easisling: "/icons/workflow/sling-transfer.png",
   easiglide: "/icons/workflow/manual-handling.png",
-  easiair: "/icons/workflow/air-supply.png",
-  easicart: "/icons/workflow/equipment-storage.png",
+  easiair: "/icons/workflow/support-equipment.png",
+  easicart: "/icons/workflow/support-equipment.png",
 };

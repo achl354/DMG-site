@@ -4,8 +4,7 @@ import { floorRecovery } from "./floor-recovery";
 import { manualHandlingSupport } from "./manual-handling-support";
 import { slingTransfer } from "./sling-transfer";
 import { turningPositioning } from "./turning-positioning";
-import { airSupply } from "./air-supply";
-import { equipmentStorage } from "./equipment-storage";
+import { supportEquipment } from "./support-equipment";
 
 export const WORKFLOWS: Workflow[] = [
   lateralTransfer,
@@ -13,6 +12,5 @@ export const WORKFLOWS: Workflow[] = [
   manualHandlingSupport,
   slingTransfer,
   turningPositioning,
-  airSupply,
-  equipmentStorage,
+  supportEquipment,
 ];

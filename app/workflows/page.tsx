@@ -8,7 +8,7 @@ import styles from "./page.module.css";
 export const metadata = buildMetadata({
   title: "Workflows",
   description:
-    "The EasiSystem™ range, organised by patient-handling workflow — lateral transfer, floor recovery, manual handling support, sling transfer, turning & positioning, air supply and equipment storage.",
+    "The EasiSystem™ range, organised by patient-handling workflow — lateral transfer, floor recovery, manual handling support, sling transfer, turning & positioning and support equipment.",
   path: "/workflows",
 });
 
@@ -20,7 +20,7 @@ export default function WorkflowsPage() {
       <Container size="xl">
         <EyebrowHeading
           eyebrow="Workflows"
-          heading="One system, seven workflows"
+          heading="One system, six workflows"
           body="EasiSystem™ is organised around how patients actually move through a ward — not a flat product catalogue. Each workflow groups the products built to support it."
           className={styles.heading}
         />
