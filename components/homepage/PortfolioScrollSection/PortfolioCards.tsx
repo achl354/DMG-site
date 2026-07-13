@@ -131,7 +131,7 @@ function WorkflowCard({
           {scene.activeProductIds.map((slug) => {
             const product = getProductBySlug(slug);
             if (!product) return null;
-            return <ProductChip key={slug} name={product.name} status={product.status} />;
+            return <ProductChip key={slug} name={product.name} />;
           })}
         </div>
       </div>

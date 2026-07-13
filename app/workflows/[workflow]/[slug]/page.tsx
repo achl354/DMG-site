@@ -78,7 +78,7 @@ export default async function ProductDetailPage({
           ) : null}
           <p className={styles.category}>{product.category}</p>
           <h1 className={styles.tagline}>{product.tagline}</h1>
-          {product.status && (
+          {product.status !== "in-development" && (
             <Badge tone="warning">{PRODUCT_STATUS_LABELS[product.status]}</Badge>
           )}
           <p className={styles.summary}>{product.summary}</p>

@@ -10,15 +10,3 @@
   font-weight: var(--weight-semibold);
   color: var(--brand);
 }
-
-.badge {
-  font-size: 10px;
-  font-weight: var(--weight-semibold);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--text-muted);
-  background: var(--surface-tint);
-  border-radius: var(--radius-pill);
-  padding: 4px 8px;
-  white-space: nowrap;
-}
