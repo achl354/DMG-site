@@ -178,17 +178,58 @@ export function HeroSection() {
 
 function HeroRotatingVisual() {
   const wrapRef = useRef<HTMLDivElement>(null);
+  const visualRef = useRef<HTMLDivElement>(null);
   const [activeImageId, setActiveImageId] = useState(IMAGE_FRAMES[0].id);
   const [progressPercent, setProgressPercent] = useState(0);
+  // Absolute document scrollY range across which the image is actually
+  // held in place by position: sticky (it can only pin while there's
+  // runway left below it -- once the wrap's remaining height drops below
+  // the sticky element's own height, it releases and scrolls away with
+  // its container). Refs, not state: only read inside the scroll callback,
+  // so they don't need to trigger a re-render.
+  const pinStartRef = useRef(0);
+  const pinEndRef = useRef(1);
 
-  const { scrollYProgress } = useScroll({ target: wrapRef, offset: ["start start", "end end"] });
+  // Page scroll in raw pixels, not scrollYProgress against a `target` --
+  // this component's own runway (750px) is shorter than most phones'
+  // viewport height, and framer's named "start start"/"end end" offsets
+  // against a target shorter than the viewport produce a degenerate,
+  // non-monotonic progress value (confirmed by direct measurement: the
+  // "end" trigger point falls *before* the "start" one along the scroll
+  // axis in that case). Computing progress from the sticky pin's own
+  // measured pixel range below sidesteps that entirely.
+  const { scrollY } = useScroll();
 
-  useMotionValueEvent(scrollYProgress, "change", (value) => {
-    const progress = clamp(value);
+  useMotionValueEvent(scrollY, "change", (value) => {
+    const pinStart = pinStartRef.current;
+    const pinEnd = pinEndRef.current;
+    const progress = pinEnd > pinStart ? clamp((value - pinStart) / (pinEnd - pinStart)) : 0;
     const nextImageId = getActiveImageId(progress);
     setActiveImageId((prev) => (prev === nextImageId ? prev : nextImageId));
     setProgressPercent(Math.round(progress * 100));
   });
+
+  useEffect(() => {
+    const wrap = wrapRef.current;
+    const visual = visualRef.current;
+    if (!wrap || !visual) return;
+
+    function measure() {
+      const headerOffset =
+        parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-height")) || 72;
+      const wrapTop = wrap!.getBoundingClientRect().top + window.scrollY;
+      const wrapHeight = wrap!.offsetHeight;
+      const visualHeight = visual!.offsetHeight;
+      pinStartRef.current = wrapTop - headerOffset;
+      pinEndRef.current = wrapTop + wrapHeight - visualHeight - headerOffset;
+    }
+
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(wrap);
+    observer.observe(visual);
+    return () => observer.disconnect();
+  }, []);
 
   // The hero is always in view on page load (unlike the old separate
   // section further down, which preloaded lazily as it approached the
@@ -199,7 +240,7 @@ function HeroRotatingVisual() {
 
   return (
     <div ref={wrapRef} className={styles.visualWrap}>
-      <div className={styles.visual}>
+      <div ref={visualRef} className={styles.visual}>
         <div className={styles.glow} aria-hidden="true" />
         {/*
          * Framed deliberately (white card, real border) rather than trying

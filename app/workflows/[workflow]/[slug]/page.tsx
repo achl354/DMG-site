@@ -96,7 +96,7 @@ export default async function ProductDetailPage({
       <Section spacing="md" surface="sunken">
         <Container size="md">
           <div className={styles.detailGrid}>
-            <div>
+            <div className={styles.detailColumn}>
               <h2 className={styles.sectionHeading}>Features</h2>
               <ul className={styles.list}>
                 {product.features.map((feature) => (
@@ -104,7 +104,7 @@ export default async function ProductDetailPage({
                 ))}
               </ul>
             </div>
-            <Card variant="tint">
+            <Card variant="tint" className={styles.detailColumn}>
               <h2 className={styles.sectionHeading}>Specifications</h2>
               <dl className={styles.specs}>
                 {product.specs.map((spec) => (

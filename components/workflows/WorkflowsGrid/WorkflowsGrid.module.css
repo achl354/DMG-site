@@ -1,5 +1,26 @@
+/*
+ * Flexbox, not grid -- a wrapping grid's column tracks are shared across
+ * every row, so a trailing partial row (6 workflows doesn't divide evenly
+ * into any fixed column count) still reserves full-width empty tracks
+ * beside the last card(s). Flexbox's `justify-content` applies per wrapped
+ * line, so the last row's leftover space centers around its card(s) instead.
+ */
 .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: var(--space-6);
+}
+
+.grid > * {
+  flex: 1 1 280px;
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    justify-content: center;
+  }
+
+  .grid > * {
+    max-width: 300px;
+  }
 }

@@ -54,6 +54,13 @@ const nextConfig: NextConfig = {
   },
 };
 
-const withMDX = createMDX({});
+const withMDX = createMDX({
+  // String form (not the imported remarkGfm function) -- Turbopack can't
+  // pass JS function references to its Rust MDX compiler, only serializable
+  // plugin names.
+  options: {
+    remarkPlugins: ["remark-gfm"],
+  },
+});
 
 export default withMDX(nextConfig);

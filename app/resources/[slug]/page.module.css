@@ -61,3 +61,26 @@
 .prose ol {
   list-style: decimal;
 }
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: var(--space-4);
+  font-size: var(--text-sm);
+}
+
+.prose th,
+.prose td {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.prose th {
+  font-weight: var(--weight-semibold);
+  color: var(--text-strong);
+}
+
+.prose td {
+  color: var(--text-body);
+}

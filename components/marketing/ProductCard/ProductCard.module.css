@@ -12,10 +12,21 @@
     box-shadow var(--duration-base) var(--ease-out);
 }
 
+/*
+ * min-height reserves room for 2 wrapped badge lines (measured: 27.8px per
+ * line + var(--space-2) gap = ~64px) -- only some products carry a second
+ * status badge alongside the category badge, and at card width the two
+ * together wrap to a second line. Without a fixed reservation, cards with
+ * a status badge push their wordmark down relative to single-badge
+ * siblings in the same row, breaking the shared baseline across a card grid.
+ */
 .badgeRow {
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;
+  align-content: flex-start;
   gap: var(--space-2);
+  min-height: 64px;
 }
 
 .link:hover .card {

@@ -56,6 +56,19 @@
   gap: var(--space-8);
 }
 
+/*
+ * Features (a bullet list) and Specifications (a card) are independent,
+ * variable-length content -- whichever is shorter otherwise stretches to
+ * the row's full height by default and leaves a block of dead space below
+ * its own content instead of matching its sibling's height. Centering
+ * both means the shorter one centers on its taller sibling instead;
+ * centering has no visible effect on whichever one IS the taller side,
+ * since it already fills the row.
+ */
+.detailColumn {
+  align-self: center;
+}
+
 .sectionHeading {
   font-size: var(--type-h3-size);
   font-weight: var(--type-heading-weight);

@@ -15,7 +15,7 @@ export default function AboutPage() {
   return (
     <>
       <Section spacing="lg">
-        <Container size="md">
+        <Container size="lg">
           <EyebrowHeading
             eyebrow="About"
             heading="About DirectMed Group"
@@ -25,7 +25,7 @@ export default function AboutPage() {
       </Section>
 
       <Section spacing="md" surface="sunken">
-        <Container size="md">
+        <Container size="lg">
           <div className={styles.grid}>
             <div className={styles.card}>
               <p className={styles.cardLabel}>EasiSystem™</p>
@@ -52,7 +52,7 @@ export default function AboutPage() {
       </Section>
 
       <Section spacing="md">
-        <Container size="md">
+        <Container size="lg">
           <p className={styles.availabilityNote}>
             EasiSystem™ availability varies by product and market. Contact
             DirectMed Group for current market-specific information.

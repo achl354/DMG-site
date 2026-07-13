@@ -61,14 +61,29 @@
 }
 
 /*
- * "wide" cards use a fixed desktop column size instead of the default
- * auto-fill/1fr stretch, which sizes cards by however much container
- * space happens to be left over (~280px for a 2-product family) rather
- * than a deliberate width. A fixed track gives a precise, predictable
- * +12.5% (280px -> 315px) regardless of how much empty grid space exists.
+ * Desktop-only: auto-fit (not auto-fill) collapses any column tracks left
+ * unpopulated by a 1-2 product family, so they stop reserving stretched
+ * 1fr width as visible empty grid cells -- which is what left a large dead
+ * void beside a lone card on single-product family pages. Capping the max
+ * (rather than leaving 1fr) stops a lone card from instead stretching to
+ * fill the whole freed-up row; centering the row means the leftover space
+ * reads as deliberate breathing room on both sides instead of a lopsided
+ * gap on the right. Mobile is untouched (always a single full-width
+ * column regardless of product count, so this pattern doesn't occur there).
+ *
+ * "wide" cards use the same fixed-track approach at a larger 315px column
+ * size instead of the default 280px -- a precise, predictable +12.5%
+ * (see prior commit) rather than however much container space happens to
+ * be left over.
  */
 @media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 280px));
+    justify-content: center;
+  }
+
   .gridWide {
-    grid-template-columns: repeat(auto-fill, 315px);
+    grid-template-columns: repeat(auto-fit, 315px);
+    justify-content: center;
   }
 }
