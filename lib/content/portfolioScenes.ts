@@ -87,7 +87,7 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
   {
     id: "support-equipment",
     number: "06",
-    title: "Workflow Support Equipment",
+    title: "Support equipment",
     description:
       "EasiAir™ air supplies and EasiCart™ storage solutions support compatible product operation, accessibility and equipment readiness.",
     activeProductIds: ["easiair", "easicart"],
