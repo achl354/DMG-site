@@ -17,11 +17,11 @@ import { easiturn } from "./easiturn";
 export const PRODUCTS: Product[] = [
   easimoveSpu,
   easimovePro,
-  easiair,
-  easisling,
   easilift,
-  easicart,
-  easiglide,
   easislide,
+  easiglide,
+  easisling,
   easiturn,
+  easiair,
+  easicart,
 ];
