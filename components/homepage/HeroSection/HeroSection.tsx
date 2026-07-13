@@ -1,90 +1,75 @@
 "use client";
 
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
-import Image from "next/image";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 import { Tagline, Button } from "@/components/ui";
 import { Section, Container } from "@/components/layout";
 import { useReducedMotion } from "@/components/motion/ReducedMotionProvider";
 import { trackEvent } from "@/lib/analytics";
 import { SECTION_IDS, CTA_LABELS } from "@/lib/constants";
+import { getAllWorkflows } from "@/lib/content/workflows";
 import styles from "./HeroSection.module.css";
 
 const ROTATION_DIR = "/images/easimove-scroll/rotation";
-const FEATURES_DIR = "/images/easimove-scroll/features";
 const HERO_ALT = "EasiMoveSPU™ single-patient-use air-assisted lateral transfer mattress";
 
 /**
  * Desktop's static image and the reduced-motion fallback both need one
  * fixed "resting" frame -- kept as its own constant rather than reading
- * IMAGE_FRAMES[0], since that array is mobile-rotation-only content.
- * Real product photography (not AI-generated -- see IMAGE_FRAMES below).
+ * WORKFLOW_FRAMES[0], since that array drives a completely different
+ * (icon-based) mobile rotation. Real product photography.
  */
 const STATIC_HERO_SRC = `${ROTATION_DIR}/08_hero_full_product_photo.webp`;
 
-interface ImageFrame {
-  id: string;
+/**
+ * Workflow slug -> icon filename. Not a straight `${slug}.png` lookup --
+ * manual-handling-support's icon file predates that workflow's current
+ * slug and is just "manual-handling.png". Same catalogue-sourced outline
+ * artwork already used on /workflows and the homepage portfolio cards.
+ */
+const WORKFLOW_ICON_FILES: Record<string, string> = {
+  "lateral-transfer": "lateral-transfer.png",
+  "floor-recovery": "floor-recovery.png",
+  "manual-handling-support": "manual-handling.png",
+  "sling-transfer": "sling-transfer.png",
+  "turning-positioning": "turning-positioning.png",
+  "support-equipment": "support-equipment.png",
+};
+
+interface WorkflowFrame {
+  slug: string;
   start: number;
   end: number;
-  src: string;
-  alt: string;
+  icon: string;
+  number: string;
+  title: string;
+  familyName: string;
 }
 
 /**
- * Mixed sources: slight-rotation, side-profile and foot-end-label are real
- * product photography (true alpha transparency, verified pixel-by-pixel).
- * red-handles and centre-line are still the earlier AI-generated renders --
- * the real-photo equivalents of those two specific close-ups had a color
- * defect (their red elements rendered as magenta, confirmed via pixel
- * sampling, not just visually), so they were dropped rather than shipped
- * broken. Revisit once corrected exports exist, so all 5 stages match.
- * foot-end-label is deliberately last in this list (not source order --
- * centre-line comes before it) per explicit request. This used to be a
- * separate section below the hero (EasiMoveScrollStory); it's merged in
- * here so the hero's own product image IS the scroll-driven rotation,
- * rather than showing the same opening frame twice back to back.
+ * Mobile's hero rotation cycles through the six EasiSystem™ workflows
+ * (outline icon + name) rather than EasiMoveSPU product photography --
+ * replaces the previous 5-frame photo/close-up sequence. Built from
+ * getAllWorkflows() (same order as /workflows, not re-sorted here) so it
+ * stays in sync if the catalogue itself is ever reordered.
  */
-const IMAGE_FRAMES: ImageFrame[] = [
-  { id: "slight-rotation", start: 0, end: 0.3, src: `${ROTATION_DIR}/09_intermediate_angle_photo.webp`, alt: HERO_ALT },
-  {
-    id: "side-profile",
-    start: 0.3,
-    end: 0.4,
-    src: `${ROTATION_DIR}/10_side_profile_photo.webp`,
-    alt: "EasiMoveSPU™ mattress, side profile",
-  },
-  {
-    id: "red-handles",
-    start: 0.4,
-    end: 0.6,
-    src: `${FEATURES_DIR}/01_red_handles.webp`,
-    alt: "Close-up of EasiMoveSPU™'s red perimeter transfer handles",
-  },
-  {
-    id: "centre-line",
-    start: 0.6,
-    end: 0.8,
-    src: `${FEATURES_DIR}/04_centre_line.webp`,
-    alt: "Close-up of EasiMoveSPU™'s centre alignment guide",
-  },
-  {
-    id: "foot-end-label",
-    start: 0.8,
-    end: 1.001,
-    src: `${FEATURES_DIR}/05_foot_end_label_photo.webp`,
-    alt: "Close-up of EasiMoveSPU™'s foot-end product label",
-  },
-];
+const WORKFLOW_FRAMES: WorkflowFrame[] = getAllWorkflows().map((workflow, index, all) => ({
+  slug: workflow.slug,
+  start: index / all.length,
+  end: index === all.length - 1 ? 1.001 : (index + 1) / all.length,
+  icon: `/icons/workflow/${WORKFLOW_ICON_FILES[workflow.slug]}`,
+  number: workflow.number,
+  title: workflow.title,
+  familyName: workflow.familyName,
+}));
 
 const clamp = (value: number, min = 0, max = 1) => Math.min(Math.max(value, min), max);
 
 function getActiveImageId(progress: number): string {
-  return IMAGE_FRAMES.find((frame) => progress >= frame.start && progress < frame.end)?.id ?? IMAGE_FRAMES[0].id;
+  return WORKFLOW_FRAMES.find((frame) => progress >= frame.start && progress < frame.end)?.slug ?? WORKFLOW_FRAMES[0].slug;
 }
 
 function preloadImage(src: string) {
-  // `window.Image`, not the bare `Image` identifier -- that name is shadowed
-  // in this file by the `next/image` import above.
   const img = new window.Image();
   img.src = src;
 }
@@ -180,7 +165,7 @@ export function HeroSection() {
 function HeroRotatingVisual() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const visualRef = useRef<HTMLDivElement>(null);
-  const [activeImageId, setActiveImageId] = useState(IMAGE_FRAMES[0].id);
+  const [activeImageId, setActiveImageId] = useState(WORKFLOW_FRAMES[0].slug);
   const [progressPercent, setProgressPercent] = useState(0);
   // Absolute document scrollY range across which the image is actually
   // held in place by position: sticky (it can only pin while there's
@@ -236,7 +221,7 @@ function HeroRotatingVisual() {
   // section further down, which preloaded lazily as it approached the
   // viewport) -- so just preload the remaining frames directly on mount.
   useEffect(() => {
-    IMAGE_FRAMES.slice(1).forEach((frame) => preloadImage(frame.src));
+    WORKFLOW_FRAMES.slice(1).forEach((frame) => preloadImage(frame.icon));
   }, []);
 
   return (
@@ -254,28 +239,23 @@ function HeroRotatingVisual() {
          */}
         <div className={styles.imageCard}>
           <div className={styles.frameStack}>
-            {/* Frame 0 uses next/image with priority since it's the hero's
-                likely LCP element; the rest are plain <img>s stacked on top,
-                matching the crossfade approach the merged-in scroll story used. */}
-            <Image
-              src={IMAGE_FRAMES[0].src}
-              alt={IMAGE_FRAMES[0].alt}
-              width={1600}
-              height={1600}
-              priority
-              sizes="(max-width: 1023px) 100vw, 58vw"
-              className={styles.frame}
-              style={{ opacity: activeImageId === IMAGE_FRAMES[0].id ? 1 : 0 }}
-            />
-            {IMAGE_FRAMES.slice(1).map((frame) => (
-              // eslint-disable-next-line @next/next/no-img-element -- all remaining frames must mount as plain <img>s upfront for the crossfade stack; next/image's lazy-loading would fight the manual preload above
-              <img
-                key={frame.id}
-                src={frame.src}
-                alt={frame.id === activeImageId ? frame.alt : ""}
+            {/* All 6 frames mount upfront as plain <img>s (not next/image) --
+                these are small catalogue icons, not large photos, so the
+                previous frame-0-gets-priority split no longer earns its
+                complexity. Captions (number/title/family) are visible text
+                now, so each icon is purely decorative (alt=""). */}
+            {WORKFLOW_FRAMES.map((frame) => (
+              <div
+                key={frame.slug}
                 className={styles.frame}
-                style={{ opacity: frame.id === activeImageId ? 1 : 0 }}
-              />
+                style={{ opacity: activeImageId === frame.slug ? 1 : 0 }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element -- all frames must mount upfront for the crossfade stack; next/image's lazy-loading would fight the manual preload above */}
+                <img src={frame.icon} alt="" className={styles.frameIcon} />
+                <p className={styles.frameNumber}>{frame.number}</p>
+                <h3 className={styles.frameTitle}>{frame.title}</h3>
+                <p className={styles.frameFamily}>{frame.familyName}</p>
+              </div>
             ))}
           </div>
         </div>
