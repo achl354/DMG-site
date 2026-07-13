@@ -29,8 +29,16 @@
   font-weight: var(--weight-light);
 }
 
+/*
+ * --weight-extrabold (800), not --weight-bold -- the real SVG lockups'
+ * hand-drawn bold strokes read noticeably heavier than this font's actual
+ * 700 weight at the same size (confirmed by direct visual comparison
+ * against EasiLift/EasiCart). 800 is the heaviest weight the variable
+ * font file itself supports (see fonts.css's `font-weight: 200 800`),
+ * so this is as close as a text fallback can get.
+ */
 .suffix {
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-extrabold);
 }
 
 .mark {
