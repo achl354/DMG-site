@@ -102,48 +102,88 @@
   text-align: center;
 }
 
+.iconStage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /*
- * Spotlight that flashes on as each node arrives, then settles to a
- * smaller permanent glow (see .flash/.settled below). Uses drop-shadow
- * (traces the icon's own alpha silhouette) instead of a flat glow shape
- * behind it -- a separate colored disc sat directly behind the linework
- * and washed it out, since the icon's own lines are a similar teal. A
- * shape-aware glow reads as the artwork lighting up instead of competing
- * with it. Two stacked drop-shadows (tight + wide) for a richer bloom;
- * both keyframes keep the same two-function shape so the blur/alpha
- * interpolate smoothly rather than snapping between mismatched filters.
+ * A real spotlight, not a glow -- previous attempts (flat disc, then a
+ * shape-aware drop-shadow) both read as ambient light around the icon
+ * rather than a directed light source, which is what "spotlight" actually
+ * means. This is a light beam shining down from above (.beam) paired with
+ * the icon's own brightness briefly spiking as the "light" hits it, then
+ * both fade back to normal -- nothing sits behind/around the linework, so
+ * there's no risk of it ever competing with the artwork again.
  */
+.beam {
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  width: 64px;
+  height: 76px;
+  transform: translateX(-50%);
+  clip-path: polygon(40% 100%, 60% 100%, 100% 0%, 0% 0%);
+  background: linear-gradient(
+    to bottom,
+    rgba(111, 168, 164, 0) 0%,
+    rgba(111, 168, 164, 0.55) 55%,
+    rgba(243, 248, 247, 0.9) 100%
+  );
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes beamFlash {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.5;
+  }
+}
+
+.beam.flash {
+  animation: beamFlash 750ms ease-out forwards;
+}
+
 .nodeIcon {
   position: relative;
   height: 44px;
   width: auto;
   object-fit: contain;
+  filter: brightness(1) saturate(1);
 }
 
-@keyframes iconSpotlightFlash {
-  0% {
-    filter: drop-shadow(0 0 0 rgba(47, 128, 124, 0)) drop-shadow(0 0 0 rgba(111, 168, 164, 0));
-  }
-  35% {
-    filter: drop-shadow(0 0 5px rgba(47, 128, 124, 0.95)) drop-shadow(0 0 14px rgba(111, 168, 164, 0.9));
-  }
+@keyframes iconSpotlightHit {
+  0%,
   100% {
-    filter: drop-shadow(0 0 3px rgba(47, 128, 124, 0.6)) drop-shadow(0 0 7px rgba(111, 168, 164, 0.6));
+    filter: brightness(1) saturate(1);
+  }
+  25% {
+    filter: brightness(2.1) saturate(1.5);
   }
 }
 
-.flash {
-  animation: iconSpotlightFlash 650ms ease-out forwards;
-}
-
-.settled {
-  filter: drop-shadow(0 0 3px rgba(47, 128, 124, 0.6)) drop-shadow(0 0 7px rgba(111, 168, 164, 0.6));
+.nodeIcon.flash {
+  animation: iconSpotlightHit 750ms ease-out forwards;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .flash {
+  .beam.flash {
     animation: none;
-    filter: drop-shadow(0 0 3px rgba(47, 128, 124, 0.6)) drop-shadow(0 0 7px rgba(111, 168, 164, 0.6));
+    opacity: 0;
+  }
+
+  .nodeIcon.flash {
+    animation: none;
+    filter: brightness(1) saturate(1);
   }
 }
 
