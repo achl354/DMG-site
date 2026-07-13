@@ -17,10 +17,10 @@ const HERO_ALT = "EasiMoveSPU™ single-patient-use air-assisted lateral transfe
 /**
  * Desktop's static image and the reduced-motion fallback both need one
  * fixed "resting" frame -- kept as its own constant rather than reading
- * IMAGE_FRAMES[0], since that array is mobile-rotation-only content and
- * this specific pose (01_hero_front_original) is no longer part of it.
+ * IMAGE_FRAMES[0], since that array is mobile-rotation-only content.
+ * Real product photography (not AI-generated -- see IMAGE_FRAMES below).
  */
-const STATIC_HERO_SRC = `${ROTATION_DIR}/01_hero_front_original.webp`;
+const STATIC_HERO_SRC = `${ROTATION_DIR}/08_hero_full_product_photo.webp`;
 
 interface ImageFrame {
   id: string;
@@ -31,12 +31,13 @@ interface ImageFrame {
 }
 
 /**
- * Discrete AI-generated product views, not real turntable photos (see the
- * supplied manifest's own "limitations" note). Down to 5 stages (2
- * rotation + 3 feature close-ups) -- hero, three-quarter and
- * near-side-profile dropped from the rotation (hero/three-quarter read as
- * near-duplicates back to back, near-side-profile was a jarring pose
- * jump), and head-outline dropped from the feature close-ups.
+ * Mixed sources: slight-rotation, side-profile and foot-end-label are real
+ * product photography (true alpha transparency, verified pixel-by-pixel).
+ * red-handles and centre-line are still the earlier AI-generated renders --
+ * the real-photo equivalents of those two specific close-ups had a color
+ * defect (their red elements rendered as magenta, confirmed via pixel
+ * sampling, not just visually), so they were dropped rather than shipped
+ * broken. Revisit once corrected exports exist, so all 5 stages match.
  * foot-end-label is deliberately last in this list (not source order --
  * centre-line comes before it) per explicit request. This used to be a
  * separate section below the hero (EasiMoveScrollStory); it's merged in
@@ -44,12 +45,12 @@ interface ImageFrame {
  * rather than showing the same opening frame twice back to back.
  */
 const IMAGE_FRAMES: ImageFrame[] = [
-  { id: "slight-rotation", start: 0, end: 0.3, src: `${ROTATION_DIR}/04_slight_rotation.webp`, alt: HERO_ALT },
+  { id: "slight-rotation", start: 0, end: 0.3, src: `${ROTATION_DIR}/09_intermediate_angle_photo.webp`, alt: HERO_ALT },
   {
     id: "side-profile",
     start: 0.3,
     end: 0.4,
-    src: `${ROTATION_DIR}/07_side_profile.webp`,
+    src: `${ROTATION_DIR}/10_side_profile_photo.webp`,
     alt: "EasiMoveSPU™ mattress, side profile",
   },
   {
@@ -70,7 +71,7 @@ const IMAGE_FRAMES: ImageFrame[] = [
     id: "foot-end-label",
     start: 0.8,
     end: 1.001,
-    src: `${FEATURES_DIR}/02_foot_end_label.webp`,
+    src: `${FEATURES_DIR}/05_foot_end_label_photo.webp`,
     alt: "Close-up of EasiMoveSPU™'s foot-end product label",
   },
 ];
