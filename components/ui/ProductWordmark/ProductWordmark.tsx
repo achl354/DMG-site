@@ -1,7 +1,4 @@
-"use client";
-
-import { useId } from "react";
-import { PRODUCT_WORDMARKS } from "@/lib/content/assets";
+import { PRODUCT_WORDMARK_HEIGHT_SCALE } from "@/lib/content/assets";
 import styles from "./ProductWordmark.module.css";
 
 export interface ProductWordmarkProps {
@@ -26,36 +23,11 @@ export function ProductWordmark({
   height = 28,
   className,
 }: ProductWordmarkProps) {
-  const filterId = useId();
-
   if (svgSrc) {
-    // The approved easisling-teal.svg lockup has a genuinely thinner stroke
-    // weight than its siblings (measured ~5% thinner at matched cap-height),
-    // making it read as lighter next to EasiLift/EasiMovePRO on the same
-    // page. Rather than editing the approved brand asset's path geometry,
-    // a CSS dilate filter nudges its rendered stroke weight to match --
-    // the filter's own region must be widened past the default (which is
-    // sized tight around the source bounding box) since this SVG's viewBox
-    // has zero margin around the ink, so any dilation clips at the default
-    // region without the wider x/y/width/height below.
-    const isEasiSling = svgSrc === PRODUCT_WORDMARKS.easisling;
+    const scale = PRODUCT_WORDMARK_HEIGHT_SCALE[svgSrc] ?? 1;
     return (
-      <>
-        {isEasiSling && (
-          <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
-            <filter id={filterId} x="-100%" y="-100%" width="300%" height="300%">
-              <feMorphology operator="dilate" radius="0.5" />
-            </filter>
-          </svg>
-        )}
-        {/* eslint-disable-next-line @next/next/no-img-element -- brand SVG lockup, not a next/image candidate */}
-        <img
-          src={svgSrc}
-          alt={name}
-          style={{ height, width: "auto", filter: isEasiSling ? `url(#${filterId})` : undefined }}
-          className={className}
-        />
-      </>
+      // eslint-disable-next-line @next/next/no-img-element -- brand SVG lockup, not a next/image candidate
+      <img src={svgSrc} alt={name} style={{ height: height * scale, width: "auto" }} className={className} />
     );
   }
 
