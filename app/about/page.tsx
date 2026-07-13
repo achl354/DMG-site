@@ -62,7 +62,7 @@ export default function AboutPage() {
 
       <StatsBand
         stats={[
-          { value: "6", label: "Patient-handling workflow categories" },
+          { value: "7", label: "Patient-handling workflow categories" },
           { value: "9", label: "Product lines across the EasiSystem™ range" },
           { value: "1", label: "Coordinated patient-handling portfolio" },
         ]}

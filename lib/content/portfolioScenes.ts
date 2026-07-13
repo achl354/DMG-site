@@ -15,16 +15,15 @@ export interface PortfolioScene {
 }
 
 /**
- * The six cards in the homepage product-range overview. Deliberately its
+ * The seven cards in the homepage product-range overview. Deliberately its
  * own data shape rather than reusing content/workflows -- these scenes group
  * products by what the *card* shows, which doesn't line up 1:1 with the
- * catalogue's workflow groupings (e.g. scene 3 spans EasiTurn, EasiSlide and
- * EasiMove together; EasiGlide gets its own scene despite sharing a
- * catalogue workflow with EasiSlide). No opening or closing "full
- * portfolio" card -- every product already appears in its own workflow
- * card, so a card re-listing all nine again just repeated them. Supporting
- * equipment is the 6th and last card, numbered and styled the same as the
- * other five workflows.
+ * catalogue's workflow groupings. No opening or closing "full portfolio"
+ * card -- every product already appears in its own workflow card, so a card
+ * re-listing all nine again just repeated them. Air supply and equipment
+ * storage are split into their own cards (each maps to its own catalogue
+ * workflow: air-supply, equipment-storage) rather than one combined
+ * "supporting equipment" card.
  */
 export const PORTFOLIO_SCENES: PortfolioScene[] = [
   {
@@ -52,15 +51,14 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
     ctaHref: "/workflows/floor-recovery",
   },
   {
-    id: "repositioning-turning",
+    id: "turning-positioning",
     number: "03",
-    title: "Repositioning and turning",
-    description:
-      "Products supporting repositioning, bed boosting, controlled turning, hygiene access and selected positioning workflows.",
-    activeProductIds: ["easiturn", "easislide"],
+    title: "Turning and positioning",
+    description: "In-bed turning and positioning support for routine repositioning workflows.",
+    activeProductIds: ["easiturn"],
     icon: "/icons/workflow/turning-positioning.png",
     workflowUrl: "/workflows/turning-positioning",
-    ctaLabel: "Explore repositioning and turning",
+    ctaLabel: "Explore turning and positioning",
     ctaHref: "/workflows/turning-positioning",
   },
   {
@@ -76,27 +74,40 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
     ctaHref: "/workflows/sling-transfer",
   },
   {
-    id: "seated-surface-transfer",
+    id: "manual-handling-support",
     number: "05",
-    title: "Seated and surface transfer",
-    description: "A rigid transfer aid supporting selected seated and surface-to-surface transfer requirements.",
-    activeProductIds: ["easiglide"],
+    title: "Manual handling support",
+    description:
+      "Rigid transfer aids and low-friction slide sheets supporting everyday repositioning, boosting and transfer assistance.",
+    activeProductIds: ["easiglide", "easislide"],
     icon: "/icons/workflow/manual-handling.png",
     workflowUrl: "/workflows/manual-handling-support",
-    ctaLabel: "Explore seated transfer",
+    ctaLabel: "Explore manual handling support",
     ctaHref: "/workflows/manual-handling-support",
   },
   {
-    id: "supporting-equipment",
+    id: "air-supply",
     number: "06",
-    title: "Supporting equipment",
+    title: "Air supply",
     description:
-      "EasiAir™ air supplies and EasiCart™ storage solutions support compatible product operation, accessibility and equipment readiness.",
-    activeProductIds: ["easiair", "easicart"],
-    icon: "/icons/workflow/support-equipment.png",
-    workflowUrl: "/workflows/support-equipment",
-    ctaLabel: "Explore supporting equipment",
-    ctaHref: "/workflows/support-equipment",
+      "EasiAir™ provides controlled airflow to compatible DirectMed-approved air-assisted patient handling devices.",
+    activeProductIds: ["easiair"],
+    icon: "/icons/workflow/air-supply.png",
+    workflowUrl: "/workflows/air-supply",
+    ctaLabel: "Explore air supply",
+    ctaHref: "/workflows/air-supply",
+  },
+  {
+    id: "equipment-storage",
+    number: "07",
+    title: "Equipment storage",
+    description:
+      "EasiCart™ supports organised storage and access to patient-handling equipment for routine clinical use.",
+    activeProductIds: ["easicart"],
+    icon: "/icons/workflow/equipment-storage.png",
+    workflowUrl: "/workflows/equipment-storage",
+    ctaLabel: "Explore equipment storage",
+    ctaHref: "/workflows/equipment-storage",
   },
 ];
 

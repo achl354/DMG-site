@@ -32,12 +32,12 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/products/easiair",
-        destination: "/workflows/support-equipment/easiair",
+        destination: "/workflows/air-supply/easiair",
         permanent: true,
       },
       {
         source: "/products/easicart",
-        destination: "/workflows/support-equipment/easicart",
+        destination: "/workflows/equipment-storage/easicart",
         permanent: true,
       },
       {
@@ -48,6 +48,21 @@ const nextConfig: NextConfig = {
       {
         source: "/products/easiturn",
         destination: "/workflows/turning-positioning/easiturn",
+        permanent: true,
+      },
+      {
+        source: "/workflows/support-equipment/easiair",
+        destination: "/workflows/air-supply/easiair",
+        permanent: true,
+      },
+      {
+        source: "/workflows/support-equipment/easicart",
+        destination: "/workflows/equipment-storage/easicart",
+        permanent: true,
+      },
+      {
+        source: "/workflows/support-equipment",
+        destination: "/workflows",
         permanent: true,
       },
     ];

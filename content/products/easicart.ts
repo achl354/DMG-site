@@ -2,7 +2,7 @@ import type { Product } from "@/lib/content/products";
 
 export const easicart: Product = {
   slug: "easicart",
-  category: "Support equipment",
+  category: "Equipment storage",
   tagline: "Mobile storage cart for equipment readiness",
   summary:
     "EasiCart™ is a mobile storage cart designed to help organise, store and transport patient-handling equipment and accessories. It supports equipment readiness by helping clinical teams keep key equipment accessible, visible and ready for routine use.",
