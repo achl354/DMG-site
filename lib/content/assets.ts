@@ -57,14 +57,13 @@ export const PRODUCT_PHOTO_SCENES: Partial<Record<string, string[]>> = {
  * ink-900 desktop-diagram versions, so product pages don't inherit
  * diagram-specific tweaks.
  *
- * manual-handling.png contains two objects (a slide sheet and a rigid
- * board) that were previously shown combined on both EasiGlide's and
- * EasiSlide's pages, and easislide was additionally mismapped to
- * EasiTurn's turning-positioning.png. manual-handling-slide.png /
- * manual-handling-board.png are that same artwork split into two
- * standalone crops, one per product -- unlike EasiAir/EasiCart (a real
- * bundle shown together intentionally), EasiGlide and EasiSlide are
- * separate products that shouldn't each show the other's item.
+ * Two of these workflow icons combine two products into one drawing
+ * (manual-handling.png: slide sheet + rigid board; support-equipment.png:
+ * air supply + cart). Each product's own page shows only its own item --
+ * the *-slide/-board and *-air/-cart crops below split that same artwork
+ * apart -- rather than every product in the pair showing the other's
+ * item too. The workflow-level diagram/mobile-rotator icon still shows
+ * each pair combined, which is correct there.
  */
 export const PRODUCT_ICONS: Partial<Record<string, string>> = {
   "easimove-spu": "/icons/workflow/mobile/lateral-transfer.png",
@@ -74,8 +73,8 @@ export const PRODUCT_ICONS: Partial<Record<string, string>> = {
   easislide: "/icons/workflow/mobile/manual-handling-slide.png",
   easisling: "/icons/workflow/mobile/sling-transfer.png",
   easiglide: "/icons/workflow/mobile/manual-handling-board.png",
-  easiair: "/icons/workflow/mobile/support-equipment.png",
-  easicart: "/icons/workflow/mobile/support-equipment.png",
+  easiair: "/icons/workflow/mobile/support-equipment-air.png",
+  easicart: "/icons/workflow/mobile/support-equipment-cart.png",
 };
 
 /**
