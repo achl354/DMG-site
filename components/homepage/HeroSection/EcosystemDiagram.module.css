@@ -24,9 +24,12 @@
    * the sticky pin clips the bottom node off-screen for the entire pinned
    * scroll phase on ~800-870px-tall viewports (common on laptops), with
    * no way to see it until the pin releases. 48px is headroom so it
-   * doesn't touch the very bottom edge.
+   * doesn't touch the very bottom edge; the extra 24px matches
+   * .desktopPinStage's own +24px top offset (added to stop the top node
+   * overlapping the header), so the bottom keeps the same clearance it
+   * had before that offset was added.
    */
-  max-height: calc(100vh - var(--header-height, 72px) - 48px);
+  max-height: calc(100vh - var(--header-height, 72px) - 48px - 24px);
 }
 
 .stage {

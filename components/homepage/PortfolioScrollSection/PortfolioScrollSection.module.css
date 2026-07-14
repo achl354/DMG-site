@@ -1,5 +1,13 @@
 .wrapper {
   position: relative;
+  /*
+   * Compensates for the sticky header when this section is the target of
+   * scrollIntoView() (the hero's "Explore EasiSystem™" CTA) -- without it,
+   * the browser aligns this section's top flush with the viewport's own
+   * top edge, landing the heading ~20px behind the header rather than
+   * below it.
+   */
+  scroll-margin-top: var(--header-height, 72px);
   padding-top: var(--space-11);
   padding-bottom: var(--space-11);
   background: var(--surface-sunken);

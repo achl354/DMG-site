@@ -62,7 +62,15 @@
 
 .desktopPinStage {
   position: sticky;
-  top: var(--header-height, 72px);
+  /*
+   * +24px on top of the header offset -- the ecosystem diagram's topmost
+   * node is absolutely positioned close enough to its own box's top edge
+   * (see EcosystemDiagram's RADIUS_PCT) that flush against the header left
+   * it overlapping ~18-20px underneath. EcosystemDiagram.module.css's
+   * .stageOuter max-height subtracts this same 24px so the box shrinks by
+   * it too, keeping the bottom node's existing clearance unchanged.
+   */
+  top: calc(var(--header-height, 72px) + 24px);
 }
 
 .copy {
