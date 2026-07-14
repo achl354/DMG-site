@@ -63,19 +63,14 @@
   margin-top: auto;
 }
 
-/* Both CTAs read as the same solid white button as "Browse resources" --
-   .ctaSecondary keeps its own class only so the mobile media query below
-   can still demote it to a plain text link on narrow screens. */
-.ctaPrimary,
-.ctaSecondary {
+.ctaPrimary {
   background: var(--paper-0) !important;
   color: var(--brand) !important;
   border-color: transparent !important;
   box-shadow: none !important;
 }
 
-.ctaPrimary:hover,
-.ctaSecondary:hover {
+.ctaPrimary:hover {
   background: var(--teal-50) !important;
 }
 

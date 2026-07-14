@@ -52,11 +52,6 @@ export function ResourcesContact() {
                 {CTA_LABELS.requestInformation}
               </Button>
             </Link>
-            <Link href="/contact" onClick={() => trackEvent("contact_dmg_clicked")}>
-              <Button variant="secondary" size="md" className={styles.ctaSecondary}>
-                {CTA_LABELS.contactDmg}
-              </Button>
-            </Link>
           </div>
         </div>
       </Container>
