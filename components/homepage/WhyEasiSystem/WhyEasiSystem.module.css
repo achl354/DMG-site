@@ -2,6 +2,55 @@
   margin-bottom: var(--space-9);
 }
 
+/*
+ * overflow: hidden so the parallax glow's own vertical drift (it moves
+ * further than its own box height as the section scrolls past) never
+ * bleeds into the sections above/below -- position: relative makes this
+ * the containing block for .glowBg's position: absolute.
+ */
+.section {
+  position: relative;
+  overflow: hidden;
+}
+
+.parallaxWrap {
+  position: relative;
+}
+
+/*
+ * Desktop-only decorative background (see WhyEasiSystem.tsx's
+ * parallaxEnabled) -- a soft depth cue behind the pillars, same teal
+ * wash already used for HeroSection's own .glow, drifting at a fraction
+ * of the foreground's scroll speed rather than sitting static.
+ */
+.glowBg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60%;
+  max-width: 720px;
+  aspect-ratio: 1 / 1;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle at 50% 50%, var(--teal-100) 0%, var(--teal-tint) 45%, transparent 72%);
+  filter: blur(60px);
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/*
+ * Applied directly to Container via its className prop (rather than a
+ * cross-module selector targeting Container's own hashed class) -- makes
+ * this static-positioned content its own stacking context above the
+ * absolutely-positioned .glowBg, which would otherwise paint on top of
+ * it regardless of DOM order (positioned elements with z-index always
+ * stack above static ones, no matter which comes first in the markup).
+ */
+.content {
+  position: relative;
+  z-index: 1;
+}
+
 /* Mirrors HeroSection's own mobile bottom-padding trim -- this section's
    "md" top padding stacks with the hero's bottom padding right above it.
    !important: equal-specificity single classes vs Section's own .md. */

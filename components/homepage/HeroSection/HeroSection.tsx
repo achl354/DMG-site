@@ -1,10 +1,11 @@
 "use client";
 
-import { ReactNode, useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 import { Tagline, Button } from "@/components/ui";
 import { Section, Container } from "@/components/layout";
 import { useReducedMotion } from "@/components/motion/ReducedMotionProvider";
+import { useIsDesktopViewport } from "@/components/motion/useIsDesktopViewport";
 import { trackEvent } from "@/lib/analytics";
 import { SECTION_IDS, CTA_LABELS } from "@/lib/constants";
 import { getAllWorkflows } from "@/lib/content/workflows";
@@ -59,37 +60,6 @@ function getActiveImageId(progress: number): string {
 function preloadImage(src: string) {
   const img = new window.Image();
   img.src = src;
-}
-
-const DESKTOP_QUERY = "(min-width: 1024px)";
-
-function subscribeToDesktopQuery(callback: () => void) {
-  const mql = window.matchMedia(DESKTOP_QUERY);
-  mql.addEventListener("change", callback);
-  return () => mql.removeEventListener("change", callback);
-}
-
-function getIsDesktopSnapshot() {
-  return window.matchMedia(DESKTOP_QUERY).matches;
-}
-
-/** Defaults to true (static) for the SSR snapshot -- see useIsDesktopViewport. */
-function getIsDesktopServerSnapshot() {
-  return true;
-}
-
-/**
- * Desktop reverted to a plain static hero image -- the pinned scroll
- * rotation stayed too long-scrolling/awkward there and was dropped in
- * favour of the original simple layout. Mobile keeps the rotation.
- * Server/first-paint snapshot defaults to true (static) until the media
- * query resolves client-side, matching this component's existing
- * reduced-motion default-false tradeoff -- a brief wrong-branch flash on
- * first paint is accepted elsewhere in this codebase rather than solved
- * with SSR cookie plumbing.
- */
-function useIsDesktopViewport() {
-  return useSyncExternalStore(subscribeToDesktopQuery, getIsDesktopSnapshot, getIsDesktopServerSnapshot);
 }
 
 /** Homepage hero -- text/CTAs on the left, one large EasiMoveSPU visual on the right. */
