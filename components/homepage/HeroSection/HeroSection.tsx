@@ -8,7 +8,7 @@ import { useReducedMotion } from "@/components/motion/ReducedMotionProvider";
 import { trackEvent } from "@/lib/analytics";
 import { SECTION_IDS, CTA_LABELS } from "@/lib/constants";
 import { getAllWorkflows } from "@/lib/content/workflows";
-import { WORKFLOW_ICONS } from "@/lib/content/assets";
+import { WORKFLOW_ICONS_MOBILE } from "@/lib/content/assets";
 import { EcosystemDiagram } from "./EcosystemDiagram";
 import styles from "./HeroSection.module.css";
 
@@ -44,7 +44,7 @@ const WORKFLOW_FRAMES: WorkflowFrame[] = getAllWorkflows().map((workflow, index,
   slug: workflow.slug,
   start: index / all.length,
   end: index === all.length - 1 ? 1.001 : (index + 1) / all.length,
-  icon: WORKFLOW_ICONS[workflow.slug],
+  icon: WORKFLOW_ICONS_MOBILE[workflow.slug],
   number: workflow.number,
   title: workflow.title,
   familyName: workflow.familyName,

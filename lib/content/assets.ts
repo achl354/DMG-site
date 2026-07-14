@@ -70,9 +70,10 @@ export const PRODUCT_ICONS: Partial<Record<string, string>> = {
 /**
  * Workflow slug -> icon file. Not a straight `${slug}.png` lookup --
  * manual-handling-support's icon file predates that workflow's current
- * slug and is just "manual-handling.png". Same outline artwork as
- * PRODUCT_ICONS above, keyed by workflow instead of product so the mobile
- * hero rotator and the desktop ecosystem diagram share one source.
+ * slug and is just "manual-handling.png". Desktop-only now: these have
+ * a thickened stroke (re-exported so the outline reads clearly at the
+ * ecosystem diagram's node size) -- see WORKFLOW_ICONS_MOBILE for the
+ * original thinner artwork the mobile hero rotator still uses.
  */
 export const WORKFLOW_ICONS: Record<string, string> = {
   "lateral-transfer": "/icons/workflow/lateral-transfer.png",
@@ -81,4 +82,20 @@ export const WORKFLOW_ICONS: Record<string, string> = {
   "sling-transfer": "/icons/workflow/sling-transfer.png",
   "turning-positioning": "/icons/workflow/turning-positioning.png",
   "support-equipment": "/icons/workflow/support-equipment.png",
+};
+
+/**
+ * Same artwork as WORKFLOW_ICONS, before the stroke-thickening pass --
+ * kept as its own file set (rather than a shared source) specifically for
+ * the mobile hero rotator, which renders these icons much larger relative
+ * to their card than the desktop diagram's nodes do, so the original
+ * thinner line read better there.
+ */
+export const WORKFLOW_ICONS_MOBILE: Record<string, string> = {
+  "lateral-transfer": "/icons/workflow/mobile/lateral-transfer.png",
+  "floor-recovery": "/icons/workflow/mobile/floor-recovery.png",
+  "manual-handling-support": "/icons/workflow/mobile/manual-handling.png",
+  "sling-transfer": "/icons/workflow/mobile/sling-transfer.png",
+  "turning-positioning": "/icons/workflow/mobile/turning-positioning.png",
+  "support-equipment": "/icons/workflow/mobile/support-equipment.png",
 };
