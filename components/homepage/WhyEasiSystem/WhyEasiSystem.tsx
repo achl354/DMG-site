@@ -1,10 +1,5 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { EyebrowHeading } from "@/components/ui";
 import { Section, Container } from "@/components/layout";
-import { useReducedMotion } from "@/components/motion/ReducedMotionProvider";
-import { useIsDesktopViewport } from "@/components/motion/useIsDesktopViewport";
 import styles from "./WhyEasiSystem.module.css";
 
 const PILLARS = [
@@ -51,33 +46,7 @@ const PILLARS = [
   },
 ];
 
-function PillarContent({ pillar }: { pillar: (typeof PILLARS)[number] }) {
-  return (
-    <>
-      <div className={styles.iconBadge}>
-        <svg
-          className={styles.icon}
-          width="28"
-          height="28"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          aria-hidden="true"
-        >
-          {pillar.icon}
-        </svg>
-      </div>
-      <h3 className={styles.title}>{pillar.title}</h3>
-      <p className={styles.body}>{pillar.body}</p>
-    </>
-  );
-}
-
 export function WhyEasiSystem() {
-  const reducedMotion = useReducedMotion();
-  const isDesktop = useIsDesktopViewport();
-
   return (
     <Section id="why-easisystem" spacing="md" surface="cream" className={styles.section}>
       <Container size="lg">
@@ -87,28 +56,26 @@ export function WhyEasiSystem() {
           className={styles.heading}
         />
         <div className={styles.grid}>
-          {PILLARS.map((pillar) =>
-            isDesktop ? (
-              // Desktop only -- stacked vertically (see .grid's desktop override) and
-              // revealed one at a time while scrolling, rather than all four visible
-              // at once in the old horizontal row. Mobile stays exactly as before
-              // (already stacked, always visible, no motion).
-              <motion.div
-                key={pillar.title}
-                className={styles.pillar}
-                initial={reducedMotion ? false : { opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: reducedMotion ? 0 : 0.4 }}
-              >
-                <PillarContent pillar={pillar} />
-              </motion.div>
-            ) : (
-              <div key={pillar.title} className={styles.pillar}>
-                <PillarContent pillar={pillar} />
+          {PILLARS.map((pillar) => (
+            <div key={pillar.title} className={styles.pillar}>
+              <div className={styles.iconBadge}>
+                <svg
+                  className={styles.icon}
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  aria-hidden="true"
+                >
+                  {pillar.icon}
+                </svg>
               </div>
-            ),
-          )}
+              <h3 className={styles.title}>{pillar.title}</h3>
+              <p className={styles.body}>{pillar.body}</p>
+            </div>
+          ))}
         </div>
       </Container>
     </Section>
