@@ -74,9 +74,18 @@
   }
 }
 
+/*
+ * Vertical stack, not the previous 4-column row -- each pillar reveals
+ * one at a time while scrolling (see WhyEasiSystem.tsx's whileInView),
+ * which only reads as a sequence in a single column; a row would just
+ * show all four appearing together as soon as any one of them entered
+ * view.
+ */
 @media (min-width: 1024px) {
   .grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 1fr;
+    max-width: 60ch;
+    gap: var(--space-10);
   }
 }
 
