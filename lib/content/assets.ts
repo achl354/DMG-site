@@ -52,20 +52,28 @@ export const PRODUCT_PHOTO_SCENES: Partial<Record<string, string[]>> = {
 /**
  * Outline workflow icons (same catalogue-sourced artwork as the homepage
  * portfolio cards), reused as each product's illustration on its detail
- * page. Shared across siblings in the same product family since the
- * source artwork is one drawing per workflow, not per SKU. Points at the
- * /mobile/ file set deliberately -- original thin stroke, original DMG
- * teal -- rather than WORKFLOW_ICONS' thickened ink-900 desktop-diagram
- * versions, so product pages don't inherit diagram-specific tweaks.
+ * page. Points at the /mobile/ file set deliberately -- original thin
+ * stroke, original DMG teal -- rather than WORKFLOW_ICONS' thickened
+ * ink-900 desktop-diagram versions, so product pages don't inherit
+ * diagram-specific tweaks.
+ *
+ * manual-handling.png contains two objects (a slide sheet and a rigid
+ * board) that were previously shown combined on both EasiGlide's and
+ * EasiSlide's pages, and easislide was additionally mismapped to
+ * EasiTurn's turning-positioning.png. manual-handling-slide.png /
+ * manual-handling-board.png are that same artwork split into two
+ * standalone crops, one per product -- unlike EasiAir/EasiCart (a real
+ * bundle shown together intentionally), EasiGlide and EasiSlide are
+ * separate products that shouldn't each show the other's item.
  */
 export const PRODUCT_ICONS: Partial<Record<string, string>> = {
   "easimove-spu": "/icons/workflow/mobile/lateral-transfer.png",
   "easimove-pro": "/icons/workflow/mobile/lateral-transfer.png",
   easilift: "/icons/workflow/mobile/floor-recovery.png",
   easiturn: "/icons/workflow/mobile/turning-positioning.png",
-  easislide: "/icons/workflow/mobile/turning-positioning.png",
+  easislide: "/icons/workflow/mobile/manual-handling-slide.png",
   easisling: "/icons/workflow/mobile/sling-transfer.png",
-  easiglide: "/icons/workflow/mobile/manual-handling.png",
+  easiglide: "/icons/workflow/mobile/manual-handling-board.png",
   easiair: "/icons/workflow/mobile/support-equipment.png",
   easicart: "/icons/workflow/mobile/support-equipment.png",
 };
