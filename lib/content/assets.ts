@@ -53,18 +53,21 @@ export const PRODUCT_PHOTO_SCENES: Partial<Record<string, string[]>> = {
  * Outline workflow icons (same catalogue-sourced artwork as the homepage
  * portfolio cards), reused as each product's illustration on its detail
  * page. Shared across siblings in the same product family since the
- * source artwork is one drawing per workflow, not per SKU.
+ * source artwork is one drawing per workflow, not per SKU. Points at the
+ * /mobile/ file set deliberately -- original thin stroke, original DMG
+ * teal -- rather than WORKFLOW_ICONS' thickened ink-900 desktop-diagram
+ * versions, so product pages don't inherit diagram-specific tweaks.
  */
 export const PRODUCT_ICONS: Partial<Record<string, string>> = {
-  "easimove-spu": "/icons/workflow/lateral-transfer.png",
-  "easimove-pro": "/icons/workflow/lateral-transfer.png",
-  easilift: "/icons/workflow/floor-recovery.png",
-  easiturn: "/icons/workflow/turning-positioning.png",
-  easislide: "/icons/workflow/turning-positioning.png",
-  easisling: "/icons/workflow/sling-transfer.png",
-  easiglide: "/icons/workflow/manual-handling.png",
-  easiair: "/icons/workflow/support-equipment.png",
-  easicart: "/icons/workflow/support-equipment.png",
+  "easimove-spu": "/icons/workflow/mobile/lateral-transfer.png",
+  "easimove-pro": "/icons/workflow/mobile/lateral-transfer.png",
+  easilift: "/icons/workflow/mobile/floor-recovery.png",
+  easiturn: "/icons/workflow/mobile/turning-positioning.png",
+  easislide: "/icons/workflow/mobile/turning-positioning.png",
+  easisling: "/icons/workflow/mobile/sling-transfer.png",
+  easiglide: "/icons/workflow/mobile/manual-handling.png",
+  easiair: "/icons/workflow/mobile/support-equipment.png",
+  easicart: "/icons/workflow/mobile/support-equipment.png",
 };
 
 /**
