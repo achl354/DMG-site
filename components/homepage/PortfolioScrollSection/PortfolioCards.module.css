@@ -119,17 +119,20 @@
 }
 
 /*
- * Fixed height, width auto -- a fixed square box would shrink the two-
- * product icons (wider aspect ratio) to fit both dimensions, reading
- * visibly smaller/lighter than the single-product icons. Height-only
- * keeps every icon the same visual weight regardless of its own
- * aspect ratio.
+ * width: 100%, height fixed, object-fit: contain -- these are now detailed
+ * in-use scene illustrations (people, straps, hoses) rather than the old
+ * single-object outline icons, and each has its own real aspect ratio
+ * (landscape/square/portrait, see iconWidth/iconHeight in
+ * portfolioScenes.ts) instead of all roughly matching. A much taller box
+ * than the old 84-100px is what actually makes them legible; contain
+ * scales each down to fit without ever overflowing the card width, and
+ * object-position centers it since the box now spans the full card width.
  */
 .icon {
-  height: 84px;
-  width: auto;
+  width: 100%;
+  height: 220px;
   object-fit: contain;
-  object-position: left center;
+  object-position: center;
   /*
    * On top of .card's own 10px gap -- adds on top of it at every
    * breakpoint (including desktop's bottom-anchored products block)
@@ -137,20 +140,11 @@
    * zone above whatever follows.
    */
   margin-bottom: 24px;
-  /*
-   * Centers the icon horizontally within the card width, at every
-   * breakpoint (confirmed for mobile too, matching desktop's existing
-   * treatment) -- title/description/products stay left-aligned (.card's
-   * own align-items: flex-start). align-self only affects the cross axis
-   * in this column flex container, so this is purely horizontal and
-   * doesn't move the icon's position in the card's vertical flow.
-   */
-  align-self: center;
 }
 
 @media (min-width: 768px) {
   .icon {
-    height: 100px;
+    height: 260px;
   }
 }
 

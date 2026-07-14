@@ -124,7 +124,15 @@ function WorkflowCard({
       <h3 className={styles.title}>{scene.title}</h3>
       <p className={styles.description}>{scene.description}</p>
 
-      {scene.icon && <Image src={scene.icon} alt="" width={220} height={220} className={styles.icon} />}
+      {scene.icon && (
+        <Image
+          src={scene.icon}
+          alt=""
+          width={scene.iconWidth ?? 220}
+          height={scene.iconHeight ?? 220}
+          className={styles.icon}
+        />
+      )}
 
       <div className={styles.productsBlock}>
         <div className={styles.productRow}>
