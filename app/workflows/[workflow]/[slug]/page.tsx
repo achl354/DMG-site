@@ -74,7 +74,7 @@ export default async function ProductDetailPage({
           {photoScenes ? (
             <ProductPhotoGallery frames={photoScenes} name={product.name} />
           ) : icon ? (
-            <ProductIllustration icon={icon} name={product.name} />
+            <ProductIllustration icon={icon} name={product.name} slug={product.slug} />
           ) : null}
           <p className={styles.category}>{product.category}</p>
           <h1 className={styles.tagline}>{product.tagline}</h1>

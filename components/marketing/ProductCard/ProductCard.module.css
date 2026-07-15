@@ -34,6 +34,12 @@
   box-shadow: var(--shadow-sm);
 }
 
+.icon {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+}
+
 .wordmark {
   margin-top: var(--space-2);
   transition: transform var(--duration-slow) var(--ease-out);

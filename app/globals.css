@@ -78,6 +78,27 @@ ol {
   }
 }
 
+/*
+ * Experimental shared-element transition (see ProductCard/ProductIllustration's
+ * matching view-transition-name) -- 400ms is slow enough to register as a
+ * deliberate morph, fast enough not to feel like a delay.
+ *
+ * The blanket prefers-reduced-motion rule above does NOT cover this: view
+ * transition pseudo-elements live in their own top-layer tree, not matched
+ * by a `*` selector, so they need an explicit override here.
+ */
+::view-transition-group(*) {
+  animation-duration: 400ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0.01ms !important;
+  }
+}
+
 /* Subtle tactile grain -- inert (no pointer-events), very low opacity. */
 body::before {
   content: "";
