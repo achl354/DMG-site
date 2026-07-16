@@ -46,3 +46,15 @@ export function getResourceBySlug(
   const meta = metaList.find((item) => item.slug === slug);
   return meta ? { ...meta, Body: bodies[meta.slug] } : undefined;
 }
+
+/** Most recently published entries in a category, newest first. */
+export function getLatestByCategory(
+  metaList: ResourceMeta[],
+  category: ResourceCategory,
+  limit: number,
+): ResourceMeta[] {
+  return metaList
+    .filter((item) => item.category === category)
+    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
+    .slice(0, limit);
+}

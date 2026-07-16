@@ -3,6 +3,7 @@ import {
   DidYouKnowSection,
   PortfolioScrollSection,
   WhyEasiSystem,
+  LatestInsightsSection,
   ResourcesContact,
   FloatingContactCta,
 } from "@/components/homepage";
@@ -24,8 +25,9 @@ export default function Home() {
     <ReducedMotionProvider>
       <HeroSection />
       <DidYouKnowSection />
-      <WhyEasiSystem />
       <PortfolioScrollSection scenes={scenes} />
+      <WhyEasiSystem />
+      <LatestInsightsSection />
       <ResourcesContact />
       <FloatingContactCta />
     </ReducedMotionProvider>

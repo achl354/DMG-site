@@ -31,8 +31,8 @@
 }
 
 .eyebrow {
-  font-size: var(--text-sm);
-  font-weight: var(--type-eyebrow-weight);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
   letter-spacing: var(--type-eyebrow-tracking);
   text-transform: uppercase;
   color: var(--type-eyebrow-color);
@@ -61,7 +61,8 @@
 }
 
 .statement {
-  font-size: var(--text-lg);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
   line-height: var(--leading-relaxed);
   color: var(--text-body);
   max-width: 60ch;
