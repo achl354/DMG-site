@@ -21,7 +21,7 @@ export function LatestInsightsSection() {
         <div className={styles.header}>
           <EyebrowHeading
             eyebrow="Clinical Insight"
-            heading="Latest from our clinical resources"
+            heading="Practical guidance for safer patient handling"
             className={styles.heading}
           />
           <Link href="/resources" className={styles.viewAll}>
