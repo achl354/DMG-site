@@ -73,7 +73,7 @@ export function WhyEasiSystem() {
         <Container size="lg" className={styles.content}>
           <EyebrowHeading
             eyebrow="Why EasiSystem™"
-            heading="Designed around the workflow."
+            heading="Designed around the workflow"
             className={styles.heading}
           />
           <div className={styles.grid}>
