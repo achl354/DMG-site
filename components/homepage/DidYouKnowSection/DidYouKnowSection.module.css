@@ -106,10 +106,11 @@
   .stat {
     font-size: var(--text-6xl);
     flex: 0 0 auto;
-    width: 12rem;
   }
 
   .copy {
     flex: 1 1 auto;
+    border-left: 1px solid var(--border-subtle);
+    padding-left: var(--space-8);
   }
 }
