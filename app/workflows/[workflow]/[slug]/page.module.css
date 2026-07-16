@@ -37,10 +37,17 @@
   margin-bottom: var(--space-6);
 }
 
+.documentCallout {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  margin-top: var(--space-7);
+}
+
 .disclaimer {
   font-size: var(--text-sm);
   color: var(--text-muted);
-  margin-top: var(--space-7);
   max-width: 64ch;
 }
 
@@ -53,7 +60,15 @@
 .documentLink {
   display: inline-block;
   text-decoration: none;
-  margin-bottom: var(--space-7);
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .documentCallout {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
 }
 
 .detailGrid {

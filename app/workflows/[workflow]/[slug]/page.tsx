@@ -90,12 +90,6 @@ export default async function ProductDetailPage({
               ))}
             </div>
           )}
-
-          {product.documentUrl && (
-            <a href={product.documentUrl} download className={styles.documentLink}>
-              <Button variant="secondary">{product.documentLabel}</Button>
-            </a>
-          )}
         </Container>
       </Section>
 
@@ -122,12 +116,21 @@ export default async function ProductDetailPage({
               </dl>
             </Card>
           </div>
-          <p className={styles.disclaimer}>
-            Always read and follow the current instructions for use before
-            using this product. Product selection and use must be based on
-            an appropriate patient assessment, care environment, local
-            procedure and applicable manual-handling requirements.
-          </p>
+          <div className={styles.documentCallout}>
+            <p className={styles.disclaimer}>
+              Always read and follow the current instructions for use before
+              using this product. Product selection and use must be based on
+              an appropriate patient assessment, care environment, local
+              procedure and applicable manual-handling requirements.
+            </p>
+            {product.documentUrl && (
+              <a href={product.documentUrl} download className={styles.documentLink}>
+                <Button variant="secondary" size="sm">
+                  {product.documentLabel}
+                </Button>
+              </a>
+            )}
+          </div>
         </Container>
       </Section>
 
