@@ -111,9 +111,17 @@
 }
 
 @media (max-width: 767px) {
+  /*
+   * !important: this class and Section's own .md are equal-specificity
+   * single classes passed onto the same element, so source order in the
+   * compiled bundle -- not this rule being inside a media query -- decides
+   * the tie, and .md was winning here (this override was silently doing
+   * nothing; computed padding stayed at .md's 80px). Same issue and same
+   * fix as HeroSection.module.css's .section mobile override.
+   */
   .section {
-    padding-top: var(--space-6);
-    padding-bottom: var(--space-6);
+    padding-top: var(--space-6) !important;
+    padding-bottom: var(--space-6) !important;
   }
 
   .card {
@@ -175,10 +183,14 @@
 @media (min-width: 1024px) {
   /* Sits directly below the hero on the same page surface (no colour
      seam between them) -- pull the top in tight. The bottom padding
-     leads into the workflow scroll rotator below, also tightened to
-     match rather than leaving the two sections' paddings stack up. */
+     leads into the workflow section below, also tightened to match
+     rather than leaving the two sections' paddings stack up.
+     !important: same equal-specificity cascade-order issue as the
+     max-width: 767px override above -- this was silently losing to
+     Section's own .md class and never actually taking effect (computed
+     padding stayed at 80px/80px). */
   .section {
-    padding-top: var(--space-3);
-    padding-bottom: var(--space-4);
+    padding-top: var(--space-3) !important;
+    padding-bottom: var(--space-4) !important;
   }
 }

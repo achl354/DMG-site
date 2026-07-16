@@ -24,6 +24,16 @@
   }
 }
 
+@media (max-width: 767px) {
+  /* The Did You Know evidence card sits directly above this section on
+     mobile too -- reduce the top padding so the two sections' own
+     spacing doesn't stack into a big gap (same reasoning as the
+     min-width: 1024px override below, just for the mobile breakpoint). */
+  .wrapper {
+    padding-top: var(--space-7);
+  }
+}
+
 @media (min-width: 1024px) {
   .intro {
     max-width: 90ch;
