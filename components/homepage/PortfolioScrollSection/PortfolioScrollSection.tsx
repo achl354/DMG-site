@@ -43,7 +43,7 @@ export function PortfolioScrollSection({ scenes }: PortfolioScrollSectionProps) 
     >
       <Container size="xl">
         <EyebrowHeading
-          heading="Reduce the risk, workflow by workflow."
+          heading={"Reduce the risk, workflow by workflow."}
           headingId="portfolio-workflows-heading"
           body="Start with the patient movement or care task to find the relevant EasiSystem™ solutions."
           className={styles.intro}
