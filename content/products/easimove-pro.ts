@@ -22,4 +22,6 @@ export const easimovePro: Product = {
     { label: "Safe working load", value: "453 kg" },
     { label: "Air supply compatibility", value: "EasiAir™ / HT-Air® 2300" },
   ],
+  documentUrl: "/resources/documents/easimove-pro-flyer.pdf",
+  documentLabel: "View product flyer",
 };

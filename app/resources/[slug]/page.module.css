@@ -84,3 +84,15 @@
 .prose td {
   color: var(--text-body);
 }
+
+.downloadLink {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.disclaimer {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  margin-top: var(--space-5);
+  max-width: 64ch;
+}

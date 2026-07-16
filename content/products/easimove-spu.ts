@@ -29,4 +29,6 @@ export const easimoveSpu: Product = {
     { label: "Air supply compatibility", value: "EasiAir™ / HT-Air® 2300" },
     { label: "Configurations", value: "Standard, Split-Leg, Mini" },
   ],
+  documentUrl: "/resources/documents/easimove-spu-ifu.pdf",
+  documentLabel: "Download Instructions for Use",
 };

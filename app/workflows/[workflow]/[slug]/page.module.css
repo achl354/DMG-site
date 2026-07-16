@@ -50,6 +50,12 @@
   margin-bottom: var(--space-7);
 }
 
+.documentLink {
+  display: inline-block;
+  text-decoration: none;
+  margin-bottom: var(--space-7);
+}
+
 .detailGrid {
   display: grid;
   grid-template-columns: 1fr;

@@ -37,6 +37,11 @@ export interface Product {
   specs: ProductSpec[];
   /** Omit for generally available products -- only set while a line isn't yet commercially released. */
   status?: ProductStatus;
+  /** Direct link to a downloadable product document (IFU, flyer etc.) --
+   * when set, the product page shows a quick-access button straight to it. */
+  documentUrl?: string;
+  /** Button label for documentUrl, e.g. "Download Instructions for Use". Required alongside documentUrl. */
+  documentLabel?: string;
 }
 
 export interface ProductWithAssets extends Product {

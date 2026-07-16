@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { Badge } from "@/components/ui";
+import { Badge, Button } from "@/components/ui";
 import { Section, Container } from "@/components/layout";
 import { CTASection } from "@/components/marketing";
 import { getAllResources, getResourceBySlug } from "@/lib/content/resources";
@@ -67,13 +67,33 @@ export default async function ResourceDetailPage({
         </Container>
       </Section>
 
-      <Section spacing="md" surface="sunken">
-        <Container size="md">
-          <div className={styles.prose}>
-            <Body />
-          </div>
-        </Container>
-      </Section>
+      {resource.fileUrl && (
+        <Section spacing="md" surface="sunken">
+          <Container size="md">
+            <a href={resource.fileUrl} download className={styles.downloadLink}>
+              <Button size="lg">Download PDF</Button>
+            </a>
+            {resource.category === "Instructions for use" && (
+              <p className={styles.disclaimer}>
+                Always read and follow the current instructions for use before
+                using this product. Product selection and use must be based on
+                an appropriate patient assessment, care environment, local
+                procedure and applicable manual-handling requirements.
+              </p>
+            )}
+          </Container>
+        </Section>
+      )}
+
+      {Body && (
+        <Section spacing="md" surface="sunken">
+          <Container size="md">
+            <div className={styles.prose}>
+              <Body />
+            </div>
+          </Container>
+        </Section>
+      )}
 
       <CTASection
         heading="Have a question about this resource?"

@@ -26,4 +26,6 @@ export const easiair: Product = {
     { label: "Power cord length", value: "3 m" },
     { label: "Net weight", value: "4.4 kg (approx.)" },
   ],
+  documentUrl: "/resources/documents/easiair-ifu.pdf",
+  documentLabel: "Download Instructions for Use",
 };

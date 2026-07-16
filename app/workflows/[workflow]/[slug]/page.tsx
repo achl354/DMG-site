@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { SizeBadge, Card, Badge } from "@/components/ui";
+import { SizeBadge, Card, Badge, Button } from "@/components/ui";
 import { Section, Container } from "@/components/layout";
 import { ProductCard, CTASection, ProductPhotoGallery, ProductIllustration } from "@/components/marketing";
 import {
@@ -89,6 +89,12 @@ export default async function ProductDetailPage({
                 <SizeBadge key={size} size={size} />
               ))}
             </div>
+          )}
+
+          {product.documentUrl && (
+            <a href={product.documentUrl} download className={styles.documentLink}>
+              <Button variant="secondary">{product.documentLabel}</Button>
+            </a>
           )}
         </Container>
       </Section>
