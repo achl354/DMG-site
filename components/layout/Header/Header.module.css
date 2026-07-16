@@ -122,4 +122,15 @@
   .ctaLink {
     display: none;
   }
+
+  /*
+   * Both of .actions's children (.ctaLink, .toggle) are display:none at
+   * this width -- without this, the now-empty .actions box still counts
+   * as .bar's third space-between item, reserving a slot at the far
+   * right edge and leaving .nav's last link stranded short of it instead
+   * of the row ending flush right.
+   */
+  .actions {
+    display: none;
+  }
 }
