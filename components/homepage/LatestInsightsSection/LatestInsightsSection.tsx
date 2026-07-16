@@ -18,22 +18,22 @@ export function LatestInsightsSection() {
   return (
     <Section spacing="md">
       <Container size="lg">
-        <div className={styles.header}>
+        <div className={styles.layout}>
           <EyebrowHeading
             eyebrow="Clinical Insight"
             heading="Guidance for safer patient handling"
             className={styles.heading}
           />
+          <div className={styles.grid}>
+            {insights.map((resource) => (
+              <ResourceCard key={resource.slug} resource={resource} />
+            ))}
+          </div>
           <Link href="/resources" className={styles.viewAll}>
             <Button variant="secondary" size="md">
               Browse all resources
             </Button>
           </Link>
-        </div>
-        <div className={styles.grid}>
-          {insights.map((resource) => (
-            <ResourceCard key={resource.slug} resource={resource} />
-          ))}
         </div>
       </Container>
     </Section>

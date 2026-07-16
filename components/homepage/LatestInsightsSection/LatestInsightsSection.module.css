@@ -1,8 +1,7 @@
-.header {
+.layout {
   display: flex;
   flex-direction: column;
-  gap: var(--space-5);
-  margin-bottom: var(--space-8);
+  gap: var(--space-8);
 }
 
 .viewAll {
@@ -16,11 +15,20 @@
   gap: var(--space-6);
 }
 
-@media (min-width: 768px) {
-  .header {
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: space-between;
+/*
+ * Below 1024px, "Browse all resources" stays right after the heading
+ * (above the cards) -- matches this section's original mobile/tablet
+ * layout. DOM order is heading, grid, button (so desktop's default,
+ * un-overridden order already reads correctly: heading, cards, button
+ * below them), so only mobile/tablet need swapping back via order.
+ */
+@media (max-width: 1023px) {
+  .grid {
+    order: 2;
+  }
+
+  .viewAll {
+    order: 1;
   }
 }
 
@@ -33,5 +41,18 @@
 @media (min-width: 1024px) {
   .heading > :first-child {
     font-size: var(--text-md);
+  }
+
+  /*
+   * "Guidance for safer patient handling" measures ~1043px on one line at
+   * this breakpoint's fluid h2 size, but the Container(lg) content area is
+   * only ~1032px -- a hair too wide even with the full row now available
+   * (this heading no longer shares the row with the "Browse all
+   * resources" button, which moved below the cards). Scaled down from
+   * var(--type-h2-size) rather than a flat px so it still tracks the
+   * fluid clamp at other desktop widths, not just the one measured.
+   */
+  .heading > h2 {
+    font-size: calc(var(--type-h2-size) * 0.96);
   }
 }
