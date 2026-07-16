@@ -23,3 +23,15 @@
     justify-content: space-between;
   }
 }
+
+/*
+ * Targets the eyebrow <p> structurally (EyebrowHeading's own first child),
+ * matching WhyEasiSystem's identical desktop-only override so both
+ * homepage eyebrows read at the same size -- not a global type-scale
+ * change (--type-eyebrow-size is shared by every other eyebrow label).
+ */
+@media (min-width: 1024px) {
+  .heading > :first-child {
+    font-size: var(--text-md);
+  }
+}

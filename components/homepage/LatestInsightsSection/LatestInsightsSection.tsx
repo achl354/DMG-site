@@ -19,7 +19,11 @@ export function LatestInsightsSection() {
     <Section spacing="md">
       <Container size="lg">
         <div className={styles.header}>
-          <EyebrowHeading eyebrow="Clinical Insight" heading="Latest from our clinical resources" />
+          <EyebrowHeading
+            eyebrow="Clinical Insight"
+            heading="Latest from our clinical resources"
+            className={styles.heading}
+          />
           <Link href="/resources" className={styles.viewAll}>
             <Button variant="secondary" size="md">
               Browse all resources
