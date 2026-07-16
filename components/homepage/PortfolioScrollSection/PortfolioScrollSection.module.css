@@ -34,8 +34,4 @@
   .intro {
     max-width: 90ch;
   }
-
-  .wrapper {
-    padding-top: var(--space-9);
-  }
 }
