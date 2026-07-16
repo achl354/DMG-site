@@ -12,14 +12,6 @@ import { SECTION_IDS, CTA_LABELS } from "@/lib/constants";
 import { EcosystemDiagram } from "./EcosystemDiagram";
 import styles from "./HeroSection.module.css";
 
-const ROTATION_DIR = "/images/easimove-scroll/rotation";
-const HERO_ALT = "EasiMoveSPU™ single-patient-use air-assisted lateral transfer mattress";
-
-/** Mobile's one static hero image (previously only shown to reduced-motion
- * visitors; mobile's own scroll-driven icon rotation was removed). Real
- * product photography. */
-const STATIC_HERO_SRC = `${ROTATION_DIR}/08_hero_full_product_photo.webp`;
-
 const clamp = (value: number, min = 0, max = 1) => Math.min(Math.max(value, min), max);
 
 /**
@@ -33,7 +25,7 @@ const clamp = (value: number, min = 0, max = 1) => Math.min(Math.max(value, min)
  */
 const PIN_SCROLL_DISTANCE = 490;
 
-/** Homepage hero -- text/CTAs on the left, one large EasiMoveSPU visual on the right. */
+/** Homepage hero -- text/CTAs, plus the ecosystem diagram visual on desktop only. */
 export function HeroSection() {
   const reducedMotion = useReducedMotion();
   const isDesktop = useIsDesktopViewport();
@@ -73,19 +65,16 @@ export function HeroSection() {
     <Section id="hero" spacing="lg" surface="page" className={styles.section}>
       {isDesktop && !reducedMotion ? (
         <HeroEcosystemVisual copy={copy} />
-      ) : (
+      ) : isDesktop ? (
+        // Reduced-motion desktop: fully-assembled diagram, no scroll runway.
         <Container size="xl" className={styles.track}>
           {copy}
-          {isDesktop ? (
-            // Reduced-motion desktop: fully-assembled diagram, no scroll runway.
-            <EcosystemDiagram />
-          ) : (
-            <div className={styles.staticVisual}>
-              <div className={styles.glow} aria-hidden="true" />
-              {/* eslint-disable-next-line @next/next/no-img-element -- matches the plain-img approach used elsewhere in this component */}
-              <img src={STATIC_HERO_SRC} alt={HERO_ALT} className={styles.productImage} />
-            </div>
-          )}
+          <EcosystemDiagram />
+        </Container>
+      ) : (
+        // Mobile/tablet: copy only -- no product visual.
+        <Container size="xl" className={styles.track}>
+          {copy}
         </Container>
       )}
     </Section>
@@ -98,8 +87,8 @@ export function HeroSection() {
  * the copy can't scroll out of view mid-assembly the way it would if only
  * the diagram were sticky. Runway is deliberately short: a previous attempt
  * at pinning desktop's hero visual alone was dropped for feeling "too
- * long-scrolling/awkward" (see STATIC_HERO_SRC's history above), so this
- * keeps the pin distance modest rather than repeating that mistake.
+ * long-scrolling/awkward", so this keeps the pin distance modest rather
+ * than repeating that mistake.
  */
 function HeroEcosystemVisual({ copy }: { copy: ReactNode }) {
   const wrapRef = useRef<HTMLDivElement>(null);

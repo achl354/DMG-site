@@ -23,10 +23,10 @@
 }
 
 /*
- * Mobile-first: a plain flex column (copy, then the static visual,
- * stacked normally). Desktop's two-column grid below applies whether or
- * not the visual is pinned (see HeroSection.tsx) -- .track itself doesn't
- * know which visual it's laying out.
+ * Mobile-first: a plain flex column -- copy only, no product visual (see
+ * HeroSection.tsx). Desktop's two-column grid below applies whether or
+ * not the visual is pinned -- .track itself doesn't know which visual
+ * it's laying out.
  */
 .track {
   position: relative;
@@ -166,65 +166,6 @@
 
   .heroCta {
     box-shadow: 0 6px 14px rgba(0, 103, 95, 0.12) !important;
-  }
-}
-
-/* ---- Reduced-motion static visual (single frame, no pinning) ---- */
-
-.staticVisual {
-  position: relative;
-  display: flex;
-  justify-content: center;
-}
-
-@media (min-width: 1024px) {
-  .staticVisual {
-    justify-content: flex-end;
-    overflow: visible;
-  }
-}
-
-.productImage {
-  position: relative;
-  z-index: 1;
-  width: min(84vw, 480px);
-  height: auto;
-  object-fit: contain;
-}
-
-@media (min-width: 1024px) {
-  .productImage {
-    width: min(54vw, 620px);
-    margin-right: -6%;
-  }
-}
-
-.glow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 90%;
-  max-width: 620px;
-  aspect-ratio: 1 / 1;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle at 50% 50%, var(--teal-100) 0%, var(--teal-tint) 45%, transparent 72%);
-  filter: blur(40px);
-  opacity: 0.7;
-  pointer-events: none;
-  z-index: 0;
-}
-
-@media (max-width: 767px) {
-  .glow {
-    display: none;
-  }
-}
-
-@media (min-width: 1024px) {
-  .glow {
-    left: auto;
-    right: 10%;
-    transform: translateY(-50%);
   }
 }
 
