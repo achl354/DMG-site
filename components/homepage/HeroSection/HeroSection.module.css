@@ -47,15 +47,18 @@
 /*
  * Desktop-only pin: copy + the ecosystem diagram are pinned together
  * within this runway (see HeroEcosystemVisual), so copy can't scroll out
- * of view mid-assembly. Height is deliberately modest -- the diagram's own
- * rendered height (now ~800px tall at its 4:5 ratio, up from a 640px
- * square) plus a short scroll distance for the assembly, not the long
- * runway a full-viewport pin would need. Bumped from 1150px to keep that
- * same ~485px scroll distance now that the diagram is taller than copy.
+ * of view mid-assembly. The real runway height is set inline by JS from
+ * the actual measured stage height (see measure() in HeroSection.tsx) --
+ * a flat px number here would either clip the diagram on tall viewports
+ * or leave dead scroll space on short ones, since the diagram's own
+ * rendered height is itself viewport-dependent (see EcosystemDiagram
+ * .module.css's .stageOuter max-height). This is only the fallback for
+ * the instant before that JS measurement runs, so it mirrors the same
+ * max-height formula plus the fixed ~490px assembly scroll distance.
  */
 .desktopPinWrap {
   position: relative;
-  min-height: 1290px;
+  min-height: calc(100vh - var(--header-height, 72px) - 104px - 40px + 490px);
 }
 
 .desktopPinStage {

@@ -22,6 +22,17 @@ const STATIC_HERO_SRC = `${ROTATION_DIR}/08_hero_full_product_photo.webp`;
 
 const clamp = (value: number, min = 0, max = 1) => Math.min(Math.max(value, min), max);
 
+/**
+ * Fixed scroll distance (px) the assembly animation plays out over, held
+ * constant regardless of the diagram's actual rendered height (which
+ * itself varies with viewport height -- see EcosystemDiagram.module.css's
+ * .stageOuter max-height). The pin runway's total height is derived from
+ * this plus the measured stage height (see measure() below) rather than a
+ * flat number, so there's no leftover dead space on viewports where the
+ * diagram renders shorter than its tallest possible case.
+ */
+const PIN_SCROLL_DISTANCE = 490;
+
 /** Homepage hero -- text/CTAs on the left, one large EasiMoveSPU visual on the right. */
 export function HeroSection() {
   const reducedMotion = useReducedMotion();
@@ -113,11 +124,11 @@ function HeroEcosystemVisual({ copy }: { copy: ReactNode }) {
     function measure() {
       const headerOffset =
         parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-height")) || 72;
-      const wrapTop = wrap!.getBoundingClientRect().top + window.scrollY;
-      const wrapHeight = wrap!.offsetHeight;
       const stageHeight = stage!.offsetHeight;
+      wrap!.style.minHeight = `${stageHeight + PIN_SCROLL_DISTANCE}px`;
+      const wrapTop = wrap!.getBoundingClientRect().top + window.scrollY;
       pinStartRef.current = wrapTop - headerOffset;
-      pinEndRef.current = wrapTop + wrapHeight - stageHeight - headerOffset;
+      pinEndRef.current = pinStartRef.current + PIN_SCROLL_DISTANCE;
     }
 
     measure();
