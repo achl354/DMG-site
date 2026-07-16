@@ -32,17 +32,9 @@
   }
 }
 
-/*
- * Targets the eyebrow <p> structurally (EyebrowHeading's own first child),
- * matching WhyEasiSystem's identical desktop-only override so both
- * homepage eyebrows read at the same size -- not a global type-scale
- * change (--type-eyebrow-size is shared by every other eyebrow label).
- */
+/* The eyebrow's own desktop-size bump lives in EyebrowHeading.module.css,
+   shared by every section, rather than per-section here. */
 @media (min-width: 1024px) {
-  .heading > :first-child {
-    font-size: var(--text-md);
-  }
-
   /*
    * "Guidance for safer patient handling" measures ~1043px on one line at
    * this breakpoint's fluid h2 size, but the Container(lg) content area is

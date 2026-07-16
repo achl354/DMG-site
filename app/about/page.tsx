@@ -48,11 +48,7 @@ export default function AboutPage() {
               </p>
             </div>
           </div>
-        </Container>
-      </Section>
 
-      <Section spacing="md">
-        <Container size="lg">
           <p className={styles.availabilityNote}>
             EasiSystem™ availability varies by product and market. Contact
             DirectMed Group for current market-specific information.

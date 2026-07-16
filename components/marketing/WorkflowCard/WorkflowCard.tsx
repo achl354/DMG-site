@@ -24,6 +24,12 @@ export function WorkflowCard({ workflow, featured = false, onSelect }: WorkflowC
       <p className={styles.familyName}>{workflow.familyName}</p>
       <h3 className={featured ? styles.titleFeatured : styles.title}>{workflow.title}</h3>
       <p className={styles.summary}>{workflow.summary}</p>
+      {/* aria-hidden -- purely a visual "this card is clickable" cue; the
+          whole card is already the accessible link/button. */}
+      <span className={styles.viewCue} aria-hidden="true">
+        Explore workflow
+        <span className={styles.viewCueArrow}>→</span>
+      </span>
     </Card>
   );
 

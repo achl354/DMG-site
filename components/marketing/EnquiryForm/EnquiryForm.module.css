@@ -15,4 +15,21 @@
   .row {
     grid-template-columns: 1fr 1fr;
   }
+
+  /* The form column is ~560px wide -- a submit button stretched across all
+     of it reads as a banner, not an action. Full-width stays only on
+     phones, where edge-to-edge tap targets are the convention. */
+  .submit {
+    align-self: flex-start;
+  }
+}
+
+.privacyLink {
+  color: var(--brand);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.privacyLink:hover {
+  color: var(--brand-hover);
 }

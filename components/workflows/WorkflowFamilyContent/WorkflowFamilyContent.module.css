@@ -25,6 +25,13 @@
   margin-bottom: var(--space-3);
 }
 
+/* Page-top eyebrow -- match EyebrowHeading's shared desktop bump. */
+@media (min-width: 1024px) {
+  .number {
+    font-size: var(--text-md);
+  }
+}
+
 .familyName {
   font-size: var(--text-lg);
   font-weight: var(--weight-bold);
@@ -66,10 +73,11 @@
  * 1fr width as visible empty grid cells -- which is what left a large dead
  * void beside a lone card on single-product family pages. Capping the max
  * (rather than leaving 1fr) stops a lone card from instead stretching to
- * fill the whole freed-up row; centering the row means the leftover space
- * reads as deliberate breathing room on both sides instead of a lopsided
- * gap on the right. Mobile is untouched (always a single full-width
- * column regardless of product count, so this pattern doesn't occur there).
+ * fill the whole freed-up row. Left-aligned (start), not centered -- the
+ * "In this family" heading, intro copy and back-link above are all flush
+ * left, so centered cards read as a misalignment rather than deliberate
+ * breathing room. Mobile is untouched (always a single full-width column
+ * regardless of product count, so this pattern doesn't occur there).
  *
  * "wide" cards use the same fixed-track approach at a larger 315px column
  * size instead of the default 280px -- a precise, predictable +12.5%
@@ -79,11 +87,11 @@
 @media (min-width: 1024px) {
   .grid {
     grid-template-columns: repeat(auto-fit, minmax(240px, 280px));
-    justify-content: center;
+    justify-content: start;
   }
 
   .gridWide {
     grid-template-columns: repeat(auto-fit, 315px);
-    justify-content: center;
+    justify-content: start;
   }
 }

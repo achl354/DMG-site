@@ -15,7 +15,11 @@ export function Stat({ value, label, onBrand, className }: StatProps) {
   const ref = useRef<HTMLParagraphElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
   const target = parseLeadingNumber(value);
-  const [display, setDisplay] = useState(target === null ? value : "0");
+  // Initial state is the REAL value, not "0" -- the server-rendered HTML
+  // (what search engines and no-JS visitors get) must show the actual
+  // number. The count-up only kicks in client-side once scrolled into
+  // view, resetting to 0 at the exact moment the animation starts.
+  const [display, setDisplay] = useState(value);
 
   useEffect(() => {
     if (target === null || !inView) return;

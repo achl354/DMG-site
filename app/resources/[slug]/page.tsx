@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Badge, Button } from "@/components/ui";
 import { Section, Container } from "@/components/layout";
@@ -50,6 +51,9 @@ export default async function ResourceDetailPage({
     <>
       <Section spacing="lg">
         <Container size="md">
+          <Link href="/resources" className={styles.back}>
+            &larr; All resources
+          </Link>
           <Badge tone="brand" className={styles.badge}>
             {resource.category}
           </Badge>
@@ -62,7 +66,7 @@ export default async function ResourceDetailPage({
         <Section spacing="md" surface="sunken">
           <Container size="md">
             <a href={resource.fileUrl} download className={styles.downloadLink}>
-              <Button size="lg">Download PDF</Button>
+              <Button size="md">Download PDF</Button>
             </a>
             {resource.category === "Instructions for use" && (
               <p className={styles.disclaimer}>

@@ -17,6 +17,20 @@
   color: var(--type-eyebrow-color);
 }
 
+/*
+ * Desktop-only bump for section/page-top eyebrows, centralised here so
+ * every EyebrowHeading reads at the same size -- this used to live as
+ * per-section overrides on two homepage sections only, leaving other
+ * pages' eyebrows smaller. Deliberately NOT via --type-eyebrow-size:
+ * that token is also used by small in-card labels (about-page cards,
+ * contact details panel, footer CTA panels) which should stay small.
+ */
+@media (min-width: 1024px) {
+  .eyebrow {
+    font-size: var(--text-md);
+  }
+}
+
 .heading {
   font-size: var(--type-h2-size);
   font-weight: var(--type-heading-weight);

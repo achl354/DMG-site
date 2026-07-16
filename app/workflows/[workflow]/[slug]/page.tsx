@@ -125,7 +125,7 @@ export default async function ProductDetailPage({
             </p>
             {product.documentUrl && (
               <a href={product.documentUrl} download className={styles.documentLink}>
-                <Button variant="secondary" size="sm">
+                <Button variant="secondary" size="md">
                   {product.documentLabel}
                 </Button>
               </a>

@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import Link from "next/link";
 import { Input, Select, Textarea, Checkbox, Button, Alert } from "@/components/ui";
 import { PRODUCT_NAMES } from "@/lib/constants";
 import styles from "./EnquiryForm.module.css";
@@ -87,10 +88,19 @@ export function EnquiryForm({ defaultProduct }: EnquiryFormProps) {
       <Checkbox
         name="consent"
         required
-        label="I agree that DirectMed Group may use the information provided to respond to this enquiry in accordance with its Privacy Policy."
+        label={
+          <>
+            I agree that DirectMed Group may use the information provided to respond to this
+            enquiry in accordance with its{" "}
+            <Link href="/privacy" className={styles.privacyLink}>
+              Privacy Policy
+            </Link>
+            .
+          </>
+        }
       />
 
-      <Button type="submit" size="lg" disabled={status === "submitting"}>
+      <Button type="submit" size="lg" className={styles.submit} disabled={status === "submitting"}>
         {status === "submitting" ? "Sending..." : "Send enquiry"}
       </Button>
     </form>

@@ -1,3 +1,19 @@
+/* Mirrors WorkflowFamilyContent's .back so every detail page's escape
+   hatch looks the same. display: block (not inline-block) so the badge
+   below starts on its own line. */
+.back {
+  display: block;
+  width: fit-content;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--text-muted);
+  margin-bottom: var(--space-7);
+}
+
+.back:hover {
+  color: var(--brand);
+}
+
 .badge {
   margin-bottom: var(--space-4);
 }

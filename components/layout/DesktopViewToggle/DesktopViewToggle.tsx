@@ -29,7 +29,11 @@ export function DesktopViewToggle({ initialDesktopView }: DesktopViewToggleProps
   }
 
   return (
-    <button type="button" onClick={handleClick} className={styles.link}>
+    <button
+      type="button"
+      onClick={handleClick}
+      className={[styles.link, desktopView && styles.cookieSet].filter(Boolean).join(" ")}
+    >
       {desktopView ? "View mobile site" : "View desktop site"}
     </button>
   );

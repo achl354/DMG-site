@@ -19,3 +19,17 @@
   box-shadow: var(--ring);
   border-radius: var(--radius-xs);
 }
+
+/*
+ * "View desktop site" is meaningless on an actual desktop-width screen --
+ * the layout is already desktop there. Only offer the toggle where it does
+ * something: small screens, or any screen while the desktop-view cookie is
+ * active (.cookieSet), so a phone user who switched can always switch back
+ * (with the cookie set, the phone's layout viewport IS desktop-width, so a
+ * plain width media-query would wrongly hide their way out).
+ */
+@media (min-width: 1024px) {
+  .link:not(.cookieSet) {
+    display: none;
+  }
+}

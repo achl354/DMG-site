@@ -1,8 +1,10 @@
-import { InputHTMLAttributes, forwardRef } from "react";
+import { InputHTMLAttributes, ReactNode, forwardRef } from "react";
 import styles from "./Checkbox.module.css";
 
 export interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
-  label: string;
+  /** ReactNode, not just string, so consent text can contain a real link
+   * (e.g. the enquiry form's Privacy Policy reference). */
+  label: ReactNode;
 }
 
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(

@@ -84,3 +84,35 @@
   line-height: var(--leading-relaxed);
   color: var(--text-body);
 }
+
+/* Quiet clickability cue, pinned to the card's bottom edge regardless of
+   how long the summary runs (margin-top: auto in the flex column). Same
+   arrow-link voice as ProductCard's "View product". */
+.viewCue {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-top: auto;
+  padding-top: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--brand);
+}
+
+.viewCueArrow {
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.link:hover .viewCueArrow {
+  transform: translateX(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .viewCueArrow {
+    transition: none;
+  }
+
+  .link:hover .viewCueArrow {
+    transform: none;
+  }
+}

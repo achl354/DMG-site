@@ -3,28 +3,18 @@
 }
 
 /*
- * Flexbox, not grid -- a wrapping grid's column tracks are shared across
- * every row, so a trailing partial row (9 cards doesn't divide evenly into
- * any fixed column count) still reserves full-width empty tracks beside
- * the last card. Flexbox's `justify-content` applies per wrapped line, so
- * the last row's leftover space centers around its card(s) instead.
+ * Mobile/tablet: fluid columns. Desktop: a fixed 3-column grid -- nine
+ * products fill 3x3 exactly, with no orphan card stranded on a final row
+ * (the previous 4-across flex layout left EasiCart alone on row three).
  */
 .grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: var(--space-6);
-}
-
-.grid > * {
-  flex: 1 1 240px;
 }
 
 @media (min-width: 1024px) {
   .grid {
-    justify-content: center;
-  }
-
-  .grid > * {
-    max-width: 280px;
+    grid-template-columns: repeat(3, 1fr);
   }
 }

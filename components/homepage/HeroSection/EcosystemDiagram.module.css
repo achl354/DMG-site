@@ -137,6 +137,9 @@
 
 .nodeNumber {
   font-family: var(--font-display);
+  /* Deliberately off the type scale (between --text-sm 14 and --text-base
+     16) -- hand-tuned against the diagram's fixed geometry, where the
+     nearest tokens read visibly too small/large. Same for .nodeTitle. */
   font-size: 15px;
   font-weight: var(--weight-extrabold);
   letter-spacing: var(--tracking-wide);
