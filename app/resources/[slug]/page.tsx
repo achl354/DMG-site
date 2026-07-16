@@ -91,6 +91,20 @@ export default async function ResourceDetailPage({
             <div className={styles.prose}>
               <Body />
             </div>
+
+            {resource.tags && resource.tags.length > 0 && (
+              <div className={styles.tags}>
+                {resource.tags.map((tag) => (
+                  <Badge key={tag} tone="neutral">
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
+            )}
+
+            {resource.sources && resource.sources.length > 0 && (
+              <p className={styles.sources}>Sources: {resource.sources.join("; ")}</p>
+            )}
           </Container>
         </Section>
       )}

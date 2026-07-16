@@ -1,6 +1,12 @@
 import type { ComponentType } from "react";
 
-export type ResourceCategory = "Spec sheet" | "Guide" | "Case study" | "Instructions for use" | "Flyer";
+export type ResourceCategory =
+  | "Spec sheet"
+  | "Guide"
+  | "Case study"
+  | "Instructions for use"
+  | "Flyer"
+  | "Clinical Insight";
 
 export interface ResourceMeta {
   slug: string;
@@ -14,6 +20,10 @@ export interface ResourceMeta {
    * on Body instead; the two aren't mutually exclusive if a resource ever
    * needs both. */
   fileUrl?: string;
+  /** Topic tags shown as chips on the detail page. */
+  tags?: string[];
+  /** Citations shown as a short "Sources" line at the end of the article. */
+  sources?: string[];
 }
 
 export interface Resource extends ResourceMeta {

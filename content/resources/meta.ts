@@ -48,4 +48,81 @@ export const RESOURCE_META: ResourceMeta[] = [
     publishedAt: "2026-06-23",
     fileUrl: "/resources/documents/easimove-pro-flyer.pdf",
   },
+  {
+    slug: "everyday-patient-handling-beyond-transfers",
+    title: "Everyday patient handling: looking beyond major transfers",
+    description:
+      "Much of the physical workload in patient care happens during routine bedside tasks, not major transfers — turning, boosting and repositioning carry real musculoskeletal risk of their own.",
+    category: "Clinical Insight",
+    publishedAt: "2026-06-10",
+    tags: ["Patient Handling", "Repositioning", "Workforce Safety", "Clinical Workflow"],
+    sources: [
+      "Safe Work Australia, Model Code of Practice: Hazardous Manual Tasks",
+      "Safe Work Australia, Model Code of Practice for the Healthcare and Social Assistance Industry",
+    ],
+  },
+  {
+    slug: "patient-handling-training-needs-the-right-system",
+    title: "Why patient-handling training needs the right system around it",
+    description:
+      "Training is essential but sits low in the hierarchy of controls — when the right equipment isn't accessible, even well-trained staff can revert to higher-risk manual technique.",
+    category: "Clinical Insight",
+    publishedAt: "2026-06-17",
+    tags: ["Manual Handling", "Clinical Education", "Systems of Work", "Workforce Safety"],
+    sources: [
+      "Safe Work Australia, Hierarchy of Control Measures",
+      "Safe Work Australia, Model Code of Practice: Hazardous Manual Tasks",
+    ],
+  },
+  {
+    slug: "match-the-patient-handling-solution-to-the-movement",
+    title: "Match the patient-handling solution to the movement",
+    description:
+      "Lateral transfer, turning, floor recovery and hoist transfer are different workflows with different demands — equipment selection should start from the task, not the product.",
+    category: "Clinical Insight",
+    publishedAt: "2026-06-24",
+    tags: ["Patient Handling", "Workflow Design", "Equipment Selection", "Clinical Operations"],
+    sources: [
+      "Safe Work Australia, healthcare and social assistance guidance on hazardous manual tasks and people handling",
+    ],
+  },
+  {
+    slug: "equipment-access-is-part-of-patient-handling-safety",
+    title: "Equipment access is part of patient-handling safety",
+    description:
+      "Owning suitable equipment isn't the same as having it accessible at the point of care — storage, stock levels and processing cycles all affect whether it gets used.",
+    category: "Clinical Insight",
+    publishedAt: "2026-07-01",
+    tags: ["Equipment Access", "Patient Safety", "Clinical Workflow", "Implementation"],
+    sources: [
+      "Safe Work Australia, Model Code of Practice for the Healthcare and Social Assistance Industry",
+      "Safe Work Australia guidance for lifting, supporting and moving patients",
+    ],
+  },
+  {
+    slug: "reusable-or-single-patient-use",
+    title: "Reusable or single-patient use: choosing the right model",
+    description:
+      "Reusable and single-patient-use equipment each suit different operational contexts — the right model depends on utilisation, processing capacity and infection-prevention needs, not a blanket rule.",
+    category: "Clinical Insight",
+    publishedAt: "2026-07-08",
+    tags: ["Reusable", "Single-Patient Use", "Procurement", "Sustainability", "Infection Prevention"],
+    sources: [
+      "Australian Commission on Safety and Quality in Health Care sustainability guidance",
+      "Safe Work Australia healthcare and social assistance guidance",
+    ],
+  },
+  {
+    slug: "planning-patient-handling-as-clinical-infrastructure",
+    title: "Planning patient handling as clinical infrastructure",
+    description:
+      "Treating patient-handling equipment as planned clinical infrastructure, rather than a reactive, incident-driven purchase, leads to more consistent availability and safer systems of work.",
+    category: "Clinical Insight",
+    publishedAt: "2026-07-15",
+    tags: ["Clinical Infrastructure", "Patient Handling", "Procurement", "Workforce Planning"],
+    sources: [
+      "Safe Work Australia, Model Code of Practice for the Healthcare and Social Assistance Industry",
+      "Safe Work Australia hazardous manual task guidance",
+    ],
+  },
 ];

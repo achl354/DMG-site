@@ -7,7 +7,8 @@ import styles from "./page.module.css";
 
 export const metadata = buildMetadata({
   title: "Resources",
-  description: "Spec sheets, buying guides and case studies for the EasiSystem™ range.",
+  description:
+    "Spec sheets, buying guides, case studies and clinical insights for the EasiSystem™ range.",
   path: "/resources",
 });
 
@@ -17,7 +18,7 @@ export default function ResourcesPage() {
       <Container size="xl">
         <EyebrowHeading
           eyebrow="Resources"
-          heading="Spec sheets, guides and case studies"
+          heading="Spec sheets, guides, case studies and clinical insights"
           className={styles.heading}
         />
         <ResourceList resources={RESOURCE_META} />
