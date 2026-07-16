@@ -82,4 +82,14 @@ export const evidenceFacts: EvidenceFact[] = [
       "https://data.safeworkaustralia.gov.au/insights/key-whs-statistics-australia/latest-release",
     articleUrl: "/resources/workforce-impact-of-musculoskeletal-injuries-in-healthcare",
   },
+  {
+    id: "compensation-cost-illustration",
+    statistic: "$40.8 million",
+    statement:
+      "An illustrative compensation estimate for 2,500 serious claims, calculated using Safe Work Australia's national median compensation payment of $16,300 per serious claim.",
+    source: "Safe Work Australia",
+    period: "2023–24 preliminary data",
+    sourceUrl:
+      "https://data.safeworkaustralia.gov.au/insights/key-whs-statistics-australia/latest-release",
+  },
 ];

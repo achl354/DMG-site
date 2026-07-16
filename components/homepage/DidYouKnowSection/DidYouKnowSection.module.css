@@ -51,7 +51,9 @@
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-tight);
   color: var(--text-strong);
-  white-space: nowrap;
+  /* No white-space: nowrap -- single-token values (2.3×, 29,100) have no
+     spaces to break at anyway, but a multi-word value ($40.8 million)
+     needs to be free to wrap at its word boundary on narrow viewports. */
 }
 
 .copy {
@@ -113,5 +115,14 @@
     flex: 1 1 auto;
     border-left: 1px solid var(--border-subtle);
     padding-left: var(--space-8);
+  }
+}
+
+@media (min-width: 1024px) {
+  /* Sits directly above the workflow scroll rotator -- pull it in close
+     on desktop rather than leaving the two large sections' own paddings
+     stack into a big gap between them. */
+  .section {
+    padding-bottom: var(--space-4);
   }
 }
