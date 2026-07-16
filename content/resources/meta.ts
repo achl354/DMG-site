@@ -179,4 +179,42 @@ export const RESOURCE_META: ResourceMeta[] = [
     publishedAt: "2026-08-26",
     tags: ["Healthcare Innovation", "Product Design", "Clinical Workflow", "Patient Handling"],
   },
+  {
+    slug: "patient-handling-risk-extends-beyond-lifting",
+    title: "Patient-handling risk extends beyond lifting",
+    description:
+      "Safe Work Australia data shows nursing, care and support workers file serious musculoskeletal claims at 2.3 times the national average — and most body-stressing claims don't involve classic lifting or carrying at all.",
+    category: "Clinical Insight",
+    publishedAt: "2026-09-02",
+    sources: [
+      "Safe Work Australia, WHS Profile: Nursing, Care and Support Workforce",
+      "Safe Work Australia, Key Work Health and Safety Statistics Australia 2025",
+      "Safe Work Australia, healthcare and social assistance guidance",
+    ],
+  },
+  {
+    slug: "patient-handling-equipment-planned-around-the-care-task",
+    title: "Why patient-handling equipment should be planned around the care task",
+    description:
+      "Owning suitable equipment isn't enough — WorkSafe Victoria's guidance calls for handling plans that match equipment, method and staffing to the specific person and movement, not a one-size-fits-all approach.",
+    category: "Clinical Insight",
+    publishedAt: "2026-09-09",
+    sources: [
+      "WorkSafe Victoria, aged-care industry guidance",
+      "WorkSafe Victoria, healthcare guidance",
+      "Safe Work Australia, healthcare and social assistance guidance",
+    ],
+  },
+  {
+    slug: "workforce-impact-of-musculoskeletal-injuries-in-healthcare",
+    title: "The workforce impact of musculoskeletal injuries in healthcare",
+    description:
+      "Healthcare and social assistance recorded 29,100 serious workers' compensation claims in 2023-24 — a claim frequency well above the all-industry average, with real costs to rostering, continuity and care.",
+    category: "Clinical Insight",
+    publishedAt: "2026-09-16",
+    sources: [
+      "Safe Work Australia, Key Work Health and Safety Statistics Australia 2025",
+      "Safe Work Australia, WHS Profile: Nursing, Care and Support Workforce",
+    ],
+  },
 ];

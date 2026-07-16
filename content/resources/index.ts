@@ -14,6 +14,9 @@ import BariatricPatientHandlingMoreThanSafeWorkingLoad from "./bariatric-patient
 import TheRealCostOfPatientHandlingEquipment from "./the-real-cost-of-patient-handling-equipment.mdx";
 import EfficientPatientHandlingFewerUnnecessarySteps from "./efficient-patient-handling-fewer-unnecessary-steps.mdx";
 import PracticalInnovationInPatientHandling from "./practical-innovation-in-patient-handling.mdx";
+import PatientHandlingRiskExtendsBeyondLifting from "./patient-handling-risk-extends-beyond-lifting.mdx";
+import PatientHandlingEquipmentPlannedAroundTheCareTask from "./patient-handling-equipment-planned-around-the-care-task.mdx";
+import WorkforceImpactOfMusculoskeletalInjuriesInHealthcare from "./workforce-impact-of-musculoskeletal-injuries-in-healthcare.mdx";
 import { RESOURCE_META } from "./meta";
 
 export { RESOURCE_META };
@@ -34,4 +37,7 @@ export const RESOURCE_BODIES: Record<string, ComponentType> = {
   "the-real-cost-of-patient-handling-equipment": TheRealCostOfPatientHandlingEquipment,
   "efficient-patient-handling-fewer-unnecessary-steps": EfficientPatientHandlingFewerUnnecessarySteps,
   "practical-innovation-in-patient-handling": PracticalInnovationInPatientHandling,
+  "patient-handling-risk-extends-beyond-lifting": PatientHandlingRiskExtendsBeyondLifting,
+  "patient-handling-equipment-planned-around-the-care-task": PatientHandlingEquipmentPlannedAroundTheCareTask,
+  "workforce-impact-of-musculoskeletal-injuries-in-healthcare": WorkforceImpactOfMusculoskeletalInjuriesInHealthcare,
 };
