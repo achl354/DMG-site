@@ -24,8 +24,8 @@ export default function Home() {
   return (
     <ReducedMotionProvider>
       <HeroSection />
-      <DidYouKnowSection />
       <PortfolioScrollSection scenes={scenes} />
+      <DidYouKnowSection />
       <WhyEasiSystem />
       <LatestInsightsSection />
       <ResourcesContact />

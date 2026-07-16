@@ -7,7 +7,7 @@ import { useReducedMotion } from "@/components/motion/ReducedMotionProvider";
 import type { EvidenceFact } from "@/lib/content/evidenceFacts";
 import styles from "./DidYouKnowSection.module.css";
 
-const ROTATE_INTERVAL_MS = 10000;
+const ROTATE_INTERVAL_MS = 5000;
 
 function pickNextIndex(current: number, length: number) {
   if (length <= 1) return current;

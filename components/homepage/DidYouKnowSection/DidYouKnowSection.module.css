@@ -119,10 +119,10 @@
 }
 
 @media (min-width: 1024px) {
-  /* Sits directly above the workflow scroll rotator -- pull it in close
+  /* Sits directly below the workflow scroll rotator -- pull it in close
      on desktop rather than leaving the two large sections' own paddings
      stack into a big gap between them. */
   .section {
-    padding-bottom: var(--space-4);
+    padding-top: var(--space-4);
   }
 }
