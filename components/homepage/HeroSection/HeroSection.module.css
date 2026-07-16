@@ -11,13 +11,11 @@
    */
 }
 
-/* Mobile's scroll-rotator visual already ends flush with this section's
-   bottom edge once unpinned -- the "lg" bottom padding on top of that plus
-   the next section's own top padding reads as an oversized gap. Desktop's
-   plain static hero doesn't have this compounding, so left untouched.
-   !important: .section and Section's own .lg are equal-specificity single
-   classes, so source order alone can't be relied on to win (same issue as
-   .heroCta below). */
+/* The next section's own top padding on top of this section's "lg" bottom
+   padding reads as an oversized gap on mobile. Desktop's pinned visual
+   doesn't have this compounding, so left untouched. !important: .section
+   and Section's own .lg are equal-specificity single classes, so source
+   order alone can't be relied on to win (same issue as .heroCta below). */
 @media (max-width: 1023px) {
   .section {
     padding-bottom: var(--space-9) !important;
@@ -25,10 +23,10 @@
 }
 
 /*
- * Mobile-first: a plain flex column (copy, then the pinned rotation's
- * tall runway, stacked normally). Desktop's two-column grid below applies
- * whether or not the visual is pinned (see HeroSection.tsx) -- .track
- * itself doesn't know which visual it's laying out.
+ * Mobile-first: a plain flex column (copy, then the static visual,
+ * stacked normally). Desktop's two-column grid below applies whether or
+ * not the visual is pinned (see HeroSection.tsx) -- .track itself doesn't
+ * know which visual it's laying out.
  */
 .track {
   position: relative;
@@ -198,37 +196,6 @@
   }
 }
 
-/* ---- Rotating visual (motion-enabled path) ---- */
-
-/*
- * Fixed px, not vh -- vh is relative to whatever the browser computes as
- * the viewport height, which mobile browsers recalculate (and inflate,
- * sometimes drastically) when a page forces a wider layout viewport via
- * the meta viewport tag -- exactly what happens under a phone's own
- * "Desktop site" mode. A fixed distance means the same amount of actual
- * scrolling gets through all 5 frames regardless of that recalculation
- * (this codebase has hit vh/dvh-driven sticky-scroll bugs before -- see
- * git history -- so treat vh-for-scroll-distance as suspect by default).
- */
-.visualWrap {
-  position: relative;
-  min-height: 750px;
-}
-
-/* .visual is only rendered by HeroRotatingVisual (mobile-only). .glow is
-   shared with .staticVisual below, which is why it still carries a
-   desktop-position override despite the rotation itself being mobile-only. */
-
-.visual {
-  position: sticky;
-  top: var(--header-height, 72px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-4);
-  padding-block: var(--space-8);
-}
-
 .glow {
   position: absolute;
   top: 50%;
@@ -258,121 +225,3 @@
   }
 }
 
-/* Below this point (imageCard, frameStack, frame, progress) is exclusive
-   to HeroRotatingVisual, which only ever renders below the 1024px
-   desktop breakpoint -- no desktop overrides needed for any of it. */
-
-/*
- * A real card (matching components/ui/Card's own tokens) rather than an
- * attempt to colour-match the page background -- real-device screenshots
- * showed a visible edge around the image even though this component's
- * own webp background and --surface-page are pixel-identical in every
- * render test run against this codebase, most likely a device-level
- * colour/webp-decoding difference no amount of CSS tuning can chase
- * reliably. An intentional frame reads as a deliberate choice either way.
- */
-/*
- * Full-bleed: breaks out of Container's own gutter so the card spans the
- * actual viewport width, not just its column. .visual (this card's flex
- * parent) already has align-items:center, and .visual/Container are both
- * horizontally centered in the viewport -- so a plain 100vw width is
- * enough on its own: flex centers this now-wider-than-its-column item
- * symmetrically, landing it flush with the real viewport edges. (The
- * standard margin-left:50%+translateX(-50%) recenter trick does NOT
- * belong here -- it assumes normal block flow, and stacks a second,
- * conflicting centering offset on top of the flex one, which is exactly
- * what shifted the card off-screen to the left when first tried.) Only
- * safe because nothing between here and <body> sets overflow-x -- that
- * would make 100vw measure against the wrong box (and, worse, risks the
- * same sticky-breaking bug documented on .section above).
- */
-.imageCard {
-  position: relative;
-  z-index: 1;
-  width: 100vw;
-  background: var(--surface-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  /* Tightened further now that the card itself is full-bleed -- just
-     enough padding that the image doesn't touch the border. */
-  padding: var(--space-1);
-}
-
-.frameStack {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1 / 1;
-}
-
-/* Each frame is now an icon + caption (workflow number/title/family), not
-   a bare photo -- a fixed-height icon keeps every workflow's differently-
-   proportioned outline artwork the same visual weight, same reasoning as
-   PortfolioCards' own .icon rule. */
-.frame {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-3);
-  padding: var(--space-6);
-  text-align: center;
-  transition: opacity 150ms ease;
-  will-change: opacity;
-}
-
-.frameIcon {
-  height: 34%;
-  max-height: 180px;
-  width: auto;
-  object-fit: contain;
-}
-
-.frameNumber {
-  font-family: var(--font-display);
-  font-size: var(--text-sm);
-  font-weight: var(--weight-extrabold);
-  letter-spacing: var(--tracking-wide);
-  color: var(--teal-300);
-}
-
-.frameTitle {
-  font-size: var(--text-xl);
-  font-weight: var(--type-heading-weight);
-  color: var(--text-strong);
-}
-
-.frameFamily {
-  font-size: var(--text-sm);
-  font-weight: var(--weight-semibold);
-  color: var(--brand);
-}
-
-/* ---- Progress indicator: a bold scrubber-style bar spanning the card's
-   width, not a subtle accent -- no descriptive text, the hero's own copy
-   stays the only text in this section. ---- */
-
-.progressTrack {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  height: 6px;
-  background: var(--paper-200);
-  border-radius: var(--radius-pill);
-  overflow: hidden;
-}
-
-.progressFill {
-  height: 100%;
-  background: var(--brand);
-  border-radius: var(--radius-pill);
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .progressFill {
-    transition: width 80ms linear;
-  }
-}
