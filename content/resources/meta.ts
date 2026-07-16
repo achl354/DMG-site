@@ -125,4 +125,58 @@ export const RESOURCE_META: ResourceMeta[] = [
       "Safe Work Australia hazardous manual task guidance",
     ],
   },
+  {
+    slug: "turning-and-repositioning-the-repeated-risk",
+    title: "Turning and repositioning: the repeated risk in bedside care",
+    description:
+      "Turning and repositioning are everyday parts of bedside care, but repeated pushing, pulling and awkward postures can carry as much manual-handling risk as a major transfer.",
+    category: "Clinical Insight",
+    publishedAt: "2026-07-22",
+    tags: ["Repositioning", "Turning", "Bedside Care", "Workforce Safety"],
+  },
+  {
+    slug: "patient-positioning-supports-care-and-workforce-safety",
+    title: "Patient positioning supports both care and workforce safety",
+    description:
+      "Positioning isn't just a staff-safety issue — how well a patient is repositioned affects their comfort, clinical access and how much repeat handling is needed afterwards.",
+    category: "Clinical Insight",
+    publishedAt: "2026-07-29",
+    tags: ["Patient Positioning", "Clinical Care", "Patient Comfort", "Repositioning"],
+  },
+  {
+    slug: "bariatric-patient-handling-more-than-safe-working-load",
+    title: "Bariatric patient handling is about more than safe working load",
+    description:
+      "A high weight rating doesn't make a complete bariatric handling system — equipment also needs to suit the patient's dimensions, mobility and the full care pathway they move through.",
+    category: "Clinical Insight",
+    publishedAt: "2026-08-05",
+    tags: ["Bariatric Care", "Patient Handling", "Clinical Planning", "Equipment Selection"],
+  },
+  {
+    slug: "the-real-cost-of-patient-handling-equipment",
+    title: "The real cost of patient-handling equipment",
+    description:
+      "Purchase price is only one part of a patient-handling product's real cost — maintenance, staff time, processing and availability all shape the total cost of ownership.",
+    category: "Clinical Insight",
+    publishedAt: "2026-08-12",
+    tags: ["Procurement", "Total Cost of Ownership", "Patient Handling", "Clinical Operations"],
+  },
+  {
+    slug: "efficient-patient-handling-fewer-unnecessary-steps",
+    title: "Efficient patient handling begins with fewer unnecessary steps",
+    description:
+      "Efficiency in patient handling isn't about moving faster — it's about designing workflows with fewer unnecessary steps, each of which adds time and physical exposure.",
+    category: "Clinical Insight",
+    publishedAt: "2026-08-19",
+    tags: ["Clinical Efficiency", "Workflow Design", "Patient Transfer", "Operational Improvement"],
+  },
+  {
+    slug: "practical-innovation-in-patient-handling",
+    title: "Practical innovation in patient handling",
+    description:
+      "The most useful improvements in patient handling often come from solving straightforward operational friction, not from advanced technology alone.",
+    category: "Clinical Insight",
+    publishedAt: "2026-08-26",
+    tags: ["Healthcare Innovation", "Product Design", "Clinical Workflow", "Patient Handling"],
+  },
 ];
