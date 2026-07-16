@@ -36,7 +36,12 @@
   letter-spacing: var(--type-eyebrow-tracking);
   text-transform: uppercase;
   color: var(--type-eyebrow-color);
-  margin-bottom: var(--space-4);
+  /* Shorthand, not margin-bottom alone -- this is a <p>, so without an
+     explicit top value it'd also carry the browser's default 1em top
+     margin on top of this bottom spacing, stacking with .body's own gap
+     below and roughly doubling the intended gap. Same reasoning applies
+     to every <p> in this card (see .stat/.statement/.meta below). */
+  margin: 0 0 var(--space-4);
 }
 
 .body {
@@ -54,6 +59,9 @@
   /* No white-space: nowrap -- single-token values (2.3×, 29,100) have no
      spaces to break at anyway, but a multi-word value ($40.8 million)
      needs to be free to wrap at its word boundary on narrow viewports. */
+  /* This <p>'s default 1em margin would otherwise add ~48px above and
+     below on top of .body's own gap -- spacing here is .body's gap alone. */
+  margin: 0;
 }
 
 .copy {
@@ -68,11 +76,14 @@
   line-height: var(--leading-relaxed);
   color: var(--text-body);
   max-width: 60ch;
+  /* Default <p> margin would double up with .copy's own gap -- see .stat. */
+  margin: 0;
 }
 
 .meta {
   font-size: var(--text-sm);
   color: var(--text-muted);
+  margin: 0;
 }
 
 .sourceLink {
