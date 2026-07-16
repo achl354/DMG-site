@@ -1,6 +1,5 @@
 export { HeroSection } from "./HeroSection/HeroSection";
 export { DidYouKnowSection } from "./DidYouKnowSection/DidYouKnowSection";
-export { EasiMoveRevealSection } from "./EasiMoveRevealSection/EasiMoveRevealSection";
 export { PortfolioScrollSection } from "./PortfolioScrollSection/PortfolioScrollSection";
 export { WhyEasiSystem } from "./WhyEasiSystem/WhyEasiSystem";
 export { LatestInsightsSection } from "./LatestInsightsSection/LatestInsightsSection";

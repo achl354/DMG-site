@@ -1,7 +1,6 @@
 import {
   HeroSection,
   DidYouKnowSection,
-  EasiMoveRevealSection,
   PortfolioScrollSection,
   WhyEasiSystem,
   LatestInsightsSection,
@@ -26,7 +25,6 @@ export default function Home() {
     <ReducedMotionProvider>
       <HeroSection />
       <DidYouKnowSection />
-      <EasiMoveRevealSection />
       <PortfolioScrollSection scenes={scenes} />
       <WhyEasiSystem />
       <LatestInsightsSection />

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Container } from "@/components/layout";
 import { EyebrowHeading } from "@/components/ui";
 import { useReducedMotion } from "@/components/motion/ReducedMotionProvider";
@@ -10,15 +10,46 @@ import type { PortfolioScene } from "@/lib/content/portfolioScenes";
 import { PortfolioCards } from "./PortfolioCards";
 import styles from "./PortfolioScrollSection.module.css";
 
+const DESKTOP_QUERY = "(min-width: 1024px)";
+
+/**
+ * Desktop-only section -- mobile/tablet visitors reach the same content
+ * via the header's "Workflows" nav link instead. Starts `false` on every
+ * render, server and the very first client render alike (no
+ * useSyncExternalStore server-snapshot trick), so the section's card
+ * images never appear in the initial HTML or hydrated paint -- a mobile
+ * visitor never fetches them even for an instant. Flips true after mount
+ * once matchMedia genuinely confirms a desktop viewport.
+ */
+function useIsDesktopMounted() {
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const mql = window.matchMedia(DESKTOP_QUERY);
+    const update = () => setIsDesktop(mql.matches);
+    update();
+    mql.addEventListener("change", update);
+    return () => mql.removeEventListener("change", update);
+  }, []);
+
+  return isDesktop;
+}
+
 export interface PortfolioScrollSectionProps {
   scenes: PortfolioScene[];
 }
 
 export function PortfolioScrollSection({ scenes }: PortfolioScrollSectionProps) {
   const reducedMotion = useReducedMotion();
+  const isDesktop = useIsDesktopMounted();
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    // isDesktop starts false and the <section> below doesn't exist yet on
+    // that first render -- re-run once it flips true and the section
+    // actually mounts, rather than firing only on mount (when the ref is
+    // still null) and never observing anything.
+    if (!isDesktop) return;
     const node = sectionRef.current;
     if (!node) return;
     const io = new IntersectionObserver(
@@ -32,7 +63,11 @@ export function PortfolioScrollSection({ scenes }: PortfolioScrollSectionProps) 
     );
     io.observe(node);
     return () => io.disconnect();
-  }, []);
+  }, [isDesktop]);
+
+  if (!isDesktop) {
+    return null;
+  }
 
   return (
     <section
