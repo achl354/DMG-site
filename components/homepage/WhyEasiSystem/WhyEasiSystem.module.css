@@ -70,6 +70,17 @@
   .heading > :first-child {
     font-size: var(--text-md);
   }
+
+  /*
+   * Matches LatestInsightsSection's identical desktop-only reduction, so
+   * "Designed around the workflow." and "Guidance for safer patient
+   * handling" read at the same size -- that section's heading needed the
+   * 96% scale-down to fit its own text on one line within its narrower
+   * available width; this one didn't need it, but keeps the two in sync.
+   */
+  .heading > h2 {
+    font-size: calc(var(--type-h2-size) * 0.96);
+  }
 }
 
 .grid {
