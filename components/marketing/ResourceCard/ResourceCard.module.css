@@ -29,9 +29,3 @@
   color: var(--text-body);
   line-height: var(--leading-relaxed);
 }
-
-.date {
-  font-size: var(--text-xs);
-  color: var(--text-muted);
-  margin-top: auto;
-}

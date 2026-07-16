@@ -14,7 +14,7 @@ export function DidYouKnowSection() {
   const initialIndex = pickRandomFactIndex(evidenceFacts.length);
 
   return (
-    <Section spacing="md" surface="sunken" className={styles.section}>
+    <Section spacing="md" className={styles.section}>
       <Container size="lg">
         <EvidenceFactCard facts={evidenceFacts} initialIndex={initialIndex} />
       </Container>

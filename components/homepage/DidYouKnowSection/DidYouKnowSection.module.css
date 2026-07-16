@@ -119,10 +119,12 @@
 }
 
 @media (min-width: 1024px) {
-  /* Sits directly below the workflow scroll rotator on the same sunken
-     surface (no colour seam between them) -- pull it in tight rather
-     than leaving the two sections' own paddings stack into a gap. */
+  /* Sits directly below the hero on the same page surface (no colour
+     seam between them) -- pull the top in tight. The bottom padding
+     leads into the workflow scroll rotator below, also tightened to
+     match rather than leaving the two sections' paddings stack up. */
   .section {
     padding-top: var(--space-3);
+    padding-bottom: var(--space-4);
   }
 }

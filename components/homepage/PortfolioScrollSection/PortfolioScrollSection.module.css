@@ -29,10 +29,10 @@
     max-width: 90ch;
   }
 
-  /* The Did You Know evidence card sits directly below this section on
-     the same sunken surface (no colour seam between them) -- reduce the
-     bottom padding so the two sections read as one continuous block. */
+  /* The Did You Know evidence card sits directly above this section --
+     reduce the top padding so the two sections' own spacing doesn't
+     stack into a big gap. */
   .wrapper {
-    padding-bottom: var(--space-5);
+    padding-top: var(--space-7);
   }
 }

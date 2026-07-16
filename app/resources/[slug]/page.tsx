@@ -44,12 +44,6 @@ export default async function ResourceDetailPage({
     notFound();
   }
 
-  const date = new Date(resource.publishedAt).toLocaleDateString("en-AU", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-
   const Body = resource.Body;
 
   return (
@@ -61,9 +55,6 @@ export default async function ResourceDetailPage({
           </Badge>
           <h1 className={styles.title}>{resource.title}</h1>
           <p className={styles.description}>{resource.description}</p>
-          <time className={styles.date} dateTime={resource.publishedAt}>
-            {date}
-          </time>
         </Container>
       </Section>
 
