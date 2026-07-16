@@ -43,15 +43,9 @@ export function PortfolioScrollSection({ scenes }: PortfolioScrollSectionProps) 
     >
       <Container size="xl">
         <EyebrowHeading
-          heading={
-            <>
-              One portfolio.
-              <br />
-              Every move supported.
-            </>
-          }
+          heading="Explore by workflow"
           headingId="portfolio-workflows-heading"
-          body="Explore the EasiSystem™ portfolio by patient-handling workflow and see how each product family supports different transfer, recovery and repositioning requirements."
+          body="Start with the patient movement or care task to find the relevant EasiSystem™ solutions."
           className={styles.intro}
         />
       </Container>

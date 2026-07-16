@@ -2,6 +2,7 @@
 
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { useScroll, useMotionValueEvent } from "framer-motion";
+import Link from "next/link";
 import { Tagline, Button } from "@/components/ui";
 import { Section, Container } from "@/components/layout";
 import { useReducedMotion } from "@/components/motion/ReducedMotionProvider";
@@ -78,12 +79,9 @@ export function HeroSection() {
     <div className={styles.copy}>
       <Tagline as="h1" className={styles.tagline} />
       <p className={styles.subhead}>
-        A coordinated patient-handling portfolio supporting transfer, floor recovery, repositioning,
-        turning, sling transfer and equipment readiness.
-      </p>
-      <p className={styles.body}>
-        Developed by DirectMed Group, EasiSystem™ brings together air-assisted equipment, slings,
-        transfer aids, positioning products and supporting equipment within one structured portfolio.
+        EasiSystem™ brings together air-assisted transfer, floor recovery, repositioning, turning,
+        sling transfer and equipment-readiness solutions within one coordinated patient-handling
+        portfolio.
       </p>
       <div className={styles.ctaRow}>
         <Button size="lg" className={styles.heroCta} onClick={handleExploreClick}>
@@ -92,6 +90,11 @@ export function HeroSection() {
             →
           </span>
         </Button>
+        <Link href="/products" onClick={() => trackEvent("hero_cta_clicked", { cta: "view_all_products" })}>
+          <Button variant="secondary" size="lg">
+            {CTA_LABELS.viewAllProducts}
+          </Button>
+        </Link>
       </div>
     </div>
   );

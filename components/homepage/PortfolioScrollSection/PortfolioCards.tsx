@@ -171,6 +171,7 @@ function WorkflowCard({
       )}
 
       <div className={styles.productsBlock}>
+        <p className={styles.blockLabel}>Products</p>
         <div className={styles.productRow}>
           {scene.activeProductIds.map((slug) => {
             const product = getProductBySlug(slug);
@@ -178,6 +179,12 @@ function WorkflowCard({
             return <ProductChip key={slug} name={product.name} />;
           })}
         </div>
+
+        {scene.supports.length > 0 && (
+          <p className={styles.supports}>
+            <span className={styles.blockLabel}>Supports:</span> {scene.supports.join(" · ")}
+          </p>
+        )}
       </div>
 
       <CardCta scene={scene} onOpenWorkflow={onOpenWorkflow} />

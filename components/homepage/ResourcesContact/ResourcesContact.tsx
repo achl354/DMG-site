@@ -7,10 +7,20 @@ import { CTA_LABELS } from "@/lib/constants";
 import { trackEvent } from "@/lib/analytics";
 import styles from "./ResourcesContact.module.css";
 
-const RESOURCE_LINKS = [
-  { label: "Instructions for use", href: "/resources" },
-  { label: "Product specifications", href: "/resources" },
-  { label: "Training resources", href: "/resources" },
+const RESOURCE_CATEGORIES = [
+  {
+    title: "Clinical Insights",
+    description:
+      "Evidence and perspectives on patient handling, workforce safety and clinical workflows.",
+  },
+  {
+    title: "Product Resources",
+    description: "Instructions for use, specifications, comparison sheets and technical information.",
+  },
+  {
+    title: "Implementation Support",
+    description: "Quick guides, training materials and competency resources.",
+  },
 ];
 
 export function ResourcesContact() {
@@ -18,21 +28,20 @@ export function ResourcesContact() {
     <Section id="resources-contact" spacing="lg" surface="brand">
       <Container size="lg" className={styles.grid}>
         <div className={styles.panel}>
-          <p className={styles.panelLabel}>Product resources</p>
-          <ul className={styles.resourceList}>
-            {RESOURCE_LINKS.map((link) => (
-              <li key={link.label}>
-                <Link
-                  href={link.href}
-                  className={styles.resourceLink}
-                  onClick={() => trackEvent("resource_link_clicked", { label: link.label })}
-                >
-                  {link.label}
-                </Link>
-              </li>
+          <p className={styles.panelLabel}>Knowledge and resources</p>
+          <div className={styles.categoryList}>
+            {RESOURCE_CATEGORIES.map((category) => (
+              <div key={category.title} className={styles.category}>
+                <h3 className={styles.categoryTitle}>{category.title}</h3>
+                <p className={styles.categoryDescription}>{category.description}</p>
+              </div>
             ))}
-          </ul>
-          <Link href="/resources" className={styles.browseCta}>
+          </div>
+          <Link
+            href="/resources"
+            className={styles.browseCta}
+            onClick={() => trackEvent("resource_link_clicked", { label: "browse_resources" })}
+          >
             <Button variant="secondary" size="md" className={styles.ctaPrimary}>
               {CTA_LABELS.browseResources}
             </Button>
@@ -41,10 +50,10 @@ export function ResourcesContact() {
 
         <div className={styles.panel}>
           <p className={styles.panelLabel}>Get in touch</p>
-          <h2 className={styles.heading}>Discuss your patient-handling requirements</h2>
+          <h2 className={styles.heading}>Review your patient-handling workflows with DMG</h2>
           <p className={styles.body}>
-            Contact DirectMed Group for product information, configuration details, market
-            availability or distribution enquiries.
+            Discuss your current transfer, repositioning, recovery or equipment-readiness
+            requirements with our team.
           </p>
           <div className={styles.ctaRow}>
             <Link href="/contact" onClick={() => trackEvent("request_information_clicked")}>

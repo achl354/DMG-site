@@ -5,6 +5,8 @@ export interface PortfolioScene {
   description: string;
   /** Product slugs brought to the foreground for this scene. */
   activeProductIds: string[];
+  /** Short workflow/task keywords this scene's products support, shown as a "Supports:" line on the card. */
+  supports: string[];
   /** In-use scene illustration (replaces the earlier single-object outline icons on these cards). */
   icon?: string;
   /** Icon's real pixel dimensions, so next/image doesn't warn about aspect-ratio mismatches -- these vary per scene (landscape/square/portrait), unlike the old icon set which were all roughly the same shape. */
@@ -31,10 +33,11 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
   {
     id: "lateral-transfer",
     number: "01",
-    title: "Lateral transfer",
+    title: "Air-Assisted Lateral Transfer",
     description:
-      "Air-assisted products supporting surface-to-surface lateral transfer, repositioning and bed boosting.",
+      "Move patients between beds, trolleys, imaging tables and procedural surfaces using air-assisted transfer technology designed to reduce friction and physical effort.",
     activeProductIds: ["easimove-spu", "easimove-pro"],
+    supports: ["Lateral transfer", "Repositioning", "Bed boosting", "Lower-limb access"],
     icon: "/icons/workflow/scenes/01-lateral-transfer.png",
     iconWidth: 1672,
     iconHeight: 941,
@@ -45,10 +48,11 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
   {
     id: "floor-recovery",
     number: "02",
-    title: "Floor recovery",
+    title: "Air-Assisted Floor Recovery",
     description:
-      "Air-assisted equipment supporting controlled recovery from floor level and elevation to an appropriate transfer height.",
+      "Support the controlled elevation of a patient from the floor or a low seated position using sequential air-assisted inflation.",
     activeProductIds: ["easilift"],
+    supports: ["Floor recovery", "Seated recovery", "Patient elevation"],
     icon: "/icons/workflow/scenes/02-floor-recovery.png",
     iconWidth: 1672,
     iconHeight: 940,
@@ -59,9 +63,11 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
   {
     id: "turning-positioning",
     number: "03",
-    title: "Turning and positioning",
-    description: "In-bed turning and positioning support for routine repositioning workflows.",
+    title: "In-Bed Turning and Positioning",
+    description:
+      "Support controlled turning and patient positioning for hygiene, wound access, pressure-care activities and routine bedside care.",
     activeProductIds: ["easiturn"],
+    supports: ["Controlled turning", "Hygiene access", "Wound access"],
     icon: "/icons/workflow/scenes/05-turning-positioning.png",
     iconWidth: 1254,
     iconHeight: 1254,
@@ -72,10 +78,11 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
   {
     id: "hoist-transfer",
     number: "04",
-    title: "Hoist transfer",
+    title: "Sling-Based Patient Transfer",
     description:
-      "Sling configurations designed to support defined hoist-transfer, toileting and repositioning workflows.",
+      "Support hoist-assisted movement using reusable and single-patient-use sling options for a range of transfer and care requirements.",
     activeProductIds: ["easisling"],
+    supports: ["Hoist transfer", "Toileting transfer", "Sit-to-stand", "Repositioning"],
     icon: "/icons/workflow/scenes/04-sling-transfer.png",
     iconWidth: 1448,
     iconHeight: 1086,
@@ -86,10 +93,11 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
   {
     id: "manual-handling-support",
     number: "05",
-    title: "Manual handling support",
+    title: "Manual Handling Support",
     description:
-      "Rigid transfer aids and low-friction slide sheets supporting everyday repositioning, boosting and transfer assistance.",
-    activeProductIds: ["easiglide", "easislide"],
+      "Support routine patient movement within or between surfaces using low-friction slide sheets and rigid transfer aids selected for the specific task.",
+    activeProductIds: ["easislide", "easiglide"],
+    supports: ["Repositioning", "Bed boosting", "Surface transfer"],
     icon: "/icons/workflow/scenes/03-manual-handling-support.png",
     iconWidth: 1254,
     iconHeight: 1254,
@@ -100,10 +108,11 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
   {
     id: "support-equipment",
     number: "06",
-    title: "Support equipment",
+    title: "Air Supply and Equipment Readiness",
     description:
-      "EasiAir™ air supplies and EasiCart™ storage solutions support compatible product operation, accessibility and equipment readiness.",
+      "Keep air-assisted patient-handling equipment organised, accessible and ready for use with compatible air supplies and dedicated storage solutions.",
     activeProductIds: ["easiair", "easicart"],
+    supports: ["Equipment readiness", "Air supply access", "Mobile storage"],
     icon: "/icons/workflow/scenes/06-support-equipment.png",
     iconWidth: 1122,
     iconHeight: 1402,

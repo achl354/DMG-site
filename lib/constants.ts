@@ -39,8 +39,9 @@ export const SECTION_IDS = {
 } as const;
 
 export const CTA_LABELS = {
-  exploreSystem: "Explore EasiSystem™",
+  exploreSystem: "Explore by workflow",
   exploreAllWorkflows: "Explore all workflows",
+  viewAllProducts: "View all products",
   requestInformation: "Request product information",
   contactDmg: "Contact DMG",
   browseResources: "Browse resources",

@@ -19,24 +19,29 @@
   color: var(--teal-200);
 }
 
-.resourceList {
+.categoryList {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: var(--space-5);
 }
 
-.resourceLink {
+.category {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.categoryTitle {
   font-size: var(--type-h4-size);
   font-weight: var(--weight-semibold);
   color: var(--text-on-brand);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-  padding-bottom: var(--space-2);
-  display: inline-block;
-  transition: border-color var(--duration-base) var(--ease-out);
 }
 
-.resourceLink:hover {
-  border-color: var(--text-on-brand);
+.categoryDescription {
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--teal-100);
+  max-width: 48ch;
 }
 
 .browseCta {
