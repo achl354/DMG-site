@@ -35,10 +35,7 @@
     max-width: 90ch;
   }
 
-  /* The Did You Know evidence card sits directly above this section --
-     reduce the top padding so the two sections' own spacing doesn't
-     stack into a big gap. */
   .wrapper {
-    padding-top: var(--space-7);
+    padding-top: var(--space-9);
   }
 }
