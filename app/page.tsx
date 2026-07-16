@@ -1,5 +1,6 @@
 import {
   HeroSection,
+  DidYouKnowSection,
   PortfolioScrollSection,
   WhyEasiSystem,
   ResourcesContact,
@@ -22,6 +23,7 @@ export default function Home() {
   return (
     <ReducedMotionProvider>
       <HeroSection />
+      <DidYouKnowSection />
       <WhyEasiSystem />
       <PortfolioScrollSection scenes={scenes} />
       <ResourcesContact />
