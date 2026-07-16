@@ -144,6 +144,13 @@
   .statement {
     font-size: var(--text-md);
   }
+
+  /* Extra breathing room above the source line specifically -- roughly
+     one line at its own font-size, on top of .copy's regular gap, rather
+     than widening every gap in the column uniformly. */
+  .meta {
+    margin-top: var(--space-5);
+  }
 }
 
 @media (min-width: 768px) {
