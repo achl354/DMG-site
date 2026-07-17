@@ -72,14 +72,16 @@ export function ProductCard({ product }: { product: ProductWithAssets }) {
           <Badge tone="neutral">{product.category}</Badge>
         </div>
         {icon && (
-          <Image
-            src={icon}
-            alt=""
-            width={64}
-            height={64}
-            className={styles.icon}
-            style={{ viewTransitionName: `product-icon-${product.slug}` }}
-          />
+          <div className={styles.iconBox}>
+            <Image
+              src={icon}
+              alt=""
+              width={110}
+              height={84}
+              className={styles.icon}
+              style={{ viewTransitionName: `product-icon-${product.slug}` }}
+            />
+          </div>
         )}
         <ProductWordmark
           name={product.name}

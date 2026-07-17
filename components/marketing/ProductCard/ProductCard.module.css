@@ -34,9 +34,26 @@
   box-shadow: var(--shadow-sm);
 }
 
+/*
+ * Fixed-size slot, not a bare image -- the line-art icons have wildly
+ * different aspect ratios (0.6:1 up to 1.74:1), so the old fixed
+ * height + auto width rendered them anywhere from 29px to 58px wide:
+ * uneven visual weight, and a different gap above each wordmark.
+ * A uniform box means every card reserves identical space, and
+ * align-items: flex-end sits each icon on the same "floor" directly
+ * above its wordmark rather than floating at varying heights.
+ */
+.iconBox {
+  display: flex;
+  align-items: flex-end;
+  height: 84px;
+}
+
 .icon {
-  height: 48px;
+  max-height: 84px;
+  max-width: 110px;
   width: auto;
+  height: auto;
   object-fit: contain;
 }
 
