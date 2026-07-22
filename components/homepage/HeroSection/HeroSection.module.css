@@ -58,7 +58,10 @@
  */
 .desktopPinWrap {
   position: relative;
+  /* dvh override after the vh fallback -- avoids the mobile-browser-chrome
+     jump plain 100vh has (same pattern as the scroller components). */
   min-height: calc(100vh - var(--header-height, 72px) - 104px - 40px + 490px);
+  min-height: calc(100dvh - var(--header-height, 72px) - 104px - 40px + 490px);
 }
 
 .desktopPinStage {
@@ -160,7 +163,8 @@
     min-height: 48px;
     max-width: 100%;
     padding: 0 20px !important;
-    font-size: 17px !important;
+    /* rem (17px at browser default) so it scales with user font settings. */
+    font-size: 1.0625rem !important;
     border-radius: var(--radius-sm) !important;
   }
 

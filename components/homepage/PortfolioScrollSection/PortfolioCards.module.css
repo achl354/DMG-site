@@ -115,6 +115,11 @@
   font-size: var(--text-sm);
   line-height: var(--leading-relaxed);
   color: var(--text-body);
+  /* Fallback first: 3 lines x --leading-relaxed (1.65) = 4.95em, for
+     browsers without the lh unit (Safari < 16.4, Firefox < 120), which
+     would otherwise drop the rule entirely and lose the row alignment.
+     Keep in sync with --leading-relaxed if it ever changes. */
+  min-height: 4.95em;
   min-height: 3lh;
 }
 

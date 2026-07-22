@@ -1,7 +1,10 @@
 .cta {
   position: fixed;
-  right: 24px;
-  bottom: 24px;
+  /* env() safe-area insets keep the pill clear of iOS's home indicator
+     and curved corners / landscape notches; they resolve to 0 everywhere
+     else, leaving the plain 24px offsets. */
+  right: calc(24px + env(safe-area-inset-right, 0px));
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
   z-index: 30;
   display: inline-flex;
   align-items: center;
@@ -45,8 +48,8 @@
 
 @media (max-width: 480px) {
   .cta {
-    right: 16px;
-    bottom: 16px;
+    right: calc(16px + env(safe-area-inset-right, 0px));
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
     padding: 12px 18px;
     font-size: var(--text-xs);
   }

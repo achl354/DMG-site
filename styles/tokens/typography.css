@@ -17,20 +17,24 @@
   --weight-bold: 700;
   --weight-extrabold: 800;
 
-  /* Type scale (1.250 major-third-ish, tuned) */
-  --text-2xs: 11px;
-  --text-xs:  12px;
-  --text-sm:  14px;
-  --text-base:16px;
-  --text-md:  18px;
-  --text-lg:  20px;
-  --text-xl:  24px;
-  --text-2xl: 30px;
-  --text-3xl: 38px;
-  --text-4xl: 48px;
-  --text-5xl: 60px;
-  --text-6xl: 76px;
-  --text-7xl: 96px;
+  /* Type scale (1.250 major-third-ish, tuned).
+   * rem, not px -- identical rendering at the 16px browser default, but
+   * text now scales with the user's browser/OS font-size setting (px
+   * ignores it entirely). Values are the original px scale / 16:
+   * 11, 12, 14, 16, 18, 20, 24, 30, 38, 48, 60, 76, 96. */
+  --text-2xs: 0.6875rem;
+  --text-xs:  0.75rem;
+  --text-sm:  0.875rem;
+  --text-base:1rem;
+  --text-md:  1.125rem;
+  --text-lg:  1.25rem;
+  --text-xl:  1.5rem;
+  --text-2xl: 1.875rem;
+  --text-3xl: 2.375rem;
+  --text-4xl: 3rem;
+  --text-5xl: 3.75rem;
+  --text-6xl: 4.75rem;
+  --text-7xl: 6rem;
 
   /* Line heights */
   --leading-none: 1;
