@@ -2,10 +2,11 @@ import type { Workflow } from "@/lib/content/workflows";
 
 export const manualHandlingSupport: Workflow = {
   slug: "manual-handling-support",
-  number: "03",
+  number: "05",
   familyName: "EasiSlide™ & EasiGlide™",
-  title: "Manual handling support",
+  title: "Repositioning and manual transfer support",
   summary:
-    "Manual handling support products complete the EasiSystem™ portfolio with practical everyday handling aids for repositioning, boosting, turning and transfer assistance where manual handling aids are clinically appropriate.",
+    "Supports repositioning, bed boosting, turning and short surface-to-surface transfers.",
+  solutions: "Slide sheets, transfer boards and seated-transfer aids.",
   products: ["easislide", "easiglide"],
 };

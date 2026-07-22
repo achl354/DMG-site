@@ -6,6 +6,7 @@ export const slingTransfer: Workflow = {
   familyName: "EasiSling™",
   title: "Sling-based patient transfer",
   summary:
-    "EasiSling™ is being developed as part of the EasiSystem™ sling transfer range, alongside EasiMove™, EasiLift™, EasiSlide™, EasiGlide™, EasiAir™ and EasiCart™. Product specifications and availability information will be published when finalised.",
+    "Supports hoist-assisted transfers between beds, chairs, commodes and other care surfaces.",
+  solutions: "Patient hoist and compatible general-purpose or hygiene sling.",
   products: ["easisling"],
 };

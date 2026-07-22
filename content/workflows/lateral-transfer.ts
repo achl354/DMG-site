@@ -6,6 +6,7 @@ export const lateralTransfer: Workflow = {
   familyName: "EasiMove™",
   title: "Air-assisted lateral transfer",
   summary:
-    "EasiMove™ supports surface-to-surface patient transfer across everyday clinical, theatre and imaging workflows. The range includes single-patient-use, split-leg and reusable air-assisted options to suit different care environments and operational requirements.",
+    "Moves patients between beds, trolleys and imaging surfaces with reduced physical effort.",
+  solutions: "Air-assisted transfer mat and compatible air supply.",
   products: ["easimove-spu", "easimove-pro"],
 };

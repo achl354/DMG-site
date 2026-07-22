@@ -2,10 +2,11 @@ import type { Workflow } from "@/lib/content/workflows";
 
 export const turningPositioning: Workflow = {
   slug: "turning-positioning",
-  number: "05",
+  number: "03",
   familyName: "EasiTurn™",
   title: "In-bed turning and positioning",
   summary:
-    "EasiTurn™ is being developed as part of the EasiSystem™ turning and positioning range, alongside EasiMove™, EasiLift™, EasiSlide™, EasiGlide™, EasiAir™ and EasiCart™. Product specifications and availability information will be published when finalised.",
+    "Supports controlled turning, lateral positioning and access for hygiene, wound care and pressure management.",
+  solutions: "Turning system, positioning aids and slide sheets.",
   products: ["easiturn"],
 };

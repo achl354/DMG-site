@@ -41,6 +41,9 @@ export function WorkflowFamilyContent({
           {workflow.title}
         </TitleTag>
         <p className={styles.summary}>{workflow.summary}</p>
+        <p className={styles.solutions}>
+          <span className={styles.solutionsLabel}>Workflow solutions:</span> {workflow.solutions}
+        </p>
       </div>
 
       <h2 className={styles.sectionHeading}>In this family</h2>

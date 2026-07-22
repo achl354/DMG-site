@@ -4,8 +4,9 @@ export const supportEquipment: Workflow = {
   slug: "support-equipment",
   number: "06",
   familyName: "EasiAir™ & EasiCart™",
-  title: "Support equipment",
+  title: "Air supply and equipment storage",
   summary:
-    "EasiAir™ and EasiCart™ support equipment readiness across the EasiSystem™ portfolio. EasiAir™ provides controlled airflow to compatible DirectMed-approved air-assisted patient handling devices, while EasiCart™ supports organised storage and access to patient-handling equipment for routine clinical use.",
+    "Provides inflation power and organised storage for air-assisted patient-handling equipment.",
+  solutions: "Air supply unit, storage cart, hose storage and equipment brackets.",
   products: ["easiair", "easicart"],
 };

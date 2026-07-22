@@ -6,6 +6,10 @@ export interface Workflow {
   familyName: string;
   title: string;
   summary: string;
+  /** Short, generic (non-branded) equipment summary shown as a "Workflow
+   * solutions:" line -- complements familyName's branded product name
+   * rather than repeating it. */
+  solutions: string;
   products: string[];
 }
 

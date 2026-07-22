@@ -85,6 +85,17 @@
   color: var(--text-body);
 }
 
+.solutions {
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--text-muted);
+}
+
+.solutionsLabel {
+  font-weight: var(--weight-semibold);
+  color: var(--text-body);
+}
+
 /* Quiet clickability cue, pinned to the card's bottom edge regardless of
    how long the summary runs (margin-top: auto in the flex column). Same
    arrow-link voice as ProductCard's "View product". */
