@@ -1,13 +1,27 @@
 .stageOuter {
   position: relative;
-  width: 100%;
   /*
-   * The hero grid's own column already reserves ~640px for this side at
-   * common desktop widths (Container's xl cap is 1240px, so this doesn't
-   * keep growing on wider screens) -- this was capped well short of that
-   * at 560px, leaving the diagram looking smaller than it had room to be.
+   * Width is the single sizing input; aspect-ratio derives the height.
+   * Three caps: the grid column itself (100%), the 640px design maximum
+   * (the hero grid's column reserves ~640px at Container's 1240px xl cap),
+   * and -- crucially -- the space the viewport's HEIGHT leaves over,
+   * converted to a width via the 4:5 ratio (x 0.8). The old approach
+   * clamped max-height directly instead, which squashed the box to a
+   * landscape rectangle on common screens (640x406, ratio 1.58, at a
+   * 1366x768 laptop at 100% zoom) because width never followed: nodes
+   * crushed into the hub. Deriving width from the height budget keeps the
+   * ratio true at every screen size, so the whole diagram scales down
+   * proportionally instead of deforming.
+   *
+   * Height budget: viewport minus the sticky header, 104px of breathing
+   * room, and the 40px matching .desktopPinStage's own +40px top offset
+   * (added to stop the top node overlapping the header), so the bottom
+   * node keeps its clearance and is never clipped during the pinned
+   * scroll phase. dvh override after the vh fallback -- avoids the
+   * mobile-browser-chrome jump plain 100vh has.
    */
-  max-width: 640px;
+  width: min(100%, 640px, (100vh - var(--header-height, 72px) - 104px - 40px) * 0.8);
+  width: min(100%, 640px, (100dvh - var(--header-height, 72px) - 104px - 40px) * 0.8);
   /*
    * 4:5, not 1:1 -- stretches the hexagon taller than wide (top/bottom
    * nodes sit further from the hub than the left/right ones) rather than
@@ -19,20 +33,13 @@
   margin-left: auto;
   perspective: 1400px;
   /*
-   * Shrinks the whole box (both dimensions, ratio preserved) on shorter
-   * viewports -- without this, the 4:5 ratio's 800px height combined with
-   * the sticky pin clips the bottom node off-screen for the entire pinned
-   * scroll phase on ~800-870px-tall viewports (common on laptops), with
-   * no way to see it until the pin releases. 48px is headroom so it
-   * doesn't touch the very bottom edge; the extra 40px matches
-   * .desktopPinStage's own +40px top offset (added to stop the top node
-   * overlapping the header), so the bottom keeps the same clearance it
-   * had before that offset was added.
+   * Inline-size container so the fixed-size pieces inside (node width,
+   * icon height, label fonts) can scale with the box via cqi units --
+   * without this they keep their 640px-design sizes while the box
+   * shrinks, and overlap. Browsers without container-query support
+   * (Safari 15) skip the cqi declarations and keep the px/rem fallbacks.
    */
-  /* dvh override after the vh fallback -- avoids the mobile-browser-chrome
-     jump plain 100vh has (same pattern as the scroller components). */
-  max-height: calc(100vh - var(--header-height, 72px) - 104px - 40px);
-  max-height: calc(100dvh - var(--header-height, 72px) - 104px - 40px);
+  container-type: inline-size;
 }
 
 .stage {
@@ -108,9 +115,21 @@
  * above/below the glyphs that the text reads as visually off-center
  * within the circle even though flexbox centers its box exactly.
  */
+/*
+ * The pieces below size in cqi (1cqi = 1% of .stageOuter's width) so the
+ * whole diagram scales as one proportional unit as the box shrinks on
+ * shorter laptop viewports -- fixed px kept their 640px-design size while
+ * the box got smaller, so nodes overlapped the hub and each other. cqi
+ * values are the design px / 6.4 (i.e. px at the 640px max width). A px
+ * fallback precedes each so Safari 15 (no container-query support) still
+ * renders at the design size. Unlike body copy these deliberately do NOT
+ * use rem: the diagram box doesn't grow with the user's font setting, so
+ * rem labels would overflow their nodes -- scaling with the box is right.
+ */
 .hubName {
   font-family: var(--font-display);
   font-size: var(--text-xl);
+  font-size: 3.75cqi;
   font-weight: var(--weight-extrabold);
   line-height: 1.1;
 }
@@ -129,11 +148,13 @@
   align-items: center;
   gap: var(--space-1);
   width: 181px;
+  width: 28.28cqi;
   text-align: center;
 }
 
 .nodeIcon {
   height: 84px;
+  height: 13.125cqi;
   width: auto;
   object-fit: contain;
 }
@@ -142,10 +163,9 @@
   font-family: var(--font-display);
   /* Deliberately off the type scale (between --text-sm 14 and --text-base
      16) -- hand-tuned against the diagram's fixed geometry, where the
-     nearest tokens read visibly too small/large. Same for .nodeTitle.
-     rem (15px / 19px at browser default) so they still honour user
-     font-size settings. */
+     nearest tokens read visibly too small/large. Same for .nodeTitle. */
   font-size: 0.9375rem;
+  font-size: 2.34cqi;
   font-weight: var(--weight-extrabold);
   letter-spacing: var(--tracking-wide);
   color: var(--teal-300);
@@ -153,6 +173,7 @@
 
 .nodeTitle {
   font-size: 1.1875rem;
+  font-size: 2.97cqi;
   font-weight: var(--weight-semibold);
   color: var(--text-strong);
   line-height: var(--leading-snug);
