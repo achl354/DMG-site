@@ -48,6 +48,13 @@
   margin-bottom: var(--space-5);
 }
 
+/* Modal usage (titleTag="h2") -- the homepage/workflows-grid modal already
+   has its own page-level h1, so this heading reads as a sub-heading rather
+   than the page title. Match the "Why EasiSystem" section heading size. */
+h2.title {
+  font-size: var(--type-h2-size);
+}
+
 .summary {
   font-size: var(--text-lg);
   line-height: var(--leading-relaxed);

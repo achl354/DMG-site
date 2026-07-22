@@ -21,7 +21,6 @@ export function WorkflowCard({ workflow, featured = false, onSelect }: WorkflowC
           {workflow.products.length} product{workflow.products.length === 1 ? "" : "s"}
         </Badge>
       </div>
-      <p className={styles.familyName}>{workflow.familyName}</p>
       <h3 className={featured ? styles.titleFeatured : styles.title}>{workflow.title}</h3>
       <p className={styles.summary}>{workflow.summary}</p>
       <p className={styles.solutions}>

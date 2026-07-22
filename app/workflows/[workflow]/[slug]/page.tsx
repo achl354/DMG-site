@@ -64,7 +64,7 @@ export default async function ProductDetailPage({
   return (
     <>
       <Section spacing="lg">
-        <Container size="md">
+        <Container size="lg">
           {workflow && (
             <Link href={`/workflows/${workflow.slug}`} className={styles.back}>
               &larr; {workflow.familyName}
@@ -94,7 +94,7 @@ export default async function ProductDetailPage({
       </Section>
 
       <Section spacing="md" surface="sunken">
-        <Container size="md">
+        <Container size="lg">
           <div className={styles.detailGrid}>
             <div className={styles.detailColumn}>
               <h2 className={styles.sectionHeading}>Features</h2>
