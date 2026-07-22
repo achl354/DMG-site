@@ -1,42 +1,33 @@
 .stageOuter {
   position: relative;
   /*
-   * Width is the single sizing input; aspect-ratio derives the height.
-   * Three caps: the grid column itself (100%), the 640px design maximum
-   * (the hero grid's column reserves ~640px at Container's 1240px xl cap),
-   * and -- crucially -- the space the viewport's HEIGHT leaves over,
-   * converted to a width via the ratio (x 0.909, see aspect-ratio below).
-   * The old approach clamped max-height directly instead, which squashed
-   * the box to a landscape rectangle on common screens (640x406, ratio
-   * 1.58, at a 1366x768 laptop at 100% zoom) because width never
-   * followed: nodes crushed into the hub. Deriving width from the height
-   * budget keeps the ratio true at every screen size, so the whole
-   * diagram scales down proportionally instead of deforming.
+   * Fixed default size (40rem / 640px design width, matching the hero
+   * grid column's own natural width at Container's 1240px xl cap), NOT
+   * derived from viewport height. An earlier version converted available
+   * viewport height into a width (via the aspect ratio) so the bottom
+   * node could never be clipped by position: sticky during the pin --
+   * but browser zoom changes the EFFECTIVE (CSS-pixel) viewport height,
+   * so that formula made the diagram grow when the user zoomed OUT,
+   * exactly backwards from every other element on this page (buttons,
+   * headings, nav -- all fixed rem/px, so they correctly shrink at lower
+   * zoom like anywhere else on the web). Measured: at 80% zoom the old
+   * formula rendered this box 431px physical-wide vs 395px at 100% zoom,
+   * while a fixed-size control (the hero button) correctly went the
+   * other way, 273px vs 341px. Rem-based sizing behaves like that button:
+   * consistent with zoom, matching the rest of the page.
    *
-   * Height budget: viewport minus the sticky header, 56px of breathing
-   * room, and the 40px matching .desktopPinStage's own +40px top offset
-   * (added to stop the top node overlapping the header), so the bottom
-   * node keeps its clearance and is never clipped during the pinned
-   * scroll phase. This budget is intentionally tight -- on real laptops
-   * (wide, comparatively short after browser chrome) it's the term that
-   * decides the diagram's size almost every time, so trimmed from an
-   * earlier 104px of breathing room down to 56px recovers real size
-   * (measured +40-45% across common laptop viewports) without reopening
-   * the clipping bug the budget exists to prevent; re-verify against the
-   * shortest realistic laptop height (~630px) if either buffer number
-   * changes again. dvh override after the vh fallback -- avoids the
-   * mobile-browser-chrome jump plain 100vh has.
+   * The clipping concern is real but handled as a discrete step-down
+   * instead (see the max-height media query below), not baked into the
+   * everyday size.
    */
-  width: min(100%, 640px, (100vh - var(--header-height, 72px) - 56px - 40px) * 0.909);
-  width: min(100%, 640px, (100dvh - var(--header-height, 72px) - 56px - 40px) * 0.909);
+  width: min(100%, 40rem);
   /*
-   * 4:4.4 (0.909), not 4:5 -- a flatter hexagon than the original 4:5
-   * ratio, recovering more width from the same height budget (a laptop's
-   * scarce resource) while still reading clearly as taller-than-wide
-   * (top/bottom nodes sit further from the hub than the left/right
-   * ones), not a regular hexagon. Node/line positions are all % of this
-   * box already, so they follow the new proportions automatically; only
-   * .hub keeps its own 1:1 aspect-ratio so it stays a circle, not an oval.
+   * 4:4.4, not 4:5 -- a flatter hexagon than a perfectly regular one,
+   * still reading clearly as taller-than-wide (top/bottom nodes sit
+   * further from the hub than the left/right ones). Node/line positions
+   * are all % of this box already, so they follow the ratio
+   * automatically; only .hub keeps its own 1:1 aspect-ratio so it stays
+   * a circle, not an oval.
    */
   aspect-ratio: 4 / 4.4;
   margin-left: auto;
@@ -49,6 +40,28 @@
    * (Safari 15) skip the cqi declarations and keep the px/rem fallbacks.
    */
   container-type: inline-size;
+}
+
+/*
+ * Discrete step-down for genuinely short viewports, instead of a
+ * continuous viewport-height-driven size (see .stageOuter's width
+ * comment for why that broke under browser zoom). At the 40rem default,
+ * the box is 44rem (704px) tall; pinned at header+40px with a small
+ * safety buffer, that needs a ~900px-tall viewport to avoid clipping the
+ * bottom node during the sticky scroll -- below that (every laptop
+ * tested in this session: 1366x630 through 1920x950 all measure well
+ * under 900px of *effective* height after browser chrome), drop to a
+ * smaller fixed size instead. 26rem is calibrated against the shortest
+ * realistic laptop height tested (~630px) with a small margin; re-check
+ * that floor if this value changes. max-height responds to zoom the same
+ * way vh does, but only as an occasional threshold crossing (like any
+ * other responsive breakpoint), not as this box's everyday size -- once
+ * a tier is selected, its width is fixed and zoom-consistent again.
+ */
+@media (max-height: 899px) {
+  .stageOuter {
+    width: min(100%, 26rem);
+  }
 }
 
 .stage {

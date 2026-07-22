@@ -49,20 +49,22 @@
  * within this runway (see HeroEcosystemVisual), so copy can't scroll out
  * of view mid-assembly. The real runway height is set inline by JS from
  * the actual measured stage height (see measure() in HeroSection.tsx) --
- * a flat px number here would either clip the diagram on tall viewports
- * or leave dead scroll space on short ones, since the diagram's own
- * rendered height is itself viewport-dependent (see EcosystemDiagram
- * .module.css's .stageOuter width formula). This is only the fallback
- * for the instant before that JS measurement runs, so it mirrors the
- * same height-budget numbers (56px breathing room + 40px header-offset
- * match) plus the fixed ~490px assembly scroll distance.
+ * this is only the fallback for the instant before that JS measurement
+ * runs. Mirrors EcosystemDiagram.module.css's two fixed size tiers (44rem
+ * tall by default, 28.6rem under the same max-height: 899px breakpoint)
+ * plus the fixed ~490px assembly scroll distance -- fixed values, not a
+ * vh-driven formula, so this fallback doesn't have the zoom-inconsistency
+ * problem the diagram's own sizing used to (see that file's comment).
  */
 .desktopPinWrap {
   position: relative;
-  /* dvh override after the vh fallback -- avoids the mobile-browser-chrome
-     jump plain 100vh has (same pattern as the scroller components). */
-  min-height: calc(100vh - var(--header-height, 72px) - 56px - 40px + 490px);
-  min-height: calc(100dvh - var(--header-height, 72px) - 56px - 40px + 490px);
+  min-height: 74.625rem; /* 44rem diagram + 490px runway */
+}
+
+@media (max-height: 899px) {
+  .desktopPinWrap {
+    min-height: 59.225rem; /* 28.6rem diagram + 490px runway */
+  }
 }
 
 .desktopPinStage {
