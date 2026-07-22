@@ -5,31 +5,40 @@
    * Three caps: the grid column itself (100%), the 640px design maximum
    * (the hero grid's column reserves ~640px at Container's 1240px xl cap),
    * and -- crucially -- the space the viewport's HEIGHT leaves over,
-   * converted to a width via the 4:5 ratio (x 0.8). The old approach
-   * clamped max-height directly instead, which squashed the box to a
-   * landscape rectangle on common screens (640x406, ratio 1.58, at a
-   * 1366x768 laptop at 100% zoom) because width never followed: nodes
-   * crushed into the hub. Deriving width from the height budget keeps the
-   * ratio true at every screen size, so the whole diagram scales down
-   * proportionally instead of deforming.
+   * converted to a width via the ratio (x 0.909, see aspect-ratio below).
+   * The old approach clamped max-height directly instead, which squashed
+   * the box to a landscape rectangle on common screens (640x406, ratio
+   * 1.58, at a 1366x768 laptop at 100% zoom) because width never
+   * followed: nodes crushed into the hub. Deriving width from the height
+   * budget keeps the ratio true at every screen size, so the whole
+   * diagram scales down proportionally instead of deforming.
    *
-   * Height budget: viewport minus the sticky header, 104px of breathing
+   * Height budget: viewport minus the sticky header, 56px of breathing
    * room, and the 40px matching .desktopPinStage's own +40px top offset
    * (added to stop the top node overlapping the header), so the bottom
    * node keeps its clearance and is never clipped during the pinned
-   * scroll phase. dvh override after the vh fallback -- avoids the
+   * scroll phase. This budget is intentionally tight -- on real laptops
+   * (wide, comparatively short after browser chrome) it's the term that
+   * decides the diagram's size almost every time, so trimmed from an
+   * earlier 104px of breathing room down to 56px recovers real size
+   * (measured +40-45% across common laptop viewports) without reopening
+   * the clipping bug the budget exists to prevent; re-verify against the
+   * shortest realistic laptop height (~630px) if either buffer number
+   * changes again. dvh override after the vh fallback -- avoids the
    * mobile-browser-chrome jump plain 100vh has.
    */
-  width: min(100%, 640px, (100vh - var(--header-height, 72px) - 104px - 40px) * 0.8);
-  width: min(100%, 640px, (100dvh - var(--header-height, 72px) - 104px - 40px) * 0.8);
+  width: min(100%, 640px, (100vh - var(--header-height, 72px) - 56px - 40px) * 0.909);
+  width: min(100%, 640px, (100dvh - var(--header-height, 72px) - 56px - 40px) * 0.909);
   /*
-   * 4:5, not 1:1 -- stretches the hexagon taller than wide (top/bottom
-   * nodes sit further from the hub than the left/right ones) rather than
-   * a perfectly regular hexagon. Node/line positions are all % of this
+   * 4:4.4 (0.909), not 4:5 -- a flatter hexagon than the original 4:5
+   * ratio, recovering more width from the same height budget (a laptop's
+   * scarce resource) while still reading clearly as taller-than-wide
+   * (top/bottom nodes sit further from the hub than the left/right
+   * ones), not a regular hexagon. Node/line positions are all % of this
    * box already, so they follow the new proportions automatically; only
    * .hub keeps its own 1:1 aspect-ratio so it stays a circle, not an oval.
    */
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 4 / 4.4;
   margin-left: auto;
   perspective: 1400px;
   /*

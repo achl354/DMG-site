@@ -52,16 +52,17 @@
  * a flat px number here would either clip the diagram on tall viewports
  * or leave dead scroll space on short ones, since the diagram's own
  * rendered height is itself viewport-dependent (see EcosystemDiagram
- * .module.css's .stageOuter max-height). This is only the fallback for
- * the instant before that JS measurement runs, so it mirrors the same
- * max-height formula plus the fixed ~490px assembly scroll distance.
+ * .module.css's .stageOuter width formula). This is only the fallback
+ * for the instant before that JS measurement runs, so it mirrors the
+ * same height-budget numbers (56px breathing room + 40px header-offset
+ * match) plus the fixed ~490px assembly scroll distance.
  */
 .desktopPinWrap {
   position: relative;
   /* dvh override after the vh fallback -- avoids the mobile-browser-chrome
      jump plain 100vh has (same pattern as the scroller components). */
-  min-height: calc(100vh - var(--header-height, 72px) - 104px - 40px + 490px);
-  min-height: calc(100dvh - var(--header-height, 72px) - 104px - 40px + 490px);
+  min-height: calc(100vh - var(--header-height, 72px) - 56px - 40px + 490px);
+  min-height: calc(100dvh - var(--header-height, 72px) - 56px - 40px + 490px);
 }
 
 .desktopPinStage {
