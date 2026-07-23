@@ -59,21 +59,24 @@
 }
 
 /*
- * Large echo of the product's own outline, cropped and at low opacity,
- * bleeding off the card's bottom-right corner -- the same "cropped
- * technical outline" treatment as the products-page hero, brought down
- * to card level in place of the old small icon-in-shelf. Anchored by
- * bottom/right rather than sized to fit a box: the aspect ratio varies
- * 0.6:1-1.74:1 across the nine products, and letting each run at its own
- * natural proportions (only width fixed) keeps the linework from
- * distorting the way squeezing every shape into one fixed box would.
+ * Echo of the product's own outline, cropped and at low opacity, tucked
+ * into the card's bottom-right corner -- the same "cropped technical
+ * outline" treatment as the products-page hero, at card scale, in place
+ * of the old small icon-in-shelf. max-width/max-height (not a fixed
+ * width with auto height) so every product occupies roughly the same
+ * corner footprint despite the source art's aspect ratio varying
+ * 0.6:1-1.74:1 -- a fixed width alone let tall/narrow icons (the
+ * EasiGlide board, EasiSling) stretch most of the way up the card,
+ * reading as a full-height side stripe rather than a corner accent.
  */
 .iconWatermark {
   position: absolute;
-  bottom: -1.5rem;
-  right: -2rem;
+  bottom: -0.75rem;
+  right: -0.75rem;
   z-index: -1;
-  width: 13rem;
+  max-width: 9rem;
+  max-height: 9rem;
+  width: auto;
   height: auto;
   opacity: 0.15;
   pointer-events: none;

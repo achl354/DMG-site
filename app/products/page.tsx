@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { EyebrowHeading } from "@/components/ui";
 import { Section, Container } from "@/components/layout";
 import { ProductCard } from "@/components/marketing";
@@ -19,26 +18,12 @@ export default function ProductsPage() {
   return (
     <Section spacing="lg">
       <Container size="xl">
-        <div className={styles.hero}>
-          <EyebrowHeading
-            eyebrow="Products"
-            heading="The EasiSystem™ portfolio"
-            body="Nine product lines developed by DirectMed Group, each addressing a defined patient-handling workflow."
-            className={styles.heading}
-          />
-          {/* Decorative only -- EasiMove SPU's outline, cropped and at low
-              opacity, reinforcing the range without competing with the
-              heading. aria-hidden since it carries no information. */}
-          <div className={styles.heroVisual} aria-hidden="true">
-            <Image
-              src="/icons/workflow/mobile/lateral-transfer.png"
-              alt=""
-              width={345}
-              height={296}
-              className={styles.heroVisualImage}
-            />
-          </div>
-        </div>
+        <EyebrowHeading
+          eyebrow="Products"
+          heading="The EasiSystem™ portfolio"
+          body="Nine product lines developed by DirectMed Group, each addressing a defined patient-handling workflow."
+          className={styles.heading}
+        />
         <div className={styles.grid}>
           {products.map((product) => (
             <ProductCard key={product.slug} product={product} />
