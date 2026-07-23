@@ -140,17 +140,23 @@
    * same size regardless of its own art's aspect ratio -- the source
    * PNGs range 0.6:1 (EasiGlide's board, tall and narrow) to 1.2:1
    * (EasiTurn, wide and short); a fixed width with auto height let the
-   * tall ones balloon far larger than the wide ones. Widths still vary
-   * with each product's own proportions, and one or two run wider than
-   * the 9.375rem column -- their left edge simply runs past it and gets
-   * clipped by overflow: hidden, same crop mechanic as before, just
-   * right-anchored now instead of left-anchored.
+   * tall ones balloon far larger than the wide ones.
+   *
+   * translate(20%, 20%) bleeds each outline 20% of ITS OWN size past the
+   * column's right/bottom edge, where it's clipped by overflow: hidden --
+   * on top of the flex-end/flex-end anchoring above, not instead of it.
+   * Anchoring alone only cropped the couple of products wide enough to
+   * reach the column's edge (e.g. EasiTurn); narrower ones (EasiGlide,
+   * EasiCart) sat fully visible with no crop at all. Percentage transforms
+   * are relative to the element's own box, so every product gets the same
+   * proportional crop regardless of its own rendered width.
    */
   .iconWatermark {
     flex-shrink: 0;
     width: auto;
     height: 10rem;
     max-width: none;
+    transform: translate(20%, 20%);
   }
 }
 

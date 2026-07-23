@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Card, Badge, ProductWordmark } from "@/components/ui";
-import { PRODUCT_ICONS, PRODUCT_ICON_DIMENSIONS } from "@/lib/content/assets";
+import { PRODUCT_CARD_ICONS, PRODUCT_CARD_ICON_DIMENSIONS } from "@/lib/content/assets";
 import { type ProductWithAssets } from "@/lib/content/products";
 import styles from "./ProductCard.module.css";
 
@@ -55,8 +55,8 @@ function navigateWithViewTransition(router: ReturnType<typeof useRouter>, href: 
 
 export function ProductCard({ product }: { product: ProductWithAssets }) {
   const router = useRouter();
-  const icon = PRODUCT_ICONS[product.slug];
-  const [iconWidth, iconHeight] = icon ? PRODUCT_ICON_DIMENSIONS[icon] : [0, 0];
+  const icon = PRODUCT_CARD_ICONS[product.slug];
+  const [iconWidth, iconHeight] = icon ? PRODUCT_CARD_ICON_DIMENSIONS[icon] : [0, 0];
   const href = `/workflows/${product.workflowSlug}/${product.slug}`;
 
   return (

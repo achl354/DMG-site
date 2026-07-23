@@ -78,21 +78,45 @@ export const PRODUCT_ICONS: Partial<Record<string, string>> = {
 };
 
 /**
- * Natural pixel dimensions for each PRODUCT_ICONS file, keyed by that same
- * path. ProductCard renders this artwork large as a cropped background
- * watermark with only a CSS width set (height: auto) -- next/image needs
- * real width/height props to know the correct aspect ratio for that,
- * rather than the 0.6:1-1.74:1 range distorting against a guessed value.
+ * Same artwork as PRODUCT_ICONS, run through the same MinFilter/MaxFilter
+ * dilation pass used to produce WORKFLOW_ICONS' thickened stroke -- but
+ * kept as its own map (not swapped into PRODUCT_ICONS itself) because
+ * PRODUCT_ICONS is also used for the full-size ProductIllustration on
+ * each product's detail page, which wasn't asked to change. Used only for
+ * the low-opacity watermark on the /products grid card, where a
+ * thickened line reads better at the low opacity/large-and-cropped
+ * treatment than the original thin stroke did.
  */
-export const PRODUCT_ICON_DIMENSIONS: Record<string, [number, number]> = {
-  "/icons/workflow/mobile/lateral-transfer.png": [345, 296],
-  "/icons/workflow/mobile/floor-recovery.png": [315, 296],
-  "/icons/workflow/mobile/turning-positioning.png": [337, 280],
-  "/icons/workflow/mobile/manual-handling-slide.png": [240, 236],
-  "/icons/workflow/mobile/sling-transfer.png": [230, 284],
-  "/icons/workflow/mobile/manual-handling-board.png": [152, 253],
-  "/icons/workflow/mobile/support-equipment-air.png": [241, 245],
-  "/icons/workflow/mobile/support-equipment-cart.png": [176, 280],
+export const PRODUCT_CARD_ICONS: Partial<Record<string, string>> = {
+  "easimove-spu": "/icons/workflow/product-cards/lateral-transfer.png",
+  "easimove-pro": "/icons/workflow/product-cards/lateral-transfer.png",
+  easilift: "/icons/workflow/product-cards/floor-recovery.png",
+  easiturn: "/icons/workflow/product-cards/turning-positioning.png",
+  easislide: "/icons/workflow/product-cards/manual-handling-slide.png",
+  easisling: "/icons/workflow/product-cards/sling-transfer.png",
+  easiglide: "/icons/workflow/product-cards/manual-handling-board.png",
+  easiair: "/icons/workflow/product-cards/support-equipment-air.png",
+  easicart: "/icons/workflow/product-cards/support-equipment-cart.png",
+};
+
+/**
+ * Natural pixel dimensions for each PRODUCT_CARD_ICONS file, keyed by that
+ * same path. ProductCard renders this artwork large as a cropped
+ * background watermark with only a CSS height set (width: auto) --
+ * next/image needs real width/height props to know the correct aspect
+ * ratio for that, rather than the 0.6:1-1.2:1 range distorting against a
+ * guessed value. The dilation pass doesn't change canvas size, so
+ * dimensions match the /mobile/ originals (and PRODUCT_ICONS) exactly.
+ */
+export const PRODUCT_CARD_ICON_DIMENSIONS: Record<string, [number, number]> = {
+  "/icons/workflow/product-cards/lateral-transfer.png": [345, 296],
+  "/icons/workflow/product-cards/floor-recovery.png": [315, 296],
+  "/icons/workflow/product-cards/turning-positioning.png": [337, 280],
+  "/icons/workflow/product-cards/manual-handling-slide.png": [240, 236],
+  "/icons/workflow/product-cards/sling-transfer.png": [230, 284],
+  "/icons/workflow/product-cards/manual-handling-board.png": [152, 253],
+  "/icons/workflow/product-cards/support-equipment-air.png": [241, 245],
+  "/icons/workflow/product-cards/support-equipment-cart.png": [176, 280],
 };
 
 /**
