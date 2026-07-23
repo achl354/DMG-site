@@ -7,6 +7,6 @@ export const floorRecovery: Workflow = {
   title: "Air-assisted floor recovery",
   summary:
     "Raises a fallen patient from floor level to a safe seated or transfer height.",
-  solutions: "Inflatable lifting device and compatible air supply.",
+  solutions: "EasiLift™ inflatable patient lifting systems for floor and seated recovery.",
   products: ["easilift"],
 };

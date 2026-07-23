@@ -7,6 +7,6 @@ export const manualHandlingSupport: Workflow = {
   title: "Repositioning and manual transfer support",
   summary:
     "Supports repositioning, bed boosting, turning and short surface-to-surface transfers.",
-  solutions: "Slide sheets, transfer boards and seated-transfer aids.",
+  solutions: "EasiSlide™ slide sheets and EasiGlide™ rigid transfer boards.",
   products: ["easislide", "easiglide"],
 };

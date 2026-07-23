@@ -7,6 +7,6 @@ export const turningPositioning: Workflow = {
   title: "In-bed turning and positioning",
   summary:
     "Supports controlled turning, lateral positioning and access for hygiene, wound care and pressure management.",
-  solutions: "Turning system, positioning aids and slide sheets.",
+  solutions: "EasiTurn™ systems for controlled turning, positioning and patient access.",
   products: ["easiturn"],
 };

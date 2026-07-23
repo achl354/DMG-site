@@ -7,6 +7,7 @@ export const lateralTransfer: Workflow = {
   title: "Air-assisted lateral transfer",
   summary:
     "Moves patients between beds, trolleys and imaging surfaces with reduced physical effort.",
-  solutions: "Air-assisted transfer mat and compatible air supply.",
+  solutions:
+    "EasiMove™ single-patient-use mats in standard, split-leg and half-mat configurations, alongside EasiMove™ PRO reusable mats.",
   products: ["easimove-spu", "easimove-pro"],
 };

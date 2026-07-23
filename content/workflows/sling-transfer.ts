@@ -7,6 +7,7 @@ export const slingTransfer: Workflow = {
   title: "Sling-based patient transfer",
   summary:
     "Supports hoist-assisted transfers between beds, chairs, commodes and other care surfaces.",
-  solutions: "Patient hoist and compatible general-purpose or hygiene sling.",
+  solutions:
+    "EasiSling™ general-purpose and hygiene slings in reusable and single-patient-use configurations.",
   products: ["easisling"],
 };
