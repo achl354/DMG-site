@@ -96,12 +96,13 @@
 /*
  * Mobile/tablet: a short full-width band below the text, image shown at
  * its natural size (no crop needed -- plenty of width relative to a
- * ~6rem-tall image at any of these card widths).
+ * ~6rem-tall image at any of these card widths). Right-aligned to match
+ * the desktop row layout's bottom-right positioning.
  */
 .imageCol {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   height: 6rem;
 }
 
@@ -109,7 +110,7 @@
   width: auto;
   height: 6rem;
   max-width: 100%;
-  opacity: 0.15;
+  opacity: 0.28;
   pointer-events: none;
 }
 
@@ -119,12 +120,16 @@
    * ratio (how much of the 13rem image below runs past its right edge)
    * constant regardless of how wide the card itself ends up. flex-
    * shrink: 0 so a long tagline in .textCol can't compress it.
+   * align-items: flex-end (overriding the base center) bottom-anchors
+   * the outline within the column, so it sits in the card's bottom-right
+   * corner rather than vertically centered against the full card height.
    */
   .imageCol {
     position: relative;
     flex: 0 0 9.375rem;
     height: auto;
     overflow: hidden;
+    align-items: flex-end;
     justify-content: flex-start;
   }
 
