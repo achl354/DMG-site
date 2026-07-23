@@ -1,23 +1,58 @@
+/*
+ * Container, not just a block -- ProductCard is reused across grids with
+ * different column counts (the /products page caps at 3 columns, but the
+ * product-detail page's "related products" grid doesn't, so the same
+ * 1440px viewport can render this card at 397px in one grid and 280px in
+ * the other). The row/column switch below needs the CARD's own rendered
+ * width, not the viewport's -- a plain @media (min-width: 1024px) looked
+ * right against the /products grid alone but put the row layout on the
+ * related-products grid's much narrower cards too, crushing the tagline
+ * to one word per line.
+ */
 .link {
   display: block;
+  container-type: inline-size;
 }
 
+/*
+ * Narrow container: stacked column (image band below the text, not a
+ * side column) -- below ~21.25rem (340px) a fixed side-by-side image
+ * lane leaves too little room for the tagline without one-word-per-line
+ * wrapping. Wide container: a row -- text column + a dedicated image
+ * column side by side, not an image overlaid behind the text -- the two
+ * don't compete for the same space, so the outline can run large without
+ * any risk of covering the tagline/CTA (earlier rounds tried shrinking an
+ * absolutely-positioned overlay to fit whatever leftover space existed
+ * behind the text, which either overlapped on longer taglines or had to
+ * be shrunk small enough to lose its visual impact). Container queries
+ * aren't supported before Safari 16 -- browsers without support simply
+ * keep the stacked default, a safe fallback rather than a broken layout.
+ */
 .card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-4);
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
+}
+
+@container (min-width: 21.25rem) {
+  .card {
+    flex-direction: row;
+  }
+}
+
+.textCol {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: var(--space-4);
-  height: 100%;
-  position: relative;
-  /* Forces its own stacking context so .iconWatermark's negative z-index
-     reliably lands behind the card's real content (painted above the
-     card's own background) instead of escaping to stack against ancestors
-     further up the tree -- same fix as the /workflows cards' ghost
-     numeral and the products-page hero's square accent needed. */
-  isolation: isolate;
-  overflow: hidden;
-  transition: border-color var(--duration-base) var(--ease-out),
-    box-shadow var(--duration-base) var(--ease-out);
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 /* Top-edge accent, matching the /workflows grid cards -- brightens on
@@ -59,27 +94,56 @@
 }
 
 /*
- * Echo of the product's own outline, cropped and at low opacity, tucked
- * into the card's bottom-right corner -- the same "cropped technical
- * outline" treatment as the products-page hero, at card scale, in place
- * of the old small icon-in-shelf. max-width/max-height (not a fixed
- * width with auto height) so every product occupies roughly the same
- * corner footprint despite the source art's aspect ratio varying
- * 0.6:1-1.74:1 -- a fixed width alone let tall/narrow icons (the
- * EasiGlide board, EasiSling) stretch most of the way up the card,
- * reading as a full-height side stripe rather than a corner accent.
+ * Mobile/tablet: a short full-width band below the text, image shown at
+ * its natural size (no crop needed -- plenty of width relative to a
+ * ~6rem-tall image at any of these card widths).
  */
+.imageCol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 6rem;
+}
+
 .iconWatermark {
-  position: absolute;
-  bottom: -0.75rem;
-  right: -0.75rem;
-  z-index: -1;
-  max-width: 9rem;
-  max-height: 9rem;
   width: auto;
-  height: auto;
+  height: 6rem;
+  max-width: 100%;
   opacity: 0.15;
   pointer-events: none;
+}
+
+@container (min-width: 21.25rem) {
+  /*
+   * Fixed-width lane, not a percentage of the card -- keeps the crop
+   * ratio (how much of the 13rem image below runs past its right edge)
+   * constant regardless of how wide the card itself ends up. flex-
+   * shrink: 0 so a long tagline in .textCol can't compress it.
+   */
+  .imageCol {
+    position: relative;
+    flex: 0 0 9.375rem;
+    height: auto;
+    overflow: hidden;
+    justify-content: flex-start;
+  }
+
+  /*
+   * Echo of the product's own outline, at low opacity -- the same
+   * "cropped technical outline" treatment as the products-page hero.
+   * Left-anchored (the column's default flex-start) with no max-width
+   * cap: at 13rem the image is wider than the 9.375rem column, so its
+   * right ~30% simply runs past the column's own edge and is clipped by
+   * overflow: hidden, the same crop mechanic the hero uses -- rather
+   * than shrinking the whole image to dodge text the way the previous
+   * overlay approach had to.
+   */
+  .iconWatermark {
+    flex-shrink: 0;
+    width: 13rem;
+    height: auto;
+    max-width: none;
+  }
 }
 
 .wordmark {

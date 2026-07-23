@@ -69,38 +69,40 @@ export function ProductCard({ product }: { product: ProductWithAssets }) {
       }}
     >
       <Card className={styles.card}>
-        {/* Large, low-opacity echo of the product's own outline, bleeding
-            off the card's bottom-right corner behind the real content --
-            same "cropped technical outline" treatment as the page hero,
-            replacing the old small crisp icon-in-shelf. aria-hidden since
-            it's decorative, not information. */}
-        {icon && (
-          <Image
-            src={icon}
-            alt=""
-            width={iconWidth}
-            height={iconHeight}
-            aria-hidden="true"
-            className={styles.iconWatermark}
-            style={{ viewTransitionName: `product-icon-${product.slug}` }}
+        <div className={styles.textCol}>
+          <div className={styles.badgeRow}>
+            <Badge tone="brand">{product.category}</Badge>
+          </div>
+          <ProductWordmark
+            name={product.name}
+            svgSrc={product.wordmarkSvg}
+            height={24}
+            className={styles.wordmark}
           />
-        )}
-        <div className={styles.badgeRow}>
-          <Badge tone="brand">{product.category}</Badge>
+          <p className={styles.tagline}>{product.tagline}</p>
+          {/* aria-hidden -- purely a visual "this card is clickable" cue; the
+              whole card is already the accessible link. */}
+          <span className={styles.viewCue} aria-hidden="true">
+            View product
+            <span className={styles.viewCueArrow}>→</span>
+          </span>
         </div>
-        <ProductWordmark
-          name={product.name}
-          svgSrc={product.wordmarkSvg}
-          height={24}
-          className={styles.wordmark}
-        />
-        <p className={styles.tagline}>{product.tagline}</p>
-        {/* aria-hidden -- purely a visual "this card is clickable" cue; the
-            whole card is already the accessible link. */}
-        <span className={styles.viewCue} aria-hidden="true">
-          View product
-          <span className={styles.viewCueArrow}>→</span>
-        </span>
+        {/* Large, low-opacity echo of the product's own outline, in its own
+            dedicated column rather than overlaid behind the text -- can't
+            collide with the tagline/CTA since they no longer share the same
+            space. aria-hidden since it's decorative, not information. */}
+        {icon && (
+          <div className={styles.imageCol} aria-hidden="true">
+            <Image
+              src={icon}
+              alt=""
+              width={iconWidth}
+              height={iconHeight}
+              className={styles.iconWatermark}
+              style={{ viewTransitionName: `product-icon-${product.slug}` }}
+            />
+          </div>
+        )}
       </Card>
     </Link>
   );
