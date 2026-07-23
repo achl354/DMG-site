@@ -8,8 +8,26 @@
   align-items: flex-start;
   gap: var(--space-4);
   height: 100%;
+  position: relative;
+  overflow: hidden;
   transition: border-color var(--duration-base) var(--ease-out),
     box-shadow var(--duration-base) var(--ease-out);
+}
+
+/* Top-edge accent, matching the /workflows grid cards -- brightens on
+   hover alongside the existing wordmark scale and icon lift. */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--teal-400), var(--teal-700));
+  opacity: 0.55;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+.link:hover .card::before {
+  opacity: 1;
 }
 
 /*
@@ -39,19 +57,28 @@
  * different aspect ratios (0.6:1 up to 1.74:1), so the old fixed
  * height + auto width rendered them anywhere from 29px to 58px wide:
  * uneven visual weight, and a different gap above each wordmark.
- * A uniform box means every card reserves identical space, and
- * align-items: flex-end sits each icon on the same "floor" directly
- * above its wordmark rather than floating at varying heights.
+ * A uniform box means every card reserves identical space. Centered on a
+ * soft teal-tint "shelf" rather than floating on bare white -- gives the
+ * icon somewhere to sit instead of reading as a placeholder graphic.
  */
 .iconBox {
   display: flex;
-  align-items: flex-end;
-  height: 84px;
+  align-items: center;
+  justify-content: center;
+  width: 128px;
+  height: 104px;
+  background: var(--surface-tint);
+  border-radius: var(--radius-md);
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.link:hover .iconBox {
+  transform: translateY(-3px);
 }
 
 .icon {
-  max-height: 84px;
-  max-width: 110px;
+  max-height: 64px;
+  max-width: 88px;
   width: auto;
   height: auto;
   object-fit: contain;

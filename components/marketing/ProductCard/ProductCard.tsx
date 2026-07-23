@@ -69,7 +69,7 @@ export function ProductCard({ product }: { product: ProductWithAssets }) {
     >
       <Card className={styles.card}>
         <div className={styles.badgeRow}>
-          <Badge tone="neutral">{product.category}</Badge>
+          <Badge tone="brand">{product.category}</Badge>
         </div>
         {icon && (
           <div className={styles.iconBox}>

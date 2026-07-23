@@ -1,5 +1,38 @@
 .heading {
+  position: relative;
+  /* Without this, the decorative square below (z-index: -1) escapes past
+     this plain, background-less div to the nearest ancestor that DOES
+     form a stacking context -- which could be well above the Section's
+     own solid page-background fill, hiding the shape behind it entirely
+     rather than behind just the heading text. */
+  isolation: isolate;
   margin-bottom: var(--space-9);
+}
+
+/*
+ * Subtle geometric accent behind the page intro -- a square rather than
+ * a soft gradient blob, echoing the brand's own square-cut mark (see
+ * styles/tokens/spacing.css's radius scale comment) rather than a generic
+ * SaaS-landing-page treatment. Not tied to any one product's imagery, so
+ * it doesn't visually favour a single SKU on a page meant to present all
+ * nine as equals. Desktop-only -- there isn't enough spare width beside
+ * the heading on narrow viewports for it to read as intentional rather
+ * than cramped.
+ */
+@media (min-width: 1024px) {
+  .heading::before {
+    content: "";
+    position: absolute;
+    top: -2.5rem;
+    right: -1.5rem;
+    width: 14rem;
+    height: 14rem;
+    border: 2px solid var(--teal-100);
+    border-radius: var(--radius-2xl);
+    transform: rotate(8deg);
+    z-index: -1;
+    pointer-events: none;
+  }
 }
 
 /*
