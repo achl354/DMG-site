@@ -31,6 +31,18 @@ const ICON_COLUMN_WIDTH_OVERRIDES: Partial<Record<string, string>> = {
 };
 
 /**
+ * Manual per-product vertical nudge, as a % of the icon column's own
+ * height -- negative moves the icon up off its default bottom-anchored
+ * position. Applied as a transform on the column itself, so it shifts
+ * independently of ICON_COLUMN_WIDTH_OVERRIDES' sizing above.
+ */
+const ICON_VERTICAL_SHIFT_OVERRIDES: Partial<Record<string, string>> = {
+  easiglide: "-15%",
+  easiair: "-15%",
+  easicart: "-15%",
+};
+
+/**
  * Experimental: morphs this card's icon into the destination page's large
  * ProductIllustration via the browser's native View Transitions API. React's
  * own <ViewTransition> component (the documented Next.js approach) isn't
@@ -120,6 +132,9 @@ export function ProductCard({ product }: { product: ProductWithAssets }) {
                 "--icon-aspect-ratio": `${iconWidth} / ${iconHeight}`,
                 ...(ICON_COLUMN_WIDTH_OVERRIDES[product.slug] && {
                   "--icon-col-width": ICON_COLUMN_WIDTH_OVERRIDES[product.slug],
+                }),
+                ...(ICON_VERTICAL_SHIFT_OVERRIDES[product.slug] && {
+                  "--icon-shift-y": ICON_VERTICAL_SHIFT_OVERRIDES[product.slug],
                 }),
               } as CSSProperties
             }

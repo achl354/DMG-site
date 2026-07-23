@@ -117,7 +117,9 @@
    * file's own real pixel dimensions in PRODUCT_ICON_DIMENSIONS) rather
    * than one fixed shape -- that's what lets the crop apply identically
    * regardless of a given product's own proportions, without distorting
-   * any of them.
+   * any of them. --icon-shift-y (ICON_VERTICAL_SHIFT_OVERRIDES in
+   * ProductCard.tsx) nudges a handful of products up off that bottom
+   * anchor, as a % of the column's own height.
    */
   .imageCol {
     position: relative;
@@ -126,6 +128,7 @@
     aspect-ratio: var(--icon-aspect-ratio, 4 / 3);
     align-self: flex-end;
     overflow: hidden;
+    transform: translateY(var(--icon-shift-y, 0%));
   }
 
   /*
