@@ -63,7 +63,7 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
   {
     id: "turning-positioning",
     number: "03",
-    title: "In-Bed Turning and Positioning",
+    title: "Turning and Positioning",
     description:
       "Support controlled turning and patient positioning for hygiene, wound access, pressure-care activities and routine bedside care.",
     activeProductIds: ["easiturn"],
@@ -78,7 +78,7 @@ export const PORTFOLIO_SCENES: PortfolioScene[] = [
   {
     id: "hoist-transfer",
     number: "04",
-    title: "Sling-Based Patient Transfer",
+    title: "Hoist-Based Transfer",
     description:
       "Support hoist-assisted movement using reusable and single-patient-use sling options for a range of transfer and care requirements.",
     activeProductIds: ["easisling"],
