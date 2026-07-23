@@ -89,15 +89,15 @@
   color: var(--text-body);
 }
 
-/* Quiet clickability cue, pinned to the card's bottom edge regardless of
-   how long the summary runs (margin-top: auto in the flex column). Same
-   arrow-link voice as ProductCard's "View product". */
+/* Quiet clickability cue, directly under each card's own text -- not
+   pinned to the row's bottom edge, so a short card sitting next to a
+   long one in the same grid row doesn't get a dead gap above its link.
+   Same arrow-link voice as ProductCard's "View product". */
 .viewCue {
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
-  margin-top: auto;
-  padding-top: var(--space-2);
+  margin-top: var(--space-3);
   font-size: var(--text-sm);
   font-weight: var(--weight-semibold);
   color: var(--brand);
