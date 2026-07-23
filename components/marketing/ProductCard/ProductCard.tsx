@@ -1,15 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import type { CSSProperties } from "react";
 import { Card, Badge, ProductWordmark } from "@/components/ui";
-import {
-  PRODUCT_CARD_ICONS,
-  PRODUCT_CARD_ICON_DIMENSIONS,
-  PRODUCT_CARD_ICON_LAYOUT,
-} from "@/lib/content/assets";
 import { type ProductWithAssets } from "@/lib/content/products";
 import styles from "./ProductCard.module.css";
 
@@ -60,9 +53,6 @@ function navigateWithViewTransition(router: ReturnType<typeof useRouter>, href: 
 
 export function ProductCard({ product }: { product: ProductWithAssets }) {
   const router = useRouter();
-  const icon = PRODUCT_CARD_ICONS[product.slug];
-  const [iconWidth, iconHeight] = icon ? PRODUCT_CARD_ICON_DIMENSIONS[icon] : [0, 0];
-  const layout = PRODUCT_CARD_ICON_LAYOUT[product.slug];
   const href = `/workflows/${product.workflowSlug}/${product.slug}`;
 
   return (
@@ -75,56 +65,22 @@ export function ProductCard({ product }: { product: ProductWithAssets }) {
       }}
     >
       <Card className={styles.card}>
-        <div className={styles.textCol}>
-          <div className={styles.badgeRow}>
-            <Badge tone="brand">{product.category}</Badge>
-          </div>
-          <ProductWordmark
-            name={product.name}
-            svgSrc={product.wordmarkSvg}
-            height={24}
-            className={styles.wordmark}
-          />
-          <p className={styles.tagline}>{product.tagline}</p>
-          {/* aria-hidden -- purely a visual "this card is clickable" cue; the
-              whole card is already the accessible link. */}
-          <span className={styles.viewCue} aria-hidden="true">
-            View product
-            <span className={styles.viewCueArrow}>→</span>
-          </span>
+        <div className={styles.badgeRow}>
+          <Badge tone="brand">{product.category}</Badge>
         </div>
-        {/* Large, low-opacity echo of the product's own outline, in its own
-            dedicated column rather than overlaid behind the text -- can't
-            collide with the tagline/CTA since they no longer share the same
-            space. aria-hidden since it's decorative, not information. */}
-        {icon && (
-          <div
-            className={styles.imageCol}
-            aria-hidden="true"
-            style={
-              layout ? ({ "--icon-col-width": layout.width } as CSSProperties) : undefined
-            }
-          >
-            <Image
-              src={icon}
-              alt=""
-              width={iconWidth}
-              height={iconHeight}
-              className={styles.iconWatermark}
-              style={
-                {
-                  viewTransitionName: `product-icon-${product.slug}`,
-                  ...(layout && {
-                    "--icon-render-width": layout.renderWidth,
-                    "--icon-shift-x": layout.shiftX,
-                    "--icon-shift-y": layout.shiftY,
-                    "--icon-rotate": layout.rotate ?? "0deg",
-                  }),
-                } as CSSProperties
-              }
-            />
-          </div>
-        )}
+        <ProductWordmark
+          name={product.name}
+          svgSrc={product.wordmarkSvg}
+          height={24}
+          className={styles.wordmark}
+        />
+        <p className={styles.tagline}>{product.tagline}</p>
+        {/* aria-hidden -- purely a visual "this card is clickable" cue; the
+            whole card is already the accessible link. */}
+        <span className={styles.viewCue} aria-hidden="true">
+          View product
+          <span className={styles.viewCueArrow}>→</span>
+        </span>
       </Card>
     </Link>
   );

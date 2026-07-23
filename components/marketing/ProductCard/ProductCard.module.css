@@ -1,37 +1,11 @@
-/*
- * Container, not just a block -- ProductCard is reused across grids with
- * different column counts (the /products page caps at 3 columns, but the
- * product-detail page's "related products" grid doesn't, so the same
- * 1440px viewport can render this card at 397px in one grid and 280px in
- * the other). The row/column switch below needs the CARD's own rendered
- * width, not the viewport's -- a plain @media (min-width: 1024px) looked
- * right against the /products grid alone but put the row layout on the
- * related-products grid's much narrower cards too, crushing the tagline
- * to one word per line.
- */
 .link {
   display: block;
-  container-type: inline-size;
 }
 
-/*
- * Narrow container: stacked column (image band below the text, not a
- * side column) -- below ~21.25rem (340px) a fixed side-by-side image
- * lane leaves too little room for the tagline without one-word-per-line
- * wrapping. Wide container: a row -- text column + a dedicated image
- * column side by side, not an image overlaid behind the text -- the two
- * don't compete for the same space, so the outline can run large without
- * any risk of covering the tagline/CTA (earlier rounds tried shrinking an
- * absolutely-positioned overlay to fit whatever leftover space existed
- * behind the text, which either overlapped on longer taglines or had to
- * be shrunk small enough to lose its visual impact). Container queries
- * aren't supported before Safari 16 -- browsers without support simply
- * keep the stacked default, a safe fallback rather than a broken layout.
- */
 .card {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: flex-start;
   gap: var(--space-4);
   height: 100%;
   position: relative;
@@ -40,23 +14,8 @@
     box-shadow var(--duration-base) var(--ease-out);
 }
 
-@container (min-width: 21.25rem) {
-  .card {
-    flex-direction: row;
-  }
-}
-
-.textCol {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-4);
-  flex: 1 1 auto;
-  min-width: 0;
-}
-
 /* Top-edge accent, matching the /workflows grid cards -- brightens on
-   hover alongside the existing wordmark scale and icon lift. */
+   hover alongside the existing wordmark scale. */
 .card::before {
   content: "";
   position: absolute;
@@ -91,81 +50,6 @@
 .link:hover .card {
   border-color: var(--border-brand);
   box-shadow: var(--shadow-sm);
-}
-
-/*
- * Mobile/tablet: a short full-width band below the text, image shown at
- * its natural size (no crop needed -- plenty of width relative to a
- * ~6rem-tall image at any of these card widths). Right-aligned to match
- * the desktop row layout's bottom-right positioning.
- */
-.imageCol {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  height: 6rem;
-}
-
-.iconWatermark {
-  width: auto;
-  height: 6rem;
-  max-width: 100%;
-  opacity: 0.28;
-  pointer-events: none;
-}
-
-@container (min-width: 21.25rem) {
-  /*
-   * flex-basis is a per-product percentage (--icon-col-width, set inline
-   * from PRODUCT_CARD_ICON_LAYOUT in lib/content/assets.ts) rather than a
-   * fixed rem value -- implements the "38-45% of card width" scale bands,
-   * and scales with the card's own rendered width in any grid that reuses
-   * ProductCard. flex-shrink: 0 so a long tagline in .textCol can't
-   * compress it. Padding holds a ~12px inset from the card's right/bottom
-   * edges before any crop below starts eating into it. align-items/
-   * justify-content: flex-end bottom-right anchors the icon within this
-   * column.
-   */
-  .imageCol {
-    position: relative;
-    flex: 0 0 var(--icon-col-width, 42%);
-    height: auto;
-    overflow: hidden;
-    align-items: flex-end;
-    justify-content: flex-end;
-    padding: 0 0.75rem 0.75rem 0;
-    box-sizing: border-box;
-  }
-
-  /*
-   * Echo of the product's own outline, at low opacity -- the same
-   * "cropped technical outline" treatment as the products-page hero.
-   * Per-product custom properties (set inline from
-   * PRODUCT_CARD_ICON_LAYOUT) rather than one formula for all nine:
-   *
-   * --icon-render-width: the icon's width as a % of its own column,
-   * always somewhat over 100% so shiftX/shiftY below crop into the
-   * image rather than leaving a gap at the opposite edge.
-   *
-   * --icon-shift-x / --icon-shift-y: how much of the icon's own size
-   * bleeds past the column's right/bottom edge (clipped by overflow:
-   * hidden on .imageCol) on top of the flex-end anchoring above -- the
-   * "10-20% crop" from a fixed product to product, tuned by eye so each
-   * one's recognisable feature (head-end loop, lifting surface, shoulder
-   * loops, etc.) stays clear of the cropped corner.
-   *
-   * --icon-rotate: 0deg for every product except EasiGlide, whose source
-   * board is a flat frontal rectangle -- a slight diagonal reads
-   * stronger next to the other products' own 3/4-perspective drawings.
-   */
-  .iconWatermark {
-    flex-shrink: 0;
-    width: var(--icon-render-width, 120%);
-    height: auto;
-    max-width: none;
-    transform: translate(var(--icon-shift-x, 12%), var(--icon-shift-y, 10%))
-      rotate(var(--icon-rotate, 0deg));
-  }
 }
 
 .wordmark {
