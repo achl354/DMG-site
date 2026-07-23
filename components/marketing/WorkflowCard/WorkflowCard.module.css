@@ -15,15 +15,39 @@
   flex-direction: column;
   gap: var(--space-3);
   height: 100%;
+  position: relative;
+  /* Forces its own stacking context regardless of hover state (the hover
+     transform below would otherwise create one only some of the time),
+     so .number's negative z-index reliably lands behind the card's real
+     content and never escapes to stack against sibling cards. Paired
+     with overflow: hidden so the accent bar and the oversized ghost
+     number both clip cleanly to the card's rounded corners. */
+  isolation: isolate;
+  overflow: hidden;
   transition: border-color var(--duration-base) var(--ease-out),
     box-shadow var(--duration-slow) var(--ease-out),
     transform var(--duration-slow) var(--ease-out);
+}
+
+/* Top-edge accent -- brightens on hover alongside the existing lift. */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--teal-400), var(--teal-700));
+  opacity: 0.55;
+  transition: opacity var(--duration-base) var(--ease-out);
 }
 
 .link:hover .card {
   border-color: var(--border-brand);
   box-shadow: var(--shadow-brand);
   transform: translateY(-6px);
+}
+
+.link:hover .card::before {
+  opacity: 1;
 }
 
 .featured {
@@ -34,18 +58,58 @@
 }
 
 .top {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
+/* Fixed-height slot for the workflow icon, not a bare image -- the
+   line-art icons have different aspect ratios, so a shared height +
+   object-fit: contain keeps them visually even instead of each rendering
+   at whatever width its own drawing happens to need (same fix as
+   ProductCard's icon slot). */
+.iconBox {
+  display: flex;
+  align-items: center;
+  height: 40px;
+}
+
+.icon {
+  max-height: 40px;
+  max-width: 56px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.link:hover .icon {
+  transform: translateY(-2px);
+}
+
+/* Large ghost numeral, bleeding off the card's bottom-right corner behind
+   the real content -- bottom-right rather than top-right so it never
+   collides with the product-count badge, and sits in whatever leftover
+   space a shorter card has below its own text instead of reading as a
+   dead gap. z-index: -1 keeps it above the card's own background
+   (painted first within .card's isolated stacking context) but below
+   every in-flow child, which paint above z-index: 0/negative descendants
+   regardless of DOM order. */
 .number {
+  position: absolute;
+  bottom: -1rem;
+  right: -0.35rem;
+  z-index: -1;
   font-family: var(--font-display);
-  font-size: var(--text-2xl);
+  font-size: 5rem;
   font-weight: var(--weight-extrabold);
   letter-spacing: var(--tracking-tight);
-  color: var(--teal-100);
-  -webkit-text-stroke: 1px var(--teal-300);
+  line-height: 1;
+  color: var(--teal-50);
+  pointer-events: none;
+  user-select: none;
 }
 
 .title {

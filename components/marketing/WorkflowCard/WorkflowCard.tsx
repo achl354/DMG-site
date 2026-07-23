@@ -1,6 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Card, Badge } from "@/components/ui";
 import type { Workflow } from "@/lib/content/workflows";
+import { WORKFLOW_ICONS_MOBILE } from "@/lib/content/assets";
 import styles from "./WorkflowCard.module.css";
 
 export interface WorkflowCardProps {
@@ -11,12 +13,17 @@ export interface WorkflowCardProps {
 }
 
 export function WorkflowCard({ workflow, featured = false, onSelect }: WorkflowCardProps) {
+  const icon = WORKFLOW_ICONS_MOBILE[workflow.slug];
+
   const content = (
     <Card className={[styles.card, featured && styles.featured].filter(Boolean).join(" ")}>
+      <span className={featured ? styles.numberFeatured : styles.number}>{workflow.number}</span>
       <div className={styles.top}>
-        <span className={featured ? styles.numberFeatured : styles.number}>
-          {workflow.number}
-        </span>
+        {icon && (
+          <div className={styles.iconBox}>
+            <Image src={icon} alt="" width={64} height={64} className={styles.icon} />
+          </div>
+        )}
         <Badge tone="neutral">
           {workflow.products.length} product{workflow.products.length === 1 ? "" : "s"}
         </Badge>
