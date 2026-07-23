@@ -120,6 +120,72 @@ export const PRODUCT_CARD_ICON_DIMENSIONS: Record<string, [number, number]> = {
 };
 
 /**
+ * Per-product framing for the /products grid card watermark, keyed by
+ * product slug (not by icon file -- EasiMove SPU and PRO share the same
+ * source drawing but need different framing to read as distinct cards).
+ * Tuned by eye against each product's own composition rather than a single
+ * formula, since "keep the recognisable feature visible, crop the rest"
+ * means something different for a flat mat vs. a tall cart vs. a sling.
+ *
+ * - width: the image column's share of the card, implementing the
+ *   "large flat / tall-narrow / volumetric" scale bands -- a flex-basis
+ *   percentage (not a fixed rem value) so it scales with the card's own
+ *   rendered width in any grid that reuses ProductCard.
+ * - renderWidth: the icon's width as a % of its own column -- always
+ *   somewhat over 100% so there's room for shiftX/shiftY below to crop
+ *   into rather than leaving a gap at the opposite edge.
+ * - shiftX/shiftY: how much of the icon's own size bleeds past the
+ *   column's right/bottom edge (the "10-20%" crop). Lower values reveal
+ *   more of the drawing (used where the brief calls for showing more
+ *   overall form, e.g. EasiSling, EasiSlide); higher values crop more
+ *   aggressively (EasiMove PRO, to differentiate it from SPU).
+ * - rotate: EasiGlide only -- the source board is a flat frontal
+ *   rectangle, and a slight diagonal reads stronger alongside the other
+ *   products' own 3/4-perspective drawings.
+ */
+export interface ProductCardIconLayout {
+  width: string;
+  renderWidth: string;
+  shiftX: string;
+  shiftY: string;
+  rotate?: string;
+}
+
+export const PRODUCT_CARD_ICON_LAYOUT: Partial<Record<string, ProductCardIconLayout>> = {
+  // Large flat: SPU cropped a little tighter on the lower-right corner,
+  // enough scale to keep the head-end loop and most side handles intact.
+  "easimove-spu": { width: "45%", renderWidth: "122%", shiftX: "10%", shiftY: "8%" },
+  // Same source art as SPU -- larger and shifted further right/down so
+  // it reads as a distinct, closer crop rather than a duplicate card.
+  "easimove-pro": { width: "48%", renderWidth: "134%", shiftX: "18%", shiftY: "15%" },
+  // Volumetric, less aggressive cropping -- shifted left so the lifting
+  // surface and stacked chambers stay clear of the right/bottom corner.
+  easilift: { width: "40%", renderWidth: "112%", shiftX: "6%", shiftY: "6%" },
+  // Large flat, but the overlapping-sheets cue needs the whole
+  // composition visible -- smallest crop of the "large flat" group.
+  easislide: { width: "40%", renderWidth: "110%", shiftX: "6%", shiftY: "5%" },
+  // Tall/narrow: bigger than its width-band alone would suggest (per the
+  // brief, needs extra scale to read with equal weight), diagonal tilt
+  // so a flat frontal rectangle doesn't look static next to the other
+  // 3/4-perspective drawings. Cropped low-right, past the handholds.
+  easiglide: { width: "40%", renderWidth: "124%", shiftX: "10%", shiftY: "12%", rotate: "-15deg" },
+  // Tall/narrow, smallest crop of the set -- a sling needs its shoulder
+  // loops, body panel and leg geometry all visible to read as a sling
+  // rather than an abstract loop shape.
+  easisling: { width: "36%", renderWidth: "110%", shiftX: "6%", shiftY: "5%" },
+  // Large flat, modest crop -- mostly just needs to sit a little higher
+  // in the corner than its previous placement.
+  easiturn: { width: "44%", renderWidth: "118%", shiftX: "8%", shiftY: "6%" },
+  // Volumetric: shifted right (away from the tagline) with the hose loop
+  // -- the busiest part of the drawing -- taking most of the crop, so
+  // the cylindrical body and control housing stay intact.
+  easiair: { width: "38%", renderWidth: "116%", shiftX: "16%", shiftY: "10%" },
+  // Tall/narrow: needs the most extra scale of the group to hold its own
+  // next to EasiAir: cropped only at the lower-right wheels.
+  easicart: { width: "42%", renderWidth: "132%", shiftX: "6%", shiftY: "8%" },
+};
+
+/**
  * Workflow slug -> icon file. Not a straight `${slug}.png` lookup --
  * manual-handling-support's icon file predates that workflow's current
  * slug and is just "manual-handling.png". Desktop-only now: these have

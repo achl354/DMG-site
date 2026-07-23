@@ -3,8 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import type { CSSProperties } from "react";
 import { Card, Badge, ProductWordmark } from "@/components/ui";
-import { PRODUCT_CARD_ICONS, PRODUCT_CARD_ICON_DIMENSIONS } from "@/lib/content/assets";
+import {
+  PRODUCT_CARD_ICONS,
+  PRODUCT_CARD_ICON_DIMENSIONS,
+  PRODUCT_CARD_ICON_LAYOUT,
+} from "@/lib/content/assets";
 import { type ProductWithAssets } from "@/lib/content/products";
 import styles from "./ProductCard.module.css";
 
@@ -57,6 +62,7 @@ export function ProductCard({ product }: { product: ProductWithAssets }) {
   const router = useRouter();
   const icon = PRODUCT_CARD_ICONS[product.slug];
   const [iconWidth, iconHeight] = icon ? PRODUCT_CARD_ICON_DIMENSIONS[icon] : [0, 0];
+  const layout = PRODUCT_CARD_ICON_LAYOUT[product.slug];
   const href = `/workflows/${product.workflowSlug}/${product.slug}`;
 
   return (
@@ -92,14 +98,30 @@ export function ProductCard({ product }: { product: ProductWithAssets }) {
             collide with the tagline/CTA since they no longer share the same
             space. aria-hidden since it's decorative, not information. */}
         {icon && (
-          <div className={styles.imageCol} aria-hidden="true">
+          <div
+            className={styles.imageCol}
+            aria-hidden="true"
+            style={
+              layout ? ({ "--icon-col-width": layout.width } as CSSProperties) : undefined
+            }
+          >
             <Image
               src={icon}
               alt=""
               width={iconWidth}
               height={iconHeight}
               className={styles.iconWatermark}
-              style={{ viewTransitionName: `product-icon-${product.slug}` }}
+              style={
+                {
+                  viewTransitionName: `product-icon-${product.slug}`,
+                  ...(layout && {
+                    "--icon-render-width": layout.renderWidth,
+                    "--icon-shift-x": layout.shiftX,
+                    "--icon-shift-y": layout.shiftY,
+                    "--icon-rotate": layout.rotate ?? "0deg",
+                  }),
+                } as CSSProperties
+              }
             />
           </div>
         )}

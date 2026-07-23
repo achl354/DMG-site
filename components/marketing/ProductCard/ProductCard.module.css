@@ -116,47 +116,55 @@
 
 @container (min-width: 21.25rem) {
   /*
-   * Fixed-width lane, not a percentage of the card, so the column's own
-   * footprint stays constant regardless of how wide the card itself ends
-   * up. flex-shrink: 0 so a long tagline in .textCol can't compress it.
-   * align-items: flex-end bottom-anchors the outline within the column;
-   * justify-content: flex-end right-anchors it, so it sits in the card's
-   * bottom-right corner -- including products whose outline (at the
-   * fixed height below) renders narrower than the column itself.
+   * flex-basis is a per-product percentage (--icon-col-width, set inline
+   * from PRODUCT_CARD_ICON_LAYOUT in lib/content/assets.ts) rather than a
+   * fixed rem value -- implements the "38-45% of card width" scale bands,
+   * and scales with the card's own rendered width in any grid that reuses
+   * ProductCard. flex-shrink: 0 so a long tagline in .textCol can't
+   * compress it. Padding holds a ~12px inset from the card's right/bottom
+   * edges before any crop below starts eating into it. align-items/
+   * justify-content: flex-end bottom-right anchors the icon within this
+   * column.
    */
   .imageCol {
     position: relative;
-    flex: 0 0 9.375rem;
+    flex: 0 0 var(--icon-col-width, 42%);
     height: auto;
     overflow: hidden;
     align-items: flex-end;
     justify-content: flex-end;
+    padding: 0 0.75rem 0.75rem 0;
+    box-sizing: border-box;
   }
 
   /*
    * Echo of the product's own outline, at low opacity -- the same
    * "cropped technical outline" treatment as the products-page hero.
-   * Fixed HEIGHT (not width) so every product's outline reads as the
-   * same size regardless of its own art's aspect ratio -- the source
-   * PNGs range 0.6:1 (EasiGlide's board, tall and narrow) to 1.2:1
-   * (EasiTurn, wide and short); a fixed width with auto height let the
-   * tall ones balloon far larger than the wide ones.
+   * Per-product custom properties (set inline from
+   * PRODUCT_CARD_ICON_LAYOUT) rather than one formula for all nine:
    *
-   * translate(20%, 20%) bleeds each outline 20% of ITS OWN size past the
-   * column's right/bottom edge, where it's clipped by overflow: hidden --
-   * on top of the flex-end/flex-end anchoring above, not instead of it.
-   * Anchoring alone only cropped the couple of products wide enough to
-   * reach the column's edge (e.g. EasiTurn); narrower ones (EasiGlide,
-   * EasiCart) sat fully visible with no crop at all. Percentage transforms
-   * are relative to the element's own box, so every product gets the same
-   * proportional crop regardless of its own rendered width.
+   * --icon-render-width: the icon's width as a % of its own column,
+   * always somewhat over 100% so shiftX/shiftY below crop into the
+   * image rather than leaving a gap at the opposite edge.
+   *
+   * --icon-shift-x / --icon-shift-y: how much of the icon's own size
+   * bleeds past the column's right/bottom edge (clipped by overflow:
+   * hidden on .imageCol) on top of the flex-end anchoring above -- the
+   * "10-20% crop" from a fixed product to product, tuned by eye so each
+   * one's recognisable feature (head-end loop, lifting surface, shoulder
+   * loops, etc.) stays clear of the cropped corner.
+   *
+   * --icon-rotate: 0deg for every product except EasiGlide, whose source
+   * board is a flat frontal rectangle -- a slight diagonal reads
+   * stronger next to the other products' own 3/4-perspective drawings.
    */
   .iconWatermark {
     flex-shrink: 0;
-    width: auto;
-    height: 10rem;
+    width: var(--icon-render-width, 120%);
+    height: auto;
     max-width: none;
-    transform: translate(20%, 20%);
+    transform: translate(var(--icon-shift-x, 12%), var(--icon-shift-y, 10%))
+      rotate(var(--icon-rotate, 0deg));
   }
 }
 
