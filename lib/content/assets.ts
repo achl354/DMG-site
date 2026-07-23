@@ -78,6 +78,25 @@ export const PRODUCT_ICONS: Partial<Record<string, string>> = {
 };
 
 /**
+ * Natural pixel dimensions for each PRODUCT_ICONS file, keyed by that same
+ * path. Two things need this: next/image wants real width/height props to
+ * avoid distortion warnings, and the /products grid card's image column
+ * matches its own aspect-ratio to these same numbers so a uniform "crop
+ * 1/3 off the bottom-right" scale applies identically to every product
+ * regardless of its own art's proportions (0.6:1 up to 1.2:1).
+ */
+export const PRODUCT_ICON_DIMENSIONS: Record<string, [number, number]> = {
+  "/icons/workflow/mobile/lateral-transfer.png": [345, 296],
+  "/icons/workflow/mobile/floor-recovery.png": [315, 296],
+  "/icons/workflow/mobile/turning-positioning.png": [337, 280],
+  "/icons/workflow/mobile/manual-handling-slide.png": [240, 236],
+  "/icons/workflow/mobile/sling-transfer.png": [230, 284],
+  "/icons/workflow/mobile/manual-handling-board.png": [152, 253],
+  "/icons/workflow/mobile/support-equipment-air.png": [241, 245],
+  "/icons/workflow/mobile/support-equipment-cart.png": [176, 280],
+};
+
+/**
  * Workflow slug -> icon file. Not a straight `${slug}.png` lookup --
  * manual-handling-support's icon file predates that workflow's current
  * slug and is just "manual-handling.png". Desktop-only now: these have
