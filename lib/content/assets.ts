@@ -78,6 +78,24 @@ export const PRODUCT_ICONS: Partial<Record<string, string>> = {
 };
 
 /**
+ * Natural pixel dimensions for each PRODUCT_ICONS file, keyed by that same
+ * path. ProductCard renders this artwork large as a cropped background
+ * watermark with only a CSS width set (height: auto) -- next/image needs
+ * real width/height props to know the correct aspect ratio for that,
+ * rather than the 0.6:1-1.74:1 range distorting against a guessed value.
+ */
+export const PRODUCT_ICON_DIMENSIONS: Record<string, [number, number]> = {
+  "/icons/workflow/mobile/lateral-transfer.png": [345, 296],
+  "/icons/workflow/mobile/floor-recovery.png": [315, 296],
+  "/icons/workflow/mobile/turning-positioning.png": [337, 280],
+  "/icons/workflow/mobile/manual-handling-slide.png": [240, 236],
+  "/icons/workflow/mobile/sling-transfer.png": [230, 284],
+  "/icons/workflow/mobile/manual-handling-board.png": [152, 253],
+  "/icons/workflow/mobile/support-equipment-air.png": [241, 245],
+  "/icons/workflow/mobile/support-equipment-cart.png": [176, 280],
+};
+
+/**
  * Workflow slug -> icon file. Not a straight `${slug}.png` lookup --
  * manual-handling-support's icon file predates that workflow's current
  * slug and is just "manual-handling.png". Desktop-only now: these have

@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Card, Badge, ProductWordmark } from "@/components/ui";
-import { PRODUCT_ICONS } from "@/lib/content/assets";
+import { PRODUCT_ICONS, PRODUCT_ICON_DIMENSIONS } from "@/lib/content/assets";
 import { type ProductWithAssets } from "@/lib/content/products";
 import styles from "./ProductCard.module.css";
 
@@ -56,6 +56,7 @@ function navigateWithViewTransition(router: ReturnType<typeof useRouter>, href: 
 export function ProductCard({ product }: { product: ProductWithAssets }) {
   const router = useRouter();
   const icon = PRODUCT_ICONS[product.slug];
+  const [iconWidth, iconHeight] = icon ? PRODUCT_ICON_DIMENSIONS[icon] : [0, 0];
   const href = `/workflows/${product.workflowSlug}/${product.slug}`;
 
   return (
@@ -68,21 +69,25 @@ export function ProductCard({ product }: { product: ProductWithAssets }) {
       }}
     >
       <Card className={styles.card}>
+        {/* Large, low-opacity echo of the product's own outline, bleeding
+            off the card's bottom-right corner behind the real content --
+            same "cropped technical outline" treatment as the page hero,
+            replacing the old small crisp icon-in-shelf. aria-hidden since
+            it's decorative, not information. */}
+        {icon && (
+          <Image
+            src={icon}
+            alt=""
+            width={iconWidth}
+            height={iconHeight}
+            aria-hidden="true"
+            className={styles.iconWatermark}
+            style={{ viewTransitionName: `product-icon-${product.slug}` }}
+          />
+        )}
         <div className={styles.badgeRow}>
           <Badge tone="brand">{product.category}</Badge>
         </div>
-        {icon && (
-          <div className={styles.iconBox}>
-            <Image
-              src={icon}
-              alt=""
-              width={110}
-              height={84}
-              className={styles.icon}
-              style={{ viewTransitionName: `product-icon-${product.slug}` }}
-            />
-          </div>
-        )}
         <ProductWordmark
           name={product.name}
           svgSrc={product.wordmarkSvg}

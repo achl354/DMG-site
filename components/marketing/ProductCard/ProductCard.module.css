@@ -9,6 +9,12 @@
   gap: var(--space-4);
   height: 100%;
   position: relative;
+  /* Forces its own stacking context so .iconWatermark's negative z-index
+     reliably lands behind the card's real content (painted above the
+     card's own background) instead of escaping to stack against ancestors
+     further up the tree -- same fix as the /workflows cards' ghost
+     numeral and the products-page hero's square accent needed. */
+  isolation: isolate;
   overflow: hidden;
   transition: border-color var(--duration-base) var(--ease-out),
     box-shadow var(--duration-base) var(--ease-out);
@@ -53,35 +59,24 @@
 }
 
 /*
- * Fixed-size slot, not a bare image -- the line-art icons have wildly
- * different aspect ratios (0.6:1 up to 1.74:1), so the old fixed
- * height + auto width rendered them anywhere from 29px to 58px wide:
- * uneven visual weight, and a different gap above each wordmark.
- * A uniform box means every card reserves identical space. Centered on a
- * soft teal-tint "shelf" rather than floating on bare white -- gives the
- * icon somewhere to sit instead of reading as a placeholder graphic.
+ * Large echo of the product's own outline, cropped and at low opacity,
+ * bleeding off the card's bottom-right corner -- the same "cropped
+ * technical outline" treatment as the products-page hero, brought down
+ * to card level in place of the old small icon-in-shelf. Anchored by
+ * bottom/right rather than sized to fit a box: the aspect ratio varies
+ * 0.6:1-1.74:1 across the nine products, and letting each run at its own
+ * natural proportions (only width fixed) keeps the linework from
+ * distorting the way squeezing every shape into one fixed box would.
  */
-.iconBox {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 128px;
-  height: 104px;
-  background: var(--surface-tint);
-  border-radius: var(--radius-md);
-  transition: transform var(--duration-slow) var(--ease-out);
-}
-
-.link:hover .iconBox {
-  transform: translateY(-3px);
-}
-
-.icon {
-  max-height: 64px;
-  max-width: 88px;
-  width: auto;
+.iconWatermark {
+  position: absolute;
+  bottom: -1.5rem;
+  right: -2rem;
+  z-index: -1;
+  width: 13rem;
   height: auto;
-  object-fit: contain;
+  opacity: 0.15;
+  pointer-events: none;
 }
 
 .wordmark {
