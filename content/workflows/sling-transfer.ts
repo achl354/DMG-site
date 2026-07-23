@@ -4,7 +4,7 @@ export const slingTransfer: Workflow = {
   slug: "sling-transfer",
   number: "04",
   familyName: "EasiSling™",
-  title: "Sling-based patient transfer",
+  title: "Hoist-based transfer",
   summary:
     "Supports hoist-assisted transfers between beds, chairs, commodes and other care surfaces.",
   solutions:
