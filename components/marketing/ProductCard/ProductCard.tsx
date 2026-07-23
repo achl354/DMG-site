@@ -16,6 +16,21 @@ const TITLE_POLL_INTERVAL_MS = 10;
 const TITLE_POLL_MAX_MS = 2000;
 
 /**
+ * Manual per-product size overrides, as a % of card width -- everything
+ * else (aspect-ratio, bottom-right anchor, the 1/3 crop) stays identical
+ * across all 9 products; only the box's own scale changes here. Since the
+ * icon inside is sized relative to this same box (150% of it, in both
+ * dimensions), scaling the box scales the icon proportionally too, so the
+ * crop ratio and anchor are unaffected -- only the absolute size is.
+ * Default (unlisted products): 40%, set directly in ProductCard.module.css.
+ */
+const ICON_COLUMN_WIDTH_OVERRIDES: Partial<Record<string, string>> = {
+  easiturn: "48%", // ~20% larger than the 40% default
+  easicart: "30%", // ~25% smaller than the 40% default
+  easislide: "34%", // ~15% smaller than the 40% default
+};
+
+/**
  * Experimental: morphs this card's icon into the destination page's large
  * ProductIllustration via the browser's native View Transitions API. React's
  * own <ViewTransition> component (the documented Next.js approach) isn't
@@ -100,7 +115,14 @@ export function ProductCard({ product }: { product: ProductWithAssets }) {
           <div
             className={styles.imageCol}
             aria-hidden="true"
-            style={{ "--icon-aspect-ratio": `${iconWidth} / ${iconHeight}` } as CSSProperties}
+            style={
+              {
+                "--icon-aspect-ratio": `${iconWidth} / ${iconHeight}`,
+                ...(ICON_COLUMN_WIDTH_OVERRIDES[product.slug] && {
+                  "--icon-col-width": ICON_COLUMN_WIDTH_OVERRIDES[product.slug],
+                }),
+              } as CSSProperties
+            }
           >
             <Image
               src={icon}
