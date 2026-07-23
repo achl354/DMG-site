@@ -57,45 +57,12 @@
   padding: var(--space-8);
 }
 
-.top {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-/* Fixed-height slot for the workflow icon, not a bare image -- the
-   line-art icons have different aspect ratios, so a shared height +
-   object-fit: contain keeps them visually even instead of each rendering
-   at whatever width its own drawing happens to need (same fix as
-   ProductCard's icon slot). */
-.iconBox {
-  display: flex;
-  align-items: center;
-  height: 40px;
-}
-
-.icon {
-  max-height: 40px;
-  max-width: 56px;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  transition: transform var(--duration-slow) var(--ease-out);
-}
-
-.link:hover .icon {
-  transform: translateY(-2px);
-}
-
 /* Large ghost numeral, bleeding off the card's bottom-right corner behind
-   the real content -- bottom-right rather than top-right so it never
-   collides with the product-count badge, and sits in whatever leftover
-   space a shorter card has below its own text instead of reading as a
-   dead gap. z-index: -1 keeps it above the card's own background
-   (painted first within .card's isolated stacking context) but below
-   every in-flow child, which paint above z-index: 0/negative descendants
+   the real content -- bottom-right so it sits in whatever leftover space
+   a shorter card has below its own text, instead of reading as a dead
+   gap. z-index: -1 keeps it above the card's own background (painted
+   first within .card's isolated stacking context) but below every
+   in-flow child, which paint above z-index: 0/negative descendants
    regardless of DOM order. */
 .number {
   position: absolute;
