@@ -116,13 +116,13 @@
 
 @container (min-width: 21.25rem) {
   /*
-   * Fixed-width lane, not a percentage of the card -- keeps the crop
-   * ratio (how much of the 13rem image below runs past its right edge)
-   * constant regardless of how wide the card itself ends up. flex-
-   * shrink: 0 so a long tagline in .textCol can't compress it.
-   * align-items: flex-end (overriding the base center) bottom-anchors
-   * the outline within the column, so it sits in the card's bottom-right
-   * corner rather than vertically centered against the full card height.
+   * Fixed-width lane, not a percentage of the card, so the column's own
+   * footprint stays constant regardless of how wide the card itself ends
+   * up. flex-shrink: 0 so a long tagline in .textCol can't compress it.
+   * align-items: flex-end bottom-anchors the outline within the column;
+   * justify-content: flex-end right-anchors it, so it sits in the card's
+   * bottom-right corner -- including products whose outline (at the
+   * fixed height below) renders narrower than the column itself.
    */
   .imageCol {
     position: relative;
@@ -130,23 +130,26 @@
     height: auto;
     overflow: hidden;
     align-items: flex-end;
-    justify-content: flex-start;
+    justify-content: flex-end;
   }
 
   /*
    * Echo of the product's own outline, at low opacity -- the same
    * "cropped technical outline" treatment as the products-page hero.
-   * Left-anchored (the column's default flex-start) with no max-width
-   * cap: at 13rem the image is wider than the 9.375rem column, so its
-   * right ~30% simply runs past the column's own edge and is clipped by
-   * overflow: hidden, the same crop mechanic the hero uses -- rather
-   * than shrinking the whole image to dodge text the way the previous
-   * overlay approach had to.
+   * Fixed HEIGHT (not width) so every product's outline reads as the
+   * same size regardless of its own art's aspect ratio -- the source
+   * PNGs range 0.6:1 (EasiGlide's board, tall and narrow) to 1.2:1
+   * (EasiTurn, wide and short); a fixed width with auto height let the
+   * tall ones balloon far larger than the wide ones. Widths still vary
+   * with each product's own proportions, and one or two run wider than
+   * the 9.375rem column -- their left edge simply runs past it and gets
+   * clipped by overflow: hidden, same crop mechanic as before, just
+   * right-anchored now instead of left-anchored.
    */
   .iconWatermark {
     flex-shrink: 0;
-    width: 13rem;
-    height: auto;
+    width: auto;
+    height: 10rem;
     max-width: none;
   }
 }
