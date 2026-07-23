@@ -1,37 +1,63 @@
-.heading {
-  position: relative;
-  /* Without this, the decorative square below (z-index: -1) escapes past
-     this plain, background-less div to the nearest ancestor that DOES
-     form a stacking context -- which could be well above the Section's
-     own solid page-background fill, hiding the shape behind it entirely
-     rather than behind just the heading text. */
-  isolation: isolate;
+.hero {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
   margin-bottom: var(--space-9);
 }
 
+.heading {
+  margin-bottom: 0;
+  /* Without this, a flex item's default min-width: auto can force it (and
+     the row) wider than the container rather than wrapping its own text,
+     since flex items don't shrink below their content's natural size by
+     default. */
+  min-width: 0;
+}
+
 /*
- * Subtle geometric accent behind the page intro -- a square rather than
- * a soft gradient blob, echoing the brand's own square-cut mark (see
- * styles/tokens/spacing.css's radius scale comment) rather than a generic
- * SaaS-landing-page treatment. Not tied to any one product's imagery, so
- * it doesn't visually favour a single SKU on a page meant to present all
- * nine as equals. Desktop-only -- there isn't enough spare width beside
- * the heading on narrow viewports for it to read as intentional rather
- * than cramped.
+ * EasiMove SPU's outline, cropped and at low opacity, behind the visual
+ * column -- reinforcing the range without competing with the heading.
+ * A plain overflow: hidden box with no border/background/shadow of its
+ * own, not a card or frame: the crop comes from the image (fixed width,
+ * anchored to the box's left edge) simply running wider than the box,
+ * so its right portion is clipped rather than shrunk to fit. Hidden
+ * below 768px -- not enough spare width next to the heading on phones
+ * for it to read as intentional rather than cramped.
  */
-@media (min-width: 1024px) {
-  .heading::before {
-    content: "";
-    position: absolute;
-    top: -2.5rem;
-    right: -1.5rem;
-    width: 14rem;
-    height: 14rem;
-    border: 2px solid var(--teal-100);
-    border-radius: var(--radius-2xl);
-    transform: rotate(8deg);
-    z-index: -1;
+.heroVisual {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .heroVisual {
+    display: block;
+    overflow: hidden;
+    flex-shrink: 0;
+    /* ~65% of the 340px image below stays visible -- a ~35% crop. */
+    width: 13.8125rem;
+  }
+
+  .heroVisualImage {
+    display: block;
+    width: 21.25rem;
+    height: auto;
+    opacity: 0.15;
     pointer-events: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .heading {
+    flex: 1 1 auto;
+  }
+
+  .heroVisual {
+    /* ~70% of the 480px image below stays visible -- a ~30% crop. */
+    flex: 0 0 21rem;
+  }
+
+  .heroVisualImage {
+    width: 30rem;
   }
 }
 
