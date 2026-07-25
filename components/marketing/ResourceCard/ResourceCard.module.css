@@ -12,6 +12,7 @@
   min-height: 330px;
   position: relative;
   z-index: 0;
+  overflow: hidden;
   transition: border-color var(--duration-base) var(--ease-out),
     box-shadow var(--duration-base) var(--ease-out),
     transform var(--duration-base) var(--ease-out);
@@ -28,17 +29,18 @@
   box-shadow: var(--ring);
 }
 
-/* Product-document cards only -- a faint watermark anchored to the
-   card's bottom-right corner, sitting behind the text (negative
-   z-index, inside the .card stacking context created above). Inset to
-   match the card's own padding so it stays fully within the card
-   bounds -- no bleed/crop. */
+/* Product-document cards only -- a faint watermark whose centre sits
+   exactly on the card's bottom-right corner, so only its upper-left
+   quadrant is visible; the rest bleeds past the card edges and is
+   clipped by .card's own overflow: hidden. Sits behind the text
+   (negative z-index, inside the .card stacking context created
+   above). */
 .icon {
   position: absolute;
-  bottom: var(--space-6);
-  right: var(--space-6);
-  max-height: 120px;
-  max-width: 120px;
+  bottom: -120px;
+  right: -120px;
+  max-height: 240px;
+  max-width: 240px;
   width: auto;
   height: auto;
   object-fit: contain;
