@@ -29,13 +29,13 @@
 }
 
 /* Product-document cards only -- a faint watermark anchored to the
-   card's top-right corner, sitting behind the text (negative z-index,
-   inside the .card stacking context created above). Inset to match the
-   card's own padding so it stays fully within the card bounds -- no
-   bleed/crop. */
+   card's bottom-right corner, sitting behind the text (negative
+   z-index, inside the .card stacking context created above). Inset to
+   match the card's own padding so it stays fully within the card
+   bounds -- no bleed/crop. */
 .icon {
   position: absolute;
-  top: var(--space-6);
+  bottom: var(--space-6);
   right: var(--space-6);
   max-height: 120px;
   max-width: 120px;
