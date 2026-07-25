@@ -138,6 +138,23 @@
   .tagline {
     font-size: var(--text-7xl);
   }
+
+  /* "View all products" matched to "Explore by workflow"'s own natural
+     width at the shared .lg Button size (measured ~341px with the arrow
+     glyph included) so the pair reads as evenly sized, not the shorter
+     label's content-hugging width. Same Link-anchor issue as the mobile
+     override below: width has to go on the anchor too, since a
+     percentage/fixed width on the button alone would need a sized
+     containing block, and the inline <a> it's wrapped in doesn't
+     provide one. */
+  .heroCtaSecondary {
+    width: 341px;
+  }
+
+  .heroCtaSecondaryLink {
+    display: flex;
+    width: 341px;
+  }
 }
 
 @media (max-width: 767px) {
