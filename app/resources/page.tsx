@@ -14,8 +14,8 @@ export const metadata = buildMetadata({
 
 export default function ResourcesPage() {
   return (
-    <Section spacing="lg">
-      <Container size="xl">
+    <Section spacing="lg" className={styles.section}>
+      <Container size="xl" className={styles.container}>
         <EyebrowHeading
           eyebrow="Resources"
           heading="Spec sheets, guides, case studies and clinical insights"

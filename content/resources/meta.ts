@@ -7,6 +7,8 @@ export const RESOURCE_META: ResourceMeta[] = [
     description: "Dimensions, base configuration and sling compatibility for EasiLift™.",
     category: "Spec sheet",
     publishedAt: "2026-02-01",
+    product: "easilift",
+    featured: true,
   },
   {
     slug: "buying-guide-patient-handling",
@@ -15,6 +17,7 @@ export const RESOURCE_META: ResourceMeta[] = [
       "How to match transfer, lifting and repositioning equipment to a ward's actual case mix.",
     category: "Guide",
     publishedAt: "2026-03-14",
+    featured: true,
   },
   {
     slug: "reducing-manual-handling-injury",
@@ -23,6 +26,7 @@ export const RESOURCE_META: ResourceMeta[] = [
       "What changed at three facilities after reviewing their transfer and repositioning equipment.",
     category: "Case study",
     publishedAt: "2026-04-22",
+    featured: true,
   },
   {
     slug: "easiair-ifu",
@@ -31,6 +35,11 @@ export const RESOURCE_META: ResourceMeta[] = [
     category: "Instructions for use",
     publishedAt: "2026-06-01",
     fileUrl: "/resources/documents/easiair-ifu.pdf",
+    fileType: "PDF",
+    pageCount: 20,
+    fileSize: "1.2 MB",
+    product: "easiair",
+    featured: true,
   },
   {
     slug: "easimove-spu-ifu",
@@ -39,6 +48,10 @@ export const RESOURCE_META: ResourceMeta[] = [
     category: "Instructions for use",
     publishedAt: "2026-06-16",
     fileUrl: "/resources/documents/easimove-spu-ifu.pdf",
+    fileType: "PDF",
+    pageCount: 16,
+    fileSize: "2.7 MB",
+    product: "easimove-spu",
   },
   {
     slug: "easimove-pro-flyer",
@@ -46,6 +59,10 @@ export const RESOURCE_META: ResourceMeta[] = [
     description: "An overview of EasiMovePRO™'s reusable construction, features and specifications.",
     category: "Flyer",
     publishedAt: "2026-06-23",
+    fileType: "PDF",
+    pageCount: 2,
+    fileSize: "0.5 MB",
+    product: "easimove-pro",
     fileUrl: "/resources/documents/easimove-pro-flyer.pdf",
   },
   {

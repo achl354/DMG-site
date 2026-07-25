@@ -47,6 +47,13 @@
   --size-green:  #00A644;  /* 39" · PMS 2257 C */
   --size-blue:   #293F76;  /* 50" · PMS 3584 C */
 
+  /* ============ Sage — muted olive-green ============ */
+  /* Category-badge colour for "Guides" on /resources: distinct from both
+     the teal brand and --size-green (a saturated status/size colour, not
+     meant for a quiet content-category label). */
+  --sage-600: #6E7F5C;
+  --sage-tint: #EEF1E7;
+
   /* ============ Semantic aliases ============ */
   /* Brand */
   --brand:           var(--teal-700);

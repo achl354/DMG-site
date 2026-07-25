@@ -34,3 +34,7 @@
   background: var(--feedback-warning-bg);
   color: var(--feedback-warning);
 }
+.sage {
+  background: var(--sage-tint);
+  color: var(--sage-600);
+}

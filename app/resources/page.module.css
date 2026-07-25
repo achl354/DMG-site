@@ -1,3 +1,41 @@
+.section {
+  padding-top: 100px;
+  padding-bottom: 40px;
+}
+
+.container {
+  max-width: 1320px;
+  padding-inline: 32px;
+}
+
 .heading {
+  max-width: 800px;
   margin-bottom: var(--space-8);
+}
+
+.heading :global(h2) {
+  font-size: 56px;
+  line-height: 1.08;
+}
+
+@media (max-width: 900px) {
+  .section {
+    padding-top: 72px;
+    padding-bottom: 32px;
+  }
+
+  .heading :global(h2) {
+    font-size: 44px;
+  }
+}
+
+@media (max-width: 600px) {
+  .section {
+    padding-top: 56px;
+    padding-bottom: 28px;
+  }
+
+  .heading :global(h2) {
+    font-size: 36px;
+  }
 }
