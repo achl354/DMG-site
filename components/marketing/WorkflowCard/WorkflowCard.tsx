@@ -1,6 +1,9 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Card } from "@/components/ui";
 import type { Workflow } from "@/lib/content/workflows";
+import { WORKFLOW_SCENE_ICONS, WORKFLOW_SCENE_ICON_DIMENSIONS } from "@/lib/content/assets";
+import { WorkflowSolutionsIcon } from "./WorkflowSolutionsIcon";
 import styles from "./WorkflowCard.module.css";
 
 export interface WorkflowCardProps {
@@ -11,14 +14,39 @@ export interface WorkflowCardProps {
 }
 
 export function WorkflowCard({ workflow, featured = false, onSelect }: WorkflowCardProps) {
+  const scene = WORKFLOW_SCENE_ICONS[workflow.slug];
+  const [sceneWidth, sceneHeight] = scene ? WORKFLOW_SCENE_ICON_DIMENSIONS[workflow.slug] : [0, 0];
+
   const content = (
     <Card className={[styles.card, featured && styles.featured].filter(Boolean).join(" ")}>
-      <span className={featured ? styles.numberFeatured : styles.number}>{workflow.number}</span>
+      {/* Faint in-use scene, bleeding off the card's top-right corner behind
+          the real content -- same low-opacity "quiet background" language as
+          the large ghost numeral below, just a different corner. aria-hidden
+          since it's decorative, not information. */}
+      {scene && (
+        <Image
+          src={scene}
+          alt=""
+          width={sceneWidth}
+          height={sceneHeight}
+          aria-hidden="true"
+          className={styles.sceneIllustration}
+        />
+      )}
+      <span className={styles.ghostNumber} aria-hidden="true">
+        {workflow.number}
+      </span>
+      <span className={featured ? styles.numberFeatured : styles.eyebrowNumber}>
+        {workflow.number}
+      </span>
       <h3 className={featured ? styles.titleFeatured : styles.title}>{workflow.title}</h3>
       <p className={styles.summary}>{workflow.summary}</p>
-      <p className={styles.solutions}>
-        <span className={styles.solutionsLabel}>Workflow solutions:</span> {workflow.solutions}
-      </p>
+      <div className={styles.solutionsRow}>
+        <WorkflowSolutionsIcon slug={workflow.slug} className={styles.solutionsIcon} />
+        <p className={styles.solutions}>
+          <span className={styles.solutionsLabel}>Workflow solutions:</span> {workflow.solutions}
+        </p>
+      </div>
       {/* aria-hidden -- purely a visual "this card is clickable" cue; the
           whole card is already the accessible link/button. */}
       <span className={styles.viewCue} aria-hidden="true">

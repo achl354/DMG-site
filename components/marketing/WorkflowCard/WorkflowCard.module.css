@@ -64,7 +64,7 @@
    first within .card's isolated stacking context) but below every
    in-flow child, which paint above z-index: 0/negative descendants
    regardless of DOM order. */
-.number {
+.ghostNumber {
   position: absolute;
   bottom: -1rem;
   right: -0.35rem;
@@ -77,6 +77,40 @@
   color: var(--teal-50);
   pointer-events: none;
   user-select: none;
+}
+
+/* Faint in-use scene illustration, bleeding off the card's top-right
+   corner behind the title -- same quiet-background language as
+   .ghostNumber above (negative z-index, low opacity), just anchored to
+   the opposite corner. Sized as a % of the card so it scales with
+   whichever grid/breakpoint renders this card, rather than a fixed px
+   value. height: auto preserves the source scene's own aspect ratio (no
+   crop box needed here -- unlike ProductCard's exact-ratio crop, a
+   couple of extra px of an already-low-opacity illustration bleeding
+   further past the corner isn't visually meaningful). A small offset
+   (not a large one): these scenes are wide (up to ~1.8:1), so at this
+   size a couple of rem of crop already removes a large share of their
+   short rendered height -- enough to make the scene unrecognisable
+   rather than "cropped, but still reads as a caregiver and a mat." */
+.sceneIllustration {
+  position: absolute;
+  top: -0.5rem;
+  right: -0.5rem;
+  z-index: -1;
+  width: 44%;
+  height: auto;
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+/* Small crisp eyebrow number, top-left -- distinct from .ghostNumber's
+   large faint background echo of the same digits. */
+.eyebrowNumber {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--brand);
 }
 
 .title {
@@ -109,6 +143,29 @@
   color: var(--text-body);
 }
 
+/* Divider above the solutions row, echoing the mockup's rule between
+   description and "Workflow solutions" -- var(--space-1) top margin
+   pulls it a little closer to .summary than the row's own gap below,
+   matching the tighter rule-to-label spacing in the reference. */
+.solutionsRow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.solutionsIcon {
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: var(--space-1);
+  border-radius: var(--radius-pill);
+  background: var(--surface-tint);
+  color: var(--brand);
+}
+
 .solutions {
   font-size: var(--text-sm);
   line-height: var(--leading-relaxed);
@@ -118,6 +175,11 @@
 .solutionsLabel {
   font-weight: var(--weight-semibold);
   color: var(--text-body);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  font-size: var(--text-xs);
+  display: block;
+  margin-bottom: var(--space-1);
 }
 
 /* Quiet clickability cue, directly under each card's own text -- not

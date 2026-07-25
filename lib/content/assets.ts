@@ -97,6 +97,36 @@ export const PRODUCT_ICON_DIMENSIONS: Record<string, [number, number]> = {
 };
 
 /**
+ * Workflow slug -> in-use scene illustration, recolored to brand teal
+ * (--teal-700, #005855) with a transparent background -- same source
+ * photography-style line art as the homepage's PORTFOLIO_SCENES icons
+ * (public/icons/workflow/scenes/), which are plain black line art on solid
+ * white, meant to be shown at full contrast there. This teal/transparent
+ * pass (scenes-teal/) is a separate file set for the /workflows grid
+ * card's low-opacity cropped corner illustration, which needs to sit atop
+ * the card's own background rather than carry its own white backing.
+ */
+export const WORKFLOW_SCENE_ICONS: Record<string, string> = {
+  "lateral-transfer": "/icons/workflow/scenes-teal/01-lateral-transfer.png",
+  "floor-recovery": "/icons/workflow/scenes-teal/02-floor-recovery.png",
+  "manual-handling-support": "/icons/workflow/scenes-teal/03-manual-handling-support.png",
+  "sling-transfer": "/icons/workflow/scenes-teal/04-sling-transfer.png",
+  "turning-positioning": "/icons/workflow/scenes-teal/05-turning-positioning.png",
+  "support-equipment": "/icons/workflow/scenes-teal/06-support-equipment.png",
+};
+
+/** Natural pixel dimensions for each WORKFLOW_SCENE_ICONS file -- same
+ * canvas size as the original scenes/ source (this pass only recolors). */
+export const WORKFLOW_SCENE_ICON_DIMENSIONS: Record<string, [number, number]> = {
+  "lateral-transfer": [1672, 941],
+  "floor-recovery": [1672, 940],
+  "manual-handling-support": [1254, 1254],
+  "sling-transfer": [1448, 1086],
+  "turning-positioning": [1254, 1254],
+  "support-equipment": [1122, 1402],
+};
+
+/**
  * Workflow slug -> icon file. Not a straight `${slug}.png` lookup --
  * manual-handling-support's icon file predates that workflow's current
  * slug and is just "manual-handling.png". Desktop-only now: these have
