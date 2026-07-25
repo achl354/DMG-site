@@ -35,9 +35,7 @@ export function ResourceCard({ resource }: { resource: ResourceMeta }) {
         <Badge tone={GROUP_BADGE_TONE[group]}>{resource.category}</Badge>
 
         {group === "product-documents" && icon && (
-          <div className={styles.iconBox}>
-            <Image src={icon} alt="" width={110} height={84} className={styles.icon} />
-          </div>
+          <Image src={icon} alt="" width={120} height={96} className={styles.icon} />
         )}
 
         <h3 className={styles.title}>{resource.title}</h3>
