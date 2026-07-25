@@ -174,5 +174,25 @@
   .heroCta {
     box-shadow: 0 6px 14px rgba(0, 103, 95, 0.12) !important;
   }
+
+  /* On mobile the two CTAs read better as a matched pair -- "View all
+     products" picks up the same solid brand styling as "Explore by
+     workflow" instead of its desktop outline treatment. !important for
+     the same reason as above: equal-specificity single classes against
+     Button.module.css's .secondary, so source order can't be trusted. */
+  .heroCtaSecondary {
+    background: var(--brand) !important;
+    color: var(--text-on-brand) !important;
+    border-color: transparent !important;
+    box-shadow: 0 6px 14px rgba(0, 103, 95, 0.12) !important;
+  }
+
+  .heroCtaSecondary:hover:not(:disabled) {
+    background: var(--brand-hover) !important;
+  }
+
+  .heroCtaSecondary:active:not(:disabled) {
+    background: var(--brand-active) !important;
+  }
 }
 
