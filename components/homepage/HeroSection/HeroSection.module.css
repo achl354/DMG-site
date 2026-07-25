@@ -159,10 +159,13 @@
    * .heroCta had this override before, leaving the secondary "View all
    * products" button stuck at the larger desktop size. Override with
    * !important -- these and .lg are equal-specificity single classes, so
-   * source order alone can't be relied on to win.
+   * source order alone can't be relied on to win. width: 100% additionally
+   * makes both CTAs the same width as each other regardless of label
+   * length, since they stack full-width on mobile anyway.
    */
   .heroCta,
   .heroCtaSecondary {
+    width: 100%;
     min-height: 48px;
     max-width: 100%;
     padding: 0 20px !important;
@@ -175,24 +178,14 @@
     box-shadow: 0 6px 14px rgba(0, 103, 95, 0.12) !important;
   }
 
-  /* On mobile the two CTAs read better as a matched pair -- "View all
-     products" picks up the same solid brand styling as "Explore by
-     workflow" instead of its desktop outline treatment. !important for
-     the same reason as above: equal-specificity single classes against
-     Button.module.css's .secondary, so source order can't be trusted. */
-  .heroCtaSecondary {
-    background: var(--brand) !important;
-    color: var(--text-on-brand) !important;
-    border-color: transparent !important;
-    box-shadow: 0 6px 14px rgba(0, 103, 95, 0.12) !important;
-  }
-
-  .heroCtaSecondary:hover:not(:disabled) {
-    background: var(--brand-hover) !important;
-  }
-
-  .heroCtaSecondary:active:not(:disabled) {
-    background: var(--brand-active) !important;
+  /* "View all products" is wrapped in a Link (an inline <a>), unlike the
+     primary CTA which is a direct flex child -- percentage width on the
+     button alone resolves against that inline anchor's own shrink-to-fit
+     box, not the row, and is a no-op. Sizing the anchor itself first
+     gives the button something real to fill. */
+  .heroCtaSecondaryLink {
+    display: flex;
+    width: 100%;
   }
 }
 
