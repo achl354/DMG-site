@@ -145,6 +145,17 @@
    * zone above whatever follows.
    */
   margin-bottom: 24px;
+  /*
+   * These source PNGs are black line art on a solid *white* background
+   * (not transparent) -- multiply blend drops that white against this
+   * card's own white surface, leaving just the linework, so opacity
+   * alone doesn't fade in a visible washed-out box. Quieter than the
+   * old full-contrast treatment without introducing a second (teal)
+   * tint for illustration -- teal stays reserved for the brand accent
+   * (buttons, links, badges) rather than spreading into artwork too.
+   */
+  mix-blend-mode: multiply;
+  opacity: 0.6;
 }
 
 @media (min-width: 768px) {
