@@ -14,7 +14,7 @@ export default function PrivacyPage() {
   return (
     <Section spacing="lg">
       <Container size="md">
-        <EyebrowHeading eyebrow="Legal" heading="Privacy Policy" className={styles.heading} />
+        <EyebrowHeading as="h1" eyebrow="Legal" heading="Privacy Policy" className={styles.heading} />
         <div className={styles.prose}>
           <p>
             DirectMed Group collects personal information submitted through

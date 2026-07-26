@@ -13,7 +13,7 @@ export default function TermsPage() {
   return (
     <Section spacing="lg">
       <Container size="md">
-        <EyebrowHeading eyebrow="Legal" heading="Website terms of use" className={styles.heading} />
+        <EyebrowHeading as="h1" eyebrow="Legal" heading="Website terms of use" className={styles.heading} />
         <div className={styles.prose}>
           <p>
             This website is operated by DirectMed Group. By using this

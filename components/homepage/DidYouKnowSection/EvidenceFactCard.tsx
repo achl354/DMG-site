@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { Card } from "@/components/ui";
+import { Card, IconButton } from "@/components/ui";
 import { useReducedMotion } from "@/components/motion/ReducedMotionProvider";
 import type { EvidenceFact } from "@/lib/content/evidenceFacts";
 import styles from "./DidYouKnowSection.module.css";
@@ -26,16 +26,23 @@ export function EvidenceFactCard({
   initialIndex: number;
 }) {
   const [index, setIndex] = useState(initialIndex);
-  const [paused, setPaused] = useState(false);
-  const pausedRef = useRef(paused);
+  const [hoverPaused, setHoverPaused] = useState(false);
+  /* Explicit, persistent pause -- hover/focus-based pausing alone misses
+     anyone browsing this aria-live region by screen-reader virtual cursor
+     (no mouse enter, no focus event), so this content could otherwise
+     change out from under them mid-read. A control that doesn't depend on
+     any particular input modality is the actual WCAG 2.2.2 requirement. */
+  const [userPaused, setUserPaused] = useState(false);
+  const pausedRef = useRef(false);
   const reducedMotion = useReducedMotion();
+  const rotationActive = !reducedMotion && facts.length > 1;
 
   useEffect(() => {
-    pausedRef.current = paused;
-  }, [paused]);
+    pausedRef.current = hoverPaused || userPaused;
+  }, [hoverPaused, userPaused]);
 
   useEffect(() => {
-    if (reducedMotion || facts.length <= 1) return;
+    if (!rotationActive) return;
 
     const id = setInterval(() => {
       if (pausedRef.current || document.visibilityState !== "visible") return;
@@ -43,18 +50,38 @@ export function EvidenceFactCard({
     }, ROTATE_INTERVAL_MS);
 
     return () => clearInterval(id);
-  }, [reducedMotion, facts.length]);
+  }, [rotationActive, facts.length]);
 
   const fact = facts[index];
 
   return (
     <Card
       className={styles.card}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocus={() => setPaused(true)}
-      onBlur={() => setPaused(false)}
+      onMouseEnter={() => setHoverPaused(true)}
+      onMouseLeave={() => setHoverPaused(false)}
+      onFocus={() => setHoverPaused(true)}
+      onBlur={() => setHoverPaused(false)}
     >
+      {rotationActive && (
+        <IconButton
+          type="button"
+          variant="ghost"
+          className={styles.pauseToggle}
+          aria-label={userPaused ? "Resume automatic updates" : "Pause automatic updates"}
+          aria-pressed={userPaused}
+          onClick={() => setUserPaused((current) => !current)}
+        >
+          {userPaused ? (
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M6 4l14 8-14 8V4z" />
+            </svg>
+          ) : (
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+              <path d="M8 5v14M16 5v14" />
+            </svg>
+          )}
+        </IconButton>
+      )}
       <div className={styles.liveRegion} aria-live="polite">
         <div key={fact.id} className={styles.content}>
           <p className={styles.eyebrow}>Did you know?</p>

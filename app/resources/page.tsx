@@ -17,6 +17,7 @@ export default function ResourcesPage() {
     <Section spacing="lg" className={styles.section}>
       <Container size="xl" className={styles.container}>
         <EyebrowHeading
+          as="h1"
           eyebrow="Resources"
           heading="Spec sheets, guides, case studies and clinical insights"
           className={styles.heading}

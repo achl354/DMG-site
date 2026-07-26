@@ -23,6 +23,7 @@ export default async function ContactPage({
     <Section spacing="lg">
       <Container size="lg">
         <EyebrowHeading
+          as="h1"
           eyebrow="Contact"
           heading="Contact DirectMed Group"
           body="Contact us for product information, technical documentation, market availability, distribution enquiries or general information about the EasiSystem™ portfolio."

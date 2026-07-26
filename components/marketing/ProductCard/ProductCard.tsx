@@ -92,6 +92,12 @@ export function ProductCard({ product }: { product: ProductWithAssets }) {
       href={href}
       className={styles.link}
       onClick={(event) => {
+        // Let the browser handle its own affordances (open in new tab/window,
+        // etc.) for anything other than a plain left click -- only a plain
+        // click should be hijacked into the manual view-transition navigation.
+        if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+          return;
+        }
         event.preventDefault();
         navigateWithViewTransition(router, href);
       }}

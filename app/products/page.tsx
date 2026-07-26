@@ -19,6 +19,7 @@ export default function ProductsPage() {
     <Section spacing="lg">
       <Container size="xl">
         <EyebrowHeading
+          as="h1"
           eyebrow="Products"
           heading="The EasiSystem™ portfolio"
           body="Nine product lines developed by DirectMed Group, each addressing a defined patient-handling workflow."

@@ -17,6 +17,7 @@ export default function AboutPage() {
       <Section spacing="lg">
         <Container size="lg">
           <EyebrowHeading
+            as="h1"
             eyebrow="About"
             heading="About DirectMed Group"
             body="DirectMed Group develops patient-handling products designed around the practical workflows encountered across healthcare and supported-care environments."
@@ -29,7 +30,7 @@ export default function AboutPage() {
           <div className={styles.grid}>
             <div className={styles.card}>
               <p className={styles.cardLabel}>EasiSystem™</p>
-              <h3 className={styles.cardTitle}>One coordinated portfolio</h3>
+              <h2 className={styles.cardTitle}>One coordinated portfolio</h2>
               <p className={styles.cardBody}>
                 EasiSystem™ brings multiple patient-handling product
                 categories together within one structured portfolio,
@@ -39,7 +40,7 @@ export default function AboutPage() {
             </div>
             <div className={styles.card}>
               <p className={styles.cardLabel}>Development principles</p>
-              <h3 className={styles.cardTitle}>Workflow-led, practical, clear</h3>
+              <h2 className={styles.cardTitle}>Workflow-led, practical, clear</h2>
               <p className={styles.cardBody}>
                 Products are designed around real patient-handling tasks,
                 built for practical day-to-day usability, and supported by

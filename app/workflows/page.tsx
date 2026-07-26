@@ -19,6 +19,7 @@ export default function WorkflowsPage() {
     <Section spacing="lg">
       <Container size="xl">
         <EyebrowHeading
+          as="h1"
           eyebrow="Workflows"
           heading="One system, six workflows"
           body="EasiSystem™ is organised around how patients actually move through a ward — not a flat product catalogue. Each workflow groups the products built to support it."

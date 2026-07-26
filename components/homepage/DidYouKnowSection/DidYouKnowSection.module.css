@@ -4,7 +4,14 @@
 }
 
 .card {
+  position: relative;
   padding: var(--space-8);
+}
+
+.pauseToggle {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
 }
 
 .liveRegion {
