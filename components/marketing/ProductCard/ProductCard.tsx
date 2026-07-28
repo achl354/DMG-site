@@ -28,6 +28,11 @@ const ICON_COLUMN_WIDTH_OVERRIDES: Partial<Record<string, string>> = {
   easiturn: "48%", // ~20% larger than the 40% default
   easicart: "30%", // ~25% smaller than the 40% default
   easislide: "34%", // ~15% smaller than the 40% default
+  // Its source (manual-handling-board.png) is only 152px wide -- the
+  // smallest of any product icon -- so the 40% default upscales it well
+  // past its native resolution. 26% brings the rendered size back down to
+  // roughly its real pixel width, same logic as easicart/easislide above.
+  easiglide: "26%",
 };
 
 /**
