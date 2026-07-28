@@ -1,3 +1,24 @@
+/** A proportion (e.g. "47.6%", "1 in 5") -- rendered as a filled ring. */
+export interface RingVisual {
+  type: "ring";
+  /** 0-100. Derived directly from the fact's own statistic, never invented. */
+  percent: number;
+}
+
+/** Two real values the source text itself compares (e.g. "9.4 ... compared
+ * with 6.8", or "2.3x the national average", where the average is 1 by
+ * definition) -- rendered as two small bars. Never used for a bare count
+ * with nothing to compare it against. */
+export interface CompareVisual {
+  type: "compare";
+  value: number;
+  valueLabel: string;
+  baseline: number;
+  baselineLabel: string;
+}
+
+export type EvidenceVisual = RingVisual | CompareVisual;
+
 export interface EvidenceFact {
   id: string;
   statistic: string;
@@ -7,6 +28,11 @@ export interface EvidenceFact {
   sourceUrl: string;
   /** Internal Clinical Insight article covering this statistic, when one exists. */
   articleUrl?: string;
+  /** Optional small visual reinforcing the statistic -- omitted for facts
+   * that are a standalone count or estimate with no real second value to
+   * compare against (see healthcare-claims, compensation-cost-illustration
+   * below), rather than inventing one. */
+  visual?: EvidenceVisual;
 }
 
 /** Plain (non-component) helper so the Math.random() call doesn't appear
@@ -27,6 +53,15 @@ export const evidenceFacts: EvidenceFact[] = [
     sourceUrl:
       "https://data.safeworkaustralia.gov.au/profile/whs-profile-nursing-care-support-workforce",
     articleUrl: "/resources/patient-handling-risk-extends-beyond-lifting",
+    // "2.3x the national average" is itself a ratio against a baseline of 1 --
+    // not an invented comparison, just the statistic's own definition.
+    visual: {
+      type: "compare",
+      value: 2.3,
+      valueLabel: "Nursing, care & support",
+      baseline: 1,
+      baselineLabel: "National average",
+    },
   },
   {
     id: "body-stressing-share",
@@ -38,6 +73,7 @@ export const evidenceFacts: EvidenceFact[] = [
     sourceUrl:
       "https://data.safeworkaustralia.gov.au/profile/whs-profile-nursing-care-support-workforce",
     articleUrl: "/resources/patient-handling-risk-extends-beyond-lifting",
+    visual: { type: "ring", percent: 47.6 },
   },
   {
     id: "handling-beyond-lifting",
@@ -49,6 +85,7 @@ export const evidenceFacts: EvidenceFact[] = [
     sourceUrl:
       "https://data.safeworkaustralia.gov.au/profile/whs-profile-nursing-care-support-workforce",
     articleUrl: "/resources/patient-handling-risk-extends-beyond-lifting",
+    visual: { type: "ring", percent: 60 },
   },
   {
     id: "healthcare-share",
@@ -60,6 +97,9 @@ export const evidenceFacts: EvidenceFact[] = [
     sourceUrl:
       "https://data.safeworkaustralia.gov.au/insights/key-whs-statistics-australia/latest-release",
     articleUrl: "/resources/workforce-impact-of-musculoskeletal-injuries-in-healthcare",
+    // "1 in 5" == 20% -- the ring's percent is derived from the statistic
+    // itself, not a separate/invented figure.
+    visual: { type: "ring", percent: 20 },
   },
   {
     id: "healthcare-claims",
@@ -81,6 +121,13 @@ export const evidenceFacts: EvidenceFact[] = [
     sourceUrl:
       "https://data.safeworkaustralia.gov.au/insights/key-whs-statistics-australia/latest-release",
     articleUrl: "/resources/workforce-impact-of-musculoskeletal-injuries-in-healthcare",
+    visual: {
+      type: "compare",
+      value: 9.4,
+      valueLabel: "Healthcare & social assistance",
+      baseline: 6.8,
+      baselineLabel: "All industries",
+    },
   },
   {
     id: "compensation-cost-illustration",
