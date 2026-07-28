@@ -59,12 +59,16 @@
 
 /* Wraps .stat (and, when present, its ring/bars visual) as one flex-row
    item -- .body's own row/column switch (see the breakpoints below)
-   applies to this column as a whole, same as .stat alone did before. */
+   applies to this column as a whole, same as .stat alone did before.
+   gap needs to be bigger than the usual --space-3 specifically here:
+   at .stat's own large size (48-76px depending on breakpoint), that
+   tighter gap reads as the compare-bars visual touching the number's
+   own glyphs rather than sitting clearly below it. */
 .statCol {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--space-3);
+  gap: var(--space-6);
   flex: 0 0 auto;
 }
 
