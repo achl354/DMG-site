@@ -87,10 +87,12 @@
 }
 
 /* Mobile/tablet: a short full-width band below the text, image shown at
-   its natural size, right-aligned. */
+   its natural size, anchored to the band's bottom-right corner -- same
+   corner the wide-container row layout below anchors its own icon to
+   (align-self: flex-end there), just without that layout's crop. */
 .imageCol {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: flex-end;
   height: 6rem;
 }
