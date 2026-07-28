@@ -35,13 +35,14 @@
    context created above). Offset is a quarter of the box (not half),
    so roughly three-quarters of the artwork stays visible -- enough to
    read as an actual product illustration rather than an abstract
-   corner fragment. */
+   corner fragment. Scaled down from an earlier 240px/-60px pass so it
+   reads as a quieter background element on a 330px-min-height card. */
 .icon {
   position: absolute;
-  bottom: -60px;
-  right: -60px;
-  max-height: 240px;
-  max-width: 240px;
+  bottom: -42px;
+  right: -42px;
+  max-height: 170px;
+  max-width: 170px;
   width: auto;
   height: auto;
   object-fit: contain;
