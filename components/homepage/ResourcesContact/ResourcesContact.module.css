@@ -1,13 +1,8 @@
-.grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-11);
-}
-
 .panel {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  text-align: center;
   gap: var(--space-4);
 }
 
@@ -17,35 +12,6 @@
   letter-spacing: var(--type-eyebrow-tracking);
   text-transform: uppercase;
   color: var(--teal-200);
-}
-
-.categoryList {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
-}
-
-.category {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-}
-
-.categoryTitle {
-  font-size: var(--type-h4-size);
-  font-weight: var(--weight-semibold);
-  color: var(--text-on-brand);
-}
-
-.categoryDescription {
-  font-size: var(--text-sm);
-  line-height: var(--leading-relaxed);
-  color: var(--teal-100);
-  max-width: 48ch;
-}
-
-.browseCta {
-  margin-top: auto;
 }
 
 .heading {
@@ -61,13 +27,6 @@
   max-width: 48ch;
 }
 
-.ctaRow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-4);
-  margin-top: auto;
-}
-
 .ctaPrimary {
   background: var(--paper-0) !important;
   color: var(--brand) !important;
@@ -77,33 +36,4 @@
 
 .ctaPrimary:hover {
   background: var(--teal-50) !important;
-}
-
-@media (min-width: 900px) {
-  .grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (max-width: 640px) {
-  .ctaRow {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  /*
-   * Two equal-weight buttons read as competing CTAs on a narrow screen --
-   * demote the second to a plain text link (same destination either way),
-   * so there's one clear primary action. Text color must be overridden
-   * here: --brand equals --surface-brand (this section's own background),
-   * so without this the link is invisible against the panel.
-   */
-  .ctaSecondary {
-    background: transparent !important;
-    border: none !important;
-    color: var(--text-on-brand) !important;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    padding: var(--space-2) 0 !important;
-  }
 }

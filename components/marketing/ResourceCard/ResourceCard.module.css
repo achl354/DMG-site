@@ -29,16 +29,17 @@
   box-shadow: var(--ring);
 }
 
-/* Product-document cards only -- a faint watermark whose centre sits
-   exactly on the card's bottom-right corner, so only its upper-left
-   quadrant is visible; the rest bleeds past the card edges and is
-   clipped by .card's own overflow: hidden. Sits behind the text
-   (negative z-index, inside the .card stacking context created
-   above). */
+/* Product-document cards only -- a faint watermark bleeding off the
+   card's bottom-right corner, clipped by .card's own overflow: hidden.
+   Sits behind the text (negative z-index, inside the .card stacking
+   context created above). Offset is a quarter of the box (not half),
+   so roughly three-quarters of the artwork stays visible -- enough to
+   read as an actual product illustration rather than an abstract
+   corner fragment. */
 .icon {
   position: absolute;
-  bottom: -120px;
-  right: -120px;
+  bottom: -60px;
+  right: -60px;
   max-height: 240px;
   max-width: 240px;
   width: auto;

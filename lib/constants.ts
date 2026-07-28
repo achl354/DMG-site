@@ -44,7 +44,6 @@ export const CTA_LABELS = {
   viewAllProducts: "View all products",
   requestInformation: "Request product information",
   contactDmg: "Contact DMG",
-  browseResources: "Browse resources",
 } as const;
 
 /**
