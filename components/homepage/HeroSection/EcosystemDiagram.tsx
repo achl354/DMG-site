@@ -48,6 +48,22 @@ function easeOutBack(t: number) {
 }
 
 /**
+ * Node assembly (fly-in + tilt-to-flat) uses only the first 80% of the
+ * scroll-driven `progress`, not the full 0-1 range -- measured directly:
+ * the sticky diagram's native CSS pin actually releases (and starts
+ * scrolling the diagram up behind the header) a bit BEFORE `progress`
+ * reached 1 at the old pacing, so idle/the pulse used to start only once
+ * the topmost node had already been scrolling behind the header for
+ * ~20-30px. Finishing assembly earlier within the SAME pin distance (not
+ * a longer one -- see HeroSection.tsx's PIN_SCROLL_DISTANCE, unchanged)
+ * leaves the last 20% as genuine fully-assembled-and-visible idle time
+ * before that release point, instead of that window not existing at all.
+ * Exported so HeroSection.tsx's idleDrift calculation can start counting
+ * from this same earlier point, not the old 100% mark.
+ */
+export const ASSEMBLY_SPLIT = 0.8;
+
+/**
  * Radius the traveling pulse orbits at (see the `idle` block below) -- an
  * inner lane between the hub and the node content. Node clearance (the
  * hard requirement -- the pulse must never touch a node's icon/text) gets
@@ -130,15 +146,16 @@ export interface EcosystemDiagramProps {
 export function EcosystemDiagram({ progress, idleDrift = 0 }: EcosystemDiagramProps) {
   const animated = progress !== undefined;
   const overallProgress = animated ? clamp(progress) : 1;
-  const assemblyTiltDeg = animated ? -8 + 8 * overallProgress : 0;
-  const idle = animated && overallProgress >= 1;
+  const assemblyProgress = animated ? clamp(overallProgress / ASSEMBLY_SPLIT) : 1;
+  const assemblyTiltDeg = animated ? -8 + 8 * assemblyProgress : 0;
+  const idle = animated && overallProgress >= ASSEMBLY_SPLIT;
 
   const driftPhase = (idleDrift / DRIFT_PERIOD_PX) * Math.PI * 2;
   const rotateY = idle ? Math.sin(driftPhase) * DRIFT_ROTATE_Y_DEG : assemblyTiltDeg;
   const rotateX = idle ? Math.sin(driftPhase + Math.PI / 2) * DRIFT_ROTATE_X_DEG : 0;
 
   const nodeProgress = NODES.map((_, index) =>
-    animated ? clamp(overallProgress * NODES.length - index) : 1,
+    animated ? clamp(assemblyProgress * NODES.length - index) : 1,
   );
 
   return (

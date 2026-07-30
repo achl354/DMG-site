@@ -9,7 +9,7 @@ import { useReducedMotion } from "@/components/motion/ReducedMotionProvider";
 import { useIsDesktopViewport } from "@/components/motion/useIsDesktopViewport";
 import { trackEvent } from "@/lib/analytics";
 import { SECTION_IDS, CTA_LABELS } from "@/lib/constants";
-import { EcosystemDiagram } from "./EcosystemDiagram";
+import { EcosystemDiagram, ASSEMBLY_SPLIT } from "./EcosystemDiagram";
 import styles from "./HeroSection.module.css";
 
 const clamp = (value: number, min = 0, max = 1) => Math.min(Math.max(value, min), max);
@@ -117,7 +117,12 @@ function HeroEcosystemVisual({ copy }: { copy: ReactNode }) {
     const pinEnd = pinEndRef.current;
     const nextProgress = pinEnd > pinStart ? clamp((value - pinStart) / (pinEnd - pinStart)) : 0;
     setProgress(nextProgress);
-    setIdleDrift(nextProgress >= 1 ? value - pinEnd : 0);
+    // Idle starts at ASSEMBLY_SPLIT of the runway now, not 100% of it (see
+    // that constant's own comment) -- idleDrift needs to start counting
+    // from that same earlier point, not the old full pinEnd, so the drift
+    // rotation kicks in at the same moment the diagram's own `idle` does.
+    const idleStart = pinStart + ASSEMBLY_SPLIT * (pinEnd - pinStart);
+    setIdleDrift(nextProgress >= ASSEMBLY_SPLIT ? value - idleStart : 0);
   });
 
   useEffect(() => {
