@@ -108,7 +108,14 @@
    */
   width: 26%;
   aspect-ratio: 1 / 1;
-  border-radius: 50%;
+  /*
+   * Hexagon, not a circle -- vertices at the same 6 angles the nodes sit
+   * at (-90/-30/30/90/150/210, "pointy" top/bottom), so the hub reads as
+   * the same hexagon shape as the ring around it. Coordinates are
+   * 50 + 50*cos/sin(angle)% (a hexagon inscribed in this box, vertices
+   * touching its edges).
+   */
+  clip-path: polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 25%, 6.7% 75%);
   background: var(--surface-brand);
   color: var(--text-on-brand);
   display: flex;
@@ -138,10 +145,12 @@
 .hubName {
   font-family: var(--font-display);
   font-size: var(--text-xl);
-  /* 3.75cqi previously -- the hub itself shrunk (see .hub's width) but
-     this sizes off .stageOuter's width, not the hub's, so it didn't
-     shrink with it and started crowding the smaller circle's edges. */
-  font-size: 3.05cqi;
+  /* 3.75cqi, then 3.05cqi previously -- the hexagon hub (see .hub's
+     clip-path) is narrower across its middle than a circle of the same
+     footprint (~13% less, its vertices point up/down rather than out to
+     the sides), so text sized for the circle started overflowing its
+     left/right edges. */
+  font-size: 2.65cqi;
   font-weight: var(--weight-extrabold);
   line-height: 1.1;
 }
