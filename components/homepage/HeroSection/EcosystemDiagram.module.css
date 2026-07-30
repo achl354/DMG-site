@@ -87,11 +87,48 @@
   z-index: 0;
 }
 
-/* Traveling pulse orbiting the node ring once idle -- see EcosystemDiagram.tsx
-   for why this is the one self-playing (not scroll-tied) animation here. */
+/*
+ * Traveling pulse orbiting the node ring once idle -- see
+ * EcosystemDiagram.tsx for why this is the one self-playing (not
+ * scroll-tied) animation here, and why it's always running rather than
+ * conditionally mounted (its parent <g>'s opacity is the only thing
+ * `idle` controls). offset-rotate: 0 -- a circle has no visual
+ * orientation, so following the path's tangent (the default "auto")
+ * would just be a wasted per-frame calculation.
+ */
 .pulse {
   fill: var(--brand);
   filter: drop-shadow(0 0 1.5px var(--teal-300));
+  offset-rotate: 0deg;
+  animation:
+    pulseOrbit 6s linear infinite,
+    pulseBlink 1.5s ease-in-out infinite;
+}
+
+@keyframes pulseOrbit {
+  to {
+    offset-distance: 100%;
+  }
+}
+
+@keyframes pulseBlink {
+  0%,
+  100% {
+    fill-opacity: 0.4;
+  }
+  50% {
+    fill-opacity: 1;
+  }
+}
+
+/* Belt-and-braces alongside the JS-level gating (see EcosystemDiagram.tsx --
+   reduced-motion users never get a `progress` prop, so `idle` never becomes
+   true and this stays invisible either way): stop the animation outright
+   rather than leaving it computing every frame behind an opacity: 0. */
+@media (prefers-reduced-motion: reduce) {
+  .pulse {
+    animation: none;
+  }
 }
 
 .hub {

@@ -67,6 +67,20 @@ const ORBIT_RADIUS_PCT = 18;
 const PULSE_RADIUS = 1;
 
 /**
+ * Closed hexagon through 6 points at ORBIT_RADIUS_PCT -- not rendered as
+ * a visible ring, just the traveling pulse's motion path (see the `idle`
+ * block below). Computed once at module scope, not per render -- it only
+ * depends on the two constants above and the fixed NODES list, never on
+ * `progress`/`idleDrift`, so recomputing it on every scroll-driven
+ * re-render bought nothing.
+ */
+const orbitPathD =
+  NODES.map((node, index) => {
+    const { x, y } = nodeOffset(node.angleDeg, ORBIT_RADIUS_PCT);
+    return `${index === 0 ? "M" : "L"} ${50 + x} ${50 + y}`;
+  }).join(" ") + " Z";
+
+/**
  * Once idle, one full oscillation plays out over this many px of
  * additional scroll -- short enough that the tilt visibly responds within
  * the brief window before the sticky diagram unpins and scrolls away.
@@ -127,26 +141,22 @@ export function EcosystemDiagram({ progress, idleDrift = 0 }: EcosystemDiagramPr
     animated ? clamp(overallProgress * NODES.length - index) : 1,
   );
 
-  /**
-   * Closed hexagon through 6 points at ORBIT_RADIUS_PCT -- not rendered
-   * as a visible ring, just the traveling pulse's motion path below.
-   */
-  const orbitPathD =
-    NODES.map((node, index) => {
-      const { x, y } = nodeOffset(node.angleDeg, ORBIT_RADIUS_PCT);
-      return `${index === 0 ? "M" : "L"} ${50 + x} ${50 + y}`;
-    }).join(" ") + " Z";
-
   return (
     <div className={styles.stageOuter}>
       <div className={styles.stage} style={{ transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg)` }}>
         <svg className={styles.lines} viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-          {idle && (
-            <circle r={PULSE_RADIUS} className={styles.pulse}>
-              <animateMotion path={orbitPathD} dur="6s" repeatCount="indefinite" rotate="auto" />
-              <animate attributeName="opacity" values="0.4;1;0.4" dur="1.5s" repeatCount="indefinite" />
-            </circle>
-          )}
+          {/*
+           * Always mounted (not conditional on `idle`) -- its position
+           * and blink are a plain CSS animation that just keeps running,
+           * gated only by this group's opacity. Conditionally mounting the
+           * circle itself (as an earlier version did) meant every idle ->
+           * not-idle -> idle flip near the pin's release point restarted
+           * the animation from its first keyframe, snapping the pulse back
+           * to the start of its path instead of continuing smoothly.
+           */}
+          <g style={{ opacity: idle ? 1 : 0 }}>
+            <circle r={PULSE_RADIUS} className={styles.pulse} style={{ offsetPath: `path("${orbitPathD}")` }} />
+          </g>
         </svg>
 
         <div className={styles.hub}>
