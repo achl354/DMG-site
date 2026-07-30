@@ -44,6 +44,22 @@ function nodeOffset(angleDeg: number) {
 }
 
 /**
+ * Node assembly (spokes + fly-in) uses the first 65% of the scroll-driven
+ * `progress`, not the full 0-1 range -- freeing the remaining 35% for the
+ * perimeter sequence below (see PERIMETER_INSET_RATIO), without extending
+ * the pin's total scroll distance (this codebase already walked back a
+ * longer hero pin once before for feeling "too long-scrolling").
+ */
+const ASSEMBLY_SPLIT = 0.65;
+
+/**
+ * Trims each end of a perimeter edge by this fraction of its length, same
+ * reasoning as LINE_END_RATIO above -- a full-length edge would run
+ * straight through both nodes' icon/number/title stacks.
+ */
+const PERIMETER_INSET_RATIO = 0.22;
+
+/**
  * Once idle, one full oscillation plays out over this many px of
  * additional scroll -- short enough that the tilt visibly responds within
  * the brief window before the sticky diagram unpins and scrolls away.
@@ -80,16 +96,24 @@ export interface EcosystemDiagramProps {
  * Desktop hero visual: a hexagon "ecosystem map" of the six EasiSystem™
  * workflows around a central hub, replacing the old EasiMoveSPU photo.
  * With a `progress` value it assembles node-by-node (fly-in + line draw-on)
- * on a tilted 3D plane that settles flat, then once idle rotates subtly on
- * two axes as a direct function of continued scroll (see `idleDrift`) --
- * not a self-playing timer -- so it reverses cleanly if the user scrolls
- * back up. Without a `progress` value it just renders fully assembled and
- * flat, with no rotation at all (the reduced-motion/no-JS case).
+ * on a tilted 3D plane that settles flat, then draws a perimeter line
+ * linking the nodes to each other in sequence (01→02→...→06→01, closing
+ * the loop) as the user keeps scrolling -- the hub-to-node spokes say
+ * "each workflow relates to the system", this says "the workflows relate
+ * to each other". Once idle it rotates subtly on two axes as a direct
+ * function of continued scroll (see `idleDrift`) -- not a self-playing
+ * timer -- so it reverses cleanly if the user scrolls back up. Without a
+ * `progress` value it just renders fully assembled and flat, with no
+ * rotation at all (the reduced-motion/no-JS case).
  */
 export function EcosystemDiagram({ progress, idleDrift = 0 }: EcosystemDiagramProps) {
   const animated = progress !== undefined;
   const overallProgress = animated ? clamp(progress) : 1;
-  const assemblyTiltDeg = animated ? -8 + 8 * overallProgress : 0;
+  const assemblyProgress = animated ? clamp(overallProgress / ASSEMBLY_SPLIT) : 1;
+  const perimeterProgress = animated
+    ? clamp((overallProgress - ASSEMBLY_SPLIT) / (1 - ASSEMBLY_SPLIT))
+    : 1;
+  const assemblyTiltDeg = animated ? -8 + 8 * assemblyProgress : 0;
   const idle = animated && overallProgress >= 1;
 
   const driftPhase = (idleDrift / DRIFT_PERIOD_PX) * Math.PI * 2;
@@ -97,7 +121,10 @@ export function EcosystemDiagram({ progress, idleDrift = 0 }: EcosystemDiagramPr
   const rotateX = idle ? Math.sin(driftPhase + Math.PI / 2) * DRIFT_ROTATE_X_DEG : 0;
 
   const nodeProgress = NODES.map((_, index) =>
-    animated ? clamp(overallProgress * NODES.length - index) : 1,
+    animated ? clamp(assemblyProgress * NODES.length - index) : 1,
+  );
+  const perimeterEdgeProgress = NODES.map((_, index) =>
+    animated ? clamp(perimeterProgress * NODES.length - index) : 1,
   );
 
   return (
@@ -117,6 +144,31 @@ export function EcosystemDiagram({ progress, idleDrift = 0 }: EcosystemDiagramPr
                 className={styles.line}
                 strokeDasharray={length}
                 strokeDashoffset={length * (1 - nodeProgress[index])}
+              />
+            );
+          })}
+
+          {NODES.map((node, index) => {
+            const next = NODES[(index + 1) % NODES.length];
+            const from = nodeOffset(node.angleDeg);
+            const to = nodeOffset(next.angleDeg);
+            const dx = to.x - from.x;
+            const dy = to.y - from.y;
+            const x1 = 50 + from.x + dx * PERIMETER_INSET_RATIO;
+            const y1 = 50 + from.y + dy * PERIMETER_INSET_RATIO;
+            const x2 = 50 + to.x - dx * PERIMETER_INSET_RATIO;
+            const y2 = 50 + to.y - dy * PERIMETER_INSET_RATIO;
+            const length = Math.hypot(x2 - x1, y2 - y1);
+            return (
+              <line
+                key={`${node.slug}-${next.slug}`}
+                x1={x1}
+                y1={y1}
+                x2={x2}
+                y2={y2}
+                className={styles.perimeterLine}
+                strokeDasharray={length}
+                strokeDashoffset={length * (1 - perimeterEdgeProgress[index])}
               />
             );
           })}

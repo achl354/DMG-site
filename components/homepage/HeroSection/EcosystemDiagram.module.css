@@ -93,6 +93,16 @@
   stroke-width: 0.6;
 }
 
+/* Node-to-node perimeter edges (01->02->...->06->01) -- brand-teal-tinted
+   and thinner than the neutral hub spokes above so the two line systems
+   read as distinct layers: spokes say "each workflow relates to the
+   system", this says "the workflows relate to each other". */
+.perimeterLine {
+  stroke: var(--teal-300);
+  stroke-width: 0.45;
+  opacity: 0.8;
+}
+
 .hub {
   position: absolute;
   z-index: 1;
