@@ -58,32 +58,15 @@ function easeOutBack(t: number) {
 }
 
 /**
- * Node assembly (spokes + fly-in) uses the first 65% of the scroll-driven
- * `progress`, not the full 0-1 range -- freeing the remaining 35% for the
- * perimeter sequence below (see PERIMETER_INSET_RATIO), without extending
- * the pin's total scroll distance (this codebase already walked back a
- * longer hero pin once before for feeling "too long-scrolling").
+ * Radius the traveling pulse orbits at (see the `idle` block below) --
+ * deliberately larger than RADIUS_PCT (the node anchor radius, where the
+ * hub spokes terminate), so the orbit skirts past the outside of each
+ * node's icon rather than cutting through it. Tuned against the node
+ * box's own rendered size (~12-13% of stageOuter's width from anchor to
+ * outer edge at the default breakpoint) -- re-check if node box sizing
+ * changes.
  */
-const ASSEMBLY_SPLIT = 0.65;
-
-/**
- * Radius the perimeter ring is drawn at -- deliberately larger than
- * RADIUS_PCT (the node anchor radius, where the hub spokes terminate).
- * The anchor sits at the CENTER of each node's icon/number/title stack,
- * not its outward tip, so a ring drawn at RADIUS_PCT cuts through the
- * inner half of every node instead of skirting past the outside of its
- * icon. This candidate value is tuned against the node box's own
- * rendered size (~12-13% of stageOuter's width from anchor to outer
- * edge at the default breakpoint) -- re-check if node box sizing changes.
- */
-const PERIMETER_RADIUS_PCT = 51;
-
-/**
- * Trims each end of a perimeter edge by this fraction of its length, same
- * reasoning as LINE_END_RATIO above -- a full-length edge would run
- * straight through both nodes' icon/number/title stacks.
- */
-const PERIMETER_INSET_RATIO = 0.22;
+const ORBIT_RADIUS_PCT = 51;
 
 /**
  * Once idle, one full oscillation plays out over this many px of
@@ -122,24 +105,19 @@ export interface EcosystemDiagramProps {
  * Desktop hero visual: a hexagon "ecosystem map" of the six EasiSystem™
  * workflows around a central hub, replacing the old EasiMoveSPU photo.
  * With a `progress` value it assembles node-by-node (fly-in + line draw-on)
- * on a tilted 3D plane that settles flat, then draws a perimeter line
- * linking the nodes to each other in sequence (01→02→...→06→01, closing
- * the loop) as the user keeps scrolling -- the hub-to-node spokes say
- * "each workflow relates to the system", this says "the workflows relate
- * to each other". Once idle it rotates subtly on two axes as a direct
- * function of continued scroll (see `idleDrift`) -- not a self-playing
- * timer -- so it reverses cleanly if the user scrolls back up. Without a
- * `progress` value it just renders fully assembled and flat, with no
- * rotation at all (the reduced-motion/no-JS case).
+ * on a tilted 3D plane that settles flat. Once idle it rotates subtly on
+ * two axes as a direct function of continued scroll (see `idleDrift`) --
+ * not a self-playing timer -- so it reverses cleanly if the user scrolls
+ * back up, and a small pulse starts looping around the node ring (the one
+ * self-playing animation here -- ambient "the system is alive" motion,
+ * not something scroll should visibly drive). Without a `progress` value
+ * it just renders fully assembled and flat, with no rotation or pulse at
+ * all (the reduced-motion/no-JS case).
  */
 export function EcosystemDiagram({ progress, idleDrift = 0 }: EcosystemDiagramProps) {
   const animated = progress !== undefined;
   const overallProgress = animated ? clamp(progress) : 1;
-  const assemblyProgress = animated ? clamp(overallProgress / ASSEMBLY_SPLIT) : 1;
-  const perimeterProgress = animated
-    ? clamp((overallProgress - ASSEMBLY_SPLIT) / (1 - ASSEMBLY_SPLIT))
-    : 1;
-  const assemblyTiltDeg = animated ? -8 + 8 * assemblyProgress : 0;
+  const assemblyTiltDeg = animated ? -8 + 8 * overallProgress : 0;
   const idle = animated && overallProgress >= 1;
 
   const driftPhase = (idleDrift / DRIFT_PERIOD_PX) * Math.PI * 2;
@@ -147,25 +125,16 @@ export function EcosystemDiagram({ progress, idleDrift = 0 }: EcosystemDiagramPr
   const rotateX = idle ? Math.sin(driftPhase + Math.PI / 2) * DRIFT_ROTATE_X_DEG : 0;
 
   const nodeProgress = NODES.map((_, index) =>
-    animated ? clamp(assemblyProgress * NODES.length - index) : 1,
-  );
-  const perimeterEdgeProgress = NODES.map((_, index) =>
-    animated ? clamp(perimeterProgress * NODES.length - index) : 1,
+    animated ? clamp(overallProgress * NODES.length - index) : 1,
   );
 
   /**
-   * Closed hexagon through the same 6 points the perimeter edges connect
-   * (see PERIMETER_RADIUS_PCT) -- not the inset/trimmed visible segments,
-   * just the underlying ring -- used as the traveling pulse's motion path
-   * below. Only rendered once idle: a self-playing loop makes sense here
-   * (unlike the rotation, this is ambient "the system is alive" motion,
-   * not something scroll should visibly drive) and gating it on `idle`
-   * means reduced-motion users (who never get a `progress` prop, so
-   * `idle` never becomes true) never render it at all.
+   * Closed hexagon through 6 points at ORBIT_RADIUS_PCT -- not rendered
+   * as a visible ring, just the traveling pulse's motion path below.
    */
-  const perimeterPathD =
+  const orbitPathD =
     NODES.map((node, index) => {
-      const { x, y } = nodeOffset(node.angleDeg, PERIMETER_RADIUS_PCT);
+      const { x, y } = nodeOffset(node.angleDeg, ORBIT_RADIUS_PCT);
       return `${index === 0 ? "M" : "L"} ${50 + x} ${50 + y}`;
     }).join(" ") + " Z";
 
@@ -190,34 +159,9 @@ export function EcosystemDiagram({ progress, idleDrift = 0 }: EcosystemDiagramPr
             );
           })}
 
-          {NODES.map((node, index) => {
-            const next = NODES[(index + 1) % NODES.length];
-            const from = nodeOffset(node.angleDeg, PERIMETER_RADIUS_PCT);
-            const to = nodeOffset(next.angleDeg, PERIMETER_RADIUS_PCT);
-            const dx = to.x - from.x;
-            const dy = to.y - from.y;
-            const x1 = 50 + from.x + dx * PERIMETER_INSET_RATIO;
-            const y1 = 50 + from.y + dy * PERIMETER_INSET_RATIO;
-            const x2 = 50 + to.x - dx * PERIMETER_INSET_RATIO;
-            const y2 = 50 + to.y - dy * PERIMETER_INSET_RATIO;
-            const length = Math.hypot(x2 - x1, y2 - y1);
-            return (
-              <line
-                key={`${node.slug}-${next.slug}`}
-                x1={x1}
-                y1={y1}
-                x2={x2}
-                y2={y2}
-                className={styles.perimeterLine}
-                strokeDasharray={length}
-                strokeDashoffset={length * (1 - perimeterEdgeProgress[index])}
-              />
-            );
-          })}
-
           {idle && (
             <circle r={1.1} className={styles.pulse}>
-              <animateMotion path={perimeterPathD} dur="6s" repeatCount="indefinite" rotate="auto" />
+              <animateMotion path={orbitPathD} dur="6s" repeatCount="indefinite" rotate="auto" />
               <animate attributeName="opacity" values="0.4;1;0.4" dur="1.5s" repeatCount="indefinite" />
             </circle>
           )}
