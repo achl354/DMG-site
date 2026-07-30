@@ -113,9 +113,12 @@
    * at (-90/-30/30/90/150/210, "pointy" top/bottom), so the hub reads as
    * the same hexagon shape as the ring around it. Coordinates are
    * 50 + 50*cos/sin(angle)% (a hexagon inscribed in this box, vertices
-   * touching its edges).
+   * touching its edges), listed in traversal order around the perimeter --
+   * top, upper-right, lower-right, bottom, lower-left, upper-left. Getting
+   * the last two swapped (upper-left before lower-left) self-intersects
+   * into a bowtie instead of a simple hexagon -- this order is the fix.
    */
-  clip-path: polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 25%, 6.7% 75%);
+  clip-path: polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%);
   background: var(--surface-brand);
   color: var(--text-on-brand);
   display: flex;
