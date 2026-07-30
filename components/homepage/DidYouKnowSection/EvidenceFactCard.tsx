@@ -5,7 +5,6 @@ import Link from "next/link";
 import { Card, IconButton } from "@/components/ui";
 import { useReducedMotion } from "@/components/motion/ReducedMotionProvider";
 import type { EvidenceFact } from "@/lib/content/evidenceFacts";
-import { CompareBars, RingMeter } from "./StatVisual";
 import styles from "./DidYouKnowSection.module.css";
 
 const ROTATE_INTERVAL_MS = 5000;
@@ -87,24 +86,7 @@ export function EvidenceFactCard({
         <div key={fact.id} className={styles.content}>
           <p className={styles.eyebrow}>Did you know?</p>
           <div className={styles.body}>
-            <div className={styles.statCol}>
-              {fact.visual?.type === "ring" ? (
-                <div className={styles.ringWrap}>
-                  <RingMeter percent={fact.visual.percent} />
-                  <p className={[styles.stat, styles.statInRing].join(" ")}>{fact.statistic}</p>
-                </div>
-              ) : (
-                <p className={styles.stat}>{fact.statistic}</p>
-              )}
-              {fact.visual?.type === "compare" && (
-                <CompareBars
-                  value={fact.visual.value}
-                  valueLabel={fact.visual.valueLabel}
-                  baseline={fact.visual.baseline}
-                  baselineLabel={fact.visual.baselineLabel}
-                />
-              )}
-            </div>
+            <p className={styles.stat}>{fact.statistic}</p>
             <div className={styles.copy}>
               <p className={styles.statement}>{fact.statement}</p>
               <p className={styles.meta}>

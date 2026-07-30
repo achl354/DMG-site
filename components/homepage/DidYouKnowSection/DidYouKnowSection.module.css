@@ -57,21 +57,6 @@
   gap: var(--space-4);
 }
 
-/* Wraps .stat (and, when present, its ring/bars visual) as one flex-row
-   item -- .body's own row/column switch (see the breakpoints below)
-   applies to this column as a whole, same as .stat alone did before.
-   gap needs to be bigger than the usual --space-3 specifically here:
-   at .stat's own large size (48-76px depending on breakpoint), that
-   tighter gap reads as the compare-bars visual touching the number's
-   own glyphs rather than sitting clearly below it. */
-.statCol {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-6);
-  flex: 0 0 auto;
-}
-
 .stat {
   font-size: var(--text-5xl);
   font-weight: var(--weight-extrabold);
@@ -84,94 +69,6 @@
   /* This <p>'s default 1em margin would otherwise add ~48px above and
      below on top of .body's own gap -- spacing here is .body's gap alone. */
   margin: 0;
-}
-
-/* Ring meter with its stat number centered inside it, for proportion-type
-   facts ("47.6%", "60%", "1 in 5") -- same idea as the site's other
-   faint-background-echo numerals (WorkflowCard's ghost numeral), just an
-   arc instead of oversized type. */
-.ringWrap {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 148px;
-  height: 148px;
-}
-
-.ring {
-  position: absolute;
-  inset: 0;
-}
-
-.ringTrack {
-  stroke: var(--surface-well);
-}
-
-.ringFill {
-  stroke: var(--brand);
-  transition: stroke-dashoffset 700ms var(--ease-out);
-}
-
-/* Smaller than the standalone .stat size and forced to one line -- has to
-   fit inside a 148px ring rather than run the full card width. "47.6%" is
-   the actual widest case despite having fewer characters than "1 in 5" --
-   % is a notably wide glyph with no narrow letters/spaces to offset it.
-   !important: .stat and .statInRing are both applied together (see
-   EvidenceFactCard.tsx) as equal-specificity single classes -- without it,
-   .stat's own @media (min-width: 768px) font-size (text-6xl, 76px+) wins
-   on source order alone and silently overrides this on desktop. */
-.statInRing {
-  font-size: var(--text-lg) !important;
-  white-space: nowrap;
-  text-align: center;
-}
-
-/* Two small bars for facts the source text itself compares against a
-   second value (e.g. "9.4 ... compared with 6.8", "2.3x the national
-   average"). Sits below the main .stat number, not replacing it. */
-.compareBars {
-  display: flex;
-  align-items: flex-end;
-  gap: var(--space-4);
-  height: 72px;
-}
-
-.compareBarCol {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-2);
-  width: 64px;
-}
-
-.compareBarTrack {
-  display: flex;
-  align-items: flex-end;
-  width: 28px;
-  height: 56px;
-}
-
-.compareBarFill {
-  width: 100%;
-  min-height: 3px;
-  border-radius: var(--radius-xs) var(--radius-xs) 0 0;
-  background: var(--brand);
-  transition: height 700ms var(--ease-out);
-}
-
-/* --border-strong (ink-200), not the lighter --ink-300/--text-caption --
-   that token sits at ~1.7:1 contrast against this card's surface, too low
-   for a bar whose whole job is to be visually compared against the teal
-   one next to it. */
-.compareBarBaseline {
-  background: var(--border-strong);
-}
-
-.compareBarLabel {
-  font-size: 11px;
-  line-height: 1.3;
-  text-align: center;
-  color: var(--text-muted);
 }
 
 .copy {
@@ -242,23 +139,6 @@
     font-size: var(--text-4xl);
   }
 
-  .ringWrap {
-    width: 116px;
-    height: 116px;
-  }
-
-  .statInRing {
-    font-size: var(--text-md) !important;
-  }
-
-  .compareBars {
-    height: 60px;
-  }
-
-  .compareBarTrack {
-    height: 44px;
-  }
-
   .copy {
     gap: var(--space-2);
   }
@@ -284,6 +164,7 @@
 
   .stat {
     font-size: var(--text-6xl);
+    flex: 0 0 auto;
   }
 
   .copy {
@@ -298,8 +179,7 @@
    that prompted this), the full desktop sizing above (76px number, 32px
    gaps) leaves too little room for .statement, forcing an extra line-wrap.
    Scaling the number down one step and tightening the gaps gives that
-   room back; the compare-bars are bumped up slightly so they keep reading
-   as proportionate next to a still-fairly-large number, rather than stubby. */
+   room back. */
 @media (min-width: 768px) and (max-width: 1023px) {
   .body {
     gap: var(--space-6);
@@ -307,14 +187,6 @@
 
   .stat {
     font-size: var(--text-5xl);
-  }
-
-  .compareBars {
-    height: 84px;
-  }
-
-  .compareBarTrack {
-    height: 68px;
   }
 
   .copy {
