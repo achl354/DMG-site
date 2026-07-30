@@ -48,13 +48,24 @@ function nodeOffset(angleDeg: number) {
  * additional scroll -- short enough that the tilt visibly responds within
  * the brief window before the sticky diagram unpins and scrolls away.
  */
-const DRIFT_PERIOD_PX = 640;
-const DRIFT_ROTATE_Y_DEG = 5;
-const DRIFT_ROTATE_X_DEG = 2.5;
+const DRIFT_PERIOD_PX = 480;
+const DRIFT_ROTATE_Y_DEG = 10;
+const DRIFT_ROTATE_X_DEG = 5;
 /** px of apparent depth per % of hub-to-node radius, applied per node so
  * the idle rotation reads as an actual 3D ring (nodes at different depths
  * catching the light differently) rather than one flat plane pivoting. */
-const NODE_DEPTH_PER_PCT = 0.6;
+const NODE_DEPTH_PER_PCT = 1.1;
+/**
+ * Rotation angle alone is hard to read on flat icons with no shading --
+ * these two make each node's own depth (see NODE_DEPTH_PER_PCT) visible
+ * as a size/brightness cue too, once idle: the nodes on the "near" side of
+ * the ring read slightly bigger and fully bright, the "far" side slightly
+ * smaller and dimmer. Applied on top of (not instead of) the existing
+ * reveal-based scale/opacity from the assembly animation, and only once
+ * idle -- during assembly `reveal` is already doing that job.
+ */
+const NODE_DEPTH_SCALE_RANGE = 0.16;
+const NODE_DEPTH_OPACITY_RANGE = 0.3;
 
 export interface EcosystemDiagramProps {
   /** Scroll-driven assembly progress, 0-1. Omit for a fully-assembled static render (reduced motion / no JS). */
@@ -124,6 +135,9 @@ export function EcosystemDiagram({ progress, idleDrift = 0 }: EcosystemDiagramPr
           const { x, y } = nodeOffset(node.angleDeg);
           const reveal = nodeProgress[index];
           const depth = x * NODE_DEPTH_PER_PCT;
+          const depthNorm = x / RADIUS_PCT;
+          const depthScale = idle ? 1 + depthNorm * (NODE_DEPTH_SCALE_RANGE / 2) : 1;
+          const depthOpacity = idle ? 1 - (NODE_DEPTH_OPACITY_RANGE / 2) * (1 - depthNorm) : 1;
           return (
             <div
               key={node.slug}
@@ -131,8 +145,8 @@ export function EcosystemDiagram({ progress, idleDrift = 0 }: EcosystemDiagramPr
               style={{
                 left: `${50 + x}%`,
                 top: `${50 + y}%`,
-                opacity: reveal,
-                transform: `translate(-50%, -50%) scale(${0.6 + 0.4 * reveal}) translateY(${(1 - reveal) * 16}px) translateZ(${depth}px)`,
+                opacity: reveal * depthOpacity,
+                transform: `translate(-50%, -50%) scale(${(0.6 + 0.4 * reveal) * depthScale}) translateY(${(1 - reveal) * 16}px) translateZ(${depth}px)`,
               }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element -- small decorative catalogue icon, not a page-weight-relevant photo */}
