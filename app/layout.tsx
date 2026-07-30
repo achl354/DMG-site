@@ -4,6 +4,7 @@ import { Header } from "@/components/layout/Header/Header";
 import { Footer } from "@/components/layout/Footer/Footer";
 import { ScrollProgressBar } from "@/components/layout/ScrollProgressBar/ScrollProgressBar";
 import { MotionProvider } from "@/components/MotionProvider";
+import { LenisProvider } from "@/components/LenisProvider";
 import { DESKTOP_VIEW_COOKIE, DESKTOP_VIEW_WIDTH } from "@/lib/desktopView";
 import "./globals.css";
 
@@ -56,6 +57,7 @@ export default async function RootLayout({
   return (
     <html lang="en-AU">
       <body>
+        <LenisProvider />
         <MotionProvider>
           <ScrollProgressBar />
           <Header />
