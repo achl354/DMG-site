@@ -44,6 +44,20 @@ function nodeOffset(angleDeg: number, radius: number = RADIUS_PCT) {
 }
 
 /**
+ * "Ease out back" -- standard overshoot curve (f(0)=0, f(1)=1, peaking
+ * ~11% above 1 around t=0.58) used so each node pops slightly past its
+ * resting scale/position before settling, rather than easing straight
+ * to it. Purely a reshaping of the existing scroll-driven `reveal`
+ * value (see nodeProgress) -- no timers, still driven entirely by
+ * scroll position like everything else here.
+ */
+function easeOutBack(t: number) {
+  const c = 1.70158;
+  const t1 = t - 1;
+  return 1 + (c + 1) * t1 ** 3 + c * t1 ** 2;
+}
+
+/**
  * Node assembly (spokes + fly-in) uses the first 65% of the scroll-driven
  * `progress`, not the full 0-1 range -- freeing the remaining 35% for the
  * perimeter sequence below (see PERIMETER_INSET_RATIO), without extending
@@ -139,6 +153,22 @@ export function EcosystemDiagram({ progress, idleDrift = 0 }: EcosystemDiagramPr
     animated ? clamp(perimeterProgress * NODES.length - index) : 1,
   );
 
+  /**
+   * Closed hexagon through the same 6 points the perimeter edges connect
+   * (see PERIMETER_RADIUS_PCT) -- not the inset/trimmed visible segments,
+   * just the underlying ring -- used as the traveling pulse's motion path
+   * below. Only rendered once idle: a self-playing loop makes sense here
+   * (unlike the rotation, this is ambient "the system is alive" motion,
+   * not something scroll should visibly drive) and gating it on `idle`
+   * means reduced-motion users (who never get a `progress` prop, so
+   * `idle` never becomes true) never render it at all.
+   */
+  const perimeterPathD =
+    NODES.map((node, index) => {
+      const { x, y } = nodeOffset(node.angleDeg, PERIMETER_RADIUS_PCT);
+      return `${index === 0 ? "M" : "L"} ${50 + x} ${50 + y}`;
+    }).join(" ") + " Z";
+
   return (
     <div className={styles.stageOuter}>
       <div className={styles.stage} style={{ transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg)` }}>
@@ -184,6 +214,13 @@ export function EcosystemDiagram({ progress, idleDrift = 0 }: EcosystemDiagramPr
               />
             );
           })}
+
+          {idle && (
+            <circle r={1.1} className={styles.pulse}>
+              <animateMotion path={perimeterPathD} dur="6s" repeatCount="indefinite" rotate="auto" />
+              <animate attributeName="opacity" values="0.4;1;0.4" dur="1.5s" repeatCount="indefinite" />
+            </circle>
+          )}
         </svg>
 
         <div className={styles.hub}>
@@ -198,6 +235,7 @@ export function EcosystemDiagram({ progress, idleDrift = 0 }: EcosystemDiagramPr
         {NODES.map((node, index) => {
           const { x, y } = nodeOffset(node.angleDeg);
           const reveal = nodeProgress[index];
+          const bounced = easeOutBack(reveal);
           const depth = x * NODE_DEPTH_PER_PCT;
           const depthNorm = x / RADIUS_PCT;
           const depthScale = idle ? 1 + depthNorm * (NODE_DEPTH_SCALE_RANGE / 2) : 1;
@@ -210,7 +248,7 @@ export function EcosystemDiagram({ progress, idleDrift = 0 }: EcosystemDiagramPr
                 left: `${50 + x}%`,
                 top: `${50 + y}%`,
                 opacity: reveal * depthOpacity,
-                transform: `translate(-50%, -50%) scale(${(0.6 + 0.4 * reveal) * depthScale}) translateY(${(1 - reveal) * 16}px) translateZ(${depth}px)`,
+                transform: `translate(-50%, -50%) scale(${(0.6 + 0.4 * bounced) * depthScale}) translateY(${(1 - bounced) * 16}px) translateZ(${depth}px)`,
               }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element -- small decorative catalogue icon, not a page-weight-relevant photo */}

@@ -103,6 +103,13 @@
   opacity: 0.8;
 }
 
+/* Traveling pulse looping the perimeter once idle -- see EcosystemDiagram.tsx
+   for why this is the one self-playing (not scroll-tied) animation here. */
+.pulse {
+  fill: var(--brand);
+  filter: drop-shadow(0 0 1.5px var(--teal-300));
+}
+
 .hub {
   position: absolute;
   z-index: 1;
