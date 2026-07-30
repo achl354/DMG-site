@@ -43,23 +43,47 @@ function nodeOffset(angleDeg: number) {
   return { x: RADIUS_PCT * Math.cos(rad), y: RADIUS_PCT * Math.sin(rad) };
 }
 
+/**
+ * Once idle, one full oscillation plays out over this many px of
+ * additional scroll -- short enough that the tilt visibly responds within
+ * the brief window before the sticky diagram unpins and scrolls away.
+ */
+const DRIFT_PERIOD_PX = 640;
+const DRIFT_ROTATE_Y_DEG = 5;
+const DRIFT_ROTATE_X_DEG = 2.5;
+/** px of apparent depth per % of hub-to-node radius, applied per node so
+ * the idle rotation reads as an actual 3D ring (nodes at different depths
+ * catching the light differently) rather than one flat plane pivoting. */
+const NODE_DEPTH_PER_PCT = 0.6;
+
 export interface EcosystemDiagramProps {
   /** Scroll-driven assembly progress, 0-1. Omit for a fully-assembled static render (reduced motion / no JS). */
   progress?: number;
+  /** px scrolled past assembly-complete -- drives the idle depth-rotation
+   * below directly off live scroll position. 0 (or omitted) any time the
+   * diagram isn't yet fully assembled. */
+  idleDrift?: number;
 }
 
 /**
  * Desktop hero visual: a hexagon "ecosystem map" of the six EasiSystem™
  * workflows around a central hub, replacing the old EasiMoveSPU photo.
  * With a `progress` value it assembles node-by-node (fly-in + line draw-on)
- * on a tilted 3D plane that settles flat, then drifts gently once complete;
- * without one it just renders fully assembled and flat.
+ * on a tilted 3D plane that settles flat, then once idle rotates subtly on
+ * two axes as a direct function of continued scroll (see `idleDrift`) --
+ * not a self-playing timer -- so it reverses cleanly if the user scrolls
+ * back up. Without a `progress` value it just renders fully assembled and
+ * flat, with no rotation at all (the reduced-motion/no-JS case).
  */
-export function EcosystemDiagram({ progress }: EcosystemDiagramProps) {
+export function EcosystemDiagram({ progress, idleDrift = 0 }: EcosystemDiagramProps) {
   const animated = progress !== undefined;
   const overallProgress = animated ? clamp(progress) : 1;
-  const tiltDeg = animated ? -8 + 8 * overallProgress : 0;
+  const assemblyTiltDeg = animated ? -8 + 8 * overallProgress : 0;
   const idle = animated && overallProgress >= 1;
+
+  const driftPhase = (idleDrift / DRIFT_PERIOD_PX) * Math.PI * 2;
+  const rotateY = idle ? Math.sin(driftPhase) * DRIFT_ROTATE_Y_DEG : assemblyTiltDeg;
+  const rotateX = idle ? Math.sin(driftPhase + Math.PI / 2) * DRIFT_ROTATE_X_DEG : 0;
 
   const nodeProgress = NODES.map((_, index) =>
     animated ? clamp(overallProgress * NODES.length - index) : 1,
@@ -67,10 +91,7 @@ export function EcosystemDiagram({ progress }: EcosystemDiagramProps) {
 
   return (
     <div className={styles.stageOuter}>
-      <div
-        className={[styles.stage, idle && styles.idle].filter(Boolean).join(" ")}
-        style={idle ? undefined : { transform: `rotateY(${tiltDeg}deg)` }}
-      >
+      <div className={styles.stage} style={{ transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg)` }}>
         <svg className={styles.lines} viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
           {NODES.map((node, index) => {
             const { x, y } = nodeOffset(node.angleDeg);
@@ -102,6 +123,7 @@ export function EcosystemDiagram({ progress }: EcosystemDiagramProps) {
         {NODES.map((node, index) => {
           const { x, y } = nodeOffset(node.angleDeg);
           const reveal = nodeProgress[index];
+          const depth = x * NODE_DEPTH_PER_PCT;
           return (
             <div
               key={node.slug}
@@ -110,7 +132,7 @@ export function EcosystemDiagram({ progress }: EcosystemDiagramProps) {
                 left: `${50 + x}%`,
                 top: `${50 + y}%`,
                 opacity: reveal,
-                transform: `translate(-50%, -50%) scale(${0.6 + 0.4 * reveal}) translateY(${(1 - reveal) * 16}px)`,
+                transform: `translate(-50%, -50%) scale(${0.6 + 0.4 * reveal}) translateY(${(1 - reveal) * 16}px) translateZ(${depth}px)`,
               }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element -- small decorative catalogue icon, not a page-weight-relevant photo */}

@@ -71,26 +71,6 @@
   transform-style: preserve-3d;
 }
 
-@keyframes idleTilt {
-  0%,
-  100% {
-    transform: rotateY(-3deg);
-  }
-  50% {
-    transform: rotateY(3deg);
-  }
-}
-
-.idle {
-  animation: idleTilt 9s ease-in-out infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .idle {
-    animation: none;
-  }
-}
-
 /*
  * z-index: 0 with the hub/node below at z-index: 1 -- belt-and-braces
  * alongside shortening the lines themselves (see LINE_END_RATIO). The

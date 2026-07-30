@@ -98,6 +98,15 @@ function HeroEcosystemVisual({ copy }: { copy: ReactNode }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
+  /**
+   * How far (px) the user has scrolled past the point the assembly
+   * animation completes -- 0 any time assembly isn't yet finished. Drives
+   * the diagram's idle depth-rotation directly off live scroll position
+   * (see EcosystemDiagram's rotateX/rotateY), rather than a self-playing
+   * CSS timer, so the tilt "flows" with actual scroll input and reverses
+   * cleanly if the user scrolls back up.
+   */
+  const [idleDrift, setIdleDrift] = useState(0);
   const pinStartRef = useRef(0);
   const pinEndRef = useRef(1);
 
@@ -106,7 +115,9 @@ function HeroEcosystemVisual({ copy }: { copy: ReactNode }) {
   useMotionValueEvent(scrollY, "change", (value) => {
     const pinStart = pinStartRef.current;
     const pinEnd = pinEndRef.current;
-    setProgress(pinEnd > pinStart ? clamp((value - pinStart) / (pinEnd - pinStart)) : 0);
+    const nextProgress = pinEnd > pinStart ? clamp((value - pinStart) / (pinEnd - pinStart)) : 0;
+    setProgress(nextProgress);
+    setIdleDrift(nextProgress >= 1 ? value - pinEnd : 0);
   });
 
   useEffect(() => {
@@ -136,7 +147,7 @@ function HeroEcosystemVisual({ copy }: { copy: ReactNode }) {
       <div ref={stageRef} className={styles.desktopPinStage}>
         <Container size="xl" className={styles.track}>
           {copy}
-          <EcosystemDiagram progress={progress} />
+          <EcosystemDiagram progress={progress} idleDrift={idleDrift} />
         </Container>
       </div>
     </div>
