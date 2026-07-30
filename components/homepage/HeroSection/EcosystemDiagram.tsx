@@ -66,7 +66,7 @@ function easeOutBack(t: number) {
  * outer edge at the default breakpoint) -- re-check if node box sizing
  * changes.
  */
-const ORBIT_RADIUS_PCT = 51;
+const ORBIT_RADIUS_PCT = 56;
 
 /**
  * Once idle, one full oscillation plays out over this many px of
