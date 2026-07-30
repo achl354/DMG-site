@@ -48,20 +48,24 @@ function easeOutBack(t: number) {
 }
 
 /**
- * Node assembly (fly-in + tilt-to-flat) uses only the first 80% of the
+ * Node assembly (fly-in + tilt-to-flat) uses only the first 70% of the
  * scroll-driven `progress`, not the full 0-1 range -- measured directly:
  * the sticky diagram's native CSS pin actually releases (and starts
  * scrolling the diagram up behind the header) a bit BEFORE `progress`
- * reached 1 at the old pacing, so idle/the pulse used to start only once
- * the topmost node had already been scrolling behind the header for
- * ~20-30px. Finishing assembly earlier within the SAME pin distance (not
- * a longer one -- see HeroSection.tsx's PIN_SCROLL_DISTANCE, unchanged)
- * leaves the last 20% as genuine fully-assembled-and-visible idle time
- * before that release point, instead of that window not existing at all.
- * Exported so HeroSection.tsx's idleDrift calculation can start counting
- * from this same earlier point, not the old 100% mark.
+ * reached 1 at the old (pre-split) pacing, so idle/the pulse used to start
+ * only once the topmost node had already been scrolling behind the header
+ * for ~20-30px. Finishing assembly earlier within the SAME pin distance
+ * (not a longer one -- see HeroSection.tsx's PIN_SCROLL_DISTANCE,
+ * unchanged) leaves the remainder as genuine fully-assembled-and-visible
+ * idle time before that release point, instead of that window not
+ * existing at all. 0.8 first (a ~50px window before clipping) was too
+ * narrow to reliably land in under a real wheel/trackpad scroll gesture,
+ * where one tick's momentum can easily overshoot a window that size --
+ * 0.7 roughly doubles it (~115px measured). Exported so HeroSection.tsx's
+ * idleDrift calculation can start counting from this same earlier point,
+ * not the old 100% mark.
  */
-export const ASSEMBLY_SPLIT = 0.8;
+export const ASSEMBLY_SPLIT = 0.6;
 
 /**
  * Radius the traveling pulse orbits at (see the `idle` block below) -- an
