@@ -58,18 +58,23 @@ function easeOutBack(t: number) {
 }
 
 /**
- * Radius the traveling pulse orbits at (see the `idle` block below) --
- * deliberately larger than RADIUS_PCT (the node anchor radius, where the
- * hub spokes terminate), so the orbit clears every node's full content box
- * (icon + number + title) with real margin, at both the vertices (closest
- * approach to each node) and the edge midpoints (closest approach to the
- * hub, where a wide title could otherwise reach into the gap between two
- * nodes). Measured directly against each node's rendered bounding box at
- * the default breakpoint: 56 actually touched (0px clearance) at one
- * node's vertex; 62 clears all 6 nodes' vertices and midpoints by >=23px.
- * Re-check if node box sizing changes.
+ * Radius the traveling pulse orbits at (see the `idle` block below) -- an
+ * inner lane between the hub and the node content, not out past the
+ * nodes. The corridor here is narrow: the hexagon path's edge midpoints
+ * sit closer to the hub than its vertices do (~13% closer, cos(30°)), so
+ * "clear of the hub at the midpoints" and "clear of the node content at
+ * the vertices" pull in opposite directions as this radius changes, and
+ * only overlap in a few-pixel-wide band. Measured directly against the
+ * hub's and every node's rendered bounding box: ~19.7 is that band's
+ * midpoint, leaving ~6px of clearance on both sides at the default
+ * breakpoint -- PULSE_RADIUS below is sized to fit inside that with a
+ * couple px to spare, not the larger dot used for the wide outer lane
+ * this replaced. Re-check both if node/hub sizing changes.
  */
-const ORBIT_RADIUS_PCT = 62;
+const ORBIT_RADIUS_PCT = 19.7;
+
+/** See ORBIT_RADIUS_PCT -- sized to fit its narrow inner corridor. */
+const PULSE_RADIUS = 0.45;
 
 /**
  * Once idle, one full oscillation plays out over this many px of
@@ -163,7 +168,7 @@ export function EcosystemDiagram({ progress, idleDrift = 0 }: EcosystemDiagramPr
           })}
 
           {idle && (
-            <circle r={1.1} className={styles.pulse}>
+            <circle r={PULSE_RADIUS} className={styles.pulse}>
               <animateMotion path={orbitPathD} dur="6s" repeatCount="indefinite" rotate="auto" />
               <animate attributeName="opacity" values="0.4;1;0.4" dur="1.5s" repeatCount="indefinite" />
             </circle>
