@@ -100,7 +100,13 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 32%;
+  /*
+   * 32% previously -- shrunk so the traveling pulse (which dips closest
+   * to the hub at each edge midpoint of its orbit, see EcosystemDiagram.tsx's
+   * ORBIT_RADIUS_PCT) clears it with real margin instead of disappearing
+   * behind it at that point.
+   */
+  width: 26%;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   background: var(--surface-brand);
@@ -132,7 +138,10 @@
 .hubName {
   font-family: var(--font-display);
   font-size: var(--text-xl);
-  font-size: 3.75cqi;
+  /* 3.75cqi previously -- the hub itself shrunk (see .hub's width) but
+     this sizes off .stageOuter's width, not the hub's, so it didn't
+     shrink with it and started crowding the smaller circle's edges. */
+  font-size: 3.05cqi;
   font-weight: var(--weight-extrabold);
   line-height: 1.1;
 }
