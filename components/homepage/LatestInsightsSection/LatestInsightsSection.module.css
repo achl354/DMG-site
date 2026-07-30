@@ -47,4 +47,13 @@
   .heading > h2 {
     font-size: calc(var(--type-h2-size) * 0.96);
   }
+
+  /* Centered under the 3-card grid -- .viewAll's own width: fit-content
+     (above) already stops it from stretching full-width, so centering
+     just needs to override .layout's default flex-start cross-axis
+     position. Desktop only, per request; mobile/tablet keep their
+     existing left-aligned, above-the-grid position. */
+  .viewAll {
+    align-self: center;
+  }
 }
