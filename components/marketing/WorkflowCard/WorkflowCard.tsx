@@ -1,8 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Card } from "@/components/ui";
 import type { Workflow } from "@/lib/content/workflows";
 import { WORKFLOW_SCENE_ICONS, WORKFLOW_SCENE_ICON_DIMENSIONS } from "@/lib/content/assets";
+import { navigateWithViewTransition, isPlainLeftClick } from "@/lib/viewTransition";
 import { WorkflowSolutionsIcon } from "./WorkflowSolutionsIcon";
 import styles from "./WorkflowCard.module.css";
 
@@ -14,8 +18,10 @@ export interface WorkflowCardProps {
 }
 
 export function WorkflowCard({ workflow, featured = false, onSelect }: WorkflowCardProps) {
+  const router = useRouter();
   const scene = WORKFLOW_SCENE_ICONS[workflow.slug];
   const [sceneWidth, sceneHeight] = scene ? WORKFLOW_SCENE_ICON_DIMENSIONS[workflow.slug] : [0, 0];
+  const href = `/workflows/${workflow.slug}`;
 
   const content = (
     <Card className={[styles.card, featured && styles.featured].filter(Boolean).join(" ")}>
@@ -65,7 +71,18 @@ export function WorkflowCard({ workflow, featured = false, onSelect }: WorkflowC
   }
 
   return (
-    <Link href={`/workflows/${workflow.slug}`} className={styles.link}>
+    <Link
+      href={href}
+      className={styles.link}
+      onClick={(event) => {
+        // Same left-click-only guard as ProductCard -- anything else (open
+        // in a new tab, etc.) should get the browser's own unmodified
+        // behavior, not the manual view-transition navigation below.
+        if (!isPlainLeftClick(event)) return;
+        event.preventDefault();
+        navigateWithViewTransition(router, href);
+      }}
+    >
       {content}
     </Link>
   );

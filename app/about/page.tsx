@@ -1,6 +1,6 @@
 import { EyebrowHeading } from "@/components/ui";
 import { Section, Container } from "@/components/layout";
-import { StatsBand, CTASection } from "@/components/marketing";
+import { StatsBand, CTASection, Reveal } from "@/components/marketing";
 import { buildMetadata } from "@/lib/seo";
 import styles from "./page.module.css";
 
@@ -16,19 +16,21 @@ export default function AboutPage() {
     <>
       <Section spacing="lg">
         <Container size="lg">
-          <EyebrowHeading
-            as="h1"
-            eyebrow="About"
-            heading="About DirectMed Group"
-            body="DirectMed Group develops patient-handling products designed around the practical workflows encountered across healthcare and supported-care environments."
-          />
+          <Reveal>
+            <EyebrowHeading
+              as="h1"
+              eyebrow="About"
+              heading="About DirectMed Group"
+              body="DirectMed Group develops patient-handling products designed around the practical workflows encountered across healthcare and supported-care environments."
+            />
+          </Reveal>
         </Container>
       </Section>
 
       <Section spacing="md" surface="sunken">
         <Container size="lg">
           <div className={styles.grid}>
-            <div className={styles.card}>
+            <Reveal className={styles.card}>
               <p className={styles.cardLabel}>EasiSystem™</p>
               <h2 className={styles.cardTitle}>One coordinated portfolio</h2>
               <p className={styles.cardBody}>
@@ -37,8 +39,8 @@ export default function AboutPage() {
                 supporting clearer product navigation, consistent training
                 resources and more coordinated implementation.
               </p>
-            </div>
-            <div className={styles.card}>
+            </Reveal>
+            <Reveal delay={0.1} className={styles.card}>
               <p className={styles.cardLabel}>Development principles</p>
               <h2 className={styles.cardTitle}>Workflow-led, practical, clear</h2>
               <p className={styles.cardBody}>
@@ -47,7 +49,7 @@ export default function AboutPage() {
                 clear product information and consistent portfolio
                 structure.
               </p>
-            </div>
+            </Reveal>
           </div>
 
           <p className={styles.availabilityNote}>

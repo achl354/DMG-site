@@ -1,6 +1,6 @@
 import { EyebrowHeading } from "@/components/ui";
 import { Section, Container } from "@/components/layout";
-import { EnquiryForm } from "@/components/marketing";
+import { EnquiryForm, Reveal } from "@/components/marketing";
 import { buildMetadata } from "@/lib/seo";
 import { SALES_EMAIL } from "@/lib/constants";
 import styles from "./page.module.css";
@@ -22,18 +22,24 @@ export default async function ContactPage({
   return (
     <Section spacing="lg">
       <Container size="lg">
-        <EyebrowHeading
-          as="h1"
-          eyebrow="Contact"
-          heading="Contact DirectMed Group"
-          body="Contact us for product information, technical documentation, market availability, distribution enquiries or general information about the EasiSystem™ portfolio."
-          className={styles.heading}
-        />
+        <Reveal>
+          <EyebrowHeading
+            as="h1"
+            eyebrow="Contact"
+            heading="Contact DirectMed Group"
+            body="Contact us for product information, technical documentation, market availability, distribution enquiries or general information about the EasiSystem™ portfolio."
+            className={styles.heading}
+          />
+        </Reveal>
 
         <div className={styles.layout}>
-          <EnquiryForm defaultProduct={product} />
+          <Reveal>
+            <EnquiryForm defaultProduct={product} />
+          </Reveal>
 
-          <div className={styles.details}>
+          {/* .details (flex column + gap) moves onto Reveal's own wrapper,
+              same reasoning as ResourcesContact/CTASection. */}
+          <Reveal delay={0.1} className={styles.details}>
             <div className={styles.detailBlock}>
               <p className={styles.detailLabel}>Sales &amp; enquiries</p>
               <p className={styles.detailValue}>
@@ -51,7 +57,7 @@ export default async function ContactPage({
                 information.
               </p>
             </div>
-          </div>
+          </Reveal>
         </div>
       </Container>
     </Section>

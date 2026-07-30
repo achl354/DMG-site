@@ -8,6 +8,25 @@
   border-top: 1px solid var(--border-subtle);
   z-index: 40;
   padding: var(--space-6) var(--gutter);
+  /* Mount-triggered, same pattern as Modal's backdropIn/dialogIn -- entrance
+     only, no exit animation (closing stays an instant unmount, matching
+     Modal's own precedent). Slides down from just above its resting
+     position, since this panel hangs from the header rather than sitting
+     centered like a dialog. */
+  animation: mobileNavIn var(--duration-base) var(--ease-out);
+}
+
+@keyframes mobileNavIn {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel {
+    animation: none;
+  }
 }
 
 .list {

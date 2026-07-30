@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { ResourceCard } from "@/components/marketing/ResourceCard/ResourceCard";
 import {
   getResourceGroup,
@@ -8,6 +9,7 @@ import {
   type ResourceGroup,
   type ResourceMeta,
 } from "@/lib/content/resources";
+import { DURATION_BASE, EASE_OUT } from "@/lib/motion";
 import styles from "./ResourceList.module.css";
 
 const PRIMARY_FILTERS: Array<ResourceGroup | "All"> = [
@@ -87,9 +89,20 @@ export function ResourceList({ resources }: { resources: ResourceMeta[] }) {
       </div>
 
       <div className={styles.grid}>
-        {filtered.map((resource) => (
-          <ResourceCard key={resource.slug} resource={resource} />
-        ))}
+        <AnimatePresence mode="popLayout">
+          {filtered.map((resource) => (
+            <motion.div
+              key={resource.slug}
+              layout
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.96 }}
+              transition={{ duration: DURATION_BASE, ease: EASE_OUT }}
+            >
+              <ResourceCard resource={resource} />
+            </motion.div>
+          ))}
+        </AnimatePresence>
       </div>
     </div>
   );

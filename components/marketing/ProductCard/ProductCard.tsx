@@ -7,13 +7,8 @@ import type { CSSProperties } from "react";
 import { Card, Badge, ProductWordmark } from "@/components/ui";
 import { PRODUCT_ICONS, PRODUCT_ICON_DIMENSIONS } from "@/lib/content/assets";
 import { type ProductWithAssets } from "@/lib/content/products";
+import { navigateWithViewTransition, isPlainLeftClick } from "@/lib/viewTransition";
 import styles from "./ProductCard.module.css";
-
-const TITLE_POLL_INTERVAL_MS = 10;
-/** Hard ceiling so a stuck/failed navigation can't hang the transition
- * forever -- the browser's own ~4s internal timeout would eventually abort
- * it anyway, but this fails faster and more predictably. */
-const TITLE_POLL_MAX_MS = 2000;
 
 /**
  * Manual per-product size overrides, as a % of card width -- everything
@@ -48,44 +43,12 @@ const ICON_VERTICAL_SHIFT_OVERRIDES: Partial<Record<string, string>> = {
 };
 
 /**
- * Experimental: morphs this card's icon into the destination page's large
- * ProductIllustration via the browser's native View Transitions API. React's
- * own <ViewTransition> component (the documented Next.js approach) isn't
- * exported by this project's installed React build, so this calls
- * document.startViewTransition() directly instead -- which means manually
- * driving the navigation and signalling "the new route has rendered" rather
- * than letting Link's default behavior and React's integration handle it.
- *
- * Signals readiness by polling document.title (Next sets a distinct one per
- * product via generateMetadata) rather than requestAnimationFrame -- verified
- * by direct testing that rAF does NOT fire reliably while a view transition
- * is capturing its "old" snapshot (rendering is paused for that capture),
- * which left the transition hanging until the browser's own ~4s built-in
- * timeout silently aborted it. setTimeout-based polling isn't tied to the
- * rendering pipeline, so it isn't affected by that stall.
+ * This card also tags its icon with a matching view-transition-name to the
+ * destination page's large ProductIllustration (see the Image below and
+ * ProductIllustration.tsx), morphing one into the other -- WorkflowCard uses
+ * the same navigateWithViewTransition helper without that pairing, since it
+ * has no equivalent shared element on its own destination page.
  */
-function navigateWithViewTransition(router: ReturnType<typeof useRouter>, href: string) {
-  if (!document.startViewTransition) {
-    router.push(href);
-    return;
-  }
-  const titleBefore = document.title;
-  const startedAt = Date.now();
-  document.startViewTransition(() => {
-    router.push(href);
-    return new Promise<void>((resolve) => {
-      const check = () => {
-        if (document.title !== titleBefore || Date.now() - startedAt > TITLE_POLL_MAX_MS) {
-          resolve();
-        } else {
-          setTimeout(check, TITLE_POLL_INTERVAL_MS);
-        }
-      };
-      check();
-    });
-  });
-}
-
 export function ProductCard({ product }: { product: ProductWithAssets }) {
   const router = useRouter();
   const icon = PRODUCT_ICONS[product.slug];
@@ -100,9 +63,7 @@ export function ProductCard({ product }: { product: ProductWithAssets }) {
         // Let the browser handle its own affordances (open in new tab/window,
         // etc.) for anything other than a plain left click -- only a plain
         // click should be hijacked into the manual view-transition navigation.
-        if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
-          return;
-        }
+        if (!isPlainLeftClick(event)) return;
         event.preventDefault();
         navigateWithViewTransition(router, href);
       }}
