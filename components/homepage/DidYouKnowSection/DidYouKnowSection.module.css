@@ -293,3 +293,32 @@
   }
 }
 
+/* Mid-width tuning for the row layout above: at the narrower end of this
+   range (tablets, or a phone's "desktop site" mode -- see the ~932px case
+   that prompted this), the full desktop sizing above (76px number, 32px
+   gaps) leaves too little room for .statement, forcing an extra line-wrap.
+   Scaling the number down one step and tightening the gaps gives that
+   room back; the compare-bars are bumped up slightly so they keep reading
+   as proportionate next to a still-fairly-large number, rather than stubby. */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .body {
+    gap: var(--space-6);
+  }
+
+  .stat {
+    font-size: var(--text-5xl);
+  }
+
+  .compareBars {
+    height: 84px;
+  }
+
+  .compareBarTrack {
+    height: 68px;
+  }
+
+  .copy {
+    padding-left: var(--space-6);
+  }
+}
+
