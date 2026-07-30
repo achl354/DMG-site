@@ -60,13 +60,16 @@ function easeOutBack(t: number) {
 /**
  * Radius the traveling pulse orbits at (see the `idle` block below) --
  * deliberately larger than RADIUS_PCT (the node anchor radius, where the
- * hub spokes terminate), so the orbit skirts past the outside of each
- * node's icon rather than cutting through it. Tuned against the node
- * box's own rendered size (~12-13% of stageOuter's width from anchor to
- * outer edge at the default breakpoint) -- re-check if node box sizing
- * changes.
+ * hub spokes terminate), so the orbit clears every node's full content box
+ * (icon + number + title) with real margin, at both the vertices (closest
+ * approach to each node) and the edge midpoints (closest approach to the
+ * hub, where a wide title could otherwise reach into the gap between two
+ * nodes). Measured directly against each node's rendered bounding box at
+ * the default breakpoint: 56 actually touched (0px clearance) at one
+ * node's vertex; 62 clears all 6 nodes' vertices and midpoints by >=23px.
+ * Re-check if node box sizing changes.
  */
-const ORBIT_RADIUS_PCT = 56;
+const ORBIT_RADIUS_PCT = 62;
 
 /**
  * Once idle, one full oscillation plays out over this many px of
