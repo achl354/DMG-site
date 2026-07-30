@@ -15,16 +15,6 @@ interface DiagramNode {
 const RADIUS_PCT = 38;
 
 /**
- * Connector lines stop at half the hub-to-node distance rather than
- * reaching each node's own anchor point -- the node's icon/number/title
- * are all stacked at that same anchor, so a full-length line ran straight
- * through the icon (and, for the directly-above/below nodes, the number
- * and title too). 0.5 leaves clear margin before the node's box even
- * starts (~0.79 of the way out), not just before the icon.
- */
-const LINE_END_RATIO = 0.5;
-
-/**
  * Hexagon ring: 6 nodes at 60° increments starting at the top (-90°), going
  * clockwise in /workflows' own order -- not the reference catalogue
  * diagram's numbering, kept consistent with the mobile rotator's choice so
@@ -59,22 +49,22 @@ function easeOutBack(t: number) {
 
 /**
  * Radius the traveling pulse orbits at (see the `idle` block below) -- an
- * inner lane between the hub and the node content, not out past the
- * nodes. The corridor here is narrow: the hexagon path's edge midpoints
- * sit closer to the hub than its vertices do (~13% closer, cos(30°)), so
- * "clear of the hub at the midpoints" and "clear of the node content at
- * the vertices" pull in opposite directions as this radius changes, and
- * only overlap in a few-pixel-wide band. Measured directly against the
- * hub's and every node's rendered bounding box: ~19.7 is that band's
- * midpoint, leaving ~6px of clearance on both sides at the default
- * breakpoint -- PULSE_RADIUS below is sized to fit inside that with a
- * couple px to spare, not the larger dot used for the wide outer lane
- * this replaced. Re-check both if node/hub sizing changes.
+ * inner lane between the hub and the node content. Node clearance (the
+ * hard requirement -- the pulse must never touch a node's icon/text) gets
+ * easier the smaller this is, since the hexagon path's vertices (closest
+ * approach to each node) pull back as the radius shrinks. Clearing the
+ * hub is NOT a requirement here -- the hub is a single flat color, not
+ * detailed content, so the pulse grazing or briefly ducking behind its
+ * edge (which happens at the path's edge midpoints, which sit closer to
+ * the hub than its vertices do) reads fine, like a light passing behind
+ * an object. 18 leaves >14px of node clearance at every vertex and
+ * midpoint (measured against each node's rendered bounding box) --
+ * PULSE_RADIUS is sized well within that. Re-check if node sizing changes.
  */
-const ORBIT_RADIUS_PCT = 19.7;
+const ORBIT_RADIUS_PCT = 18;
 
-/** See ORBIT_RADIUS_PCT -- sized to fit its narrow inner corridor. */
-const PULSE_RADIUS = 0.45;
+/** See ORBIT_RADIUS_PCT. */
+const PULSE_RADIUS = 1;
 
 /**
  * Once idle, one full oscillation plays out over this many px of
@@ -112,15 +102,16 @@ export interface EcosystemDiagramProps {
 /**
  * Desktop hero visual: a hexagon "ecosystem map" of the six EasiSystem™
  * workflows around a central hub, replacing the old EasiMoveSPU photo.
- * With a `progress` value it assembles node-by-node (fly-in + line draw-on)
- * on a tilted 3D plane that settles flat. Once idle it rotates subtly on
- * two axes as a direct function of continued scroll (see `idleDrift`) --
- * not a self-playing timer -- so it reverses cleanly if the user scrolls
- * back up, and a small pulse starts looping around the node ring (the one
- * self-playing animation here -- ambient "the system is alive" motion,
- * not something scroll should visibly drive). Without a `progress` value
- * it just renders fully assembled and flat, with no rotation or pulse at
- * all (the reduced-motion/no-JS case).
+ * With a `progress` value it assembles node-by-node (fly-in, no connector
+ * lines to the hub) on a tilted 3D plane that settles flat. Once idle it
+ * rotates subtly on two axes as a direct function of continued scroll
+ * (see `idleDrift`) -- not a self-playing timer -- so it reverses cleanly
+ * if the user scrolls back up, and a pulse starts looping in the gap
+ * between the hub and the nodes (the one self-playing animation here --
+ * ambient "the system is alive" motion, not something scroll should
+ * visibly drive). Without a `progress` value it just renders fully
+ * assembled and flat, with no rotation or pulse at all (the
+ * reduced-motion/no-JS case).
  */
 export function EcosystemDiagram({ progress, idleDrift = 0 }: EcosystemDiagramProps) {
   const animated = progress !== undefined;
@@ -150,23 +141,6 @@ export function EcosystemDiagram({ progress, idleDrift = 0 }: EcosystemDiagramPr
     <div className={styles.stageOuter}>
       <div className={styles.stage} style={{ transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg)` }}>
         <svg className={styles.lines} viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-          {NODES.map((node, index) => {
-            const { x, y } = nodeOffset(node.angleDeg);
-            const length = Math.hypot(x, y) * LINE_END_RATIO;
-            return (
-              <line
-                key={node.slug}
-                x1={50}
-                y1={50}
-                x2={50 + x * LINE_END_RATIO}
-                y2={50 + y * LINE_END_RATIO}
-                className={styles.line}
-                strokeDasharray={length}
-                strokeDashoffset={length * (1 - nodeProgress[index])}
-              />
-            );
-          })}
-
           {idle && (
             <circle r={PULSE_RADIUS} className={styles.pulse}>
               <animateMotion path={orbitPathD} dur="6s" repeatCount="indefinite" rotate="auto" />

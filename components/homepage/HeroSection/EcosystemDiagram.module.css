@@ -72,12 +72,11 @@
 }
 
 /*
- * z-index: 0 with the hub/node below at z-index: 1 -- belt-and-braces
- * alongside shortening the lines themselves (see LINE_END_RATIO). The
- * .stage parent's transform-style: preserve-3d (for the tilt effect) can
- * make 3D depth ordering take priority over plain DOM paint order, so
- * without this the lines could still render above the nodes in some
- * browsers even where they no longer geometrically overlap.
+ * z-index: 0 with the hub/node below at z-index: 1 -- the .stage parent's
+ * transform-style: preserve-3d (for the tilt effect) can make 3D depth
+ * ordering take priority over plain DOM paint order, so without this the
+ * pulse could still render above the nodes in some browsers even where it
+ * no longer geometrically overlaps.
  */
 .lines {
   position: absolute;
@@ -86,11 +85,6 @@
   height: 100%;
   overflow: visible;
   z-index: 0;
-}
-
-.line {
-  stroke: var(--border-tint);
-  stroke-width: 0.6;
 }
 
 /* Traveling pulse orbiting the node ring once idle -- see EcosystemDiagram.tsx
