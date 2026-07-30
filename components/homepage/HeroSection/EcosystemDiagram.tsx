@@ -38,9 +38,9 @@ const NODES: DiagramNode[] = getAllWorkflows().map((workflow, index) => ({
   angleDeg: -90 + index * 60,
 }));
 
-function nodeOffset(angleDeg: number) {
+function nodeOffset(angleDeg: number, radius: number = RADIUS_PCT) {
   const rad = (angleDeg * Math.PI) / 180;
-  return { x: RADIUS_PCT * Math.cos(rad), y: RADIUS_PCT * Math.sin(rad) };
+  return { x: radius * Math.cos(rad), y: radius * Math.sin(rad) };
 }
 
 /**
@@ -51,6 +51,18 @@ function nodeOffset(angleDeg: number) {
  * longer hero pin once before for feeling "too long-scrolling").
  */
 const ASSEMBLY_SPLIT = 0.65;
+
+/**
+ * Radius the perimeter ring is drawn at -- deliberately larger than
+ * RADIUS_PCT (the node anchor radius, where the hub spokes terminate).
+ * The anchor sits at the CENTER of each node's icon/number/title stack,
+ * not its outward tip, so a ring drawn at RADIUS_PCT cuts through the
+ * inner half of every node instead of skirting past the outside of its
+ * icon. This candidate value is tuned against the node box's own
+ * rendered size (~12-13% of stageOuter's width from anchor to outer
+ * edge at the default breakpoint) -- re-check if node box sizing changes.
+ */
+const PERIMETER_RADIUS_PCT = 51;
 
 /**
  * Trims each end of a perimeter edge by this fraction of its length, same
@@ -150,8 +162,8 @@ export function EcosystemDiagram({ progress, idleDrift = 0 }: EcosystemDiagramPr
 
           {NODES.map((node, index) => {
             const next = NODES[(index + 1) % NODES.length];
-            const from = nodeOffset(node.angleDeg);
-            const to = nodeOffset(next.angleDeg);
+            const from = nodeOffset(node.angleDeg, PERIMETER_RADIUS_PCT);
+            const to = nodeOffset(next.angleDeg, PERIMETER_RADIUS_PCT);
             const dx = to.x - from.x;
             const dy = to.y - from.y;
             const x1 = 50 + from.x + dx * PERIMETER_INSET_RATIO;
