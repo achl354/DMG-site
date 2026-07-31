@@ -2,7 +2,7 @@ export const SITE_NAME = "DMG / EasiSystem™";
 
 export const NAV_LINKS = [
   { label: "Workflows", href: "/workflows" },
-  { label: "Products", href: "/products" },
+  { label: "Portfolio", href: "/products" },
   { label: "Resources", href: "/resources" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
@@ -41,7 +41,7 @@ export const SECTION_IDS = {
 export const CTA_LABELS = {
   exploreSystem: "Explore by workflow",
   exploreAllWorkflows: "Explore all workflows",
-  viewAllProducts: "View all products",
+  viewAllProducts: "View the portfolio",
   requestInformation: "Request product information",
   contactDmg: "Contact DMG",
 } as const;

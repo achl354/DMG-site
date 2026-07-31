@@ -20,7 +20,7 @@ export default function ProductsPage() {
       <Container size="xl">
         <EyebrowHeading
           as="h1"
-          eyebrow="Products"
+          eyebrow="Portfolio"
           heading="The EasiSystem™ portfolio"
           body="Nine product lines developed by DirectMed Group, each addressing a defined patient-handling workflow."
           className={styles.heading}
