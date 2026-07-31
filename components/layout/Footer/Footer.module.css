@@ -83,3 +83,16 @@
     grid-template-columns: 1.2fr 1fr 1fr 1fr;
   }
 }
+
+/* 1100px, not the site's usual 1024px desktop breakpoint -- measured
+   directly: the disclaimer's own nowrap width needs ~1019px, and the
+   footer's actual available column width doesn't clear that until
+   somewhere between 1050-1080px (grid/padding overhead makes it
+   narrower than the raw viewport width would suggest). 1100px keeps a
+   safety margin above the measured threshold. */
+@media (min-width: 1100px) {
+  .disclaimer {
+    max-width: none;
+    white-space: nowrap;
+  }
+}
