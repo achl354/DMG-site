@@ -156,18 +156,29 @@
    *
    * This base value is the single-column mobile card (full card width,
    * one per row) -- 0.6 here so the illustration reads clearly at that
-   * larger, more prominent size. The >=768px override below drops this
-   * for the multi-column desktop grid instead, where the same opacity
-   * read too heavy across a full row of cards at once; 0.6 (soft/faint),
-   * then 0.7 (too heavy), then 0.5 (still slightly too heavy) were tried
-   * there first, landing on 0.4.
+   * larger, more prominent size. The >=768px override below uses a
+   * different value for the multi-column desktop grid instead, where the
+   * same opacity read differently across a full row of cards at once:
+   * 0.6, 0.7, 0.5 and 0.4 were all tried there before landing on 0.65.
    */
   opacity: 0.6;
 }
 
 @media (min-width: 768px) {
   .icon {
-    height: 260px;
+    /*
+     * 260px previously -- at that height, landscape scenes (lateral
+     * transfer/floor recovery, the widest at ~1.78:1) rendered
+     * width-constrained at only ~178px tall, leaving as much as ~80px of
+     * empty vertical space above and below within the box (measured).
+     * 200px keeps every scene's own contain-fit comfortably inside the
+     * box (nothing here overflows or clips -- object-fit: contain never
+     * crops) while cutting that dead space down to ~20px for the worst
+     * case, reading as a tight illustration zone instead of a mostly
+     * empty one with a small graphic floating in it.
+     */
+    height: 200px;
+    opacity: 0.65;
     opacity: 0.4;
   }
 }

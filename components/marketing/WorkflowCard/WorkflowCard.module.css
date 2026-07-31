@@ -73,25 +73,23 @@
 /*
  * Footer panel -- solutions row + CTA, in their own tinted zone (rounded
  * to match the card's own bottom corners, since .card has no padding of
- * its own now) rather than just another item in a flat stack. This is
- * also where the scene illustration bleeds (still bottom-right,
- * unchanged offset system below) -- giving it a defined zone to sit in
- * fixes the previous version's two problems at once: empty unbalanced
- * space next to the header text, and solutions-row text running
- * directly over the illustration.
+ * its own now) rather than just another item in a flat stack.
+ *
+ * The scene illustration that used to bleed off this panel's
+ * bottom-right corner is removed for now (experiment, comparing against
+ * /products' cards with theirs also removed) -- sizing/spacing below is
+ * otherwise left exactly as it was with the illustration in place, not
+ * recompacted, so this stays an easy A/B rather than a redesign. z-index:
+ * 0/position: relative below predates the illustration's removal (it
+ * existed to contain that illustration's own z-index: -1 within this
+ * panel rather than letting it escape to .card's stacking context) and
+ * is now dormant, not load-bearing -- harmless to leave as-is if the
+ * illustration comes back.
  *
  * margin-top: auto (not the old .viewCue-level trick) pushes this whole
  * panel to the card's bottom regardless of how tall .header's own
  * content is, so it lines up across a row of cards with different
  * title/summary lengths.
- *
- * z-index: 0 alongside position: relative -- without an explicit
- * z-index, this panel doesn't establish its own stacking context, so
- * the scene illustration's z-index: -1 would escape all the way up to
- * .card's isolated context and paint BEHIND this panel's own background
- * (a sibling at that level) instead of just behind its text. Giving the
- * panel its own stacking context contains the illustration within it,
- * correctly behind the text but in front of the panel's background.
  *
  * min-height + flex/justify-content: flex-end -- without a reserved
  * height this tinted band's own thickness varied card to card with how
@@ -114,51 +112,6 @@
   padding: var(--space-5) var(--space-6);
   background: var(--surface-tint);
   border-radius: 0 0 var(--radius-md) var(--radius-md);
-}
-
-/* Faint in-use scene illustration, bleeding off the card's bottom-right
-   corner behind the real content (previously a large ghost numeral's
-   spot -- removed in favour of this single decorative element per
-   corner instead of two competing ones). z-index: -1 keeps it above the
-   card's own background (painted first within .card's isolated
-   stacking context) but below every in-flow child, which paint above
-   z-index: 0/negative descendants regardless of DOM order. Sized as a
-   % of the card so it scales with whichever grid/breakpoint renders
-   this card, rather than a fixed px value. height: auto preserves the
-   source scene's own aspect ratio (no crop box needed here -- unlike
-   ProductCard's exact-ratio crop, a couple of extra px of an
-   already-low-opacity illustration bleeding further past the corner
-   isn't visually meaningful). A small offset (not a large one): these
-   scenes are wide (up to ~1.8:1), so at this size a couple of rem of
-   crop already removes a large share of their short rendered height --
-   enough to make the scene unrecognisable rather than "cropped, but
-   still reads as a caregiver and a mat." Width reads from --scene-width
-   (set inline per-slug via SCENE_WIDTH_OVERRIDES in WorkflowCard.tsx for
-   the couple of workflows whose source scene is unusually wide/flat and
-   so renders shorter than the rest at the shared default), falling back
-   to that 44% default everywhere else. bottom/right read from
-   --scene-bottom/--scene-right the same way (SCENE_OFFSET_OVERRIDES),
-   for the one workflow whose portrait-oriented scene sits more upright/
-   contained than the rest at the shared -1rem offset. */
-.sceneIllustration {
-  position: absolute;
-  bottom: var(--scene-bottom, -1rem);
-  right: var(--scene-right, -1rem);
-  z-index: -1;
-  width: var(--scene-width, 44%);
-  height: auto;
-  /* 0.3 previously -- read a little too quiet at this corner-bleed size. */
-  opacity: 0.45;
-  pointer-events: none;
-  transition: opacity var(--duration-base) var(--ease-out);
-}
-
-/* Brightens alongside the top-edge accent/lift on hover -- same "comes
-   alive" language used elsewhere on this site (the homepage ecosystem
-   diagram's nodes/pulse), rather than sitting static regardless of
-   interaction. */
-.link:hover .sceneIllustration {
-  opacity: 0.55;
 }
 
 /*

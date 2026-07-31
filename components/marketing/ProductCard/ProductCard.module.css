@@ -86,17 +86,21 @@
  * Footer panel -- CTA in its own tinted zone (rounded to match the
  * card's own bottom corners, since .card has no padding of its own now)
  * rather than a plain in-flow item, matching WorkflowCard's
- * .footerPanel. Also where the product icon bleeds (see .iconWatermark
- * below) -- previously a dedicated side-by-side column with a fixed
- * crop ratio; now a simple corner bleed like WorkflowCard's scene
- * illustration, so the two card types read as the same visual language.
+ * .footerPanel.
+ *
+ * The product's own icon that used to bleed off this panel's
+ * bottom-right corner is removed for now (experiment, comparing against
+ * /workflows' cards with theirs also removed) -- sizing/spacing below is
+ * otherwise left exactly as it was with the icon in place, not
+ * recompacted, so this stays an easy A/B rather than a redesign.
+ * z-index: 0/position: relative predates the icon's removal (it existed
+ * to contain that icon's own z-index: -1 within this panel rather than
+ * letting it escape to .card's stacking context, see WorkflowCard's own
+ * comment on the same fix) and is now dormant, not load-bearing --
+ * harmless to leave as-is if the icon comes back.
  *
  * margin-top: auto pushes this whole panel to the card's bottom
- * regardless of how tall .header's own content is. z-index: 0 alongside
- * position: relative gives this panel its own stacking context, so the
- * icon's z-index: -1 lands behind its text instead of behind the
- * panel's own background (see WorkflowCard.module.css's own comment on
- * this same fix).
+ * regardless of how tall .header's own content is.
  */
 .footerPanel {
   position: relative;
@@ -106,38 +110,6 @@
   padding: var(--space-5) var(--space-6);
   background: var(--surface-tint);
   border-radius: 0 0 var(--radius-md) var(--radius-md);
-}
-
-/*
- * Low-opacity echo of the product's own outline, bleeding off this
- * panel's bottom-right corner -- same treatment as WorkflowCard's scene
- * illustration (width % + height: auto, no forced crop ratio), replacing
- * the previous dedicated column with a 150%-scale-then-clip-to-2/3 crop.
- * That system guaranteed an identical crop fraction regardless of a
- * product's own aspect ratio; this simpler bleed doesn't, trading that
- * guarantee for a consistent visual language with WorkflowCard. Width
- * reads from --icon-width (ICON_WIDTH_OVERRIDES in ProductCard.tsx) for
- * any product needing a size adjustment, bottom/right from
- * --icon-bottom/--icon-right (ICON_OFFSET_OVERRIDES) for any needing a
- * different anchor -- same override pattern as WorkflowCard's
- * SCENE_WIDTH_OVERRIDES/SCENE_OFFSET_OVERRIDES.
- */
-.iconWatermark {
-  position: absolute;
-  bottom: var(--icon-bottom, -1rem);
-  right: var(--icon-right, -1rem);
-  z-index: -1;
-  width: var(--icon-width, 44%);
-  height: auto;
-  /* Kept in sync with WorkflowCard's own .sceneIllustration opacity --
-     0.3 previously, read a little too quiet at this corner-bleed size. */
-  opacity: 0.45;
-  pointer-events: none;
-  transition: opacity var(--duration-base) var(--ease-out);
-}
-
-.link:hover .iconWatermark {
-  opacity: 0.55;
 }
 
 /* Sits within .footerPanel -- that panel's own margin-top: auto (not
