@@ -91,11 +91,22 @@
   letter-spacing: var(--tracking-wide);
 }
 
+/*
+ * min-height: 2lh -- reserves space for 2 lines regardless of the actual
+ * text length. Only "Air Supply and Equipment Readiness" (of the 6 titles)
+ * wraps to a 2nd line; without this reservation, every other card's
+ * single-line title left its own description/icon sitting higher than
+ * that one card's row-mates (measured: up to 26px of drift within a
+ * row). Fallback first (2 x --type-heading-leading 1.12 = 2.24em) for
+ * browsers without the lh unit -- see .description's own note below.
+ */
 .title {
   font-size: var(--text-lg);
   font-weight: var(--weight-bold);
   line-height: var(--type-heading-leading);
   color: var(--text-strong);
+  min-height: 2.24em;
+  min-height: 2lh;
 }
 
 @media (min-width: 768px) {
@@ -105,22 +116,26 @@
 }
 
 /*
- * min-height: 3lh -- reserves space for 3 lines regardless of the actual
- * text length. Without this, a shorter description (e.g. turning-
- * positioning's 2 lines vs its row-mates' 3) leaves less space above the
- * icon that follows, so the icon sits higher than its neighbours in the
- * same row even though it's the same height.
+ * min-height: 4lh -- reserves space for 4 lines regardless of the actual
+ * text length (3lh previously). Measured directly: 3 of the 6
+ * descriptions wrap to 4 lines at typical card widths, not 3 -- the
+ * previous 3lh reservation was a floor those 3 cards' text simply grew
+ * past, so THEIR icons sat up to ~42px lower than their 3-line row-mates
+ * (the exact opposite problem this rule was originally written to
+ * prevent). Paired with .title's own min-height above -- both the title's
+ * and description's line-count both vary card to card, and only reserving
+ * one of the two still left the other free to misalign a row.
  */
 .description {
   font-size: var(--text-sm);
   line-height: var(--leading-relaxed);
   color: var(--text-body);
-  /* Fallback first: 3 lines x --leading-relaxed (1.65) = 4.95em, for
+  /* Fallback first: 4 lines x --leading-relaxed (1.65) = 6.6em, for
      browsers without the lh unit (Safari < 16.4, Firefox < 120), which
      would otherwise drop the rule entirely and lose the row alignment.
      Keep in sync with --leading-relaxed if it ever changes. */
-  min-height: 4.95em;
-  min-height: 3lh;
+  min-height: 6.6em;
+  min-height: 4lh;
 }
 
 /*
@@ -162,6 +177,21 @@
    * 0.6, 0.7, 0.5, 0.4 and 0.65 were all tried there before landing on 0.8.
    */
   opacity: 0.6;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+/* Brightens to fully opaque on hover -- same "comes alive on interaction"
+   language used elsewhere on this site (WorkflowCard's scene
+   illustration, the hero ecosystem diagram's nodes/pulse), rather than
+   sitting static regardless of interaction. */
+.card:hover .icon {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icon {
+    transition: none;
+  }
 }
 
 @media (min-width: 768px) {

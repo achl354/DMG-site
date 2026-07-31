@@ -96,3 +96,28 @@
     white-space: nowrap;
   }
 }
+
+/* Desktop only -- center both legal lines. margin-inline: auto centers
+   .disclaimer's own box within the footer (needed below 1100px, where it
+   still carries the 72ch max-width above and so doesn't span the full
+   container on its own; a harmless no-op once max-width: none takes over
+   and the box already fills the width). justify-content: center on
+   .legalRow re-centers the copyright text as a group with the
+   DesktopViewToggle button next to it -- that toggle is already
+   display: none at this same 1024px breakpoint except for a former-mobile
+   visitor who switched to desktop view (see DesktopViewToggle.module.css),
+   so in the ordinary case this is just centering the copyright text alone. */
+@media (min-width: 1024px) {
+  .disclaimer {
+    text-align: center;
+    margin-inline: auto;
+  }
+
+  .legalRow {
+    justify-content: center;
+  }
+
+  .legal {
+    text-align: center;
+  }
+}
