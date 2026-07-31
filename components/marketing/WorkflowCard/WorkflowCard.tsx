@@ -1,5 +1,6 @@
 "use client";
 
+import { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -16,6 +17,19 @@ export interface WorkflowCardProps {
   /** Opens the workflow in a modal instead of navigating to its page, when provided. */
   onSelect?: (workflow: Workflow) => void;
 }
+
+/**
+ * Default (unlisted workflows): 44%, set directly in WorkflowCard.module.css.
+ * lateral-transfer/floor-recovery's source scenes are unusually wide
+ * (~1.78:1, vs ~1:1 for most others -- see WORKFLOW_SCENE_ICON_DIMENSIONS),
+ * so at the same width they rendered noticeably shorter/quieter than the
+ * rest. Widened just for these two to bring their visual footprint back
+ * in line, same override pattern as ProductCard's ICON_COLUMN_WIDTH_OVERRIDES.
+ */
+const SCENE_WIDTH_OVERRIDES: Partial<Record<string, string>> = {
+  "lateral-transfer": "58%",
+  "floor-recovery": "58%",
+};
 
 export function WorkflowCard({ workflow, featured = false, onSelect }: WorkflowCardProps) {
   const router = useRouter();
@@ -36,6 +50,11 @@ export function WorkflowCard({ workflow, featured = false, onSelect }: WorkflowC
           height={sceneHeight}
           aria-hidden="true"
           className={styles.sceneIllustration}
+          style={
+            SCENE_WIDTH_OVERRIDES[workflow.slug]
+              ? ({ "--scene-width": SCENE_WIDTH_OVERRIDES[workflow.slug] } as CSSProperties)
+              : undefined
+          }
         />
       )}
       <span className={featured ? styles.numberFeatured : styles.eyebrowNumber}>

@@ -73,13 +73,17 @@
    scenes are wide (up to ~1.8:1), so at this size a couple of rem of
    crop already removes a large share of their short rendered height --
    enough to make the scene unrecognisable rather than "cropped, but
-   still reads as a caregiver and a mat." */
+   still reads as a caregiver and a mat." Width reads from --scene-width
+   (set inline per-slug via SCENE_WIDTH_OVERRIDES in WorkflowCard.tsx for
+   the couple of workflows whose source scene is unusually wide/flat and
+   so renders shorter than the rest at the shared default), falling back
+   to that 44% default everywhere else. */
 .sceneIllustration {
   position: absolute;
   bottom: -0.5rem;
   right: -0.5rem;
   z-index: -1;
-  width: 44%;
+  width: var(--scene-width, 44%);
   height: auto;
   opacity: 0.3;
   pointer-events: none;
