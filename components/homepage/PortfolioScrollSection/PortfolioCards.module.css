@@ -146,15 +146,14 @@
    */
   margin-bottom: 24px;
   /*
-   * These source PNGs are black line art on a solid *white* background
-   * (not transparent) -- multiply blend drops that white against this
-   * card's own white surface, leaving just the linework, so opacity
-   * alone doesn't fade in a visible washed-out box. Quieter than the
-   * old full-contrast treatment without introducing a second (teal)
-   * tint for illustration -- teal stays reserved for the brand accent
-   * (buttons, links, badges) rather than spreading into artwork too.
+   * These source PNGs (scenes-teal/, not the plain black-on-white
+   * scenes/ set the old version of this card used) are transparent with
+   * the brand teal baked into the stroke itself -- same asset and
+   * thicker stroke weight as WorkflowCard's own scene illustration, for
+   * a consistent line style/color between the two. No blend mode
+   * needed against this card's white surface since there's no opaque
+   * background to drop out; opacity alone fades it.
    */
-  mix-blend-mode: multiply;
   opacity: 0.6;
 }
 
