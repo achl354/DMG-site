@@ -1,8 +1,8 @@
 export const SITE_NAME = "DMG / EasiSystem™";
 
 export const NAV_LINKS = [
-  { label: "Products", href: "/products" },
   { label: "Workflows", href: "/workflows" },
+  { label: "Products", href: "/products" },
   { label: "Resources", href: "/resources" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
