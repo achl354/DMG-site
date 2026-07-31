@@ -15,10 +15,17 @@
 }
 
 .liveRegion {
-  /* Reserves roughly the tallest fact's height so rotating between facts
-     of different lengths doesn't shift the page (and so the very first
-     paint doesn't jump once client JS mounts). */
-  min-height: 11rem;
+  /* Reserves the tallest fact's rendered height (measured directly --
+     the longest statement/statistic combo, "compensation-cost-illustration",
+     renders at ~22.3rem at this width) so rotating between facts of
+     different lengths doesn't shift the page height. The previous
+     11rem was well short of even the SHORTEST fact's real height
+     (~12.4rem), so every 5s rotation was already changing the page's
+     total scrollable height -- if a rotation shrank the page while the
+     user had scrolled past this section, the browser (and Lenis) had to
+     snap scrollY back down to the new, smaller max, which read as the
+     page refusing to scroll past this card. */
+  min-height: 23rem;
   display: flex;
   align-items: center;
 }
@@ -123,7 +130,8 @@
   }
 
   .liveRegion {
-    min-height: 9rem;
+    /* Measured tallest fact at mobile widths: ~19.1rem. */
+    min-height: 20rem;
   }
 
   .eyebrow {
@@ -183,6 +191,14 @@
 @media (min-width: 768px) and (max-width: 1023px) {
   .body {
     gap: var(--space-6);
+  }
+
+  /* This range wraps .statement onto more lines than either the mobile
+     stack or the wider desktop row (narrower available width, but still
+     the row layout) -- measured tallest fact here: ~24.8rem, taller than
+     desktop's own 23rem base. */
+  .liveRegion {
+    min-height: 25rem;
   }
 
   .stat {
