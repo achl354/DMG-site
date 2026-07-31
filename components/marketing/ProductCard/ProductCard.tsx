@@ -82,6 +82,20 @@ export function ProductCard({ product }: { product: ProductWithAssets }) {
               alt=""
               width={iconWidth}
               height={iconHeight}
+              // Without this, next/image assumes the image displays at its
+              // full declared width/height above (the source file's native
+              // pixel size) and serves a 1x/2x variant sized to match --
+              // but the actual on-page size is set independently by
+              // .iconWatermark's own CSS (44-52% of the footer panel, ~150-
+              // 200px in practice), so the browser was left squeezing a
+              // much larger image down to that at render time. For source
+              // images with an unusually tall/narrow aspect ratio (the
+              // manual-handling-board and support-equipment-cart crops),
+              // that squeeze was steep enough to visibly alias thin
+              // diagonal strokes into a jagged/coarse look. Naming the
+              // real approximate display width here lets next/image serve
+              // an already-appropriately-sized file instead.
+              sizes="200px"
               aria-hidden="true"
               className={styles.iconWatermark}
               style={
