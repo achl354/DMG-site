@@ -8,8 +8,10 @@ import styles from "./FloatingContactCta.module.css";
 
 /**
  * Floating "Contact DMG" pill -- appears once the hero has scrolled out of
- * view, and hides again over the resources/contact section so it never
- * doubles up on the "Contact DMG" button already there.
+ * view, and hides again over the resources/contact section (so it never
+ * doubles up on the "Contact DMG" button already there) and over the
+ * site footer (which has no such button, but the pill would otherwise
+ * sit on top of the copyright/legal text down there instead).
  */
 export function FloatingContactCta() {
   const [pastHero, setPastHero] = useState(false);
@@ -18,15 +20,19 @@ export function FloatingContactCta() {
   useEffect(() => {
     const hero = document.getElementById(SECTION_IDS.hero);
     const footerCta = document.getElementById(SECTION_IDS.resourcesContact);
-    if (!hero || !footerCta) return;
+    const footer = document.querySelector("footer");
+    if (!hero || !footerCta || !footer) return;
 
     const heroObserver = new IntersectionObserver(([entry]) => setPastHero(!entry.isIntersecting), {
       rootMargin: "-10% 0px 0px 0px",
     });
-    const footerObserver = new IntersectionObserver(([entry]) => setOverFooterCta(entry.isIntersecting));
+    const footerObserver = new IntersectionObserver((entries) =>
+      setOverFooterCta(entries.some((entry) => entry.isIntersecting)),
+    );
 
     heroObserver.observe(hero);
     footerObserver.observe(footerCta);
+    footerObserver.observe(footer);
 
     return () => {
       heroObserver.disconnect();
