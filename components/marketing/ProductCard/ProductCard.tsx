@@ -21,6 +21,17 @@ const ICON_WIDTH_OVERRIDES: Partial<Record<string, string>> = {
   // (~139px vs a 157-278px range for the rest), reading as noticeably
   // quieter than its siblings.
   easiturn: "52%",
+  // manual-handling-board (easiglide) and support-equipment-cart
+  // (easicart) are the narrowest/tallest sources of the 9 (aspect ratios
+  // ~0.6, vs ~0.8-1.2 for the rest) -- at the 44% default they rendered
+  // ~265-278px tall against .footerPanel's own ~108px visible window
+  // (see that rule's comment), clipping to barely half their own height
+  // while their row-mates showed 75%+. Narrowed so their rendered height
+  // lands in the same ~200px range as the tallest of the rest
+  // (sling-transfer, no override needed), evening out how much of each
+  // icon the shared panel height actually reveals.
+  easiglide: "32%",
+  easicart: "33%",
 };
 
 /**

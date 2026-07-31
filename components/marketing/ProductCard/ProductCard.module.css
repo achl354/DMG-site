@@ -90,6 +90,23 @@
  * below) -- previously removed as an experiment (the cards read too
  * repetitive without any per-product visual anchor), restored here.
  *
+ * min-height: 108px -- without this the panel was only as tall as its
+ * CTA text (~66px), but the icon bleeding off its corner renders at
+ * 143-278px tall depending on the product's own aspect ratio (see
+ * .iconWatermark below), so only its bottom ~25-45% survived this
+ * panel's own overflow: hidden -- most of each device was clipped away,
+ * not just a deliberate corner crop. 108px (paired with easiglide/
+ * easicart's own narrower --icon-width, see ProductCard.tsx) instead
+ * reveals roughly 60-90% of each icon's height, closer to a deliberate
+ * partial bleed than an accidental one.
+ *
+ * display: flex/flex-direction: column/justify-content: flex-end --
+ * without this the CTA text (the only in-flow content here) would sit
+ * right after the panel's own top padding, leaving the new min-height's
+ * extra room as a gap below the text instead of above it. Anchoring to
+ * the bottom instead keeps the CTA sitting just above the icon, same as
+ * WorkflowCard's own footerPanel.
+ *
  * margin-top: auto pushes this whole panel to the card's bottom
  * regardless of how tall .header's own content is. z-index: 0 alongside
  * position: relative gives this panel its own stacking context, so the
@@ -98,10 +115,14 @@
  * this same fix).
  */
 .footerPanel {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   position: relative;
   z-index: 0;
   overflow: hidden;
   margin-top: auto;
+  min-height: 108px;
   padding: var(--space-5) var(--space-6);
   background: var(--surface-tint);
   border-radius: 0 0 var(--radius-md) var(--radius-md);
