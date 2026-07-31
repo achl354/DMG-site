@@ -89,19 +89,26 @@
 /* Mobile/tablet: a short full-width band below the text, image shown at
    its natural size, anchored to the band's bottom-right corner -- same
    corner the wide-container row layout below anchors its own icon to
-   (align-self: flex-end there), just without that layout's crop. */
+   (align-self: flex-end there), just without that layout's crop.
+   margin-right/-bottom cancel .card's own padding (--space-6) and push
+   another 1rem past it, so the icon bleeds off the card's true edge and
+   gets clipped by .card's overflow: hidden -- matching WorkflowCard's
+   scene illustration, which bleeds off its own corner the same amount,
+   rather than sitting fully contained with margin on every side. */
 .imageCol {
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
   height: 6rem;
+  margin-right: calc(-1 * var(--space-6) - 1rem);
+  margin-bottom: calc(-1 * var(--space-6) - 1rem);
 }
 
 .iconWatermark {
   width: auto;
   height: 6rem;
   max-width: 100%;
-  opacity: 0.28;
+  opacity: 0.3;
   pointer-events: none;
 }
 
