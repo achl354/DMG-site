@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { getAllWorkflows } from "@/lib/content/workflows";
-import { WORKFLOW_ICONS } from "@/lib/content/assets";
+import { WORKFLOW_ICONS, WORKFLOW_ICON_DIMENSIONS } from "@/lib/content/assets";
 import { navigateWithViewTransition, isPlainLeftClick } from "@/lib/viewTransition";
 import styles from "./EcosystemDiagram.module.css";
 
@@ -15,6 +15,8 @@ interface DiagramNode {
   number: string;
   title: string;
   icon: string;
+  iconWidth: number;
+  iconHeight: number;
   angleDeg: number;
 }
 
@@ -26,13 +28,18 @@ const RADIUS_PCT = 38;
  * diagram's numbering, kept consistent with the mobile rotator's choice so
  * "workflow 01" always means the same thing site-wide.
  */
-const NODES: DiagramNode[] = getAllWorkflows().map((workflow, index) => ({
-  slug: workflow.slug,
-  number: workflow.number,
-  title: workflow.title,
-  icon: WORKFLOW_ICONS[workflow.slug],
-  angleDeg: -90 + index * 60,
-}));
+const NODES: DiagramNode[] = getAllWorkflows().map((workflow, index) => {
+  const [iconWidth, iconHeight] = WORKFLOW_ICON_DIMENSIONS[workflow.slug];
+  return {
+    slug: workflow.slug,
+    number: workflow.number,
+    title: workflow.title,
+    icon: WORKFLOW_ICONS[workflow.slug],
+    iconWidth,
+    iconHeight,
+    angleDeg: -90 + index * 60,
+  };
+});
 
 function nodeOffset(angleDeg: number, radius: number = RADIUS_PCT) {
   const rad = (angleDeg * Math.PI) / 180;
@@ -238,8 +245,23 @@ export function EcosystemDiagram({ progress, idleDrift = 0 }: EcosystemDiagramPr
                 navigateWithViewTransition(router, href);
               }}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element -- small decorative catalogue icon, not a page-weight-relevant photo */}
-              <img src={node.icon} alt="" className={styles.nodeIcon} />
+              {/* Recolored to the exact brand teal via CSS mask (background-color
+                  painted through the icon's own alpha channel) rather than shown
+                  as its own ink-900 artwork -- matches the teal treatment used
+                  for outline art elsewhere on this page (WorkflowCard, the
+                  homepage scroll section). aspectRatio is set inline since a
+                  masked element has no intrinsic size the way an <img> does. */}
+              <span
+                aria-hidden="true"
+                className={styles.nodeIcon}
+                style={
+                  {
+                    maskImage: `url(${node.icon})`,
+                    WebkitMaskImage: `url(${node.icon})`,
+                    aspectRatio: `${node.iconWidth} / ${node.iconHeight}`,
+                  } as CSSProperties
+                }
+              />
               <p className={styles.nodeNumber}>{node.number}</p>
               <p className={styles.nodeTitle}>{node.title}</p>
             </Link>

@@ -144,6 +144,24 @@ export const WORKFLOW_ICONS: Record<string, string> = {
 };
 
 /**
+ * Natural pixel dimensions for each WORKFLOW_ICONS file -- needed so the
+ * ecosystem diagram's node icons (rendered as a CSS mask, not an <img>,
+ * so they can be recolored to the exact brand teal rather than these
+ * files' own baked-in ink-900) can set an explicit aspect-ratio. A
+ * masked element has no intrinsic size the way an <img> does, so
+ * without this the fixed-height/auto-width sizing these nodes use would
+ * have nothing to compute a proportional width from.
+ */
+export const WORKFLOW_ICON_DIMENSIONS: Record<string, [number, number]> = {
+  "lateral-transfer": [1035, 888],
+  "floor-recovery": [945, 888],
+  "manual-handling-support": [1449, 831],
+  "sling-transfer": [690, 852],
+  "turning-positioning": [1011, 840],
+  "support-equipment": [1696, 1104],
+};
+
+/**
  * Same artwork as WORKFLOW_ICONS, before the stroke-thickening pass --
  * kept as its own file set (rather than a shared source) specifically for
  * the mobile hero rotator, which renders these icons much larger relative

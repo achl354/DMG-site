@@ -258,11 +258,25 @@
     opacity 150ms ease-out;
 }
 
+/*
+ * Rendered as a solid-teal mask rather than an <img> showing the source
+ * file's own ink-900 color -- background-color is only visible where
+ * the icon's own alpha channel is opaque, so the shape reads exactly as
+ * the artwork but recolored to the brand teal. mask-size: contain
+ * (paired with the inline aspect-ratio) keeps the same fixed-height/
+ * auto-width sizing and proportions the old <img> had.
+ */
 .nodeIcon {
   height: 84px;
   height: 13.125cqi;
   width: auto;
-  object-fit: contain;
+  background-color: var(--brand);
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
 }
 
 .nodeNumber {
