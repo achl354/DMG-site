@@ -8,7 +8,6 @@ import { Card } from "@/components/ui";
 import type { Workflow } from "@/lib/content/workflows";
 import { WORKFLOW_SCENE_ICONS, WORKFLOW_SCENE_ICON_DIMENSIONS } from "@/lib/content/assets";
 import { navigateWithViewTransition, isPlainLeftClick } from "@/lib/viewTransition";
-import { WorkflowSolutionsIcon } from "./WorkflowSolutionsIcon";
 import styles from "./WorkflowCard.module.css";
 
 export interface WorkflowCardProps {
@@ -87,12 +86,9 @@ export function WorkflowCard({ workflow, featured = false, onSelect }: WorkflowC
             }
           />
         )}
-        <div className={styles.solutionsRow}>
-          <WorkflowSolutionsIcon slug={workflow.slug} className={styles.solutionsIcon} />
-          <p className={styles.solutions}>
-            <span className={styles.solutionsLabel}>Workflow solutions:</span> {workflow.solutions}
-          </p>
-        </div>
+        <p className={styles.solutions}>
+          <span className={styles.solutionsLabel}>Workflow solutions:</span> {workflow.solutions}
+        </p>
         {/* aria-hidden -- purely a visual "this card is clickable" cue; the
             whole card is already the accessible link/button. */}
         <span className={styles.viewCue} aria-hidden="true">

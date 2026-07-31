@@ -92,8 +92,21 @@
  * (a sibling at that level) instead of just behind its text. Giving the
  * panel its own stacking context contains the illustration within it,
  * correctly behind the text but in front of the panel's background.
+ *
+ * min-height + flex/justify-content: flex-end -- without a reserved
+ * height this tinted band's own thickness varied card to card with how
+ * much the solutions text wrapped (measured: 174px for 5 of 6
+ * workflows, 197px for the one with the longest solutions copy), so the
+ * colored band read as visibly different heights across the grid.
+ * 200px comfortably covers the longest case; shorter cards' content
+ * anchors to the bottom of that reserved space (flex-end) so the extra
+ * room shows as quiet space above the text, not a gap below the CTA.
  */
 .footerPanel {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 200px;
   position: relative;
   z-index: 0;
   overflow: hidden;
@@ -200,28 +213,6 @@
   font-size: var(--text-sm);
   line-height: var(--leading-relaxed);
   color: var(--text-body);
-}
-
-/* No divider needed above this any more -- .footerPanel's own tinted
-   background is what separates it from .header now. */
-.solutionsRow {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-2);
-  position: relative;
-}
-
-.solutionsIcon {
-  flex-shrink: 0;
-  width: 1.75rem;
-  height: 1.75rem;
-  padding: var(--space-1);
-  border-radius: var(--radius-pill);
-  /* White, not the shared --surface-tint -- .footerPanel's own
-     background now uses that same tint, so the icon badge would
-     otherwise disappear into it. */
-  background: var(--surface-card);
-  color: var(--brand);
 }
 
 .solutions {
