@@ -211,6 +211,24 @@
   width: 181px;
   width: 28.28cqi;
   text-align: center;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/*
+ * Transition scoped to idle only, not applied unconditionally -- during
+ * assembly this same element's inline transform/opacity updates every
+ * scroll frame (~16ms), far faster than any reasonable hover duration, so
+ * an unconditional transition would visibly lag/smooth the scroll-driven
+ * assembly instead of tracking it directly. Once idle, transform/opacity
+ * are otherwise constant (only hover changes them), so scoping here means
+ * the transition only ever fires for a genuine hover/focus change.
+ */
+.nodeSettled {
+  transition:
+    transform 150ms ease-out,
+    opacity 150ms ease-out;
 }
 
 .nodeIcon {

@@ -1,5 +1,11 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { getAllWorkflows } from "@/lib/content/workflows";
 import { WORKFLOW_ICONS } from "@/lib/content/assets";
+import { navigateWithViewTransition, isPlainLeftClick } from "@/lib/viewTransition";
 import styles from "./EcosystemDiagram.module.css";
 
 const clamp = (value: number, min = 0, max = 1) => Math.min(Math.max(value, min), max);
@@ -148,6 +154,8 @@ export interface EcosystemDiagramProps {
  * reduced-motion/no-JS case).
  */
 export function EcosystemDiagram({ progress, idleDrift = 0 }: EcosystemDiagramProps) {
+  const router = useRouter();
+  const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
   const animated = progress !== undefined;
   const overallProgress = animated ? clamp(progress) : 1;
   const assemblyProgress = animated ? clamp(overallProgress / ASSEMBLY_SPLIT) : 1;
@@ -195,24 +203,46 @@ export function EcosystemDiagram({ progress, idleDrift = 0 }: EcosystemDiagramPr
           const bounced = easeOutBack(reveal);
           const depth = x * NODE_DEPTH_PER_PCT;
           const depthNorm = x / RADIUS_PCT;
+          const isHovered = idle && hoveredSlug === node.slug;
           const depthScale = idle ? 1 + depthNorm * (NODE_DEPTH_SCALE_RANGE / 2) : 1;
           const depthOpacity = idle ? 1 - (NODE_DEPTH_OPACITY_RANGE / 2) * (1 - depthNorm) : 1;
+          const hoverScale = isHovered ? 1.08 : 1;
+          const href = `/workflows/${node.slug}`;
           return (
-            <div
+            <Link
               key={node.slug}
-              className={styles.node}
+              href={href}
+              tabIndex={idle ? 0 : -1}
+              className={`${styles.node} ${idle ? styles.nodeSettled : ""}`}
               style={{
                 left: `${50 + x}%`,
                 top: `${50 + y}%`,
-                opacity: reveal * depthOpacity,
-                transform: `translate(-50%, -50%) scale(${(0.6 + 0.4 * bounced) * depthScale}) translateY(${(1 - bounced) * 16}px) translateZ(${depth}px)`,
+                opacity: isHovered ? 1 : reveal * depthOpacity,
+                transform: `translate(-50%, -50%) scale(${(0.6 + 0.4 * bounced) * depthScale * hoverScale}) translateY(${(1 - bounced) * 16}px) translateZ(${depth}px)`,
+                // Inline, not left to the .node/.node:hover CSS rule --
+                // an inline style always outranks any stylesheet rule
+                // regardless of specificity, sidestepping both the global
+                // `a:hover { text-decoration: underline }` reset AND
+                // production minifiers that (wrongly, for this
+                // cross-stylesheet case) treat a same-value `:hover` rule
+                // as redundant and drop it.
+                textDecoration: "none",
+              }}
+              onMouseEnter={() => setHoveredSlug(node.slug)}
+              onMouseLeave={() => setHoveredSlug(null)}
+              onFocus={() => setHoveredSlug(node.slug)}
+              onBlur={() => setHoveredSlug(null)}
+              onClick={(event) => {
+                if (!isPlainLeftClick(event)) return;
+                event.preventDefault();
+                navigateWithViewTransition(router, href);
               }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element -- small decorative catalogue icon, not a page-weight-relevant photo */}
               <img src={node.icon} alt="" className={styles.nodeIcon} />
               <p className={styles.nodeNumber}>{node.number}</p>
               <p className={styles.nodeTitle}>{node.title}</p>
-            </div>
+            </Link>
           );
         })}
       </div>
