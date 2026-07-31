@@ -80,8 +80,8 @@
    to that 44% default everywhere else. */
 .sceneIllustration {
   position: absolute;
-  bottom: -0.5rem;
-  right: -0.5rem;
+  bottom: -1rem;
+  right: -1rem;
   z-index: -1;
   width: var(--scene-width, 44%);
   height: auto;
