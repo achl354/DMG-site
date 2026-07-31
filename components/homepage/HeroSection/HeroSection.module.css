@@ -163,18 +163,19 @@
   }
 
   /*
-   * At the shared .lg Button size (24px font, 16/40 padding) the label
-   * alone runs close to full container width on a narrow phone, reading
-   * as an oversized app-style action rather than a website CTA. Scale it
-   * down closer to the other homepage CTAs (Browse resources etc., .md
-   * size: 16px font, 12/24 padding). Applied to both CTAs identically so
-   * the primary/secondary pair stays the same size as each other -- only
-   * .heroCta had this override before, leaving the secondary "View all
-   * products" button stuck at the larger desktop size. Override with
-   * !important -- these and .lg are equal-specificity single classes, so
-   * source order alone can't be relied on to win. width: 100% additionally
-   * makes both CTAs the same width as each other regardless of label
-   * length, since they stack full-width on mobile anyway.
+   * Base size is now .md (16px font, 12/24 padding) -- previously .lg
+   * (24px font, 16/40 padding), which ran the label close to full
+   * container width on a narrow phone, reading as an oversized
+   * app-style action rather than a website CTA. This override still
+   * nudges both CTAs slightly past .md's own mobile rendering (17px
+   * padded to 20px) for a bit more tap-target/breathing room at this
+   * width specifically. Applied to both CTAs identically so the
+   * primary/secondary pair stays the same size as each other. Override
+   * with !important -- these and the Button size variant are
+   * equal-specificity single classes, so source order alone can't be
+   * relied on to win. width: 100% additionally makes both CTAs the same
+   * width as each other regardless of label length, since they stack
+   * full-width on mobile anyway.
    */
   .heroCta,
   .heroCtaSecondary {

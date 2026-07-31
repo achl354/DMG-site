@@ -129,13 +129,15 @@
   z-index: -1;
   width: var(--icon-width, 44%);
   height: auto;
-  opacity: 0.3;
+  /* Kept in sync with WorkflowCard's own .sceneIllustration opacity --
+     0.3 previously, read a little too quiet at this corner-bleed size. */
+  opacity: 0.45;
   pointer-events: none;
   transition: opacity var(--duration-base) var(--ease-out);
 }
 
 .link:hover .iconWatermark {
-  opacity: 0.5;
+  opacity: 0.55;
 }
 
 /* Sits within .footerPanel -- that panel's own margin-top: auto (not

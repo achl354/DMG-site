@@ -46,7 +46,7 @@ export function HeroSection() {
         portfolio.
       </p>
       <div className={styles.ctaRow}>
-        <Button size="lg" className={styles.heroCta} onClick={handleExploreClick}>
+        <Button size="md" className={styles.heroCta} onClick={handleExploreClick}>
           {CTA_LABELS.exploreSystem}
           <span className={styles.heroCtaArrow} aria-hidden="true">
             →
@@ -57,7 +57,7 @@ export function HeroSection() {
           className={styles.heroCtaSecondaryLink}
           onClick={() => trackEvent("hero_cta_clicked", { cta: "view_all_products" })}
         >
-          <Button variant="secondary" size="lg" className={styles.heroCtaSecondary}>
+          <Button variant="secondary" size="md" className={styles.heroCtaSecondary}>
             {CTA_LABELS.viewAllProducts}
           </Button>
         </Link>
