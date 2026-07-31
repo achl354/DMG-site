@@ -25,10 +25,9 @@ export function WorkflowCard({ workflow, featured = false, onSelect }: WorkflowC
 
   const content = (
     <Card className={[styles.card, featured && styles.featured].filter(Boolean).join(" ")}>
-      {/* Faint in-use scene, bleeding off the card's top-right corner behind
-          the real content -- same low-opacity "quiet background" language as
-          the large ghost numeral below, just a different corner. aria-hidden
-          since it's decorative, not information. */}
+      {/* Faint in-use scene, bleeding off the card's bottom-right corner
+          behind the real content -- low-opacity "quiet background"
+          language. aria-hidden since it's decorative, not information. */}
       {scene && (
         <Image
           src={scene}
@@ -39,9 +38,6 @@ export function WorkflowCard({ workflow, featured = false, onSelect }: WorkflowC
           className={styles.sceneIllustration}
         />
       )}
-      <span className={styles.ghostNumber} aria-hidden="true">
-        {workflow.number}
-      </span>
       <span className={featured ? styles.numberFeatured : styles.eyebrowNumber}>
         {workflow.number}
       </span>

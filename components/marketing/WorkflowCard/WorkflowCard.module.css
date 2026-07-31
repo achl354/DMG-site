@@ -57,44 +57,26 @@
   padding: var(--space-8);
 }
 
-/* Large ghost numeral, bleeding off the card's bottom-right corner behind
-   the real content -- bottom-right so it sits in whatever leftover space
-   a shorter card has below its own text, instead of reading as a dead
-   gap. z-index: -1 keeps it above the card's own background (painted
-   first within .card's isolated stacking context) but below every
-   in-flow child, which paint above z-index: 0/negative descendants
-   regardless of DOM order. */
-.ghostNumber {
-  position: absolute;
-  bottom: -1rem;
-  right: -0.35rem;
-  z-index: -1;
-  font-family: var(--font-display);
-  font-size: 5rem;
-  font-weight: var(--weight-extrabold);
-  letter-spacing: var(--tracking-tight);
-  line-height: 1;
-  color: var(--teal-50);
-  pointer-events: none;
-  user-select: none;
-}
-
-/* Faint in-use scene illustration, bleeding off the card's top-right
-   corner behind the title -- same quiet-background language as
-   .ghostNumber above (negative z-index, low opacity), just anchored to
-   the opposite corner. Sized as a % of the card so it scales with
-   whichever grid/breakpoint renders this card, rather than a fixed px
-   value. height: auto preserves the source scene's own aspect ratio (no
-   crop box needed here -- unlike ProductCard's exact-ratio crop, a
-   couple of extra px of an already-low-opacity illustration bleeding
-   further past the corner isn't visually meaningful). A small offset
-   (not a large one): these scenes are wide (up to ~1.8:1), so at this
-   size a couple of rem of crop already removes a large share of their
-   short rendered height -- enough to make the scene unrecognisable
-   rather than "cropped, but still reads as a caregiver and a mat." */
+/* Faint in-use scene illustration, bleeding off the card's bottom-right
+   corner behind the real content (previously a large ghost numeral's
+   spot -- removed in favour of this single decorative element per
+   corner instead of two competing ones). z-index: -1 keeps it above the
+   card's own background (painted first within .card's isolated
+   stacking context) but below every in-flow child, which paint above
+   z-index: 0/negative descendants regardless of DOM order. Sized as a
+   % of the card so it scales with whichever grid/breakpoint renders
+   this card, rather than a fixed px value. height: auto preserves the
+   source scene's own aspect ratio (no crop box needed here -- unlike
+   ProductCard's exact-ratio crop, a couple of extra px of an
+   already-low-opacity illustration bleeding further past the corner
+   isn't visually meaningful). A small offset (not a large one): these
+   scenes are wide (up to ~1.8:1), so at this size a couple of rem of
+   crop already removes a large share of their short rendered height --
+   enough to make the scene unrecognisable rather than "cropped, but
+   still reads as a caregiver and a mat." */
 .sceneIllustration {
   position: absolute;
-  top: -0.5rem;
+  bottom: -0.5rem;
   right: -0.5rem;
   z-index: -1;
   width: 44%;
