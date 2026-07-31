@@ -2,7 +2,7 @@ import { HTMLAttributes, ReactNode } from "react";
 import styles from "./Card.module.css";
 
 export interface CardProps extends HTMLAttributes<HTMLDivElement> {
-  variant?: "default" | "tint" | "brand-rule" | "sage-rule" | "info-rule" | "neutral-rule";
+  variant?: "default" | "tint" | "brand-top" | "sage-top" | "info-top" | "neutral-top";
   children: ReactNode;
 }
 

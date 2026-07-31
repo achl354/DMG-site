@@ -12,15 +12,17 @@ const GROUP_BADGE_TONE: Record<ResourceGroup, "brand" | "sage" | "info" | "neutr
   "clinical-insights": "neutral",
 };
 
-/** Same tone mapping as the badge above, expressed as a Card left-rule
- * variant -- gives every card a group identity at a glance (previously
- * only product-document cards stood out, via their background icon
- * watermark; guide/case-study/clinical-insight cards had no equivalent). */
-const GROUP_CARD_VARIANT: Record<ResourceGroup, "brand-rule" | "sage-rule" | "info-rule" | "neutral-rule"> = {
-  "product-documents": "brand-rule",
-  guides: "sage-rule",
-  "case-studies": "info-rule",
-  "clinical-insights": "neutral-rule",
+/** Same tone mapping as the badge above, expressed as a Card top-edge
+ * accent variant -- gives every card a group identity at a glance
+ * (previously only product-document cards stood out, via their
+ * background icon watermark; guide/case-study/clinical-insight cards
+ * had no equivalent), and matches the top-edge accent position already
+ * used on ProductCard/WorkflowCard (was a left border rule here). */
+const GROUP_CARD_VARIANT: Record<ResourceGroup, "brand-top" | "sage-top" | "info-top" | "neutral-top"> = {
+  "product-documents": "brand-top",
+  guides: "sage-top",
+  "case-studies": "info-top",
+  "clinical-insights": "neutral-top",
 };
 
 /** "Download PDF" for a real downloadable file, "View document" for a

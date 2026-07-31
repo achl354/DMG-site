@@ -9,7 +9,16 @@
   align-items: flex-start;
   gap: var(--space-3);
   height: 100%;
-  min-height: 330px;
+  /* 330px previously -- taller than most product-document cards (spec
+     sheets, IFUs, flyers) actually need, measured against their real
+     content (243-300px unclamped) vs. the guide/case-study/clinical-
+     insight cards that do need close to this height. Trimmed to 300px,
+     alongside a tighter padding below, to reduce the dead space on the
+     shorter cards without shrinking the longer ones (grid row-stretch
+     still equalizes cards sharing a row with a taller sibling). */
+  min-height: 300px;
+  /* 24px (--space-6, the base Card component's own default) previously. */
+  padding: var(--space-5);
   position: relative;
   z-index: 0;
   overflow: hidden;

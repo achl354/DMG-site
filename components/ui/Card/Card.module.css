@@ -10,18 +10,38 @@
   border-color: var(--border-tint);
 }
 
-.brand-rule {
-  border-left: 3px solid var(--brand);
+/*
+ * Top-edge accent band, not a left border rule -- consistent with the
+ * top-edge accent already used on ProductCard/WorkflowCard (same 4px
+ * height/position, just a solid per-tone color here instead of their
+ * shared teal gradient, since these variants exist specifically to
+ * color-code a card by group and a single shared gradient would lose
+ * that distinction). Relies on the consumer's own card class for
+ * position: relative + overflow: hidden (ResourceCard's .card sets
+ * both) so this clips cleanly to the card's rounded corners.
+ */
+.brand-top::before,
+.sage-top::before,
+.info-top::before,
+.neutral-top::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
 }
 
-.sage-rule {
-  border-left: 3px solid var(--sage-600);
+.brand-top::before {
+  background: var(--brand);
 }
 
-.info-rule {
-  border-left: 3px solid var(--feedback-info);
+.sage-top::before {
+  background: var(--sage-600);
 }
 
-.neutral-rule {
-  border-left: 3px solid var(--text-muted);
+.info-top::before {
+  background: var(--feedback-info);
+}
+
+.neutral-top::before {
+  background: var(--text-muted);
 }
