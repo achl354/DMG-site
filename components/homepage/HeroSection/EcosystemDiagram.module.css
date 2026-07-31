@@ -120,7 +120,10 @@
  * would just be a wasted per-frame calculation.
  */
 .pulse {
-  fill: var(--brand);
+  /* var(--brand) previously -- switched to near-black per feedback. No
+     pure-black token in this design system; --ink-900 is its darkest
+     (already used sitewide as "strongest" text) and reads as black here. */
+  fill: var(--ink-900);
   filter: drop-shadow(0 0 1.5px var(--teal-300));
   offset-rotate: 0deg;
   animation:

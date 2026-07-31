@@ -135,21 +135,23 @@
 }
 
 @media (min-width: 1024px) {
-  /* "View all products" matched to "Explore by workflow"'s own natural
-     width at the shared .lg Button size (measured ~341px with the arrow
+  /* "View the portfolio" matched to "Explore by workflow"'s own natural
+     width at the shared .md Button size (measured ~226px with the arrow
      glyph included) so the pair reads as evenly sized, not the shorter
-     label's content-hugging width. Same Link-anchor issue as the mobile
+     label's content-hugging width. 341px previously -- stale from when
+     both CTAs were still .lg; re-measure if either label or the Button
+     size variant changes again. Same Link-anchor issue as the mobile
      override below: width has to go on the anchor too, since a
      percentage/fixed width on the button alone would need a sized
      containing block, and the inline <a> it's wrapped in doesn't
      provide one. */
   .heroCtaSecondary {
-    width: 341px;
+    width: 226px;
   }
 
   .heroCtaSecondaryLink {
     display: flex;
-    width: 341px;
+    width: 226px;
   }
 }
 
