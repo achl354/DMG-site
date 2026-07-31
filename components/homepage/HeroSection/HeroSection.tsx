@@ -48,9 +48,6 @@ export function HeroSection() {
       <div className={styles.ctaRow}>
         <Button size="md" className={styles.heroCta} onClick={handleExploreClick}>
           {CTA_LABELS.exploreSystem}
-          <span className={styles.heroCtaArrow} aria-hidden="true">
-            →
-          </span>
         </Button>
         <Link
           href="/products"

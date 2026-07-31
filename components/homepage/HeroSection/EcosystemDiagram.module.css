@@ -115,9 +115,11 @@
  * EcosystemDiagram.tsx for why this is the one self-playing (not
  * scroll-tied) animation here, and why it's always running rather than
  * conditionally mounted (its parent <g>'s opacity is the only thing
- * `idle` controls). offset-rotate: 0 -- a circle has no visual
- * orientation, so following the path's tangent (the default "auto")
- * would just be a wasted per-frame calculation.
+ * `idle` controls). offset-rotate: auto -- a triangle (previously a
+ * circle, which has no visual orientation and so used a fixed 0deg here
+ * instead) needs to follow the path's own tangent direction at each
+ * point so it reads as an arrowhead showing its direction of travel,
+ * rather than appearing to move sideways/backwards on parts of the loop.
  */
 .pulse {
   /* var(--brand) previously -- switched to near-black per feedback. No
@@ -125,7 +127,7 @@
      (already used sitewide as "strongest" text) and reads as black here. */
   fill: var(--ink-900);
   filter: drop-shadow(0 0 1.5px var(--teal-300));
-  offset-rotate: 0deg;
+  offset-rotate: auto;
   animation:
     pulseOrbit 6s linear infinite,
     pulseBlink 1.5s ease-in-out infinite;

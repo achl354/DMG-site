@@ -96,7 +96,8 @@ export const ASSEMBLY_SPLIT = 0.6;
  */
 const ORBIT_RADIUS_PCT = 18;
 
-/** See ORBIT_RADIUS_PCT. */
+/** Half-height of the pulse's triangle (its tip extends 1.2x further out
+ * along its point) -- see ORBIT_RADIUS_PCT for its clearance from nodes. */
 const PULSE_RADIUS = 1;
 
 /**
@@ -185,13 +186,23 @@ export function EcosystemDiagram({ progress, idleDrift = 0 }: EcosystemDiagramPr
            * Always mounted (not conditional on `idle`) -- its position
            * and blink are a plain CSS animation that just keeps running,
            * gated only by this group's opacity. Conditionally mounting the
-           * circle itself (as an earlier version did) meant every idle ->
+           * triangle itself (as an earlier version did) meant every idle ->
            * not-idle -> idle flip near the pin's release point restarted
            * the animation from its first keyframe, snapping the pulse back
            * to the start of its path instead of continuing smoothly.
            */}
           <g style={{ opacity: idle ? 1 : 0 }}>
-            <circle r={PULSE_RADIUS} className={styles.pulse} style={{ offsetPath: `path("${orbitPathD}")` }} />
+            {/* Arrowhead pointing along +x (right) when unrotated -- paired
+                with .pulse's offset-rotate: auto (see that rule's comment),
+                which rotates this to match the path's own tangent direction
+                at every point, so it always points the way it's currently
+                traveling and only literally points right while passing
+                along the orbit's right-hand side. */}
+            <polygon
+              points={`${PULSE_RADIUS * 1.2},0 ${-PULSE_RADIUS * 0.7},${-PULSE_RADIUS} ${-PULSE_RADIUS * 0.7},${PULSE_RADIUS}`}
+              className={styles.pulse}
+              style={{ offsetPath: `path("${orbitPathD}")` }}
+            />
           </g>
         </svg>
 

@@ -159,7 +159,7 @@
    * larger, more prominent size. The >=768px override below uses a
    * different value for the multi-column desktop grid instead, where the
    * same opacity read differently across a full row of cards at once:
-   * 0.6, 0.7, 0.5 and 0.4 were all tried there before landing on 0.65.
+   * 0.6, 0.7, 0.5, 0.4 and 0.65 were all tried there before landing on 0.8.
    */
   opacity: 0.6;
 }
@@ -178,7 +178,7 @@
      * empty one with a small graphic floating in it.
      */
     height: 200px;
-    opacity: 0.65;
+    opacity: 0.8;
   }
 }
 

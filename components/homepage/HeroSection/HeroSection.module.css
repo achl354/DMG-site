@@ -116,24 +116,6 @@
   margin-top: var(--space-3);
 }
 
-.heroCtaArrow {
-  transition: transform var(--duration-base) var(--ease-out);
-}
-
-.heroCta:hover .heroCtaArrow {
-  transform: translateX(3px);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .heroCtaArrow {
-    transition: none;
-  }
-
-  .heroCta:hover .heroCtaArrow {
-    transform: none;
-  }
-}
-
 @media (min-width: 1024px) {
   /* "View the portfolio" matched to "Explore by workflow"'s own natural
      width at the shared .md Button size (measured ~226px with the arrow
