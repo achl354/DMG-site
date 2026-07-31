@@ -11,36 +11,24 @@ import { navigateWithViewTransition, isPlainLeftClick } from "@/lib/viewTransiti
 import styles from "./ProductCard.module.css";
 
 /**
- * Manual per-product size overrides, as a % of card width -- everything
- * else (aspect-ratio, bottom-right anchor, the 1/3 crop) stays identical
- * across all 9 products; only the box's own scale changes here. Since the
- * icon inside is sized relative to this same box (150% of it, in both
- * dimensions), scaling the box scales the icon proportionally too, so the
- * crop ratio and anchor are unaffected -- only the absolute size is.
- * Default (unlisted products): 40%, set directly in ProductCard.module.css.
+ * Manual per-product width override, as a % of the footer panel -- same
+ * override pattern as WorkflowCard's SCENE_WIDTH_OVERRIDES. Default
+ * (unlisted products): 44%, set directly in ProductCard.module.css.
  */
-const ICON_COLUMN_WIDTH_OVERRIDES: Partial<Record<string, string>> = {
-  easiturn: "48%", // ~20% larger than the 40% default
-  easicart: "30%", // ~25% smaller than the 40% default
-  easislide: "34%", // ~15% smaller than the 40% default
-  // Its source (manual-handling-board.png) is only 152px wide -- the
-  // smallest of any product icon -- so the 40% default upscales it well
-  // past its native resolution. 26% brings the rendered size back down to
-  // roughly its real pixel width, same logic as easicart/easislide above.
-  easiglide: "26%",
+const ICON_WIDTH_OVERRIDES: Partial<Record<string, string>> = {
+  // Its source (turning-positioning.png, 337x280) is the flattest/widest
+  // icon of the 9 -- at the 44% default it rendered the shortest
+  // (~139px vs a 157-278px range for the rest), reading as noticeably
+  // quieter than its siblings.
+  easiturn: "52%",
 };
 
 /**
- * Manual per-product vertical nudge, as a % of the icon column's own
- * height -- negative moves the icon up off its default bottom-anchored
- * position. Applied as a transform on the column itself, so it shifts
- * independently of ICON_COLUMN_WIDTH_OVERRIDES' sizing above.
+ * Manual per-product bottom/right offset override -- same pattern as
+ * WorkflowCard's SCENE_OFFSET_OVERRIDES. Default: -1rem/-1rem, set
+ * directly in ProductCard.module.css.
  */
-const ICON_VERTICAL_SHIFT_OVERRIDES: Partial<Record<string, string>> = {
-  easiglide: "-15%",
-  easiair: "-15%",
-  easicart: "-15%",
-};
+const ICON_OFFSET_OVERRIDES: Partial<Record<string, { bottom: string; right: string }>> = {};
 
 /**
  * This card also tags its icon with a matching view-transition-name to the
@@ -69,7 +57,7 @@ export function ProductCard({ product }: { product: ProductWithAssets }) {
       }}
     >
       <Card className={styles.card}>
-        <div className={styles.textCol}>
+        <div className={styles.header}>
           <div className={styles.badgeRow}>
             <Badge tone="brand">{product.category}</Badge>
           </div>
@@ -80,6 +68,36 @@ export function ProductCard({ product }: { product: ProductWithAssets }) {
             className={styles.wordmark}
           />
           <p className={styles.tagline}>{product.tagline}</p>
+        </div>
+        {/* Solutions-equivalent footer panel, matching WorkflowCard's
+            pattern -- the CTA in its own tinted zone, with the product's
+            own icon bleeding off its bottom-right corner rather than
+            overlaid behind the header text. */}
+        <div className={styles.footerPanel}>
+          {/* Low-opacity echo of the product's own outline. aria-hidden
+              since it's decorative, not information. */}
+          {icon && (
+            <Image
+              src={icon}
+              alt=""
+              width={iconWidth}
+              height={iconHeight}
+              aria-hidden="true"
+              className={styles.iconWatermark}
+              style={
+                {
+                  viewTransitionName: `product-icon-${product.slug}`,
+                  ...(ICON_WIDTH_OVERRIDES[product.slug] && {
+                    "--icon-width": ICON_WIDTH_OVERRIDES[product.slug],
+                  }),
+                  ...(ICON_OFFSET_OVERRIDES[product.slug] && {
+                    "--icon-bottom": ICON_OFFSET_OVERRIDES[product.slug]!.bottom,
+                    "--icon-right": ICON_OFFSET_OVERRIDES[product.slug]!.right,
+                  }),
+                } as CSSProperties
+              }
+            />
+          )}
           {/* aria-hidden -- purely a visual "this card is clickable" cue; the
               whole card is already the accessible link. */}
           <span className={styles.viewCue} aria-hidden="true">
@@ -87,40 +105,6 @@ export function ProductCard({ product }: { product: ProductWithAssets }) {
             <span className={styles.viewCueArrow}>→</span>
           </span>
         </div>
-        {/* Low-opacity echo of the product's own outline, in its own
-            dedicated column rather than overlaid behind the text -- can't
-            collide with the tagline/CTA since they no longer share the same
-            space. The column's aspect-ratio matches this icon's own real
-            proportions (not a fixed shape), so the "crop 1/3 off the
-            bottom-right" scale below applies identically regardless of
-            this product's own art proportions. aria-hidden since it's
-            decorative, not information. */}
-        {icon && (
-          <div
-            className={styles.imageCol}
-            aria-hidden="true"
-            style={
-              {
-                "--icon-aspect-ratio": `${iconWidth} / ${iconHeight}`,
-                ...(ICON_COLUMN_WIDTH_OVERRIDES[product.slug] && {
-                  "--icon-col-width": ICON_COLUMN_WIDTH_OVERRIDES[product.slug],
-                }),
-                ...(ICON_VERTICAL_SHIFT_OVERRIDES[product.slug] && {
-                  "--icon-shift-y": ICON_VERTICAL_SHIFT_OVERRIDES[product.slug],
-                }),
-              } as CSSProperties
-            }
-          >
-            <Image
-              src={icon}
-              alt=""
-              width={iconWidth}
-              height={iconHeight}
-              className={styles.iconWatermark}
-              style={{ viewTransitionName: `product-icon-${product.slug}` }}
-            />
-          </div>
-        )}
       </Card>
     </Link>
   );

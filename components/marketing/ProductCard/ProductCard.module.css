@@ -1,55 +1,28 @@
-/*
- * Container, not just a block -- ProductCard is reused across grids with
- * different column counts (the /products page caps at 3 columns, but the
- * product-detail page's "related products" grid doesn't, so the same
- * viewport can render this card at very different widths depending which
- * grid it's in). The row/column switch below needs the CARD's own
- * rendered width, not the viewport's.
- */
 .link {
   display: block;
-  container-type: inline-size;
 }
 
 /*
- * Narrow container: stacked column (image band below the text, not a
- * side column) -- below ~21.25rem (340px) a fixed side-by-side image
- * lane leaves too little room for the tagline without one-word-per-line
- * wrapping. Wide container: a row -- text column + a dedicated image
- * column side by side, not an image overlaid behind the text, so the
- * outline can't collide with the tagline/CTA. Container queries aren't
- * supported before Safari 16 -- browsers without support simply keep the
- * stacked default, a safe fallback rather than a broken layout.
+ * Adopts WorkflowCard's two-zone layout: a .header (badge/wordmark/
+ * tagline) on top, a tinted .footerPanel (CTA + the product's own icon
+ * bleeding off its corner) below -- rather than the previous side-by-side
+ * text-column-plus-image-column row. See .footerPanel/.iconWatermark
+ * below for what that replaced.
  */
 .card {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  gap: var(--space-4);
   height: 100%;
+  padding: 0;
   position: relative;
+  isolation: isolate;
   overflow: hidden;
   transition: border-color var(--duration-base) var(--ease-out),
-    box-shadow var(--duration-base) var(--ease-out);
+    box-shadow var(--duration-slow) var(--ease-out),
+    transform var(--duration-slow) var(--ease-out);
 }
 
-@container (min-width: 21.25rem) {
-  .card {
-    flex-direction: row;
-  }
-}
-
-.textCol {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-4);
-  flex: 1 1 auto;
-  min-width: 0;
-}
-
-/* Top-edge accent, matching the /workflows grid cards -- brightens on
-   hover alongside the existing wordmark scale. */
+/* Top-edge accent -- brightens on hover alongside the existing lift. */
 .card::before {
   content: "";
   position: absolute;
@@ -60,8 +33,21 @@
   transition: opacity var(--duration-base) var(--ease-out);
 }
 
+.link:hover .card {
+  border-color: var(--border-brand);
+  box-shadow: var(--shadow-brand);
+  transform: translateY(-6px);
+}
+
 .link:hover .card::before {
   opacity: 1;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-6) var(--space-6) var(--space-4);
 }
 
 /*
@@ -81,84 +67,6 @@
   min-height: 64px;
 }
 
-.link:hover .card {
-  border-color: var(--border-brand);
-  box-shadow: var(--shadow-sm);
-}
-
-/* Mobile/tablet: a short full-width band below the text, image shown at
-   its natural size, anchored to the band's bottom-right corner -- same
-   corner the wide-container row layout below anchors its own icon to
-   (align-self: flex-end there), just without that layout's crop.
-   margin-right/-bottom cancel .card's own padding (--space-6) and push
-   another 1rem past it, so the icon bleeds off the card's true edge and
-   gets clipped by .card's overflow: hidden -- matching WorkflowCard's
-   scene illustration, which bleeds off its own corner the same amount,
-   rather than sitting fully contained with margin on every side. */
-.imageCol {
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  height: 6rem;
-  margin-right: calc(-1 * var(--space-6) - 1rem);
-  margin-bottom: calc(-1 * var(--space-6) - 1rem);
-}
-
-.iconWatermark {
-  width: auto;
-  height: 6rem;
-  max-width: 100%;
-  opacity: 0.3;
-  pointer-events: none;
-}
-
-@container (min-width: 21.25rem) {
-  /*
-   * One uniform rule for every product, anchored to the bottom of the row
-   * (align-self: flex-end) so it reads as bottom-right within the card --
-   * --icon-col-width defaults to 40% of the card's width, with a handful
-   * of manual per-product overrides set inline (ICON_COLUMN_WIDTH_OVERRIDES
-   * in ProductCard.tsx) where a product needed to read larger/smaller than
-   * the rest. Since the icon inside is sized relative to this same box,
-   * scaling the box scales the icon proportionally too, so the anchor and
-   * the 1/3 crop below stay correct regardless of this box's own size.
-   * aspect-ratio is set inline per icon (--icon-aspect-ratio, from each
-   * file's own real pixel dimensions in PRODUCT_ICON_DIMENSIONS) rather
-   * than one fixed shape -- that's what lets the crop apply identically
-   * regardless of a given product's own proportions, without distorting
-   * any of them. --icon-shift-y (ICON_VERTICAL_SHIFT_OVERRIDES in
-   * ProductCard.tsx) nudges a handful of products up off that bottom
-   * anchor, as a % of the column's own height.
-   */
-  .imageCol {
-    position: relative;
-    flex: 0 0 var(--icon-col-width, 40%);
-    height: auto;
-    aspect-ratio: var(--icon-aspect-ratio, 4 / 3);
-    align-self: flex-end;
-    overflow: hidden;
-    transform: translateY(var(--icon-shift-y, 0%));
-  }
-
-  /*
-   * Anchored top-left at 150% of the column's own size (both width and
-   * height, which stays distortion-free only because the column's
-   * aspect-ratio above already matches this same icon's real
-   * proportions) -- exactly the excess needed so that, once the column
-   * clips it, precisely 1/3 of the image is cropped off on the right and
-   * 1/3 off the bottom, for every product, not just the ones wide enough
-   * to reach the column's edge.
-   */
-  .iconWatermark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 150%;
-    height: 150%;
-    max-width: none;
-  }
-}
-
 .wordmark {
   margin-top: var(--space-2);
   transition: transform var(--duration-slow) var(--ease-out);
@@ -174,15 +82,69 @@
   color: var(--text-body);
 }
 
-/* Quiet clickability cue, pinned to the card's bottom edge regardless of
-   how long the tagline runs (margin-top: auto in the flex column). Same
-   arrow-link voice as the homepage workflow cards' CTAs. */
+/*
+ * Footer panel -- CTA in its own tinted zone (rounded to match the
+ * card's own bottom corners, since .card has no padding of its own now)
+ * rather than a plain in-flow item, matching WorkflowCard's
+ * .footerPanel. Also where the product icon bleeds (see .iconWatermark
+ * below) -- previously a dedicated side-by-side column with a fixed
+ * crop ratio; now a simple corner bleed like WorkflowCard's scene
+ * illustration, so the two card types read as the same visual language.
+ *
+ * margin-top: auto pushes this whole panel to the card's bottom
+ * regardless of how tall .header's own content is. z-index: 0 alongside
+ * position: relative gives this panel its own stacking context, so the
+ * icon's z-index: -1 lands behind its text instead of behind the
+ * panel's own background (see WorkflowCard.module.css's own comment on
+ * this same fix).
+ */
+.footerPanel {
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  margin-top: auto;
+  padding: var(--space-5) var(--space-6);
+  background: var(--surface-tint);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+/*
+ * Low-opacity echo of the product's own outline, bleeding off this
+ * panel's bottom-right corner -- same treatment as WorkflowCard's scene
+ * illustration (width % + height: auto, no forced crop ratio), replacing
+ * the previous dedicated column with a 150%-scale-then-clip-to-2/3 crop.
+ * That system guaranteed an identical crop fraction regardless of a
+ * product's own aspect ratio; this simpler bleed doesn't, trading that
+ * guarantee for a consistent visual language with WorkflowCard. Width
+ * reads from --icon-width (ICON_WIDTH_OVERRIDES in ProductCard.tsx) for
+ * any product needing a size adjustment, bottom/right from
+ * --icon-bottom/--icon-right (ICON_OFFSET_OVERRIDES) for any needing a
+ * different anchor -- same override pattern as WorkflowCard's
+ * SCENE_WIDTH_OVERRIDES/SCENE_OFFSET_OVERRIDES.
+ */
+.iconWatermark {
+  position: absolute;
+  bottom: var(--icon-bottom, -1rem);
+  right: var(--icon-right, -1rem);
+  z-index: -1;
+  width: var(--icon-width, 44%);
+  height: auto;
+  opacity: 0.3;
+  pointer-events: none;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+.link:hover .iconWatermark {
+  opacity: 0.5;
+}
+
+/* Sits within .footerPanel -- that panel's own margin-top: auto (not
+   this element's own) is what anchors everything to the card's bottom
+   edge now. */
 .viewCue {
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
-  margin-top: auto;
-  padding-top: var(--space-2);
   font-size: var(--text-sm);
   font-weight: var(--weight-semibold);
   color: var(--brand);
