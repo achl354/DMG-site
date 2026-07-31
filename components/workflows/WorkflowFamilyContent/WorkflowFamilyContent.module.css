@@ -56,7 +56,7 @@ h2.title {
 }
 
 .summary {
-  font-size: var(--text-lg);
+  font-size: var(--type-lede-size);
   line-height: var(--leading-relaxed);
   color: var(--text-body);
   margin-bottom: var(--space-3);

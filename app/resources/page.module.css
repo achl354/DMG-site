@@ -13,19 +13,10 @@
   margin-bottom: var(--space-8);
 }
 
-.heading :global(h2) {
-  font-size: 56px;
-  line-height: 1.08;
-}
-
 @media (max-width: 900px) {
   .section {
     padding-top: 72px;
     padding-bottom: 32px;
-  }
-
-  .heading :global(h2) {
-    font-size: 44px;
   }
 }
 
@@ -33,9 +24,5 @@
   .section {
     padding-top: 56px;
     padding-bottom: 28px;
-  }
-
-  .heading :global(h2) {
-    font-size: 36px;
   }
 }

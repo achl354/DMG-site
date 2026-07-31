@@ -14,7 +14,7 @@
 }
 
 .body {
-  font-size: var(--text-md);
+  font-size: var(--type-lede-size);
   color: var(--text-body);
   max-width: 52ch;
 }
