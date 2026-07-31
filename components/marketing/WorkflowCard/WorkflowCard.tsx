@@ -31,6 +31,18 @@ const SCENE_WIDTH_OVERRIDES: Partial<Record<string, string>> = {
   "floor-recovery": "58%",
 };
 
+/**
+ * Default (unlisted workflows): bottom/right -1rem, set directly in
+ * WorkflowCard.module.css. support-equipment's source scene is portrait
+ * (taller than wide, unlike most others -- see
+ * WORKFLOW_SCENE_ICON_DIMENSIONS), so at the shared offset it sits
+ * noticeably more contained/upright than the rest instead of bleeding
+ * into the corner the same way. Pushed further for just this one.
+ */
+const SCENE_OFFSET_OVERRIDES: Partial<Record<string, { bottom: string; right: string }>> = {
+  "support-equipment": { bottom: "-2rem", right: "-1.5rem" },
+};
+
 export function WorkflowCard({ workflow, featured = false, onSelect }: WorkflowCardProps) {
   const router = useRouter();
   const scene = WORKFLOW_SCENE_ICONS[workflow.slug];
@@ -51,9 +63,15 @@ export function WorkflowCard({ workflow, featured = false, onSelect }: WorkflowC
           aria-hidden="true"
           className={styles.sceneIllustration}
           style={
-            SCENE_WIDTH_OVERRIDES[workflow.slug]
-              ? ({ "--scene-width": SCENE_WIDTH_OVERRIDES[workflow.slug] } as CSSProperties)
-              : undefined
+            {
+              ...(SCENE_WIDTH_OVERRIDES[workflow.slug] && {
+                "--scene-width": SCENE_WIDTH_OVERRIDES[workflow.slug],
+              }),
+              ...(SCENE_OFFSET_OVERRIDES[workflow.slug] && {
+                "--scene-bottom": SCENE_OFFSET_OVERRIDES[workflow.slug]!.bottom,
+                "--scene-right": SCENE_OFFSET_OVERRIDES[workflow.slug]!.right,
+              }),
+            } as CSSProperties
           }
         />
       )}

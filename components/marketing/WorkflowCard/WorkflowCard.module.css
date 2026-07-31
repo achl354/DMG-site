@@ -77,11 +77,14 @@
    (set inline per-slug via SCENE_WIDTH_OVERRIDES in WorkflowCard.tsx for
    the couple of workflows whose source scene is unusually wide/flat and
    so renders shorter than the rest at the shared default), falling back
-   to that 44% default everywhere else. */
+   to that 44% default everywhere else. bottom/right read from
+   --scene-bottom/--scene-right the same way (SCENE_OFFSET_OVERRIDES),
+   for the one workflow whose portrait-oriented scene sits more upright/
+   contained than the rest at the shared -1rem offset. */
 .sceneIllustration {
   position: absolute;
-  bottom: -1rem;
-  right: -1rem;
+  bottom: var(--scene-bottom, -1rem);
+  right: var(--scene-right, -1rem);
   z-index: -1;
   width: var(--scene-width, 44%);
   height: auto;
