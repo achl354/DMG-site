@@ -1,14 +1,46 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import type { CSSProperties } from "react";
 import { Card, Badge, ProductWordmark } from "@/components/ui";
+import { PRODUCT_ICONS, PRODUCT_ICON_DIMENSIONS } from "@/lib/content/assets";
 import { type ProductWithAssets } from "@/lib/content/products";
 import { navigateWithViewTransition, isPlainLeftClick } from "@/lib/viewTransition";
 import styles from "./ProductCard.module.css";
 
+/**
+ * Manual per-product width override, as a % of the footer panel -- same
+ * override pattern as WorkflowCard's SCENE_WIDTH_OVERRIDES. Default
+ * (unlisted products): 44%, set directly in ProductCard.module.css.
+ */
+const ICON_WIDTH_OVERRIDES: Partial<Record<string, string>> = {
+  // Its source (turning-positioning.png, 337x280) is the flattest/widest
+  // icon of the 9 -- at the 44% default it rendered the shortest
+  // (~139px vs a 157-278px range for the rest), reading as noticeably
+  // quieter than its siblings.
+  easiturn: "52%",
+};
+
+/**
+ * Manual per-product bottom/right offset override -- same pattern as
+ * WorkflowCard's SCENE_OFFSET_OVERRIDES. Default: -1rem/-1rem, set
+ * directly in ProductCard.module.css.
+ */
+const ICON_OFFSET_OVERRIDES: Partial<Record<string, { bottom: string; right: string }>> = {};
+
+/**
+ * This card also tags its icon with a matching view-transition-name to the
+ * destination page's large ProductIllustration (see the Image below and
+ * ProductIllustration.tsx), morphing one into the other -- WorkflowCard uses
+ * the same navigateWithViewTransition helper without that pairing, since it
+ * has no equivalent shared element on its own destination page.
+ */
 export function ProductCard({ product }: { product: ProductWithAssets }) {
   const router = useRouter();
+  const icon = PRODUCT_ICONS[product.slug];
+  const [iconWidth, iconHeight] = icon ? PRODUCT_ICON_DIMENSIONS[icon] : [0, 0];
   const href = `/workflows/${product.workflowSlug}/${product.slug}`;
 
   return (
@@ -38,11 +70,34 @@ export function ProductCard({ product }: { product: ProductWithAssets }) {
           <p className={styles.tagline}>{product.tagline}</p>
         </div>
         {/* Solutions-equivalent footer panel, matching WorkflowCard's
-            pattern -- the CTA in its own tinted zone. The product's own
-            icon that used to bleed off its bottom-right corner is
-            removed for now (experiment, comparing against /workflows'
-            cards with theirs also removed). */}
+            pattern -- the CTA in its own tinted zone, with the product's
+            own icon bleeding off its bottom-right corner rather than
+            overlaid behind the header text. */}
         <div className={styles.footerPanel}>
+          {/* Low-opacity echo of the product's own outline. aria-hidden
+              since it's decorative, not information. */}
+          {icon && (
+            <Image
+              src={icon}
+              alt=""
+              width={iconWidth}
+              height={iconHeight}
+              aria-hidden="true"
+              className={styles.iconWatermark}
+              style={
+                {
+                  viewTransitionName: `product-icon-${product.slug}`,
+                  ...(ICON_WIDTH_OVERRIDES[product.slug] && {
+                    "--icon-width": ICON_WIDTH_OVERRIDES[product.slug],
+                  }),
+                  ...(ICON_OFFSET_OVERRIDES[product.slug] && {
+                    "--icon-bottom": ICON_OFFSET_OVERRIDES[product.slug]!.bottom,
+                    "--icon-right": ICON_OFFSET_OVERRIDES[product.slug]!.right,
+                  }),
+                } as CSSProperties
+              }
+            />
+          )}
           {/* aria-hidden -- purely a visual "this card is clickable" cue; the
               whole card is already the accessible link. */}
           <span className={styles.viewCue} aria-hidden="true">
