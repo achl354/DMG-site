@@ -52,29 +52,52 @@ export const PRODUCT_PHOTO_SCENES: Partial<Record<string, string[]>> = {
 /**
  * Outline workflow icons (same catalogue-sourced artwork as the homepage
  * portfolio cards), reused as each product's illustration on its detail
- * page. Points at the /mobile/ file set deliberately -- original thin
- * stroke, original DMG teal -- rather than WORKFLOW_ICONS' thickened
- * ink-900 desktop-diagram versions, so product pages don't inherit
- * diagram-specific tweaks.
+ * page. Points at /product-teal/, not the original /mobile/ set -- these
+ * were flagged as noticeably low-res (the /mobile/ files are ~150-350px on
+ * their long edge, upscaled by the browser to render at up to ~150-200px
+ * display width on a 1x screen, softer still at 2x/3x device pixel ratios).
  *
- * Two of these workflow icons combine two products into one drawing
- * (manual-handling.png: slide sheet + rigid board; support-equipment.png:
- * air supply + cart). Each product's own page shows only its own item --
- * the *-slide/-board and *-air/-cart crops below split that same artwork
- * apart -- rather than every product in the pair showing the other's
- * item too. The workflow-level diagram/mobile-rotator icon still shows
- * each pair combined, which is correct there.
+ * /product-teal/ is a like-for-like recolor of WORKFLOW_ICONS' own
+ * higher-res source files (3x the pixel dimensions), not a new drawing:
+ * 5 of the 6 underlying artworks turned out to be flat single-hue line art
+ * at the pixel level (only one RGB value across every opaque pixel,
+ * anti-aliased via alpha alone -- confirmed directly, not assumed), so
+ * swapping ink-900 for the exact brand teal (#005855, matching /mobile/'s
+ * own color exactly) is lossless -- same stroke weight and style as
+ * /mobile/, just genuinely higher native resolution rather than the same
+ * pixels stretched larger.
+ *
+ * The 6th (support-equipment, backing easiair/easicart) is NOT flat
+ * line art at that higher res -- it's a shaded/rendered illustration
+ * (4000+ distinct colors, gray fills plus cross-hatching) rather than a
+ * bigger version of the same clean outline, so the recolor-and-crop
+ * approach above doesn't apply to it. Those two still come from a
+ * Lanczos upscale of their own /mobile/ crops instead -- a real but
+ * smaller improvement (smoother edges than the raw source), not a true
+ * resolution increase. Worth revisiting if a genuine higher-res *flat*
+ * export of this pair is ever produced.
+ *
+ * Two of the 6 underlying artworks combine two products into one drawing
+ * (manual-handling: slide sheet + rigid board; support-equipment: air
+ * supply + cart). Each product's own page shows only its own item -- the
+ * *-slide/-board and *-air/-cart crops split that same artwork apart --
+ * rather than every product in the pair showing the other's item too.
+ * (The board/slide crop boxes were derived by locating each low-res
+ * /mobile/ crop's exact pixel offset within /mobile/manual-handling.png
+ * -- an exact, zero-diff match -- then scaling that offset x3 to match
+ * this higher-res source.) The workflow-level diagram/mobile-rotator icon
+ * still shows each pair combined, which is correct there.
  */
 export const PRODUCT_ICONS: Partial<Record<string, string>> = {
-  "easimove-spu": "/icons/workflow/mobile/lateral-transfer.png",
-  "easimove-pro": "/icons/workflow/mobile/lateral-transfer.png",
-  easilift: "/icons/workflow/mobile/floor-recovery.png",
-  easiturn: "/icons/workflow/mobile/turning-positioning.png",
-  easislide: "/icons/workflow/mobile/manual-handling-slide.png",
-  easisling: "/icons/workflow/mobile/sling-transfer.png",
-  easiglide: "/icons/workflow/mobile/manual-handling-board.png",
-  easiair: "/icons/workflow/mobile/support-equipment-air.png",
-  easicart: "/icons/workflow/mobile/support-equipment-cart.png",
+  "easimove-spu": "/icons/workflow/product-teal/lateral-transfer.png",
+  "easimove-pro": "/icons/workflow/product-teal/lateral-transfer.png",
+  easilift: "/icons/workflow/product-teal/floor-recovery.png",
+  easiturn: "/icons/workflow/product-teal/turning-positioning.png",
+  easislide: "/icons/workflow/product-teal/manual-handling-slide.png",
+  easisling: "/icons/workflow/product-teal/sling-transfer.png",
+  easiglide: "/icons/workflow/product-teal/manual-handling-board.png",
+  easiair: "/icons/workflow/product-teal/support-equipment-air.png",
+  easicart: "/icons/workflow/product-teal/support-equipment-cart.png",
 };
 
 /**
@@ -86,14 +109,14 @@ export const PRODUCT_ICONS: Partial<Record<string, string>> = {
  * regardless of its own art's proportions (0.6:1 up to 1.2:1).
  */
 export const PRODUCT_ICON_DIMENSIONS: Record<string, [number, number]> = {
-  "/icons/workflow/mobile/lateral-transfer.png": [345, 296],
-  "/icons/workflow/mobile/floor-recovery.png": [315, 296],
-  "/icons/workflow/mobile/turning-positioning.png": [337, 280],
-  "/icons/workflow/mobile/manual-handling-slide.png": [240, 236],
-  "/icons/workflow/mobile/sling-transfer.png": [230, 284],
-  "/icons/workflow/mobile/manual-handling-board.png": [152, 253],
-  "/icons/workflow/mobile/support-equipment-air.png": [241, 245],
-  "/icons/workflow/mobile/support-equipment-cart.png": [176, 280],
+  "/icons/workflow/product-teal/lateral-transfer.png": [1035, 888],
+  "/icons/workflow/product-teal/floor-recovery.png": [945, 888],
+  "/icons/workflow/product-teal/turning-positioning.png": [1011, 840],
+  "/icons/workflow/product-teal/manual-handling-slide.png": [720, 708],
+  "/icons/workflow/product-teal/sling-transfer.png": [690, 852],
+  "/icons/workflow/product-teal/manual-handling-board.png": [456, 759],
+  "/icons/workflow/product-teal/support-equipment-air.png": [723, 735],
+  "/icons/workflow/product-teal/support-equipment-cart.png": [528, 840],
 };
 
 /**
