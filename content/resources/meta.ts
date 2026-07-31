@@ -55,7 +55,7 @@ export const RESOURCE_META: ResourceMeta[] = [
   },
   {
     slug: "easimove-pro-flyer",
-    title: "EasiMovePRO™ product flyer",
+    title: "EasiMovePRO™ flyer",
     description: "An overview of EasiMovePRO™'s reusable construction, features and specifications.",
     category: "Flyer",
     publishedAt: "2026-06-23",
@@ -173,7 +173,7 @@ export const RESOURCE_META: ResourceMeta[] = [
     slug: "the-real-cost-of-patient-handling-equipment",
     title: "The real cost of patient-handling equipment",
     description:
-      "Purchase price is only one part of a patient-handling product's real cost — maintenance, staff time, processing and availability all shape the total cost of ownership.",
+      "Purchase price is only one part of a patient-handling solution's real cost — maintenance, staff time, processing and availability all shape the total cost of ownership.",
     category: "Clinical Insight",
     publishedAt: "2026-08-12",
     tags: ["Procurement", "Total Cost of Ownership", "Patient Handling", "Clinical Operations"],

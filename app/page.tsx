@@ -12,7 +12,7 @@ import { getPortfolioScenes } from "@/lib/content/portfolioScenes";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "EasiSystem™ Patient Handling Products | DirectMed Group",
+  title: "EasiSystem™ Patient Handling Solutions | DirectMed Group",
   description:
     "Explore DirectMed Group's EasiSystem™ portfolio supporting lateral transfer, floor recovery, repositioning, turning, sling transfer and related patient-handling workflows.",
   path: "/",

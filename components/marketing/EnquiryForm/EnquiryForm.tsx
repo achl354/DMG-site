@@ -63,12 +63,12 @@ export function EnquiryForm({ defaultProduct }: EnquiryFormProps) {
       </div>
 
       <Select
-        label="Product of interest"
+        label="Interested in"
         name="product"
         defaultValue={defaultProduct && PRODUCT_NAMES[defaultProduct] ? defaultProduct : ""}
       >
         <option value="" disabled>
-          Select a product
+          Select a solution
         </option>
         <option value="general">General enquiry</option>
         {Object.entries(PRODUCT_NAMES).map(([slug, name]) => (

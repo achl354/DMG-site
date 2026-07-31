@@ -5,7 +5,7 @@ export const easimovePro: Product = {
   category: "Lateral transfer",
   tagline: "Reusable air-assisted lateral transfer mattress",
   summary:
-    "EasiMove™ PRO supports reusable lateral transfer workflows for facilities looking to reduce reliance on single-patient-use transfer products while maintaining familiar air-assisted patient handling practice.",
+    "EasiMove™ PRO supports reusable lateral transfer workflows for facilities looking to reduce reliance on single-patient-use transfer solutions while maintaining familiar air-assisted patient handling practice.",
   sizes: ["34", "39"],
   features: [
     "Supports facilities seeking to reduce ongoing single-patient-use consumable reliance and associated clinical waste",
@@ -23,5 +23,5 @@ export const easimovePro: Product = {
     { label: "Air supply compatibility", value: "EasiAir™ / HT-Air® 2300" },
   ],
   documentUrl: "/resources/documents/easimove-pro-flyer.pdf",
-  documentLabel: "View product flyer",
+  documentLabel: "View flyer",
 };

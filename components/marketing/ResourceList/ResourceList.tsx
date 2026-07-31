@@ -60,8 +60,8 @@ export function ResourceList({ resources }: { resources: ResourceMeta[] }) {
           type="search"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-          placeholder="Search resources, products or clinical topics"
-          aria-label="Search resources, products or clinical topics"
+          placeholder="Search resources, solutions or clinical topics"
+          aria-label="Search resources, solutions or clinical topics"
           className={styles.search}
         />
 

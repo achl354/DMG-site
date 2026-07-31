@@ -46,7 +46,7 @@ export function ProductCard({ product }: { product: ProductWithAssets }) {
           {/* aria-hidden -- purely a visual "this card is clickable" cue; the
               whole card is already the accessible link. */}
           <span className={styles.viewCue} aria-hidden="true">
-            View product
+            View solution
             <span className={styles.viewCueArrow}>→</span>
           </span>
         </div>

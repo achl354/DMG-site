@@ -12,7 +12,7 @@ import styles from "./WhyEasiSystem.module.css";
 const PILLARS = [
   {
     title: "Workflow-led",
-    body: "Products organised around practical patient-handling tasks.",
+    body: "Solutions organised around practical patient-handling tasks.",
     icon: (
       <path d="M4 12h16M4 12l5-5M4 12l5 5" strokeLinecap="round" strokeLinejoin="round" />
     ),
@@ -42,7 +42,7 @@ const PILLARS = [
   },
   {
     title: "Supported by resources",
-    body: "Product information and training materials supporting review and implementation.",
+    body: "Documentation and training materials supporting review and implementation.",
     icon: (
       <path
         d="M6 4h9l3 3v13H6V4z M15 4v3h3"

@@ -8,7 +8,7 @@ import styles from "./page.module.css";
 export const metadata = buildMetadata({
   title: "Contact",
   description:
-    "Contact DirectMed Group for product information, technical documentation, market availability or general enquiries about the EasiSystem™ portfolio.",
+    "Contact DirectMed Group for solution information, technical documentation, market availability or general enquiries about the EasiSystem™ portfolio.",
   path: "/contact",
 });
 
@@ -27,7 +27,7 @@ export default async function ContactPage({
             as="h1"
             eyebrow="Contact"
             heading="Contact DirectMed Group"
-            body="Contact us for product information, technical documentation, market availability, distribution enquiries or general information about the EasiSystem™ portfolio."
+            body="Contact us for solution information, technical documentation, market availability, distribution enquiries or general information about the EasiSystem™ portfolio."
             className={styles.heading}
           />
         </Reveal>

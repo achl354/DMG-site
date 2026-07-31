@@ -6,7 +6,7 @@ import { buildMetadata } from "@/lib/seo";
 import styles from "./page.module.css";
 
 export const metadata = buildMetadata({
-  title: "Products",
+  title: "Solutions",
   description:
     "The full EasiSystem™ portfolio — air-assisted transfer, floor recovery, sling transfer, turning & positioning and supporting equipment, developed by DirectMed Group.",
   path: "/products",
@@ -22,7 +22,7 @@ export default function ProductsPage() {
           as="h1"
           eyebrow="Portfolio"
           heading="The EasiSystem™ portfolio"
-          body="Nine product lines developed by DirectMed Group, each addressing a defined patient-handling workflow."
+          body="Nine solutions developed by DirectMed Group, each addressing a defined patient-handling workflow."
           className={styles.heading}
         />
         <div className={styles.grid}>

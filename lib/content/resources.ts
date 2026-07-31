@@ -9,8 +9,8 @@ export type ResourceCategory =
   | "Clinical Insight";
 
 /** Top-level grouping shown as the /resources page's primary filters --
- * several categories collapse into "Product documents" rather than each
- * being its own top-level filter. */
+ * several categories collapse into "Documents" rather than each being its
+ * own top-level filter. */
 export type ResourceGroup =
   | "product-documents"
   | "guides"
@@ -31,7 +31,7 @@ export function getResourceGroup(category: ResourceCategory): ResourceGroup {
 }
 
 export const RESOURCE_GROUP_LABELS: Record<ResourceGroup, string> = {
-  "product-documents": "Product documents",
+  "product-documents": "Documents",
   guides: "Guides",
   "case-studies": "Case studies",
   "clinical-insights": "Clinical insights",

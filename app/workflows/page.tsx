@@ -22,7 +22,7 @@ export default function WorkflowsPage() {
           as="h1"
           eyebrow="Workflows"
           heading="One system, six workflows"
-          body="EasiSystem™ is organised around how patients actually move through a ward — not a flat product catalogue. Each workflow groups the products built to support it."
+          body="EasiSystem™ is organised around how patients actually move through a ward — not a flat catalogue. Each workflow groups the solutions built to support it."
           className={styles.heading}
         />
         <WorkflowsGrid workflows={workflows} />

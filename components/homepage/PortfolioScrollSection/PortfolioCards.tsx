@@ -171,7 +171,7 @@ function WorkflowCard({
       )}
 
       <div className={styles.productsBlock}>
-        <p className={styles.blockLabel}>Products</p>
+        <p className={styles.blockLabel}>Solutions</p>
         <div className={styles.productRow}>
           {scene.activeProductIds.map((slug) => {
             const product = getProductBySlug(slug);

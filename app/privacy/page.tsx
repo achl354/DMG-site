@@ -19,7 +19,7 @@ export default function PrivacyPage() {
           <p>
             DirectMed Group collects personal information submitted through
             this website — such as name, work email, organisation and
-            enquiry details — solely to respond to product, distribution and
+            enquiry details — solely to respond to solution, distribution and
             general enquiries.
           </p>
           <p>

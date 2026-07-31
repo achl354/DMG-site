@@ -31,8 +31,8 @@ export async function generateMetadata({
 
   if (!product || product.workflowSlug !== workflowSlug) {
     return buildMetadata({
-      title: "Product not found",
-      description: "This product could not be found.",
+      title: "Solution not found",
+      description: "This solution could not be found.",
       path: `/workflows/${workflowSlug}/${slug}`,
     });
   }
@@ -149,7 +149,7 @@ export default async function ProductDetailPage({
 
       <CTASection
         heading={`Need more information about ${product.name}?`}
-        body="Contact DirectMed Group for product documentation, configuration information, availability or general product enquiries."
+        body="Contact DirectMed Group for solution documentation, configuration information, availability or general solution enquiries."
         ctaLabel="Contact DMG"
         ctaHref={`/contact?product=${product.slug}`}
       />
