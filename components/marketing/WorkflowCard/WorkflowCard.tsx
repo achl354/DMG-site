@@ -51,47 +51,55 @@ export function WorkflowCard({ workflow, featured = false, onSelect }: WorkflowC
 
   const content = (
     <Card className={[styles.card, featured && styles.featured].filter(Boolean).join(" ")}>
-      {/* Faint in-use scene, bleeding off the card's bottom-right corner
-          behind the real content -- low-opacity "quiet background"
-          language. aria-hidden since it's decorative, not information. */}
-      {scene && (
-        <Image
-          src={scene}
-          alt=""
-          width={sceneWidth}
-          height={sceneHeight}
-          aria-hidden="true"
-          className={styles.sceneIllustration}
-          style={
-            {
-              ...(SCENE_WIDTH_OVERRIDES[workflow.slug] && {
-                "--scene-width": SCENE_WIDTH_OVERRIDES[workflow.slug],
-              }),
-              ...(SCENE_OFFSET_OVERRIDES[workflow.slug] && {
-                "--scene-bottom": SCENE_OFFSET_OVERRIDES[workflow.slug]!.bottom,
-                "--scene-right": SCENE_OFFSET_OVERRIDES[workflow.slug]!.right,
-              }),
-            } as CSSProperties
-          }
-        />
-      )}
-      <span className={featured ? styles.numberFeatured : styles.eyebrowNumber}>
-        {workflow.number}
-      </span>
-      <h3 className={featured ? styles.titleFeatured : styles.title}>{workflow.title}</h3>
-      <p className={styles.summary}>{workflow.summary}</p>
-      <div className={styles.solutionsRow}>
-        <WorkflowSolutionsIcon slug={workflow.slug} className={styles.solutionsIcon} />
-        <p className={styles.solutions}>
-          <span className={styles.solutionsLabel}>Workflow solutions:</span> {workflow.solutions}
-        </p>
+      <div className={styles.header}>
+        <span className={featured ? styles.numberFeatured : styles.eyebrowNumber}>
+          {workflow.number}
+        </span>
+        <h3 className={featured ? styles.titleFeatured : styles.title}>{workflow.title}</h3>
+        <p className={styles.summary}>{workflow.summary}</p>
       </div>
-      {/* aria-hidden -- purely a visual "this card is clickable" cue; the
-          whole card is already the accessible link/button. */}
-      <span className={styles.viewCue} aria-hidden="true">
-        Explore workflow
-        <span className={styles.viewCueArrow}>→</span>
-      </span>
+      {/* Solutions row + CTA, in their own tinted zone -- see
+          .footerPanel's own comment for why, and why the scene
+          illustration bleeds here rather than off the card as a whole. */}
+      <div className={styles.footerPanel}>
+        {/* Faint in-use scene, bleeding off this panel's bottom-right
+            corner behind the real content -- low-opacity "quiet
+            background" language. aria-hidden since it's decorative,
+            not information. */}
+        {scene && (
+          <Image
+            src={scene}
+            alt=""
+            width={sceneWidth}
+            height={sceneHeight}
+            aria-hidden="true"
+            className={styles.sceneIllustration}
+            style={
+              {
+                ...(SCENE_WIDTH_OVERRIDES[workflow.slug] && {
+                  "--scene-width": SCENE_WIDTH_OVERRIDES[workflow.slug],
+                }),
+                ...(SCENE_OFFSET_OVERRIDES[workflow.slug] && {
+                  "--scene-bottom": SCENE_OFFSET_OVERRIDES[workflow.slug]!.bottom,
+                  "--scene-right": SCENE_OFFSET_OVERRIDES[workflow.slug]!.right,
+                }),
+              } as CSSProperties
+            }
+          />
+        )}
+        <div className={styles.solutionsRow}>
+          <WorkflowSolutionsIcon slug={workflow.slug} className={styles.solutionsIcon} />
+          <p className={styles.solutions}>
+            <span className={styles.solutionsLabel}>Workflow solutions:</span> {workflow.solutions}
+          </p>
+        </div>
+        {/* aria-hidden -- purely a visual "this card is clickable" cue; the
+            whole card is already the accessible link/button. */}
+        <span className={styles.viewCue} aria-hidden="true">
+          Explore workflow
+          <span className={styles.viewCueArrow}>→</span>
+        </span>
+      </div>
     </Card>
   );
 
