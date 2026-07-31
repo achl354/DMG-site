@@ -26,8 +26,6 @@ export const PRODUCT_NAMES: Record<string, string> = {
   easiturn: "EasiTurn™",
 };
 
-export const DMG_TAGLINE = "Every Move Matters.";
-
 export const SALES_EMAIL = "sales@directmedgroup.com";
 
 /** Section ids used for anchor links, scroll targets and analytics. */
@@ -42,7 +40,7 @@ export const CTA_LABELS = {
   exploreSystem: "Explore by workflow",
   exploreAllWorkflows: "Explore all workflows",
   viewAllProducts: "View the portfolio",
-  requestInformation: "Request product information",
+  requestInformation: "Request portfolio information",
   contactDmg: "Contact DMG",
 } as const;
 
