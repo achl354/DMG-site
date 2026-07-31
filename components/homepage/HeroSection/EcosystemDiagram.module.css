@@ -64,11 +64,24 @@
   }
 }
 
+/*
+ * pointer-events: none -- .stage itself paints nothing (it's just the
+ * preserve-3d reference frame its children position within), but a plain
+ * div still captures hover/click across its full box by default. Nodes
+ * pushed to negative translateZ (the ring's "far" half -- see .node's
+ * depth math in EcosystemDiagram.tsx) paint BEHIND that reference plane,
+ * so without this the empty .stage box in front of them silently
+ * swallows their hover/click even though it's the topmost element only
+ * because it paints nothing, not because anything is actually covering
+ * the node. Re-enabled explicitly on .hub/.node below, the only pieces
+ * meant to be interactive.
+ */
 .stage {
   position: relative;
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
+  pointer-events: none;
 }
 
 /*
@@ -77,6 +90,15 @@
  * ordering take priority over plain DOM paint order, so without this the
  * pulse could still render above the nodes in some browsers even where it
  * no longer geometrically overlaps.
+ *
+ * pointer-events: none -- purely decorative (aria-hidden, no interactive
+ * content), but without this it still captures hover/click across its
+ * whole inset:0 area regardless of z-index. In the preserve-3d stacking
+ * context this SVG sits on the untransformed z=0 plane; any node whose
+ * own translateZ depth is <= 0 (the "far"/left half of the ring, now that
+ * nodes are real links -- see .node below) renders and hit-tests BEHIND
+ * that plane despite its lower z-index, silently swallowing hover/click
+ * on exactly those nodes.
  */
 .lines {
   position: absolute;
@@ -85,6 +107,7 @@
   height: 100%;
   overflow: visible;
   z-index: 0;
+  pointer-events: none;
 }
 
 /*
@@ -214,6 +237,10 @@
   color: inherit;
   text-decoration: none;
   cursor: pointer;
+  /* Re-enabled -- inherited from .stage's pointer-events: none (see that
+     rule's comment); this is one of only two pieces (with .hub) actually
+     meant to be interactive. */
+  pointer-events: auto;
 }
 
 /*
