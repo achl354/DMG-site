@@ -12,6 +12,17 @@ const GROUP_BADGE_TONE: Record<ResourceGroup, "brand" | "sage" | "info" | "neutr
   "clinical-insights": "neutral",
 };
 
+/** Same tone mapping as the badge above, expressed as a Card left-rule
+ * variant -- gives every card a group identity at a glance (previously
+ * only product-document cards stood out, via their background icon
+ * watermark; guide/case-study/clinical-insight cards had no equivalent). */
+const GROUP_CARD_VARIANT: Record<ResourceGroup, "brand-rule" | "sage-rule" | "info-rule" | "neutral-rule"> = {
+  "product-documents": "brand-rule",
+  guides: "sage-rule",
+  "case-studies": "info-rule",
+  "clinical-insights": "neutral-rule",
+};
+
 /** "Download PDF" for a real downloadable file, "View document" for a
  * product-document resource that's an MDX article instead (e.g.
  * easilift-spec-sheet), "Read article" for guides/case studies/clinical
@@ -31,7 +42,7 @@ export function ResourceCard({ resource }: { resource: ResourceMeta }) {
 
   return (
     <Link href={`/resources/${resource.slug}`} className={styles.link}>
-      <Card className={styles.card}>
+      <Card variant={GROUP_CARD_VARIANT[group]} className={styles.card}>
         <Badge tone={GROUP_BADGE_TONE[group]}>{resource.category}</Badge>
 
         {group === "product-documents" && icon && (

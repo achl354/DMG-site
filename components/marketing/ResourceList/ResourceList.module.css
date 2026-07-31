@@ -29,8 +29,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
+  gap: var(--space-5);
 }
 
 .filters {
@@ -67,16 +66,15 @@
   white-space: nowrap;
 }
 
+/*
+ * 3 columns, not the previous 4 -- at 4-across, card content (titles
+ * clamped to 3 lines, small description text) read as cramped. Matches
+ * the density already used for the /products grid.
+ */
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 22px;
-}
-
-@media (max-width: 1180px) {
-  .grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
 }
 
 @media (max-width: 900px) {

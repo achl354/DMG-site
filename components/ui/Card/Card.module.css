@@ -13,3 +13,15 @@
 .brand-rule {
   border-left: 3px solid var(--brand);
 }
+
+.sage-rule {
+  border-left: 3px solid var(--sage-600);
+}
+
+.info-rule {
+  border-left: 3px solid var(--feedback-info);
+}
+
+.neutral-rule {
+  border-left: 3px solid var(--text-muted);
+}
