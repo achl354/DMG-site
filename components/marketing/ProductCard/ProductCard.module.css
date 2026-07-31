@@ -140,7 +140,9 @@
  */
 .iconWatermark {
   position: absolute;
-  bottom: var(--icon-bottom, -1rem);
+  /* -1rem previously -- nudged down further per feedback, showing a bit
+     more of each device's lower half and a bit less of its top. */
+  bottom: var(--icon-bottom, -1.75rem);
   right: var(--icon-right, -1rem);
   z-index: -1;
   width: var(--icon-width, 44%);
