@@ -96,7 +96,11 @@
  * corner (rather than just whatever height the short CTA text alone
  * would take), with that CTA anchored to the bottom of the reserved
  * space (flex-end) so it sits just above the illustration rather than
- * floating near the top of a tall empty panel.
+ * floating near the top of a tall empty panel. 140px on desktop (see
+ * the min-width: 1024px override below, matching WorkflowsGrid's own
+ * desktop breakpoint) deliberately crops more of each illustration than
+ * this 200px base does, per feedback wanting a tighter, more-cropped
+ * corner bleed there specifically.
  */
 .footerPanel {
   display: flex;
@@ -110,6 +114,12 @@
   padding: var(--space-5) var(--space-6);
   background: var(--surface-tint);
   border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+@media (min-width: 1024px) {
+  .footerPanel {
+    min-height: 140px;
+  }
 }
 
 /* Faint in-use scene illustration, bleeding off the card's bottom-right
