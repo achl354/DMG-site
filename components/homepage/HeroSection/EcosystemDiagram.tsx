@@ -101,17 +101,31 @@ const ORBIT_RADIUS_PCT = 18;
 const PULSE_RADIUS = 1;
 
 /**
- * Closed hexagon through 6 points at ORBIT_RADIUS_PCT -- not rendered as
- * a visible ring, just the traveling pulse's motion path (see the `idle`
- * block below). Computed once at module scope, not per render -- it only
- * depends on the two constants above and the fixed NODES list, never on
- * `progress`/`idleDrift`, so recomputing it on every scroll-driven
- * re-render bought nothing.
+ * Node index visited at each of the path's 6 equally-spaced time slots --
+ * [0, 5, 4, 3, 2, 1], not [0, 1, 2, 3, 4, 5], so the pulse travels
+ * anticlockwise around NODES' own clockwise layout (see that constant's
+ * comment) instead of matching it. Starts at node 0 (top) either way, just
+ * visits the rest in reverse. This exact array is a self-inverse
+ * permutation (swap slot<->value and you get the same list back), which
+ * is what lets NODES.map's own delay calculation below reuse it directly
+ * as "which slot is node N visited in" rather than needing a second,
+ * separately-maintained lookup.
+ */
+const NODE_VISIT_ORDER = [0, 5, 4, 3, 2, 1];
+
+/**
+ * Closed hexagon through 6 points at ORBIT_RADIUS_PCT, in NODE_VISIT_ORDER
+ * (not NODES' own order) -- not rendered as a visible ring, just the
+ * traveling pulse's motion path (see the `idle` block below). Computed
+ * once at module scope, not per render -- it only depends on the two
+ * constants above and the fixed NODES list, never on `progress`/
+ * `idleDrift`, so recomputing it on every scroll-driven re-render bought
+ * nothing.
  */
 const orbitPathD =
-  NODES.map((node, index) => {
-    const { x, y } = nodeOffset(node.angleDeg, ORBIT_RADIUS_PCT);
-    return `${index === 0 ? "M" : "L"} ${50 + x} ${50 + y}`;
+  NODE_VISIT_ORDER.map((nodeIndex, slot) => {
+    const { x, y } = nodeOffset(NODES[nodeIndex].angleDeg, ORBIT_RADIUS_PCT);
+    return `${slot === 0 ? "M" : "L"} ${50 + x} ${50 + y}`;
   }).join(" ") + " Z";
 
 /**
@@ -273,10 +287,15 @@ export function EcosystemDiagram({ progress, idleDrift = 0 }: EcosystemDiagramPr
                     // Evenly staggers each node's own nodeIconGlow cycle
                     // (see that rule's comment for why this lines up
                     // exactly, not approximately) across the same 7s
-                    // period pulseOrbit uses, so node N's scale-up peaks
-                    // the instant the traveling pulse reaches its
-                    // angular position on the orbit path.
-                    animationDelay: `${index * (7 / 6)}s`,
+                    // period pulseOrbit uses. NODE_VISIT_ORDER[index] --
+                    // not index itself -- since the path now visits nodes
+                    // anticlockwise (order [0,5,4,3,2,1], see that
+                    // constant's comment); this is "which of the 6 equal
+                    // time slots is node N visited in", so its glow still
+                    // peaks the instant the traveling pulse actually
+                    // reaches its angular position, not the instant it
+                    // would have under the old clockwise order.
+                    animationDelay: `${NODE_VISIT_ORDER[index] * (7 / 6)}s`,
                   } as CSSProperties
                 }
               />
