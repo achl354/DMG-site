@@ -272,11 +272,11 @@ export function EcosystemDiagram({ progress, idleDrift = 0 }: EcosystemDiagramPr
                     aspectRatio: `${node.iconWidth} / ${node.iconHeight}`,
                     // Evenly staggers each node's own nodeIconGlow cycle
                     // (see that rule's comment for why this lines up
-                    // exactly, not approximately) across the same 6s
+                    // exactly, not approximately) across the same 9s
                     // period pulseOrbit uses, so node N's scale-up peaks
                     // the instant the traveling pulse reaches its
                     // angular position on the orbit path.
-                    animationDelay: `${index}s`,
+                    animationDelay: `${index * 1.5}s`,
                   } as CSSProperties
                 }
               />
