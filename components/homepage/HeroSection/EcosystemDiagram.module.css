@@ -286,16 +286,20 @@
 
 /*
  * Staggered echo of the traveling pulse (see .pulse's own comment) --
- * once idle, each node's icon briefly scales up as the orbiting dot
- * passes closest to its own position, so the diagram reads as one
- * coherent system (the pulse's motion visibly reaching each workflow in
- * turn) rather than the pulse and the nodes being two unrelated
- * animations. Same 6s period as pulseOrbit; each node's own
- * animation-delay (set inline per node in EcosystemDiagram.tsx, evenly
- * spaced across that period) times its peak to roughly when the pulse
- * reaches its angular position on the orbit path. Scale only, not
- * position -- keeps each node's click target anchored exactly where it
- * visually sits, unlike a bob/translate would.
+ * once idle, each node's icon scales up at the exact moment the
+ * orbiting triangle reaches its position, so the diagram reads as one
+ * coherent system (the pulse visibly triggering each workflow in turn)
+ * rather than the pulse and the nodes being two unrelated animations.
+ * Peaking at 0% (not partway through), combined with each node's own
+ * animation-delay (set inline per node in EcosystemDiagram.tsx: 0s, 1s,
+ * 2s...) is what makes this exact rather than approximate: the orbit
+ * path (orbitPathD) is a REGULAR hexagon (all 6 points equally spaced
+ * around the same radius, so every edge is the same length), and
+ * pulseOrbit covers it at a constant (linear) speed -- so the triangle
+ * reaches vertex N at exactly N seconds into the 6s cycle, the same
+ * moment node N's own delay elapses and its glow starts (i.e. peaks).
+ * Scale only, not position -- keeps each node's click target anchored
+ * exactly where it visually sits, unlike a bob/translate would.
  */
 .nodeIconPulse {
   animation: nodeIconGlow 6s ease-in-out infinite;
@@ -303,9 +307,6 @@
 
 @keyframes nodeIconGlow {
   0% {
-    transform: scale(1);
-  }
-  8% {
     transform: scale(1.18);
   }
   20%,

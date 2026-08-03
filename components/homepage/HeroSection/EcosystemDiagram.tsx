@@ -271,9 +271,10 @@ export function EcosystemDiagram({ progress, idleDrift = 0 }: EcosystemDiagramPr
                     WebkitMaskImage: `url(${node.icon})`,
                     aspectRatio: `${node.iconWidth} / ${node.iconHeight}`,
                     // Evenly staggers each node's own nodeIconGlow cycle
-                    // (see that rule's comment) across the same 6s period
-                    // pulseOrbit uses, so node N's brief scale-up roughly
-                    // lines up with the traveling pulse reaching its
+                    // (see that rule's comment for why this lines up
+                    // exactly, not approximately) across the same 6s
+                    // period pulseOrbit uses, so node N's scale-up peaks
+                    // the instant the traveling pulse reaches its
                     // angular position on the orbit path.
                     animationDelay: `${index}s`,
                   } as CSSProperties
