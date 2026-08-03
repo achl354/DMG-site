@@ -206,11 +206,7 @@ export function EcosystemDiagram({ progress, idleDrift = 0 }: EcosystemDiagramPr
           </g>
         </svg>
 
-        {/* hubIdle only once settled (idle) -- same gating as .nodeSettled
-            below, so this doesn't add extra motion on top of the already-
-            busy scroll-driven assembly (fly-in + tilt), only once that's
-            finished and the diagram is otherwise still. */}
-        <div className={`${styles.hub} ${idle ? styles.hubIdle : ""}`}>
+        <div className={styles.hub}>
           <div className={styles.hubTextGroup}>
             <p className={styles.hubName}>
               Easi<strong>System</strong>
@@ -268,12 +264,18 @@ export function EcosystemDiagram({ progress, idleDrift = 0 }: EcosystemDiagramPr
                   masked element has no intrinsic size the way an <img> does. */}
               <span
                 aria-hidden="true"
-                className={styles.nodeIcon}
+                className={`${styles.nodeIcon} ${idle ? styles.nodeIconPulse : ""}`}
                 style={
                   {
                     maskImage: `url(${node.icon})`,
                     WebkitMaskImage: `url(${node.icon})`,
                     aspectRatio: `${node.iconWidth} / ${node.iconHeight}`,
+                    // Evenly staggers each node's own nodeIconGlow cycle
+                    // (see that rule's comment) across the same 6s period
+                    // pulseOrbit uses, so node N's brief scale-up roughly
+                    // lines up with the traveling pulse reaching its
+                    // angular position on the orbit path.
+                    animationDelay: `${index}s`,
                   } as CSSProperties
                 }
               />

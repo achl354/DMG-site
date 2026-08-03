@@ -195,40 +195,6 @@
 }
 
 /*
- * Slow back-and-forth rotation, once idle -- a second deliberate
- * self-playing flourish alongside the pulse's own orbit (see that
- * rule's comment on why it's normally kept to just one), added
- * specifically to give the hub some of its own motion echoing "every
- * move matters" rather than sitting perfectly still while everything
- * around it moves. Small angle and a slow (8s) cycle keep it reading as
- * a gentle rock rather than a spin -- large/fast enough to notice, not
- * enough to fight for attention with the pulse or make "EasiSystem™"
- * hard to read. Keyframes repeat the base rule's own translate(-50%,
- * -50%) centering at every step (animating the transform property
- * overrides the static declaration entirely while running, not just
- * the rotation on top of it).
- */
-.hubIdle {
-  animation: hubRock 8s ease-in-out infinite;
-}
-
-@keyframes hubRock {
-  0%,
-  100% {
-    transform: translate(-50%, -50%) rotate(-4deg);
-  }
-  50% {
-    transform: translate(-50%, -50%) rotate(4deg);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hubIdle {
-    animation: none;
-  }
-}
-
-/*
  * Tight line-height -- the default (~1.65x font-size) adds enough leading
  * above/below the glyphs that the text reads as visually off-center
  * within the circle even though flexbox centers its box exactly.
@@ -316,6 +282,42 @@
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
+}
+
+/*
+ * Staggered echo of the traveling pulse (see .pulse's own comment) --
+ * once idle, each node's icon briefly scales up as the orbiting dot
+ * passes closest to its own position, so the diagram reads as one
+ * coherent system (the pulse's motion visibly reaching each workflow in
+ * turn) rather than the pulse and the nodes being two unrelated
+ * animations. Same 6s period as pulseOrbit; each node's own
+ * animation-delay (set inline per node in EcosystemDiagram.tsx, evenly
+ * spaced across that period) times its peak to roughly when the pulse
+ * reaches its angular position on the orbit path. Scale only, not
+ * position -- keeps each node's click target anchored exactly where it
+ * visually sits, unlike a bob/translate would.
+ */
+.nodeIconPulse {
+  animation: nodeIconGlow 6s ease-in-out infinite;
+}
+
+@keyframes nodeIconGlow {
+  0% {
+    transform: scale(1);
+  }
+  8% {
+    transform: scale(1.18);
+  }
+  20%,
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nodeIconPulse {
+    animation: none;
+  }
 }
 
 .nodeNumber {
