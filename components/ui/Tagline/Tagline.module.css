@@ -5,8 +5,65 @@
   color: var(--text-strong);
 }
 
+/*
+ * display: inline-block -- transforms are unreliable on plain inline
+ * boxes cross-browser; this keeps .word flowing inline with the
+ * surrounding text while making the animation below apply consistently.
+ */
 .word {
   font-weight: var(--weight-extrabold);
   font-style: italic;
   color: var(--brand);
+  display: inline-block;
+  animation: wordStutter 0.6s steps(1, jump-end) both;
+}
+
+/*
+ * One-shot entrance stutter, plays once on mount (not looping -- this is
+ * the page's biggest headline word, so a continuous stutter would grate
+ * fast on anyone who lingers). steps(1, jump-end) turns each keyframe
+ * transition into an instant snap rather than a smooth glide: it holds
+ * the CURRENT keyframe's value for the whole interval, then jumps to the
+ * next keyframe's value only right at that interval's end -- so the word
+ * visibly hops sideways in a few sharp, decaying jolts before settling
+ * at rest, rather than easing smoothly. Ties the motion to the word's own
+ * meaning ("Move") instead of just decorating it. "both" fill mode holds
+ * translateX(0) both before this plays and after it ends, so there's
+ * never a flash of an un-stuttered offset on either side.
+ */
+@keyframes wordStutter {
+  0% {
+    transform: translateX(0);
+  }
+  8% {
+    transform: translateX(-8px);
+  }
+  16% {
+    transform: translateX(6px);
+  }
+  24% {
+    transform: translateX(-5px);
+  }
+  32% {
+    transform: translateX(4px);
+  }
+  40% {
+    transform: translateX(-3px);
+  }
+  48% {
+    transform: translateX(2px);
+  }
+  56% {
+    transform: translateX(-1px);
+  }
+  64%,
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .word {
+    animation: none;
+  }
 }
