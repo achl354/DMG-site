@@ -128,13 +128,12 @@
   fill: var(--ink-900);
   filter: drop-shadow(0 0 1.5px var(--teal-300));
   offset-rotate: auto;
-  /* 6s previously -- read as too fast once the triangle (vs. the old,
-     less directionally-obvious circle) made its own travel speed more
-     apparent. 9s here MUST stay in lockstep with nodeIconGlow's own
-     duration and delays below (both scaled by the same 6->9 factor), or
-     the exact per-node sync that rule's comment describes breaks. */
+  /* 6s, then 9s, tried first -- 7s read best. MUST stay in lockstep with
+     nodeIconGlow's own duration and delays below (both scaled by the
+     same factor), or the exact per-node sync that rule's comment
+     describes breaks. */
   animation:
-    pulseOrbit 9s linear infinite,
+    pulseOrbit 7s linear infinite,
     pulseBlink 1.5s ease-in-out infinite;
 }
 
@@ -297,19 +296,19 @@
  * rather than the pulse and the nodes being two unrelated animations.
  * Peaking at 0% (not partway through), combined with each node's own
  * animation-delay (set inline per node in EcosystemDiagram.tsx: 0s,
- * 1.5s, 3s...) is what makes this exact rather than approximate: the
- * orbit path (orbitPathD) is a REGULAR hexagon (all 6 points equally
+ * ~1.17s, ~2.33s...) is what makes this exact rather than approximate:
+ * the orbit path (orbitPathD) is a REGULAR hexagon (all 6 points equally
  * spaced around the same radius, so every edge is the same length), and
  * pulseOrbit covers it at a constant (linear) speed -- so the triangle
- * reaches vertex N at exactly N * 1.5s into the 9s cycle, the same
+ * reaches vertex N at exactly N * (7/6)s into the 7s cycle, the same
  * moment node N's own delay elapses and its glow starts (i.e. peaks).
  * This duration MUST stay equal to .pulse's own pulseOrbit duration (see
- * that rule's comment on why it's 9s, not 6s) or the sync breaks. Scale
- * only, not position -- keeps each node's click target anchored exactly
- * where it visually sits, unlike a bob/translate would.
+ * that rule's comment) or the sync breaks. Scale only, not position --
+ * keeps each node's click target anchored exactly where it visually
+ * sits, unlike a bob/translate would.
  */
 .nodeIconPulse {
-  animation: nodeIconGlow 9s ease-in-out infinite;
+  animation: nodeIconGlow 7s ease-in-out infinite;
 }
 
 @keyframes nodeIconGlow {
