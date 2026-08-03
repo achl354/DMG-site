@@ -206,7 +206,11 @@ export function EcosystemDiagram({ progress, idleDrift = 0 }: EcosystemDiagramPr
           </g>
         </svg>
 
-        <div className={styles.hub}>
+        {/* hubIdle only once settled (idle) -- same gating as .nodeSettled
+            below, so this doesn't add extra motion on top of the already-
+            busy scroll-driven assembly (fly-in + tilt), only once that's
+            finished and the diagram is otherwise still. */}
+        <div className={`${styles.hub} ${idle ? styles.hubIdle : ""}`}>
           <div className={styles.hubTextGroup}>
             <p className={styles.hubName}>
               Easi<strong>System</strong>
