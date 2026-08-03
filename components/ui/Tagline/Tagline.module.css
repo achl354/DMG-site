@@ -15,55 +15,96 @@
   font-style: italic;
   color: var(--brand);
   display: inline-block;
-  animation: wordStutter 0.6s steps(1, jump-end) 2 both;
+  animation: wordStutter 1.47s steps(1, jump-end) both;
 }
 
 /*
- * Entrance stutter, plays twice on mount then stops for good (not an
- * infinite loop -- this is the page's biggest headline word, so a
- * continuous stutter would grate fast on anyone who lingers). Twice, not
- * once, since a single quick burst on page load risks landing before the
- * visitor's eyes have settled on the headline and going unnoticed. Each
- * keyframe cycle already rests at translateX(0) for its last third (64%
- * to 100%, see below) before looping, so iteration-count: 2 naturally
- * reads as two distinct jolts with a short pause between them, not one
- * longer jitter -- no separate keyframe changes needed for that gap.
- * steps(1, jump-end) turns each keyframe transition into an instant snap
- * rather than a smooth glide: it holds the CURRENT keyframe's value for
- * the whole interval, then jumps to the next keyframe's value only right
- * at that interval's end -- so the word visibly hops sideways in a few
- * sharp, decaying jolts before settling at rest, rather than easing
- * smoothly. Ties the motion to the word's own meaning ("Move") instead of
- * just decorating it. "both" fill mode holds translateX(0) both before
- * this plays and after it ends, so there's never a flash of an
- * un-stuttered offset on either side.
+ * Entrance stutter, plays on mount then stops for good (not an infinite
+ * loop -- this is the page's biggest headline word, so a continuous
+ * stutter would grate fast on anyone who lingers). steps(1, jump-end)
+ * turns each keyframe transition into an instant snap rather than a
+ * smooth glide: it holds the CURRENT keyframe's value for the whole
+ * interval, then jumps to the next keyframe's value only right at that
+ * interval's end -- so the word visibly hops sideways in sharp, decaying
+ * jolts rather than easing smoothly. Ties the motion to the word's own
+ * meaning ("Move") instead of just decorating it. "both" fill mode holds
+ * translateX(0) both before this plays and after it ends, so there's
+ * never a flash of an un-stuttered offset on either side.
+ *
+ * Three bursts in one non-looping timeline (not iteration-count, so each
+ * burst can differ from the others -- a repeating count would force them
+ * identical): bursts 1 and 2 (0%-26.122%, 44.082%-66.939%) are identical
+ * 7-hop decays -8/6/-5/4/-3/2/-1px, each hop held 48ms -- a single burst
+ * risked landing before a visitor's eyes settled on the headline and
+ * going unnoticed, so it repeats once. Burst 3 (81.633%-100%) is
+ * deliberately shorter (3 hops, not 7) and slower (90ms per hold, not
+ * 48ms) with a smaller amplitude (-4/2/-1px, about half of bursts 1-2) --
+ * a diminishing, tired final flick rather than a third identical snap,
+ * before resting at translateX(0) for good. Each burst's own rest gap
+ * (26.122%-44.082%, 66.939%-81.633%) is what separates them into three
+ * distinct jolts instead of one long jitter.
  */
 @keyframes wordStutter {
   0% {
     transform: translateX(0);
   }
-  8% {
+  3.265% {
     transform: translateX(-8px);
   }
-  16% {
+  6.531% {
     transform: translateX(6px);
   }
-  24% {
+  9.796% {
     transform: translateX(-5px);
   }
-  32% {
+  13.061% {
     transform: translateX(4px);
   }
-  40% {
+  16.327% {
     transform: translateX(-3px);
   }
-  48% {
+  19.592% {
     transform: translateX(2px);
   }
-  56% {
+  22.857% {
     transform: translateX(-1px);
   }
-  64%,
+  26.122% {
+    transform: translateX(0);
+  }
+  44.082% {
+    transform: translateX(-8px);
+  }
+  47.347% {
+    transform: translateX(6px);
+  }
+  50.612% {
+    transform: translateX(-5px);
+  }
+  53.878% {
+    transform: translateX(4px);
+  }
+  57.143% {
+    transform: translateX(-3px);
+  }
+  60.408% {
+    transform: translateX(2px);
+  }
+  63.673% {
+    transform: translateX(-1px);
+  }
+  66.939% {
+    transform: translateX(0);
+  }
+  81.633% {
+    transform: translateX(-4px);
+  }
+  87.755% {
+    transform: translateX(2px);
+  }
+  93.878% {
+    transform: translateX(-1px);
+  }
   100% {
     transform: translateX(0);
   }
