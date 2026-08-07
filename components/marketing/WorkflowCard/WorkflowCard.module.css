@@ -100,7 +100,14 @@
  * the min-width: 1024px override below, matching WorkflowsGrid's own
  * desktop breakpoint) deliberately crops more of each illustration than
  * this 200px base does, per feedback wanting a tighter, more-cropped
- * corner bleed there specifically.
+ * corner bleed there specifically. 112px below max-width: 640px (see
+ * that override too) crops it tighter still -- at that width the grid
+ * has collapsed to a single column (WorkflowsGrid's own auto-fill
+ * minmax(280px, 1fr) stops fitting two side by side around there), so
+ * this same 200px reads as nearly as tall as the header text above it
+ * (measured: 77-98% of it, across the 6 cards) for very little actual
+ * content -- a two-word CTA and a low-opacity illustration -- rather
+ * than the deliberate corner bleed it is at wider card widths.
  */
 .footerPanel {
   display: flex;
@@ -119,6 +126,12 @@
 @media (min-width: 1024px) {
   .footerPanel {
     min-height: 140px;
+  }
+}
+
+@media (max-width: 640px) {
+  .footerPanel {
+    min-height: 112px;
   }
 }
 
