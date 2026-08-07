@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SizeBadge, Card, Badge, Button } from "@/components/ui";
 import { Section, Container } from "@/components/layout";
-import { ProductCard, CTASection, ProductPhotoGallery, ProductIllustration } from "@/components/marketing";
+import { ProductCard, CTASection, ProductIllustration } from "@/components/marketing";
 import {
   getAllProducts,
   getProductBySlug,
@@ -10,7 +10,7 @@ import {
   PRODUCT_STATUS_LABELS,
 } from "@/lib/content/products";
 import { getWorkflowBySlug } from "@/lib/content/workflows";
-import { PRODUCT_PHOTO_SCENES, PRODUCT_ICONS } from "@/lib/content/assets";
+import { PRODUCT_ICONS } from "@/lib/content/assets";
 import { buildMetadata } from "@/lib/seo";
 import styles from "./page.module.css";
 
@@ -58,7 +58,6 @@ export default async function ProductDetailPage({
 
   const workflow = getWorkflowBySlug(workflowSlug);
   const related = getRelatedProducts(product.slug);
-  const photoScenes = PRODUCT_PHOTO_SCENES[product.slug];
   const icon = PRODUCT_ICONS[product.slug];
 
   return (
@@ -71,11 +70,7 @@ export default async function ProductDetailPage({
             </Link>
           )}
 
-          {photoScenes ? (
-            <ProductPhotoGallery frames={photoScenes} name={product.name} />
-          ) : icon ? (
-            <ProductIllustration icon={icon} name={product.name} slug={product.slug} />
-          ) : null}
+          {icon && <ProductIllustration icon={icon} name={product.name} slug={product.slug} />}
           <p className={styles.category}>{product.category}</p>
           <h1 className={styles.tagline}>{product.tagline}</h1>
           {product.status !== "in-development" && (

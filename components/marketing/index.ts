@@ -1,7 +1,6 @@
 export { Reveal } from "./Reveal/Reveal";
 export type { RevealProps } from "./Reveal/Reveal";
 export { ProductCard } from "./ProductCard/ProductCard";
-export { ProductPhotoGallery } from "./ProductPhotoGallery/ProductPhotoGallery";
 export { ProductIllustration } from "./ProductIllustration/ProductIllustration";
 export { WorkflowCard } from "./WorkflowCard/WorkflowCard";
 export { ResourceCard } from "./ResourceCard/ResourceCard";
