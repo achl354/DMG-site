@@ -241,13 +241,35 @@ function NodeMesh({ node, index, reveal, idle }: { node: Node3D; index: number; 
   );
 }
 
-/** Hexagonal prism (a 6-sided cylinder) standing in for the CSS version's
- * clip-path hexagon hub. */
+/**
+ * Hexagonal prism (a 6-sided cylinder) standing in for the CSS version's
+ * clip-path hexagon hub.
+ *
+ * emissive floor + tuned light intensities, not the original plain
+ * meshStandardMaterial -- pixel-sampling the first version's actual
+ * rendered output found it running at roughly half the intended
+ * brightness (RGB ~50 vs brand teal's real 88/85), with only a ~1%
+ * top-to-bottom gradient -- too dim and too flat to read as anything.
+ * Root cause: R3F's <Canvas> defaults to ACESFilmicToneMapping, a
+ * filmic curve that compresses/darkens exactly this kind of flat mid-tone
+ * color (fixed via the `flat` prop on Canvas below, not here). The
+ * emissive term here is a deliberate floor UNDER that fix, not a
+ * workaround for it -- it guarantees the shadowed side never drifts too
+ * far from brand teal even at grazing light angles, while the directional
+ * lights (now meaningfully brighter, see EcosystemDiagram3D's own Canvas)
+ * still add real, visible-by-eye shading on top of that floor.
+ */
 function Hub() {
   return (
     <mesh rotation={[Math.PI / 2, 0, 0]}>
       <cylinderGeometry args={[0.95, 0.95, 0.4, 6]} />
-      <meshStandardMaterial color={BRAND_TEAL} metalness={0.15} roughness={0.55} />
+      <meshStandardMaterial
+        color={BRAND_TEAL}
+        emissive={BRAND_TEAL}
+        emissiveIntensity={0.35}
+        metalness={0.1}
+        roughness={0.45}
+      />
     </mesh>
   );
 }
@@ -347,10 +369,16 @@ export interface EcosystemDiagram3DProps {
 
 export function EcosystemDiagram3D({ progress, idleDriftDeg }: EcosystemDiagram3DProps) {
   return (
-    <Canvas camera={{ position: [0, 0, 7.5], fov: 38 }} dpr={[1, 2]}>
-      <ambientLight intensity={0.65} />
-      <directionalLight position={[3, 4, 5]} intensity={1.15} />
-      <directionalLight position={[-3, -2, 2]} intensity={0.28} />
+    // flat -- disables R3F's default ACESFilmicToneMapping (a filmic
+    // photographic curve, wrong for exact brand-hex matching -- it was
+    // the actual cause of the hub rendering at roughly half its intended
+    // brightness, confirmed by pixel-sampling before vs after this fix).
+    // NoToneMapping (what `flat` switches to) passes material colors
+    // through directly instead.
+    <Canvas flat camera={{ position: [0, 0, 7.5], fov: 38 }} dpr={[1, 2]}>
+      <ambientLight intensity={1.1} />
+      <directionalLight position={[3, 4, 5]} intensity={2.6} />
+      <directionalLight position={[-3, -2, 2]} intensity={0.7} />
       <Suspense fallback={null}>
         <Scene progress={progress} idleDriftDeg={idleDriftDeg} />
       </Suspense>
