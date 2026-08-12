@@ -1,0 +1,240 @@
+{
+  "meta": {
+    "name": "DMG / EasiSystem™ Design DNA",
+    "description": "Design system, style, and visual-effects profile extracted directly from the live DMG/EasiSystem Next.js codebase (not an external reference) -- documents what is actually built, as of the claude/easisystem-homepage-redesign-vhwnfi branch.",
+    "source_references": [
+      "styles/tokens/colors.css",
+      "styles/tokens/typography.css",
+      "styles/tokens/spacing.css",
+      "styles/tokens/base.css",
+      "styles/tokens/fonts.css",
+      "app/globals.css",
+      "components/ui/Button/Button.module.css",
+      "components/ui/Card/Card.module.css",
+      "components/ui/Modal/Modal.module.css",
+      "components/ui/Tagline/Tagline.module.css",
+      "components/marketing/ProductCard/ProductCard.module.css",
+      "components/marketing/WorkflowCard/WorkflowCard.module.css",
+      "components/homepage/HeroSection/EcosystemDiagram.tsx",
+      "components/homepage/HeroSection/EcosystemDiagram.module.css"
+    ],
+    "created_at": "2026-08-12"
+  },
+  "design_system": {
+    "color": {
+      "palette_type": "monochromatic",
+      "primary": { "hex": "#005855", "role": "DMG Teal -- master brand color, primary CTAs, links, headline accents (teal-700)" },
+      "secondary": { "hex": "#16211E", "role": "ink-900 -- strongest text color, also the fill for the hero's animated pulse element" },
+      "accent": { "hex": "#6E7F5C", "role": "sage-600 -- distinct category-badge accent (e.g. 'Guides'), kept separate from both brand teal and the saturated size/status colors" },
+      "neutral": {
+        "scale": "Two independent neutral families: ink-900..ink-100 (cool green-tinted grays, text) and paper-0..paper-400/paper-cream (warm greige, surfaces)",
+        "usage": "Ink scale used exclusively for text at every weight (headings ink-900 down to captions ink-300); paper scale used exclusively for backgrounds, borders and fills. Never crossed."
+      },
+      "semantic": {
+        "success": "#00A644",
+        "warning": "#C8870F",
+        "error": "#D52A3F",
+        "info": "#293F76"
+      },
+      "surface": {
+        "background": "#FAFAF7",
+        "card": "#FFFFFF",
+        "elevated": "#FFFFFF with --shadow-xl (modals/dialogs)"
+      },
+      "contrast_strategy": "dark-on-light dominant -- high-contrast ink-900 text on paper-50/white surfaces, paired with soft/subtle borders and shadows rather than heavy dividers or dark surfaces"
+    },
+    "typography": {
+      "type_scale": {
+        "display": { "size": "4.75rem (76px)", "weight": 800, "line_height": 1.12, "tracking": "-0.03em" },
+        "heading_1": { "size": "clamp(2.25rem, 3.4vw + 1.7rem, 5rem) -- fluid 36-80px", "weight": 700, "line_height": 1.12, "tracking": "-0.018em" },
+        "heading_2": { "size": "clamp(2rem, 2.8vw + 1.45rem, 4.5rem) -- fluid 32-72px", "weight": 700, "line_height": 1.12, "tracking": "-0.018em" },
+        "heading_3": { "size": "1.875rem (30px)", "weight": 700, "line_height": 1.12, "tracking": "-0.018em" },
+        "body": { "size": "1rem (16px)", "weight": 400, "line_height": 1.65, "tracking": "0em" },
+        "body_small": { "size": "0.875rem (14px)", "weight": 400, "line_height": 1.65, "tracking": "0em" },
+        "caption": { "size": "0.75rem (12px)", "weight": 600, "line_height": 1.5, "tracking": "0.04em" },
+        "overline": { "size": "0.75rem (12px)", "weight": 600, "line_height": 1.5, "tracking": "0.18em" }
+      },
+      "font_families": {
+        "heading": "Manrope",
+        "body": "Manrope",
+        "mono": "ui-monospace, SFMono-Regular, Menlo, Consolas"
+      },
+      "font_style_notes": "Single variable typeface (Manrope, weights 200-800) for both display and body -- a geometric, low-contrast grotesque described in the token source itself as 'clinical, precise, modern'. ss01/cv11 OpenType features enabled site-wide."
+    },
+    "spacing": {
+      "base_unit": "4px",
+      "scale": "0, 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 128, 160 (space-0 through space-14)",
+      "content_density": "spacious",
+      "section_rhythm": "Large gaps between major sections (80-96px), moderate padding within cards (20-24px) -- generous whitespace is explicitly called out as load-bearing in the token source's own comment ('Clinical layouts: generous whitespace')"
+    },
+    "layout": {
+      "grid_system": "CSS Grid, auto-fill minmax(280px, 1fr) on mobile/tablet collapsing to a fixed 3-column grid at the 1024px desktop breakpoint",
+      "max_content_width": "1240px (container-xl), with 1080/820/640px tiers below it",
+      "columns": "3 (desktop card grids), 1 (mobile)",
+      "gutter": "24px (space-6)",
+      "breakpoints": "1024px is the dominant desktop threshold used throughout; 640px used as a secondary mobile-specific cutoff in at least one card component",
+      "alignment_tendency": "strict grid for card layouts; left-aligned text blocks generally"
+    },
+    "shape": {
+      "border_radius": { "small": "8px", "medium": "12px", "large": "14-16px", "pill": "999px" },
+      "border_usage": "subtle 1px hairline by default; a 2px 'thick' token exists but is rarely reached for",
+      "divider_style": "thin hairline borders in warm neutral tones (paper-300/400), no heavy rules"
+    },
+    "elevation": {
+      "shadow_style": "soft diffused",
+      "levels": {
+        "low": "1-3px blur, 5-8% opacity (shadow-xs/sm)",
+        "medium": "4-24px blur, 5-10% opacity (shadow-md)",
+        "high": "12-48px blur, 12-16% opacity (shadow-lg/xl), plus a teal-tinted shadow-brand variant for CTA emphasis"
+      },
+      "depth_cues": "shadows (always green-black tinted, never pure black) + a small translateY lift on hover -- no blur/glass depth cues"
+    },
+    "iconography": {
+      "style": "custom brand-drawn outline/line-art illustrations, not a generic icon library",
+      "stroke_weight": "thin, deliberately tuned per use case (several passes this session thinned/eroded stroke weight for small render sizes)",
+      "size_scale": "contextual -- 44-58% of card width for corner-bleed watermark illustrations, fixed heights for hero diagram node icons",
+      "preferred_set": "proprietary EasiSystem product/workflow line art (recolored to brand teal via CSS mask), not Feather/Lucide/etc."
+    },
+    "motion": {
+      "easing": "cubic-bezier(0.2, 0.7, 0.3, 1) for entrances/interactions, cubic-bezier(0.5, 0, 0.2, 1) for symmetric transitions -- explicitly 'no bounce' per the token source",
+      "duration_scale": { "micro": "120ms", "normal": "200ms", "macro": "320ms" },
+      "entrance_pattern": "fade + slight translateY/scale-in (e.g. modal: translateY(12px) scale(0.98) to identity); card hover lift of -6px",
+      "exit_pattern": "reverse of entrance (fade out); reduced-motion collapses everything to instant",
+      "philosophy": "clinical and restrained -- motion is always tied to a specific meaning (hover = interactive, an ambient pulse = 'the system is alive', a headline stutter = literalizes the word 'Move') rather than decorative flourish. A handful of bespoke hero animations deliberately run far longer than the base 120-320ms scale (a 7s ambient pulse, a 1.47s entrance stutter) as intentional exceptions for ambient/one-shot moments, not the interaction norm. Every custom animation is gated behind prefers-reduced-motion."
+    },
+    "components": {
+      "button_style": "solid-fill primary (brand teal, shadow-brand, -1px hover lift), outlined secondary (teal border/text), borderless ghost -- all radius-sm (8px), semibold label, no bounce easing",
+      "input_style": "not deeply exercised in this session's work; implied to follow the same radius-sm/hairline-border pattern as buttons",
+      "card_style": "flat white or teal-tint surface, 1px hairline border, radius-md (12px), often a 4px top-edge accent bar (solid or gradient); isolate stacking context + overflow:hidden used consistently to contain corner-bleed decorative elements",
+      "navigation_pattern": "sticky header (72px mobile / 100px desktop height), horizontal link row on desktop, hamburger + drawer on mobile",
+      "modal_style": "centered overlay dialog, dark teal-tinted scrim, fade + scale-up entrance (12px/0.98 to identity), pill-shaped close button top-right",
+      "list_style": "browser default list styling reset site-wide (no bullets/padding); custom badge/number markers used instead",
+      "component_notes": "A recurring two-zone card pattern across ProductCard and WorkflowCard: a plain header zone (title/summary) plus a visually distinct tinted footer panel (CTA text + a low-opacity corner-bleed illustration), rather than one flat stack of content."
+    }
+  },
+  "design_style": {
+    "aesthetic": {
+      "mood": ["clinical", "calm", "precise", "trustworthy", "confident"],
+      "visual_metaphor": "medical/clinical precision -- a single deep teal historically associated with surgical/healthcare branding, a geometric hexagon motif echoing the product logomark, no organic or soft shapes",
+      "era_influence": "contemporary corporate SaaS / health-tech, no retro or ornamental influence",
+      "genre": "corporate healthcare / med-tech B2B",
+      "personality_traits": ["meticulous", "understated", "confident", "considered"],
+      "adjectives": ["clinical", "precise", "restrained", "geometric", "trustworthy"]
+    },
+    "visual_language": {
+      "complexity": "moderate",
+      "ornamentation": "subtle accents",
+      "whitespace_usage": "generous",
+      "visual_weight_distribution": "text-led, with one supporting illustration per card/section rather than one dominant hero image",
+      "focal_strategy": "single hero element on the homepage (the ecosystem diagram); distributed interest / progressive reveal on listing pages via card grids",
+      "contrast_level": "high text contrast (near-black on off-white), low-contrast decorative elements (0.45-0.55 opacity illustrations)",
+      "texture_usage": "near-none -- a single very subtle full-page noise/grain overlay at 3.5% opacity, nothing else"
+    },
+    "composition": {
+      "hierarchy_method": "scale contrast + color weight (large display type and brand-teal accents pull focus, not spatial isolation)",
+      "balance_type": "asymmetric on the homepage hero (text left, diagram right); symmetric/grid-based on listing pages",
+      "flow_direction": "top-down, left-to-right; a loose Z-pattern on the hero (headline -> CTA -> visual)",
+      "grouping_strategy": "card-based grouping via a consistent two-zone header/footer pattern",
+      "negative_space_role": "active -- generous whitespace is treated as load-bearing to the calm/clinical feel, not incidental padding"
+    },
+    "imagery": {
+      "photo_treatment": "avoided in favor of line art almost everywhere; the one product page that used real photography was deliberately replaced with the same outline-illustration treatment as every other product, specifically for cross-page consistency",
+      "illustration_style": "thin, brand-teal-recolored outline line art of the products/workflows in clinical use, shown as low-opacity corner-bleed watermarks",
+      "graphic_elements": "hexagon motif (hero hub + node ring), thin gradient top-edge bars on cards",
+      "pattern_usage": "one subtle full-page noise/grain texture overlay, nothing else",
+      "image_shape": "rounded-rectangle crops (12-16px radius); no circular or angled crops except the hexagon hub/nodes themselves"
+    },
+    "interaction_feel": {
+      "feedback_style": "understated -- opacity/color shifts and small (1-6px) translateY lifts; no bounce/overshoot on ordinary interactive elements (overshoot easing is used exactly once, deliberately, for the hero's scroll-driven node assembly)",
+      "hover_behavior": "cards lift -6px with a brightening top accent bar and illustration opacity stepping 0.45 -> 0.55; buttons lift -1px with a deeper shadow",
+      "transition_personality": "smooth glide, snappy -- 120-320ms eased transitions, explicitly 'no bounce' per the design token source",
+      "loading_style": "not established in this session's work",
+      "microinteraction_density": "moderate overall, concentrated in the homepage hero (orbiting pulse, staggered node glow, headline stutter) and card hovers; restrained everywhere else"
+    },
+    "brand_voice_in_ui": {
+      "tone": "direct, clinical, reassuring",
+      "formality": "formal -- written for a healthcare-procurement audience",
+      "cta_style": "direct imperative paired with a small arrow ('Explore workflow →', 'Contact DMG')",
+      "empty_state_approach": "not established in this session's work",
+      "error_tone": "not established in this session's work (a --feedback-danger token exists but specific error copy wasn't authored)"
+    }
+  },
+  "visual_effects": {
+    "overview": {
+      "effect_intensity": "subtle-accent",
+      "performance_tier": "lightweight",
+      "fallback_strategy": "reduce to static -- every custom animation is explicitly gated behind prefers-reduced-motion: reduce, falling back to a fully-assembled, non-animating render",
+      "primary_technology": "CSS only (keyframes, transforms, offset-path), with Framer Motion's useScroll/useMotionValueEvent supplying the live scroll-progress values that drive those CSS custom properties. No Canvas, WebGL, or shader technology anywhere in the codebase."
+    },
+    "background_effects": {
+      "type": "noise-field",
+      "description": "A fixed, full-viewport SVG feTurbulence noise texture at 3.5% opacity with an overlay blend mode -- a barely-perceptible static tactile grain, not an animated background",
+      "technology": "inline SVG data-URI + CSS mix-blend-mode",
+      "params": { "color_palette": "monochrome noise", "speed": "static (no animation)", "density": "fine-grain", "opacity": 0.035, "blend_mode": "overlay" }
+    },
+    "particle_systems": { "enabled": false, "type": "none", "description": "Not present in the codebase.", "technology": "n/a", "params": {} },
+    "3d_elements": {
+      "enabled": true,
+      "type": "abstract-geometry",
+      "description": "A CSS-only pseudo-3D hexagon 'ecosystem diagram' in the homepage hero: nodes fly in and settle on a tilted plane during scroll-driven assembly, then idle with a subtle continued sinusoidal tilt tied to scroll position. Not true WebGL/Three.js -- no real lighting or camera, just CSS 3D transforms plus per-node translateZ for a sense of depth.",
+      "technology": "CSS 3D transforms (perspective, transform-style: preserve-3d, rotateX/rotateY, translateZ) -- no WebGL",
+      "params": {
+        "renderer": "CSS (no GPU 3D engine)",
+        "lighting": "none -- simulated via per-node opacity/scale depth cues instead of real shading",
+        "camera": "fixed perspective (1400px), no camera movement",
+        "materials": "flat brand-teal fills and CSS-mask-recolored line-art icons",
+        "geometry": "a 6-point hexagon node ring plus a clip-path hexagon hub",
+        "post_processing": [],
+        "interaction_model": "hover/focus per node (click-through to that workflow); otherwise passive/scroll-driven"
+      }
+    },
+    "shader_effects": { "enabled": false, "type": "none", "description": "Not present in the codebase.", "technology": "n/a", "params": {} },
+    "scroll_effects": {
+      "parallax": {
+        "enabled": true,
+        "layers": "6 (each hero node sits at its own translateZ depth) plus the tilting stage itself",
+        "depth_range": "small -- translateZ derived from each node's horizontal offset, plus a +-16px flight-in offset during assembly",
+        "speed_curve": "eased overshoot (custom easeOutBack) during assembly; a linear/sinusoidal curve driven by continued scroll position once idle"
+      },
+      "scroll_triggered_animations": {
+        "enabled": true,
+        "trigger_points": "a single pinned hero section -- roughly the first 60-70% of a fixed scroll distance drives node fly-in/tilt-to-flat assembly, with the remainder as genuine 'idle' time before the section unpins",
+        "animation_type": "fade-up + scale-in + tilt, computed per node from one shared 0-1 scroll-progress value rather than a generic reveal library",
+        "scrub_behavior": "fully scrubbed and reversible -- driven directly by live scroll position, not a one-shot triggered animation; scrolling back up un-assembles it"
+      },
+      "scroll_morphing": { "enabled": false, "description": "Not present in the codebase." }
+    },
+    "text_effects": {
+      "type": "custom",
+      "description": "The hero headline's flexible word ('Move') hops sideways in three decaying bursts (two identical sharp ones, a third shorter and slower one) via CSS steps(1, jump-end) timing -- an instant per-keyframe snap rather than eased interpolation -- deliberately literalizing the word's own meaning. Plays once on mount only; not tied to scroll or hover.",
+      "technology": "CSS @keyframes + the steps() timing function",
+      "params": {
+        "split_strategy": "whole-word (not per-letter or per-line)",
+        "animation_per_unit": "single element, no internal stagger within the word",
+        "stagger": "not applicable at the word level, though a comparable staggering technique is used elsewhere (the hero's per-node glow delays)",
+        "effect_style": "mechanical stutter, glitch-adjacent but not a smooth glide"
+      }
+    },
+    "cursor_effects": { "enabled": false, "type": "none", "description": "Not present in the codebase.", "params": {} },
+    "image_effects": {
+      "type": "hover-transform",
+      "description": "Product/workflow illustrations brighten from 0.45 to 0.55 opacity on card hover, alongside a -6px card lift and a brightening top-edge gradient bar -- no distortion, tilt, or reveal-clip effects are used anywhere",
+      "technology": "CSS opacity/transform transitions",
+      "params": { "filter_pipeline": "none", "hover_transform": "translateY(-6px) card lift + opacity 0.45 -> 0.55 on the illustration", "reveal_animation": "none -- illustrations are always visible, just low-opacity", "distortion_type": "none" }
+    },
+    "glassmorphism_neumorphism": { "enabled": false, "style": "none", "params": {} },
+    "canvas_drawings": { "enabled": false, "type": "none", "description": "No <canvas> usage found anywhere in the codebase.", "technology": "n/a", "params": {} },
+    "svg_animations": {
+      "enabled": true,
+      "type": "decorative-loop",
+      "description": "An SVG triangle continuously travels around a hand-built hexagonal CSS motion path once the hero is idle, blinking its own opacity on a separate loop -- synced so that each ring node's own glow animation peaks at the exact moment the triangle passes it (matched animation-duration plus a per-node animation-delay, exploiting the fact that a regular hexagon traversed at constant linear speed reaches each vertex at an exactly predictable time).",
+      "params": {
+        "animation_method": "CSS Motion Path (offset-path/offset-distance/offset-rotate: auto) plus separately-declared, precisely time-matched sibling keyframe animations -- not SMIL, not JS-driven position tracking",
+        "path_morphing": "none -- a static hexagonal path",
+        "stroke_animation": "none -- a filled triangle, not a drawn/animated stroke",
+        "filter_effects": "a drop-shadow glow on the traveling triangle"
+      }
+    },
+    "composite_notes": "The two most distinctive effects layer at the homepage hero: the CSS-3D-tilted node ring (3d_elements) plus the synced orbiting-pulse/node-glow system (svg_animations + scroll_effects), reading as one coherent 'living system' rather than two unrelated animations. Everything here is deliberately CSS + one JS scroll-tracking library -- performance_tier is 'lightweight' by design, and every effect gates behind prefers-reduced-motion. There is currently no Canvas, WebGL, particle, shader, or cursor-effect usage anywhere in the codebase; this profile's visual_effects dimension is entirely CSS-driven, worth stating explicitly since the schema's own field set leans toward assuming heavier rendering technology than this brand actually uses."
+  }
+}
