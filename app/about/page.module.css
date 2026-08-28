@@ -1,3 +1,19 @@
+/*
+ * Own clamp, not EyebrowHeading's shared --type-h2-size directly -- that
+ * token renders ~64px at typical desktop widths and is shared by nearly
+ * every other page-top heading site-wide (Products, Workflows, Resources
+ * listings), so scaling it down here would shrink all of those too.
+ * Targets the actual <h1> EyebrowHeading renders (as="h1") via a plain
+ * tag selector, not EyebrowHeading.module.css's own hashed .heading class
+ * -- this is the standard way to scope-override a shared component's
+ * child without touching its module. Same 75% scale-down as the product
+ * page's title fix (36px->28px min, 80px->60px max there; here it's
+ * h2-size's own 32px->24px min, 72px->54px max).
+ */
+.heroHeading h1 {
+  font-size: clamp(1.5rem, 2.1vw + 1.0875rem, 3.375rem);
+}
+
 .grid {
   display: grid;
   grid-template-columns: 1fr;

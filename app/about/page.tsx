@@ -14,7 +14,11 @@ export const metadata = buildMetadata({
 export default function AboutPage() {
   return (
     <>
-      <Section spacing="lg">
+      {/* md, not lg -- same fix as the product detail page: lg's 128px
+          bottom padding stacked against the next (sunken) section's own
+          80px top padding left 208px of dead space between the intro copy
+          and the principles cards. */}
+      <Section spacing="md">
         <Container size="lg">
           <Reveal>
             <EyebrowHeading
@@ -22,6 +26,7 @@ export default function AboutPage() {
               eyebrow="About"
               heading="About DirectMed Group"
               body="DirectMed Group develops patient-handling solutions designed around the practical workflows encountered across healthcare and supported-care environments."
+              className={styles.heroHeading}
             />
           </Reveal>
         </Container>

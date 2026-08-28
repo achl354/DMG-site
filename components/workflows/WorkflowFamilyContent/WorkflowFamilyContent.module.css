@@ -48,11 +48,19 @@
   margin-bottom: var(--space-5);
 }
 
-/* Modal usage (titleTag="h2") -- the homepage/workflows-grid modal already
-   has its own page-level h1, so this heading reads as a sub-heading rather
-   than the page title. Match the "Why EasiSystem" section heading size. */
+/*
+ * Modal usage (titleTag="h2") -- the homepage/workflows-grid modal already
+ * has its own page-level h1, so this heading reads as a sub-heading rather
+ * than the page title. Previously matched the "Why EasiSystem" section
+ * heading size (--type-h2-size, ~64px at typical desktop widths); scaled
+ * to 75% per feedback on the pop-up specifically feeling too large --
+ * same treatment as the product/resources detail pages' own title fixes,
+ * scoped to this h2 (modal) rule only. The standalone h1 case above
+ * (the real /workflows/[workflow] page) is untouched -- not part of this
+ * request.
+ */
 h2.title {
-  font-size: var(--type-h2-size);
+  font-size: clamp(1.5rem, 2.1vw + 1.0875rem, 3.375rem);
 }
 
 .summary {

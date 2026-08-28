@@ -18,8 +18,16 @@
   margin-bottom: var(--space-4);
 }
 
+/*
+ * Own clamp, not --type-h1-size directly -- same fix and same scaled
+ * clamp as the product detail page's own .tagline (see that file's own
+ * comment): that shared token renders ~76px at typical desktop widths,
+ * too large for an article title sitting above a badge/description.
+ * Scoped to this page only, not the shared token (also used by Stat,
+ * WorkflowFamilyContent and the product detail page).
+ */
 .title {
-  font-size: var(--type-h1-size);
+  font-size: clamp(1.75rem, 2.5vw + 1.25rem, 3.75rem);
   font-weight: var(--type-heading-weight);
   line-height: var(--type-heading-leading);
   letter-spacing: var(--type-heading-tracking);

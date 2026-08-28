@@ -49,7 +49,11 @@ export default async function ResourceDetailPage({
 
   return (
     <>
-      <Section spacing="lg">
+      {/* md, not lg -- same fix as the product detail page: lg's 128px
+          bottom padding stacked against the next (sunken) section's own
+          80px top padding left 208px of dead space between the intro and
+          the download/body content. */}
+      <Section spacing="md">
         <Container size="md">
           <Link href="/resources" className={styles.back}>
             &larr; All resources
