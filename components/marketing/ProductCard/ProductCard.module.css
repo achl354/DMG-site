@@ -68,6 +68,7 @@
 }
 
 .wordmark {
+  align-self: center;
   margin-top: var(--space-2);
   transition: transform var(--duration-slow) var(--ease-out);
 }
