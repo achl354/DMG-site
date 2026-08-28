@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 
-const SITE_URL = "https://www.easisystems.com.au";
+// https://www.easisystems.com.au previously -- corrected to the actual
+// production domain (directmedgroup.com, confirmed and configured in
+// Vercel/DNS this session). Exported so sitemap.ts/robots.ts can build
+// off the exact same base URL rather than a second hardcoded copy.
+export const SITE_URL = "https://www.directmedgroup.com";
 
 export function buildMetadata(options: {
   title: string;
