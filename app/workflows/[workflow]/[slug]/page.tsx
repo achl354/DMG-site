@@ -62,7 +62,13 @@ export default async function ProductDetailPage({
 
   return (
     <>
-      <Section spacing="lg">
+      {/* md, not lg -- the default lg (128px) bottom padding here, stacked
+          directly against the next (sunken) section's own 80px top padding,
+          left ~208px of dead space between the size badges and "Features"
+          with nothing to visually anchor it. Scoped to this page only (not
+          the shared Section component), since About/Resources use the same
+          lg-then-md-sunken pairing deliberately. */}
+      <Section spacing="md">
         <Container size="lg">
           {workflow && (
             <Link href={`/workflows/${workflow.slug}`} className={styles.back}>

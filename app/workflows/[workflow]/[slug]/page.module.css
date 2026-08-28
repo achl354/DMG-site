@@ -26,8 +26,18 @@
   }
 }
 
+/*
+ * Own clamp, not --type-h1-size directly -- that shared token (also used
+ * by Stat, WorkflowFamilyContent and the resources article page) renders
+ * ~76px at typical desktop widths, which read too large for this page's
+ * two-line titles sitting above a badge/summary/size-badge stack. This is
+ * --type-h1-size's own clamp scaled to 75% (36px->28px min, 80px->60px
+ * max), keeping the same fluid curve shape rather than a flat px cut that
+ * would stop scaling with viewport width. Scoped to this page only, not
+ * the shared token, since the other three consumers weren't asked about.
+ */
 .tagline {
-  font-size: var(--type-h1-size);
+  font-size: clamp(1.75rem, 2.5vw + 1.25rem, 3.75rem);
   font-weight: var(--type-heading-weight);
   line-height: var(--type-heading-leading);
   letter-spacing: var(--type-heading-tracking);
