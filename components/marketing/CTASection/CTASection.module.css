@@ -6,8 +6,20 @@
   text-align: center;
 }
 
+/*
+ * Own clamp, not --type-h2-size directly -- that shared token renders
+ * ~64px at typical desktop widths, the same size as a genuine page title
+ * (Products/Workflows/Resources listing headings, via EyebrowHeading).
+ * But this component sits as a closing prompt at the BOTTOM of a page,
+ * below real content -- on the product detail page specifically, it was
+ * measured rendering larger than that same page's own "Features"/
+ * "Specifications" headings (--type-h3-size, 30px), outweighing the
+ * actual content it follows. Sized to land clearly between those two
+ * tiers: a confident closing statement, not a second page title. ~44px
+ * at typical desktop widths (was ~64px), fluid down to 28px on mobile.
+ */
 .heading {
-  font-size: var(--type-h2-size);
+  font-size: clamp(1.75rem, 1.8vw + 1.2rem, 2.75rem);
   font-weight: var(--type-heading-weight);
   color: var(--text-strong);
   letter-spacing: var(--type-heading-tracking);
